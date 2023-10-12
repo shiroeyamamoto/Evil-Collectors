@@ -4,15 +4,20 @@ public static class Settings
 {
     // Player Movement
     public static float speedMove = 10f;
-    public static float jumpForce = 10f;
+
+    public static float jumpForce = 7f;
+    public static int extraJump;
+    public static int extraJumpValue = 1;
+    public static float jumpTime;
+    public static float jumpStartTime = 0.4f;
+
     public static bool canDash = true;
     public static bool isDasing = false;
     public static float dashForce = 20f;
     public static float dashingTime = 0.2f;
-    public static float dashCooldown = 1.2f;
+    public static float dashCooldown = 0.7f;
+
     public static bool isGrounded = false;
-    public static int extraJump;
-    public static int extraJumpValue = 1;
     public static bool isFacingRight = true;
 
     // Player Attack

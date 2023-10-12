@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngineInternal;
 
-public class Player : SingletonMonobehavious<Player>
+public class Nguyen_Player : SingletonMonobehavious<Player>
 {
     [SerializeField]private Transform groundCheck;
 
@@ -12,18 +13,17 @@ public class Player : SingletonMonobehavious<Player>
 
     private float Horizontal;
 
+    
     protected override void Awake()
     {
         base.Awake();
-
         rb2d = GetComponent<Rigidbody2D>();
 
-        Settings.extraJump = Settings.extraJumpValue;
     }
 
     private void FixedUpdate()
     {
-        // Cấm hành động khi dash
+        /*// Cấm hành động khi dash
         if (Settings.isDasing)
         {
             return;
@@ -33,13 +33,13 @@ public class Player : SingletonMonobehavious<Player>
         if (Settings.isAttack)
         {
             return;
-        }
-        PlayerMovement();
+        }*/
+        
     }
     private void Update()
     {
         // Cấm hành động khi dash 
-        if (Settings.isDasing)
+        if (Settings.isDasing )
         {
             return;
         }
@@ -50,6 +50,7 @@ public class Player : SingletonMonobehavious<Player>
             return;
         }
         Flip();
+        PlayerMovement();
         PlayerJump();
         if (Input.GetKeyDown(KeyCode.LeftShift) && Settings.canDash)
         {
@@ -133,7 +134,7 @@ public class Player : SingletonMonobehavious<Player>
 
     private void PlayerMovement()
     {
-        Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, LayerMask.GetMask(Settings.groundLayerMask));
+        Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask(Settings.groundLayerMask));
 
         float move = Input.GetAxis("Horizontal");
 
@@ -145,19 +146,29 @@ public class Player : SingletonMonobehavious<Player>
     // Nhảy 
     private void PlayerJump()
     {
+        
         if(Settings.isGrounded == true)
         {
             Settings.extraJump = Settings.extraJumpValue;
+            rb2d.gravityScale = 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Settings.extraJump > 0)
+        if (Input.GetKey(KeyCode.Space) && Settings.jumpTime>0)
         {
-            rb2d.velocity = Vector2.up * Settings.jumpForce;
-            Settings.extraJump--;
-        } else if (Input.GetKeyDown(KeyCode.W) && Settings.extraJump == 0 && Settings.isGrounded == true)
-        {
-            rb2d.velocity = Vector2.up * Settings.jumpForce;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce);
+            Settings.jumpTime -= Time.deltaTime;
         }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Settings.jumpTime = Settings.jumpStartTime;
+            PlayerFall();
+        }
+    }
+
+    private void PlayerFall()
+    {
+        rb2d.velocity = Vector2.down;
+        rb2d.gravityScale = 10;
     }
 
     // dash 
