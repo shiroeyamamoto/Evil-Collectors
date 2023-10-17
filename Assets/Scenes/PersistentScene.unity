@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 491679861}
+  playerStats: {fileID: 11400000, guid: ab0c3f25df2f55c4f8dca2ea162b695a, type: 2}
 --- !u!212 &410967053
 SpriteRenderer:
   m_ObjectHideFlags: 0

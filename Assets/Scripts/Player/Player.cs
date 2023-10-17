@@ -8,10 +8,17 @@ public class Player : SingletonMonobehavious<Player>
 {
     [SerializeField]private Transform groundCheck;
 
+    [Tooltip("Scriptable Object player stats")]
+    public SO_PlayerStats playerStats;
+
     private Rigidbody2D rigidbody2D;
 
     private float Horizontal;
 
+    private void testPull()
+    {
+        // Xin chao
+    }
     private void Awake()
     {
         base.Awake();
