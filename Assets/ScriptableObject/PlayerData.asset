@@ -10,12 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39d55fd1130c32d44a1a37c7b8ea2b0c, type: 3}
-  m_Name: PlayerStats
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
-  playerHealthy: 100
-  playerMana: 100
-  playerEnergy: 100
-  playerCrit: 0
-  playerCritDmg: 0
-  playerAlibility: 0
-  PlayerDefense: 0
+  gameObject: {fileID: 0}
+  defaultHealth: 100
+  defaultMana: 100
+  defaultStamina: 100
+  defaultCrit: 1
+  defaultCritDmg: 20
+  defaultAlibility: 10
+  defaultDefense: 10
+  health: 0
+  mana: 0
+  stamina: 0
+  crit: 0
+  critDmg: 0
+  alibility: 0
+  defense: 0
+  currentPosititon: {x: 0, y: 0}

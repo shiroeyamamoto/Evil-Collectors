@@ -58,13 +58,19 @@
     <Analyzer Include="I:\GOCPC\Software\Unity\2022.3.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Enemys\Enemy.cs" />
-    <Compile Include="Assets\Scripts\Player\SO_PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\Player\SO_PlayerData.cs" />
+    <Compile Include="Assets\NguyenFolder\Script\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\NguyenFolder\Controller\EnemyController.cs" />
     <Compile Include="Assets\NguyenFolder\Nguyen_Player.cs" />
+    <Compile Include="Assets\NguyenFolder\ScriptableObject\Enemy.cs" />
+    <Compile Include="Assets\NguyenFolder\ScriptableObject\Item.cs" />
     <Compile Include="Assets\Scripts\Misc\SingletonMonobehavious.cs" />
+    <Compile Include="Assets\NguyenFolder\Script\EnemyData.cs" />
+    <Compile Include="Assets\Scripts\Enemys\EnemyTest.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\Misc\Settings.cs" />
+    <Compile Include="Assets\NguyenFolder\Script\ItemData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

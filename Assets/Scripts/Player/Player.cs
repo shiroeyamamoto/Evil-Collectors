@@ -9,21 +9,23 @@ public class Player : SingletonMonobehavious<Player>
     [SerializeField]private Transform groundCheck;
 
     [Tooltip("Scriptable Object player stats")]
-    public SO_PlayerStats playerStats;
+    //public SO_PlayerStats playerStats;
 
-    private Rigidbody2D rigidbody2D;
-
-    private float Horizontal;
 
     private void testPull()
     {
         // Xin chao
     }
-    private void Awake()
+
+    private Rigidbody2D rb2d;
+
+    private float Horizontal;
+
+    protected override void Awake()
     {
         base.Awake();
 
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rb2d = GetComponent<Rigidbody2D>();
 
         Settings.extraJump = Settings.extraJumpValue;
     }
@@ -144,7 +146,7 @@ public class Player : SingletonMonobehavious<Player>
 
         float move = Input.GetAxis("Horizontal");
 
-        rigidbody2D.velocity = new Vector2(move * Settings.speedMove, rigidbody2D.velocity.y);
+        rb2d.velocity = new Vector2(move * Settings.speedMove, rb2d.velocity.y);
 
         Horizontal = move;
     }
@@ -159,11 +161,11 @@ public class Player : SingletonMonobehavious<Player>
 
         if (Input.GetKeyDown(KeyCode.Space) && Settings.extraJump > 0)
         {
-            rigidbody2D.velocity = Vector2.up * Settings.jumpForce;
+            rb2d.velocity = Vector2.up * Settings.jumpForce;
             Settings.extraJump--;
         } else if (Input.GetKeyDown(KeyCode.W) && Settings.extraJump == 0 && Settings.isGrounded == true)
         {
-            rigidbody2D.velocity = Vector2.up * Settings.jumpForce;
+            rb2d.velocity = Vector2.up * Settings.jumpForce;
         }
     }
 
@@ -173,12 +175,12 @@ public class Player : SingletonMonobehavious<Player>
         Settings.canDash = false;
         Settings.isDasing = true;
 
-        float originalGravity = rigidbody2D.gravityScale;
-        rigidbody2D.gravityScale = 0f;
-        rigidbody2D.velocity = new Vector2(transform.localScale.x*Settings.dashForce, 0f);
+        float originalGravity = rb2d.gravityScale;
+        rb2d.gravityScale = 0f;
+        rb2d.velocity = new Vector2(transform.localScale.x*Settings.dashForce, 0f);
         yield return new WaitForSeconds(Settings.dashingTime);
         Settings.isDasing = false;
-        rigidbody2D.gravityScale = originalGravity;
+        rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(Settings.dashCooldown);
         Settings.canDash = true;
     }
