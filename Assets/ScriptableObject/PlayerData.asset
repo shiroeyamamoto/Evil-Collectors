@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d55fd1130c32d44a1a37c7b8ea2b0c, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 3343500327240917708, guid: 3f6b3c207ad8b0f49a0696243fb645d5, type: 3}
+  defaultHealth: 100
+  defaultMana: 100
+  defaultStamina: 100
+  defaultCrit: 1
+  defaultCritDmg: 20
+  defaultAlibility: 10
+  defaultDefense: 10
+  health: 100
+  mana: 100
+  stamina: 100
+  crit: 1
+  critDmg: 20
+  alibility: 10
+  defense: 10
+  currentPosititon: {x: 0, y: 0}

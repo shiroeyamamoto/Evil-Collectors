@@ -8,6 +8,15 @@ public class Player : SingletonMonobehavious<Player>
 {
     [SerializeField]private Transform groundCheck;
 
+    [Tooltip("Scriptable Object player stats")]
+    //public SO_PlayerStats playerStats;
+
+
+    private void testPull()
+    {
+        // Xin chao
+    }
+
     private Rigidbody2D rb2d;
 
     private float Horizontal;

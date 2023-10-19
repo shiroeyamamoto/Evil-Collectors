@@ -1,24 +1,37 @@
-﻿using System;
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngineInternal;
 
-public class Nguyen_Player : SingletonMonobehavious<Player>
+public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
 {
     [SerializeField]private Transform groundCheck;
+
+    public SO_PlayerData playerData;
 
     private Rigidbody2D rb2d;
 
     private float Horizontal;
 
+    [HideInInspector] public float DamageAttack;
     
     protected override void Awake()
     {
         base.Awake();
         rb2d = GetComponent<Rigidbody2D>();
 
+    }
+
+    private void OnDisable()
+    {
+        playerData.ResetData();
     }
 
     private void FixedUpdate()
@@ -36,6 +49,7 @@ public class Nguyen_Player : SingletonMonobehavious<Player>
         }*/
         
     }
+    
     private void Update()
     {
         // Cấm hành động khi dash 
@@ -52,6 +66,7 @@ public class Nguyen_Player : SingletonMonobehavious<Player>
         Flip();
         PlayerMovement();
         PlayerJump();
+        PlayerDie();
         if (Input.GetKeyDown(KeyCode.LeftShift) && Settings.canDash)
         {
             StartCoroutine(Dash());
@@ -102,7 +117,7 @@ public class Nguyen_Player : SingletonMonobehavious<Player>
                 Settings.normalAttack = true;
                 /// Sát thương gây ra 
                 /// 
-                Damage(0);
+                Damage(20);
                 yield return new WaitForSeconds(Settings.normalAttackTime);
                 Settings.normalAttack = false;
                 Settings.isAttack = false;
@@ -114,7 +129,7 @@ public class Nguyen_Player : SingletonMonobehavious<Player>
                 Settings.strongAttack = true;
                 /// Sát thương gây ra 
                 /// 
-                Damage(0);
+                Damage(50);
                 yield return new WaitForSeconds(Settings.strongAttackTime);
                 Settings.strongAttack = false;
                 Settings.isAttack = false;
@@ -125,18 +140,38 @@ public class Nguyen_Player : SingletonMonobehavious<Player>
     }
 
     /// <summary>
-    ///  Damage
+    ///  Damage player gây ra 
     /// </summary>
-    private void Damage(int dmg)
+    public void Damage(float dmg)
     {
+        DamageAttack = dmg;
+    }
 
+    public void NoneDamage()
+    {
+        DamageAttack = 0;
+    }
+
+    /// <summary>
+    /// Take damage by enemy or trap
+    /// </summary>
+    public void TakeDamage(float dmg)
+    {
+        if(playerData.health > 0)
+            playerData.health -= dmg;
+    }
+
+    private void PlayerDie()
+    {
+        if (playerData.health <= 0)
+            Destroy(this.gameObject);
     }
 
     private void PlayerMovement()
     {
         Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask(Settings.groundLayerMask));
 
-        float move = Input.GetAxis("Horizontal");
+        float move = Input.GetAxisRaw("Horizontal");
 
         rb2d.velocity = new Vector2(move * Settings.speedMove, rb2d.velocity.y);
 
