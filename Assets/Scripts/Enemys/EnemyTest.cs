@@ -12,10 +12,6 @@ public class EnemyTest : MonoBehaviour
         {
             Nguyen_Player.Instance.TakeDamage(20);
         }
-        if (collision.gameObject.CompareTag("PlayerAttack"))
-        {
-            Destroy(this.gameObject);
-        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -23,10 +19,6 @@ public class EnemyTest : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Nguyen_Player.Instance.TakeDamage(20);
-        }
-        if (collision.gameObject.CompareTag("PlayerAttack"))
-        {
-            Destroy(this.gameObject);
         }
     }
 }

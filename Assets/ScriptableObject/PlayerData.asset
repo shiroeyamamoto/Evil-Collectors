@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d55fd1130c32d44a1a37c7b8ea2b0c, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  gameObject: {fileID: 0}
+  gameObject: {fileID: 3343500327240917708, guid: 3f6b3c207ad8b0f49a0696243fb645d5, type: 3}
   defaultHealth: 100
   defaultMana: 100
   defaultStamina: 100
@@ -20,11 +20,11 @@ MonoBehaviour:
   defaultCritDmg: 20
   defaultAlibility: 10
   defaultDefense: 10
-  health: 0
-  mana: 0
-  stamina: 0
-  crit: 0
-  critDmg: 0
-  alibility: 0
-  defense: 0
+  health: 100
+  mana: 100
+  stamina: 100
+  crit: 1
+  critDmg: 20
+  alibility: 10
+  defense: 10
   currentPosititon: {x: 0, y: 0}

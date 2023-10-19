@@ -20,6 +20,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
 
     private float Horizontal;
 
+    [HideInInspector] public float DamageAttack;
     
     protected override void Awake()
     {
@@ -28,7 +29,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
 
     }
 
-    private void Start()
+    private void OnDisable()
     {
         playerData.ResetData();
     }
@@ -48,6 +49,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
         }*/
         
     }
+    
     private void Update()
     {
         // Cấm hành động khi dash 
@@ -115,7 +117,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
                 Settings.normalAttack = true;
                 /// Sát thương gây ra 
                 /// 
-                Damage(0);
+                Damage(20);
                 yield return new WaitForSeconds(Settings.normalAttackTime);
                 Settings.normalAttack = false;
                 Settings.isAttack = false;
@@ -127,7 +129,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
                 Settings.strongAttack = true;
                 /// Sát thương gây ra 
                 /// 
-                Damage(0);
+                Damage(50);
                 yield return new WaitForSeconds(Settings.strongAttackTime);
                 Settings.strongAttack = false;
                 Settings.isAttack = false;
@@ -142,7 +144,12 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
     /// </summary>
     public void Damage(float dmg)
     {
+        DamageAttack = dmg;
+    }
 
+    public void NoneDamage()
+    {
+        DamageAttack = 0;
     }
 
     /// <summary>
