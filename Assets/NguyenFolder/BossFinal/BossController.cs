@@ -4,38 +4,37 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    [SerializeField] float jumpHeight;
-    Rigidbody2D rb2d;
-    private void Awake()
+    public bool onGround;
+    public bool onWall;
+    private void FixedUpdate()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        
     }
-    [ContextMenu("JumpToTarget")]
-    public void JumpToTarget()
+
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask wallLayer;
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player) {
-            float distanceX = player.transform.position.x - transform.position.x;
-            float middlePointX = distanceX / 2;
-            float jumpHeightY = transform.position.y + jumpHeight;
-
-            Vector2 jumpVector = new Vector2(middlePointX, jumpHeightY);
-            rb2d.velocity = jumpVector;
-            Debug.Log($"found {player.name}");
-            
-
-            Debug.Log($"Found {player.name}");
+        int layer = collision.gameObject.layer;
+        if(groundLayer == ( 1<< layer))
+        {
+            onGround = true;
         }
-        
+        if (wallLayer == (1 << layer))
+        {
+            onWall = true;
+        }
     }
-
-    public float jumpForce = 5f;
-    public Transform player;
-    //private Rigidbody2D rb2d;
-
-
-    private void Update()
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        
+        int layer = collision.gameObject.layer;
+        if (groundLayer == (1 << layer))
+        {
+            onGround = false ;
+        }
+        if (wallLayer == (1 << layer))
+        {
+            onWall = false ;
+        }
     }
 }
