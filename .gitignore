@@ -1,5 +1,7 @@
 # .gitignore
 
-
+Library/
+Logs/
+UserSettings/
 Artifacts/
 PackageCache/
