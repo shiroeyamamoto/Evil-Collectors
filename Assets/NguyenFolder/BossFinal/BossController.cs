@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class BossController : MonoBehaviour
 {
     public bool onGround;
     public bool onWall;
+    Rigidbody2D rb2d;
+    private void Start()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+        rb2d.DOJump(new Vector3(transform.position.x + 20, transform.position.y), 10, 1,2);
+    }
     private void FixedUpdate()
     {
-        
+
     }
 
     [SerializeField] LayerMask groundLayer;
