@@ -14,9 +14,9 @@ public class PlayerAttack : MonoBehaviour
         {
             EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
 
-            enemyBody.EnemyTakeDamge(Nguyen_Player.Instance.DamageAttack);
+            enemyBody.EnemyTakeDamge(Player.Instance.DamageAttack);
 
-            Nguyen_Player.Instance.NoneDamage();
+            Player.Instance.NoneDamage();
         }   
     }
 }
