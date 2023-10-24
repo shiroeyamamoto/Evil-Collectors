@@ -5,7 +5,7 @@ public static class Settings
     // Player Movement
     public const float speedMove = 10f;
 
-    public const float jumpForce = 50f;
+    public static float jumpForce = 20f;
     public static int extraJump;
     public const int extraJumpValue = 1;
     public static float jumpTime;
