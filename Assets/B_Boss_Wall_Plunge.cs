@@ -15,7 +15,13 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
 
     Vector2 ChooseSideToJump()
     {
-
+        /*Transform side;
+        int randomSide = Random.Range(0, 2);
+        if(randomSide == 0)
+        {
+            
+        }*/
+        return Vector2.zero;
     }
 
 
