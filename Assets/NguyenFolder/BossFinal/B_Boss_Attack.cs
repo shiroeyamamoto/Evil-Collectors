@@ -10,7 +10,7 @@ public class B_Boss_Attack : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        attackType = Random.Range(0, maxAttackType+1);
+        //attackType = Random.Range(0, maxAttackType+1);
         animator.SetInteger("AttackType", attackType);
     }
 
