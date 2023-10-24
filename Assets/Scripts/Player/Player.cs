@@ -198,7 +198,8 @@ public class Player : SingletonMonobehavious<Player>
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                if(Settings.jumpTime > 0)
+                rb2d.gravityScale = 0;
+                if (Settings.jumpTime > 0)
                 {
                     rb2d.velocity = new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce);
                     Settings.jumpTime -= Time.deltaTime;
@@ -214,6 +215,7 @@ public class Player : SingletonMonobehavious<Player>
                 PlayerFall();
             }
         }
+        
     }
 
     private void PlayerFall()
