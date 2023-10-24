@@ -1,14 +1,6 @@
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
-using UnityEngine;
-using UnityEngineInternal;
 
 public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
 {
