@@ -201,7 +201,8 @@ public class Player : SingletonMonobehavious<Player>
                 rb2d.gravityScale = 0;
                 if (Settings.jumpTime > 0)
                 {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce);
+                    //rb2d.velocity = new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce);
+                    rb2d.AddForce(new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce*Time.deltaTime), ForceMode2D.Impulse);
                     Settings.jumpTime -= Time.deltaTime;
                 }
                 if(Settings.jumpTime <= 0)
@@ -221,7 +222,7 @@ public class Player : SingletonMonobehavious<Player>
     private void PlayerFall()
     {
         rb2d.velocity = Vector2.down;
-        rb2d.gravityScale = 10;
+        rb2d.gravityScale = 5;
     }
 
     /// <summary>
