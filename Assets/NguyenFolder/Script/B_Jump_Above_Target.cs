@@ -9,13 +9,16 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     [SerializeField] Vector2 endJumpPos;
     public AnimationCurve jumpCurve;
     public float time;
-    float jumpHeight;
+    public float jumpHeight;
     int jumpStep;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //startJumpPos = animator.transform.position;
         endJumpPos = animator.transform.parent.Find("JumpPosition").position;
-        endJumpPos.y += GameObject.FindGameObjectWithTag("Player").transform.position.y + 5;
+
+        endJumpPos.x = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        endJumpPos.y = GameObject.FindGameObjectWithTag("Player").transform.position.y + 5;
+
         animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, time);
     }
 
