@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerAttack.cs" />
     <Compile Include="Assets\NguyenFolder\BossFinal\B_Boss_MoveFowardTarget.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
+    <Compile Include="Assets\B_Boss_Wall_Plunge.cs" />
     <Compile Include="Assets\Scripts\Misc\Settings.cs" />
     <Compile Include="Assets\Scripts\Enemys\SO_EnemyType.cs" />
     <Compile Include="Assets\NguyenFolder\Script\ItemData.cs" />
