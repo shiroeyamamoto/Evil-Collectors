@@ -14,6 +14,9 @@ public class Player : SingletonMonobehavious<Player>
 
     private float Horizontal;
 
+    // Player controller
+    private bool canJump = true;
+
     [HideInInspector] public float DamageAttack;
 
     protected override void Awake()
@@ -41,7 +44,7 @@ public class Player : SingletonMonobehavious<Player>
         {
             return;
         }*/
-
+        PlayerMovement();
     }
 
     private void Update()
@@ -58,9 +61,7 @@ public class Player : SingletonMonobehavious<Player>
             return;
         }
         Flip();
-        PlayerMovement();
         PlayerJump();
-        PlayerDie();
         if (Input.GetKeyDown(KeyCode.LeftShift) && Settings.canDash)
         {
             StartCoroutine(Dash());
@@ -81,7 +82,9 @@ public class Player : SingletonMonobehavious<Player>
         }
     }
 
-    // Lật mặt
+    /// <summary>
+    /// Lật mặt
+    /// </summary>
     private void Flip()
     {
         if (Settings.isFacingRight && Horizontal < 0f || !Settings.isFacingRight && Horizontal > 0f)
@@ -153,6 +156,7 @@ public class Player : SingletonMonobehavious<Player>
     {
         if (playerData.health > 0)
             playerData.health -= dmg;
+        PlayerDie();
     }
 
     private void PlayerDie()
@@ -161,6 +165,9 @@ public class Player : SingletonMonobehavious<Player>
             Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Movement
+    /// </summary>
     private void PlayerMovement()
     {
         Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask(Settings.groundLayerMask));
@@ -172,24 +179,40 @@ public class Player : SingletonMonobehavious<Player>
         Horizontal = move;
     }
 
-    // Nhảy 
+    /// <summary>
+    /// Jump
+    /// </summary>
     private void PlayerJump()
     {
         if (Settings.isGrounded == true)
         {
             Settings.extraJump = Settings.extraJumpValue;
             rb2d.gravityScale = 1;
+            if(Input.GetKeyDown(KeyCode.Space))
+                canJump = true;
+            
+            Settings.jumpTime = Settings.jumpStartTime;
         }
 
-        if (Input.GetKey(KeyCode.Space) && Settings.jumpTime > 0)
+        if(canJump == true)
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce);
-            Settings.jumpTime -= Time.deltaTime;
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Settings.jumpTime = Settings.jumpStartTime;
-            PlayerFall();
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if(Settings.jumpTime > 0)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, Vector2.up.y * Settings.jumpForce);
+                    Settings.jumpTime -= Time.deltaTime;
+                }
+                if(Settings.jumpTime <= 0)
+                {
+                    canJump = false;
+                    PlayerFall();
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                PlayerFall();
+            }
         }
     }
 
@@ -199,7 +222,10 @@ public class Player : SingletonMonobehavious<Player>
         rb2d.gravityScale = 10;
     }
 
-    // dash 
+    /// <summary>
+    /// Dash 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Dash()
     {
         Settings.canDash = false;
@@ -214,5 +240,4 @@ public class Player : SingletonMonobehavious<Player>
         yield return new WaitForSeconds(Settings.dashCooldown);
         Settings.canDash = true;
     }
-
 }

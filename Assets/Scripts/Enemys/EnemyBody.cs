@@ -35,7 +35,6 @@ public class EnemyBody : MonoBehaviour
         Debug.Log("Enemy max health: "+enemyType.health);
         Debug.Log("Enemy current health: " + currentHealth);
         Debug.Log("Enemy default heath: " + enemyData.defaultHealth);
-        EnemyDie();
     }
     /// <summary>
     /// Enemy chết
@@ -54,5 +53,7 @@ public class EnemyBody : MonoBehaviour
     {
         if (currentHealth > 0)
             currentHealth -= dmg;
+        if (currentHealth < 0)
+            EnemyDie();
     }
 }

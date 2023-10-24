@@ -70,6 +70,7 @@
     <Compile Include="Assets\NguyenFolder\Script\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Enemys\EnemyTest.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttack.cs" />
+    <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
     <Compile Include="Assets\Scripts\Misc\Settings.cs" />
     <Compile Include="Assets\Scripts\Enemys\SO_EnemyType.cs" />
