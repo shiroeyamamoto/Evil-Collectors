@@ -10,7 +10,7 @@ public class EnemyTest : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Player"))
         {
-            Nguyen_Player.Instance.TakeDamage(20);
+            Player.Instance.TakeDamage(20);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -18,7 +18,7 @@ public class EnemyTest : MonoBehaviour
         Debug.Log("Stay");
         if (collision.gameObject.CompareTag("Player"))
         {
-            Nguyen_Player.Instance.TakeDamage(20);
+            Player.Instance.TakeDamage(20);
         }
     }
 }
