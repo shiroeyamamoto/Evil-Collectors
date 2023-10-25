@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class B_Boss_Wall_Plunge : StateMachineBehaviour
 {
-    [SerializeField] float jumpDuration;
+    float jumpDuration;
     [SerializeField] float jumpForce;
     Animator animator;
     [SerializeField] Transform leftSide;
@@ -15,7 +15,13 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     {
         this.animator = animator;
         Vector3 endJumpPoint = ChooseSideToJump();
+
+        float velocity = animator.GetComponent<BossController>().velocity;
+        jumpDuration = Vector2.Distance(endJumpPoint, animator.transform.position) / velocity;
+
         animator.transform.DOJump(endJumpPoint, jumpForce, 1, jumpDuration);
+
+
     }
 
     Vector2 ChooseSideToJump()
@@ -40,6 +46,11 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         randomChosenPosition = new Vector3(x, y, z);
 
         return randomChosenPosition;
+    }
+
+    float GetDistance(Vector2 v1 , Vector2 v2)
+    {
+        return Vector2.Distance(v1, v2);
     }
 
 

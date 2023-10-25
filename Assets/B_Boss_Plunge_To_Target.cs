@@ -6,20 +6,29 @@ using UnityEngine;
 public class B_Boss_Plunge_To_Target : StateMachineBehaviour
 {
     [SerializeField] float plungeDuration;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] RaycastHit2D rayTargetToGround;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameObject target = GameObject.FindGameObjectWithTag("Player");
+
         if (target)
         {
-            Vector3 newTarget = 
-                new Vector3(target.transform.position.x, 
-                            target.transform.position.y 
-                                - target.transform.lossyScale.y / 2
-                                + animator.transform.lossyScale.y / 2, 
+            float velocity = animator.GetComponent<BossController>().velocity;
+            rayTargetToGround = Physics2D.Raycast(target.transform.position, Vector2.down, Mathf.Infinity, groundLayer);
+            Debug.DrawRay(target.transform.position, Vector2.down* 100,Color.red);
+            if(rayTargetToGround)
+            {
+                Vector3 newTarget =
+                new Vector3(target.transform.position.x,
+                            rayTargetToGround.point.y + animator.transform.lossyScale.y/2,
                             target.transform.position.z);
-            animator.transform.DOMove(newTarget, plungeDuration);
-        }
+
+                plungeDuration = Vector2.Distance(newTarget, animator.transform.position) / velocity;
+                animator.transform.DOMove(newTarget, plungeDuration).SetEase(Ease.Linear);
+            }
+        } 
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

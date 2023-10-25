@@ -8,7 +8,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public Vector3 startJumpPos;
     [SerializeField] Vector2 endJumpPos;
     public AnimationCurve jumpCurve;
-    public float time;
+    public float jumpDuration;
     public float jumpHeight;
     int jumpStep;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,7 +19,10 @@ public class B_Jump_Above_Target : StateMachineBehaviour
         endJumpPos.x = GameObject.FindGameObjectWithTag("Player").transform.position.x;
         endJumpPos.y = GameObject.FindGameObjectWithTag("Player").transform.position.y + 5;
 
-        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, time);
+        float velocity = animator.GetComponent<BossController>().velocity;
+        jumpDuration = Vector2.Distance(endJumpPos, animator.transform.position) / velocity;
+
+        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

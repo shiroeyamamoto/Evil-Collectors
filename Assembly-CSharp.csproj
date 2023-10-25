@@ -61,6 +61,8 @@
     <Compile Include="Assets\NguyenFolder\Script\B_Jump_Above_Target.cs" />
     <Compile Include="Assets\B_Boss_In_Air.cs" />
     <Compile Include="Assets\NguyenFolder\BossFinal\B_Boss_Attack.cs" />
+    <Compile Include="Assets\FinalBossWeapon.cs" />
+    <Compile Include="Assets\B_Boss_Dash_To_Target.cs" />
     <Compile Include="Assets\Scripts\Player\SO_PlayerData.cs" />
     <Compile Include="Assets\NguyenFolder\Script\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
