@@ -444,7 +444,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 1.7261903
+  m_ExitTime: 0.99647707
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -899,7 +899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec20d77080f7dfe448113dec8a865d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 0
+  jumpDuration: 1
+  jumpForce: 1
   leftSide: {fileID: 0}
   rightSide: {fileID: 0}
 --- !u!1102 &6569997332488899711
@@ -976,7 +977,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   endDashPoint: {x: 0, y: 0}
-  bossWeapon: {fileID: 0}
+  bossWeapons: []
 --- !u!114 &7607173221289260173
 MonoBehaviour:
   m_ObjectHideFlags: 1

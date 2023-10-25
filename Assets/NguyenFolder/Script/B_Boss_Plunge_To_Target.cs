@@ -15,12 +15,15 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
 
         if (target)
         {
+            Debug.Log("found player");
             float velocity = animator.GetComponent<BossController>().velocity;
+            Debug.Log(velocity);
             rayTargetToGround = Physics2D.Raycast(target.transform.position, Vector2.down, Mathf.Infinity, groundLayer);
-            Debug.DrawRay(target.transform.position, Vector2.down* 100,Color.red);
+            
             if(rayTargetToGround)
             {
-                Vector3 newTarget =
+                Debug.Log("ray exist");
+                Vector3 newTarget = 
                 new Vector3(target.transform.position.x,
                             rayTargetToGround.point.y + animator.transform.lossyScale.y/2,
                             target.transform.position.z);
@@ -31,27 +34,4 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
         } 
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }
