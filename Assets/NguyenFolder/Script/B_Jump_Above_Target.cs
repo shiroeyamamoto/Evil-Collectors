@@ -22,6 +22,15 @@ public class B_Jump_Above_Target : StateMachineBehaviour
         float velocity = animator.GetComponent<BossController>().velocity;
         jumpDuration = Vector2.Distance(endJumpPos, animator.transform.position) / velocity;
 
-        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear);
+        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            animator.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        });
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 }
