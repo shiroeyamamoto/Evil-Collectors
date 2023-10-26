@@ -61,6 +61,7 @@
     <Compile Include="Assets\NguyenFolder\Script\B_Jump_Above_Target.cs" />
     <Compile Include="Assets\B_Boss_In_Air.cs" />
     <Compile Include="Assets\NguyenFolder\BossFinal\B_Boss_Attack.cs" />
+    <Compile Include="Assets\Scripts\Player\Block.cs" />
     <Compile Include="Assets\Scripts\Player\SO_PlayerData.cs" />
     <Compile Include="Assets\NguyenFolder\Script\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\NguyenFolder\Script\B_Boss_Plunge.cs" />
     <Compile Include="Assets\NguyenFolder\ScriptableObject\Item.cs" />
     <Compile Include="Assets\Scripts\Misc\SingletonMonobehavious.cs" />
+    <Compile Include="Assets\Scripts\Player\Jump.cs" />
     <Compile Include="Assets\NguyenFolder\Script\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Enemys\EnemyTest.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAttack.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
     <Compile Include="Assets\B_Boss_Wall_Plunge.cs" />
     <Compile Include="Assets\Scripts\Misc\Settings.cs" />
+    <Compile Include="Assets\Scripts\Player\Move.cs" />
     <Compile Include="Assets\Scripts\Enemys\SO_EnemyType.cs" />
     <Compile Include="Assets\NguyenFolder\Script\ItemData.cs" />
     <Compile Include="Assets\Scripts\Enemys\SO_EnemyData.cs" />

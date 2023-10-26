@@ -41,8 +41,7 @@ public class EnemyBody : MonoBehaviour
     /// </summary>
    public void EnemyDie()
     {
-        if (currentHealth <= 0)
-            Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     /// <summary>
@@ -53,7 +52,7 @@ public class EnemyBody : MonoBehaviour
     {
         if (currentHealth > 0)
             currentHealth -= dmg;
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
             EnemyDie();
     }
 }

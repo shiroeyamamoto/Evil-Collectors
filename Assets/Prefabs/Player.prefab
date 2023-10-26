@@ -132,6 +132,9 @@ GameObject:
   - component: {fileID: 5788404105527350029}
   - component: {fileID: 5237746627097198990}
   - component: {fileID: 1141502274929496585}
+  - component: {fileID: 8935466109148461199}
+  - component: {fileID: 3640818728430792012}
+  - component: {fileID: 2778453742029427194}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -288,9 +291,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80e5cc1b5edc78418c676944a363aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 7636257690888421765}
   playerData: {fileID: 11400000, guid: 70f4bda05b5e1a443ac44b07c47f8532, type: 2}
   DamageAttack: 0
+--- !u!114 &8935466109148461199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411918081781846157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fb424d35b0a5d4994b6bb749dd4068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheck: {fileID: 7636257690888421765}
+  speedMove: 10
+  speedAirMove: 15
+  dashForce: 20
+  dashingTime: 0.2
+  dashCooldown: 0.7
+--- !u!114 &3640818728430792012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411918081781846157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c21b8157f69db041aab9185aef021fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpHeight: 5
+  _maxAirJumps: 0
+  _downwardMovementMultiplier: 8
+  _upwardMovementMultiplier: 3
+  _coyoteTime: 0.2
+  _jumpBufferTime: 0.2
+--- !u!114 &2778453742029427194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411918081781846157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee265714aabf0a4e966e5d4de9fda35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6549960172036281382
 GameObject:
   m_ObjectHideFlags: 0
