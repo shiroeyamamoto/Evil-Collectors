@@ -3,19 +3,13 @@ using UnityEngine;
 public static class Settings
 {
     // Player Movement
-    public const float speedMove = 10f;
-
-    public static float jumpForce = 20f;
-    public static int extraJump;
-    public const int extraJumpValue = 1;
-    public static float jumpTime;
-    public const float jumpStartTime = 0.4f;
-
-    public static bool canDash = true;
     public static bool isDasing = false;
-    public const float dashForce = 20f;
-    public const float dashingTime = 0.2f;
-    public const float dashCooldown = 0.7f;
+
+    // Jump
+    public static bool _isJumping = false;
+
+    // Block
+    public static bool isBlocking = false;
 
     public static bool isGrounded = false;
     public static bool isFacingRight = true;
