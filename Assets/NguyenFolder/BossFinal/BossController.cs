@@ -8,6 +8,9 @@ public class BossController : MonoBehaviour
     public bool onWall;
     Rigidbody2D rb2d;
 
+    [Min(1)]
+    public float velocity;
+
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class B_Boss_In_Air : StateMachineBehaviour
 {
+    Rigidbody2D rb;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -13,14 +14,16 @@ public class B_Boss_In_Air : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        rb = animator.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class B_Boss_Plunge : StateMachineBehaviour
 {
     Rigidbody2D rb2d;

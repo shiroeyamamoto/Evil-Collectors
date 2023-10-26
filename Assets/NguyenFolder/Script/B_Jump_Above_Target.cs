@@ -8,7 +8,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public Vector3 startJumpPos;
     [SerializeField] Vector2 endJumpPos;
     public AnimationCurve jumpCurve;
-    public float time;
+    public float jumpDuration;
     public float jumpHeight;
     int jumpStep;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,14 +19,18 @@ public class B_Jump_Above_Target : StateMachineBehaviour
         endJumpPos.x = GameObject.FindGameObjectWithTag("Player").transform.position.x;
         endJumpPos.y = GameObject.FindGameObjectWithTag("Player").transform.position.y + 5;
 
-        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, time);
+        float velocity = animator.GetComponent<BossController>().velocity;
+        jumpDuration = Vector2.Distance(endJumpPos, animator.transform.position) / velocity;
+
+        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            animator.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        });
     }
 
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        /*time += Time.deltaTime;
-        Vector3 curvePos = Vector3.Lerp(startJumpPos, endJumpPos, time);
-        curvePos.y += jumpCurve.Evaluate(time);
-        animator.transform.position = curvePos;*/
+        animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 }
