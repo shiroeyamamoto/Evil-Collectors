@@ -7,10 +7,11 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
     int faceToTarget = 0;
     Rigidbody2D rb2d;
     [SerializeField] float movespeed;
-
+    [SerializeField] float alphaValue;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         rb2d = animator.GetComponent<Rigidbody2D>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -21,6 +22,10 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
         {
             faceToTarget = 1;
         }
+        // set alpha
+        Color color = animator.GetComponent<SpriteRenderer>().color;
+        color.a = alphaValue;
+        animator.GetComponent<SpriteRenderer>().color = color;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -36,6 +41,10 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         rb2d.velocity = Vector2.zero;
+        // reset alpha
+        Color color = animator.GetComponent<SpriteRenderer>().color;
+        color.a = 1;
+        animator.GetComponent<SpriteRenderer>().color = color;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

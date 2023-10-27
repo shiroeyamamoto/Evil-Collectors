@@ -11,8 +11,16 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public float jumpDuration;
     public float jumpHeight;
     int jumpStep;
+
+    [Space]
+    [Range(0,1)]
+    public float alphaSprite = 0.75f;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
+        // set alpha before jump
+        SetColor(animator,  Color.cyan,alphaSprite);
+
         //startJumpPos = animator.transform.position;
         endJumpPos = animator.transform.parent.Find("JumpPosition").position;
 
@@ -21,7 +29,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
 
         float velocity = animator.GetComponent<BossController>().velocity;
         jumpDuration = Vector2.Distance(endJumpPos, animator.transform.position) / velocity;
-
+        
         animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
         {
             animator.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -29,8 +37,15 @@ public class B_Jump_Above_Target : StateMachineBehaviour
         });
     }
 
+
+    void SetColor(Animator animator, Color color , float alpha)
+    {
+        color.a = alpha;
+        animator.GetComponent<SpriteRenderer>().color = color;
+    }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        SetColor(animator, Color.yellow, 1);
     }
 }

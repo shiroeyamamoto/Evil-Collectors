@@ -22,6 +22,7 @@ public class FinalBossWeapon : MonoBehaviour
     {
         // move by rad
         //moveDuration = moveDistance / velocity;
+        transform.GetComponent<SpriteRenderer>().color = Color.cyan;
         bossPos = transform.parent.Find("BossTest");
         //targetPos = GameObject.FindGameObjectWithTag("Player").transform;
         transform.position = bossPos.position;
@@ -36,14 +37,10 @@ public class FinalBossWeapon : MonoBehaviour
 
         Vector3 endPos = new Vector3(randomX, randomY,0);
         moveDistance = Vector3.Distance(bossPos.position, endPos);
-        Debug.Log(moveDistance);
         moveDuration = (moveDistance/ velocity);
-        Debug.Log(moveDuration);
         transform.DOMove(endPos, moveDuration).SetEase(Ease.Linear).OnComplete(() => {
-            for(int i = 0; i< projectTileNumbs; i++)
-            {
-                Spawn_Projectile(i);
-            }
+            transform.GetComponent<SpriteRenderer>().color = Color.red;
+            StartCoroutine(DelayAttack());
         });
     }
     void Spawn_Projectile(int index)
@@ -53,7 +50,6 @@ public class FinalBossWeapon : MonoBehaviour
         float endAngle = (startAngle + angleStep * index)*Mathf.Deg2Rad;
         float x = Mathf.Sin(endAngle);
         float y = Mathf.Cos(endAngle);
-        //Debug.Log($"angle step[{angleStep}] , startAngle[{startAngle}],endAngle[{endAngle}], cos({endAngle}[{x}])");
         GameObject o = Instantiate(weaponChild, transform).gameObject;
         o.GetComponent<Rigidbody2D>().velocity = new Vector2(x, y) * projectTileVelocity;
         StartCoroutine(DisableAfterTimeRoutine());
@@ -70,11 +66,21 @@ public class FinalBossWeapon : MonoBehaviour
     {
 
     }
-
+    public float delayTime;
+    IEnumerator DelayAttack()
+    {
+        yield return new WaitForSeconds(delayTime);
+        Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
+        for (int i = 0; i < projectTileNumbs; i++)
+        {
+            Spawn_Projectile(i);
+        }
+    }
     public float disableTime = 5.0f;
     IEnumerator DisableAfterTimeRoutine()
     {
         yield return new WaitForSeconds(disableTime);
+        transform.GetComponent<SpriteRenderer>().color = Color.cyan;
 
         gameObject.SetActive(false);
     }

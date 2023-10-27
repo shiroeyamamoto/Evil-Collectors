@@ -19,13 +19,9 @@ public class B_Boss_Idle : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        SetColor(animator, Color.white, 1);
     }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
-    }
 
     public void TransactionDelay(float delayTime)
     {
@@ -39,7 +35,11 @@ public class B_Boss_Idle : StateMachineBehaviour
             DecideAction();
         }
     }
-
+    void SetColor(Animator animator, Color color, float alpha)
+    {
+        color.a = alpha;
+        animator.GetComponent<SpriteRenderer>().color = color;
+    }
     public void DecideAction()
     {
         this.animator.SetTrigger("Attack");
