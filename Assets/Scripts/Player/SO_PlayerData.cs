@@ -14,6 +14,8 @@ public class SO_PlayerData : ScriptableObject
     [SerializeField] float defaultCritDmg;
     [SerializeField] float defaultAlibility;
     [SerializeField] float defaultDefense;
+    [SerializeField] float defaultDamage;
+    [SerializeField] float defaultStaminaRecovery;
 
     [HideInInspector] public float health;
     [HideInInspector] public float mana;
@@ -22,8 +24,11 @@ public class SO_PlayerData : ScriptableObject
     [HideInInspector] public float critDmg;
     [HideInInspector] public float alibility;
     [HideInInspector] public float defense;
+    [HideInInspector] public float damage;
 
     [HideInInspector] public Vector2 currentPosititon;
+
+    [HideInInspector] public float staminaRecovery;
 
     public void ResetData()
     {
@@ -34,6 +39,7 @@ public class SO_PlayerData : ScriptableObject
         critDmg = defaultCritDmg;
         alibility = defaultAlibility;
         defense = defaultDefense;
-
+        damage = defaultDamage;
+        staminaRecovery = defaultStaminaRecovery;
     }
 }

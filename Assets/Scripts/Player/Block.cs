@@ -11,13 +11,14 @@ public class Block : MonoBehaviour
     [SerializeField, Range(0.1f, 1f), Tooltip("Thời gian thực hiện block trước khi được parry")] private float timeToParry = 0.5f;
     [SerializeField, Range(0.1f, 1f), Tooltip("Thời gian parry")] private float parryTime=0.5f;
 
-    private bool canBlock;
+    private bool canBlock, canParry;
     private float parryCounter, blockCounter;
 
     private void Awake()
     {
         Settings.isBlocking = false;
         canBlock = true;
+        canParry = true;
     }
 
     private void FixedUpdate()
@@ -31,6 +32,7 @@ public class Block : MonoBehaviour
             canBlock = true;
             Settings.isBlocking = false;
             blockTest.SetActive(false);
+            canParry = true;
         }
         Debug.Log("isBlocking: " + Settings.isBlocking);
     }
@@ -61,8 +63,16 @@ public class Block : MonoBehaviour
             Settings.isBlocking = true;
             blockTest.SetActive(true);
 
+            // canParry đảm bảo parry chỉ 1 lần là hủy bỏ
+            if(canParry)
+            {
+                canParry = false;
+                Settings.canParry = true;
+            }
             if (parryCounter > 0)
+            {
                 ParryAction();
+            }
         }
     }
 
@@ -79,8 +89,15 @@ public class Block : MonoBehaviour
 
         // Test parry in scene 
         if(parryCounter>0)
+        {
             parryTest.SetActive(true);
+            Settings.isParry = true;
+        }
         else
+        {
             parryTest.SetActive(false);
+            Settings.isParry = false;
+            Settings.canParry = false;
+        }
     }
 }

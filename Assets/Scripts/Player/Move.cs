@@ -47,7 +47,8 @@ public class Move : MonoBehaviour
         {
             return;
         }
-        PlayerMovement();
+        if(!Settings.PlayerDamaged)
+            PlayerMovement();
     }
 
     /// <summary>
