@@ -968,7 +968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6150822702915332822, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6279833859900154237, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: areaIndex
@@ -996,7 +996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7993472562049746131, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8486520711567693800, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: velocity

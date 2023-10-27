@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
 using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 
 public class FinalBossWeapon : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class FinalBossWeapon : MonoBehaviour
     public int projectTileNumbs;
     public int projectTileVelocity;
     public Transform weaponChild;
-    bool deleteChildAfterDisable;
+    [SerializeField]bool deleteChildAfterDisable;
     Transform bossPos;
     Transform targetPos;
     float moveDuration;
@@ -31,11 +32,12 @@ public class FinalBossWeapon : MonoBehaviour
     [SerializeField] float velocity;
     private void OnEnable()
     {
+
         switch (WeaponId)
         {
             case 0: Weapon_0_Controller(); break;
             case 1: Weapon_1_Controller(); break;
-            default:Debug.Log("Weapon Id Not Found"); break;
+            default: Debug.Log("Weapon Id Not Found"); break;
         }
     }
     void Spawn_Projectile(int index)
@@ -60,10 +62,6 @@ public class FinalBossWeapon : MonoBehaviour
             }
         }
     }
-    private void Start()
-    {
-
-    }
     public float delayTime;
     IEnumerator DelayAttack()
     {
@@ -85,6 +83,7 @@ public class FinalBossWeapon : MonoBehaviour
 
     void Weapon_0_Controller()
     {
+        Debug.Log("weapon 0 active");
         deleteChildAfterDisable = true;
         // move by rad
         //moveDuration = moveDistance / velocity;
@@ -115,6 +114,8 @@ public class FinalBossWeapon : MonoBehaviour
     }
 
     [SerializeField] bool moveCompleted;
+    [SerializeField]
+    int directionInt;
     void Weapon_1_Controller()
     {
         deleteChildAfterDisable = false;
@@ -126,8 +127,8 @@ public class FinalBossWeapon : MonoBehaviour
         if (player)
         {
             float distance = player.transform.position.x - transform.position.x;
-            int directionInt = (int)(distance / Mathf.Abs(distance));
-
+            directionInt = (int)(distance / Mathf.Abs(distance));
+            Flip(directionInt);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * directionInt, Mathf.Infinity, wallLayer);
             if (hit)
             {
@@ -139,6 +140,11 @@ public class FinalBossWeapon : MonoBehaviour
                 });
             }
         }
+    }
+
+    void Flip(float faceRight)
+    {
+        transform.DOScaleX(-faceRight * Mathf.Abs(transform.lossyScale.x), 0f);
     }
 
     void AnimatorParamSet()
