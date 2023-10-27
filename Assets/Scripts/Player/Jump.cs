@@ -26,6 +26,10 @@ public class Jump : MonoBehaviour
     }
     private void Update()
     {
+        // không cho nhảy khi đang dash
+        if (Settings.isDasing)
+            return;
+
         if (!Settings.PlayerDamaged)
         {
             jump |= Input.GetButtonDown("Jump");

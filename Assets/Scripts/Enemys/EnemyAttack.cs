@@ -20,7 +20,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            EnemyBody thisEnemyBody = gameObject.GetComponent<EnemyBody>();
+            EnemyBody thisEnemyBody = gameObject.GetComponentInParent<EnemyBody>();
             //Debug.Log("Đang tấn công");
             StartCoroutine(AttackNormal(thisEnemyBody, collision));
             canAttack = false;
@@ -51,7 +51,7 @@ public class EnemyAttack : MonoBehaviour
                 if (!Settings.PlayerDamaged)
                 {
                     Settings.PlayerDamaged = true;
-                    Debug.Log("Enemy đã đánh trúng player");
+                    //Debug.Log("Enemy đã đánh trúng player");
                     Player.Instance.TakeDamage(thisEnemyBody.currentDamage * normalDamagePercent);
 
                     Rigidbody2D playerRidid2D = collision.gameObject.GetComponent<Rigidbody2D>();
