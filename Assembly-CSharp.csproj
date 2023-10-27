@@ -67,10 +67,13 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Enemys\EnemyBody.cs" />
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\B_Boss_Jump_To_Weapon.cs" />
     <Compile Include="Assets\NguyenFolder\Script\BossController.cs" />
+    <Compile Include="Assets\MusicManager.cs" />
     <Compile Include="Assets\NguyenFolder\Controller\EnemyController.cs" />
     <Compile Include="Assets\NguyenFolder\ScriptableObject\Enemy.cs" />
     <Compile Include="Assets\NguyenFolder\Script\B_Boss_Plunge.cs" />
+    <Compile Include="Assets\B_Boss_Throw_Weapon.cs" />
     <Compile Include="Assets\NguyenFolder\ScriptableObject\Item.cs" />
     <Compile Include="Assets\Scripts\Misc\SingletonMonobehavious.cs" />
     <Compile Include="Assets\NguyenFolder\Script\B_Boss_Move.cs" />

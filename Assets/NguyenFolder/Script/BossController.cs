@@ -16,12 +16,10 @@ public class BossController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     
     }
-
     private void Update()
     {
-        
-    }
 
+    }
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
     private void OnCollisionEnter2D(Collision2D collision)
