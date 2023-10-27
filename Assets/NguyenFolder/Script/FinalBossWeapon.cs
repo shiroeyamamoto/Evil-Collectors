@@ -6,6 +6,12 @@ using UnityEditor;
 
 public class FinalBossWeapon : MonoBehaviour
 {
+    [SerializeField] int areaNumber = 7;
+    [SerializeField] int areaIndex = 0;
+    [SerializeField] float areaSize;
+
+    [SerializeField] Transform minBoundPos;
+    [SerializeField] Transform maxBoundPos;
     [Min(1)]
     public int projectTileNumbs;
     public int projectTileVelocity;
@@ -20,6 +26,8 @@ public class FinalBossWeapon : MonoBehaviour
     [SerializeField] float velocity;
     private void OnEnable()
     {
+
+
         // move by rad
         //moveDuration = moveDistance / velocity;
         transform.GetComponent<SpriteRenderer>().color = Color.cyan;
@@ -32,7 +40,11 @@ public class FinalBossWeapon : MonoBehaviour
         //
 
         //Vector2 endPos = (Vector2)bossPos.position + movePos * moveDistance;
-        float randomX = Random.Range(transform.parent.Find("L_WallJumpRangeMin").position.x, transform.parent.Find("R_WallJumpRangeMax").position.x);
+
+        areaSize = Mathf.Abs((transform.parent.Find("L_WallJumpRangeMin").position.x - transform.parent.Find("R_WallJumpRangeMax").position.x)) /areaNumber;
+
+        float randomX = Random.Range(transform.parent.Find("L_WallJumpRangeMin").position.x + areaSize * areaIndex, transform.parent.Find("L_WallJumpRangeMin").position.x + areaSize * (areaIndex + 1));
+
         float randomY = Random.Range(transform.parent.Find("L_WallJumpRangeMin").position.y, transform.parent.Find("R_WallJumpRangeMax").position.y);
 
         Vector3 endPos = new Vector3(randomX, randomY,0);
