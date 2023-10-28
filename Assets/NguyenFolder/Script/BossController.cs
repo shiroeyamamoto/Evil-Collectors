@@ -13,8 +13,10 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
+        phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
-    
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
     }
     private void Update()
     {
@@ -45,5 +47,14 @@ public class BossController : MonoBehaviour
         {
             onWall = false ;
         }
+    }
+
+    [SerializeField] int phase;
+    [ContextMenu("Phase Up")]
+    void PhaseUp()
+    {
+        
+        phase++;
+        transform.GetComponent<Animator>().SetInteger("Phase",phase);
     }
 }

@@ -12,7 +12,7 @@ public class FinalBossWeapon : MonoBehaviour
     Animator ownerAnimator;
     [SerializeField] LayerMask wallLayer;
     [Range(0, 3)]
-    [SerializeField] int WeaponId;
+    public int WeaponId;
     [SerializeField] int areaNumber = 7;
     [SerializeField] int areaIndex = 0;
     [SerializeField] float areaSize;
@@ -32,14 +32,19 @@ public class FinalBossWeapon : MonoBehaviour
     [SerializeField] float velocity;
     private void OnEnable()
     {
-
+        animator = transform.parent.Find("BossTest").GetComponent<Animator>();
         switch (WeaponId)
         {
             case 0: Weapon_0_Controller(); break;
             case 1: Weapon_1_Controller(); break;
+            case 2: Weapon_2_Controller(); break;
+            case 3: Weapon_3_Controller(); break;
             default: Debug.Log("Weapon Id Not Found"); break;
         }
     }
+
+    [SerializeField] LayerMask groundNWallLayer;
+    
     void Spawn_Projectile(int index)
     {
         float angleStep = 360f / projectTileNumbs;
@@ -85,18 +90,9 @@ public class FinalBossWeapon : MonoBehaviour
     {
         Debug.Log("weapon 0 active");
         deleteChildAfterDisable = true;
-        // move by rad
-        //moveDuration = moveDistance / velocity;
         transform.GetComponent<SpriteRenderer>().color = Color.cyan;
         bossPos = transform.parent.Find("BossTest");
-        //targetPos = GameObject.FindGameObjectWithTag("Player").transform;
         transform.position = bossPos.position;
-        //Vector2 movePos;
-        //movePos.x = (bossPos.position.x - targetPos.position.x) < 0 ? 1 : -1;
-        //movePos.y = 1;
-        //
-
-        //Vector2 endPos = (Vector2)bossPos.position + movePos * moveDistance;
 
         areaSize = Mathf.Abs((transform.parent.Find("L_WallJumpRangeMin").position.x - transform.parent.Find("R_WallJumpRangeMax").position.x)) / areaNumber;
 
@@ -132,16 +128,55 @@ public class FinalBossWeapon : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * directionInt, Mathf.Infinity, wallLayer);
             if (hit)
             {
-                transform.DOMoveX(hit.point.x, (float) (Mathf.Abs(distance) / velocity)).SetEase(Ease.Linear).OnComplete(() =>
+                transform.DORotate(Vector3.zero, 0).OnComplete(() =>
                 {
-                    Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
-                    moveCompleted = true;
-                    AnimatorParamSet();
+                    transform.DOMoveX(hit.point.x, (float)(Mathf.Abs(distance) / velocity)).SetEase(Ease.Linear).OnComplete(() =>
+                    {
+                        Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
+                        moveCompleted = true;
+                        AnimatorParamSet();
+                    });
+
                 });
             }
         }
     }
+    private void Weapon_2_Controller()
+    {
+        bossPos = transform.parent.Find("BossTest");
+        transform.position = bossPos.position;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+        {
+            float angleRotate;
+            float distanceX = -(player.transform.position.x - transform.position.x);
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            angleRotate = distanceX / distance;
+            angleRotate = Mathf.Acos(angleRotate) * Mathf.Rad2Deg;
+            float duration = distance / velocity;
 
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, Mathf.Infinity, groundNWallLayer);
+            Debug.Log(hit.point);
+            Vector2 endPoint = hit.point;
+
+
+            transform.DORotate(new Vector3(0, 0, angleRotate), 0).OnComplete(() => {
+                transform.DOMove(endPoint, duration).SetEase(Ease.Linear).OnComplete(() =>
+                {
+                    moveCompleted = true;
+                    AnimatorParamSet();
+                    Camera.main.GetComponent<CameraController>().ShakeCamera(0.25f, 0.25f);
+                    animator.SetTrigger("NextStep");
+                });
+            });
+
+        }
+    }
+    
+    private void Weapon_3_Controller()
+    {
+
+    }
     void Flip(float faceRight)
     {
         transform.DOScaleX(-faceRight * Mathf.Abs(transform.lossyScale.x), 0f);

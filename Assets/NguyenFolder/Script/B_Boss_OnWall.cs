@@ -9,6 +9,7 @@ public class B_Boss_On_Wall : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         SetColor(animator, Color.red, 1);
+        animator.SetTrigger("NextStep");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,7 +21,7 @@ public class B_Boss_On_Wall : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        rb.bodyType = RigidbodyType2D.Dynamic;
+
     }
     void SetColor(Animator animator, Color color, float alpha)
     {

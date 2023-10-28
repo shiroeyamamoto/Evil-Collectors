@@ -32,6 +32,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         animator.transform.DOJump(endJumpPoint, jumpForce, 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
         {
             SetColor(animator, Color.red, alphaValue);
+            animator.SetTrigger("NextStep");
         });
 
     }
