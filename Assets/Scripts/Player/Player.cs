@@ -1,99 +1,83 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor.Tilemaps;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngineInternal;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : SingletonMonobehavious<Player>
 {
+    [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
+    [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
 
     public SO_PlayerData playerData;
 
     private Rigidbody2D rb2d;
 
+    [SerializeField] Slider HP;
+    [SerializeField] Slider MN;
+    [SerializeField] Slider TP;
+
+    float staminaTimeCounter;
 
     [HideInInspector] public float DamageAttack;
+    float maxHealth, maxMana, maxStamina;
 
     protected override void Awake()
     {
         base.Awake();
         rb2d = GetComponent<Rigidbody2D>();
-        //positionPlayer = transform.position;
+        maxHealth = playerData.health;
+        maxMana = playerData.mana;
+        maxStamina = playerData.stamina;
+
+        HP.maxValue = maxHealth;
+        HP.minValue = 0;
+        HP.value = playerData.health;
+
+        MN.maxValue = maxMana;
+        MN.minValue = 0;
+        MN.value = playerData.mana;
+
+        TP.maxValue = maxStamina;
+        TP.minValue = 0;
+        TP.value = playerData.stamina;
+        staminaTimeCounter = staminaRecoveryTime;
+    }
+
+    private void FixedUpdate()
+    {
+        // Giữ player không sleep
+        rb2d.position += Vector2.zero;
+        MN.value = playerData.mana;
+
+    }
+    private void Update()
+    {
+        StaminaRecovery();
     }
 
     private void OnDisable()
     {
         playerData.ResetData();
     }
-    private void Update()
-    {
-        
-
-        // Cấm hành động khi tấn công  
-        if (Settings.isAttack)
-        {
-            return;
-        }
-
-        // không cho tấn công khi chưa hồi chiêu
-        if (!Settings.canAttack)
-        {
-            return;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCoroutine(Attack(0));
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            StartCoroutine(Attack(1));
-        }
-    }
 
     /// <summary>
-    /// Lật mặt
+    /// Stamina Recovery/time
     /// </summary>
-    
-
-    /// <summary>
-    /// Nhận vào giá trị là chuột trái hay phải,trả về animation tương ứng, trả về cờ sát thương mạnh hay yếu
-    /// </summary>
-    private IEnumerator Attack(int typeAttack)
+    private void StaminaRecovery()
     {
-        GameObject sword = transform.Find("Attack").gameObject;
-
-        Settings.canAttack = false;
-        Settings.isAttack = true;
-
-        // test cho animation 
-        sword.SetActive(true);
-
-        if (typeAttack == 0)
+        if(staminaTimeCounter > 0)
         {
-            Settings.normalAttack = true;
-            /// Sát thương gây ra 
-            /// 
-            Damage(20);
-            yield return new WaitForSeconds(Settings.normalAttackTime);
-            Settings.normalAttack = false;
-            Settings.isAttack = false;
-            sword.SetActive(false);
-            yield return new WaitForSeconds(Settings.normalAttackCooldown);
+            staminaTimeCounter -= Time.deltaTime;
         }
-        else if (typeAttack == 1)
+        else
         {
-            Settings.strongAttack = true;
-            /// Sát thương gây ra 
-            /// 
-            Damage(50);
-            yield return new WaitForSeconds(Settings.strongAttackTime);
-            Settings.strongAttack = false;
-            Settings.isAttack = false;
-            sword.SetActive(false);
-            yield return new WaitForSeconds(Settings.strongAttackCooldown);
+            Debug.Log("Vừa recovery xong");
+            if (playerData.stamina < maxStamina)
+                playerData.stamina += playerData.staminaRecovery;
+            TP.value = playerData.stamina;
+            staminaTimeCounter = staminaRecoveryTime;
         }
-        Settings.canAttack = true;
     }
 
     /// <summary>
@@ -114,15 +98,20 @@ public class Player : SingletonMonobehavious<Player>
     /// </summary>
     public void TakeDamage(float dmg)
     {
+        if (!Settings.zombieMode)
+        {
+            if (Settings.isBlocking)
+                dmg -= playerData.defense;
 
-        if (Settings.isBlocking)
-            dmg -= playerData.defense;
+            if (playerData.health > 0)
+            {
+                playerData.health -= dmg;
+                HP.value = playerData.health;
+            }
 
-        if (playerData.health > 0)
-            playerData.health -= dmg;
-
-        if (playerData.health <= 0)
-            PlayerDie();
+            if (playerData.health <= 0)
+                PlayerDie();
+        }
     }
 
     private void PlayerDie()
@@ -130,4 +119,19 @@ public class Player : SingletonMonobehavious<Player>
         Destroy(this.gameObject);
     }
     
+
+    // Cheat
+    public void ZombieMode()
+    {
+        if(!Settings.zombieMode)
+        {
+            Settings.zombieMode = true;
+            //HP.value = playerData.health;
+        }
+        else
+        {
+            Settings.zombieMode = false;
+            //HP.value = playerData.health;
+        }
+    }
 }

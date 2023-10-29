@@ -26,50 +26,57 @@ public class Jump : MonoBehaviour
     }
     private void Update()
     {
-        jump |= Input.GetButtonDown("Jump");
+        // không cho nhảy khi đang dash
+        if (Settings.isDasing)
+            return;
 
-        _velocity = rb2d.velocity;
+        if (!Settings.PlayerDamaged)
+        {
+            jump |= Input.GetButtonDown("Jump");
 
-        if (Settings.isGrounded && rb2d.velocity.y == 0)
-        {
-            _jumpPhase = 0;
-            _coyoteCounter = _coyoteTime;
-            Settings._isJumping = false;
-        }
-        else
-        {
-            _coyoteCounter -= Time.deltaTime;
-        }
+            _velocity = rb2d.velocity;
 
-        if (jump)
-        {
-            jump = false;
-            _jumpBufferCounter = _jumpBufferTime;
-        }
-        else if (!jump && _jumpBufferCounter > 0)
-        {
-            _jumpBufferCounter -= Time.deltaTime;
-        }
+            if (Settings.isGrounded && rb2d.velocity.y == 0)
+            {
+                _jumpPhase = 0;
+                _coyoteCounter = _coyoteTime;
+                Settings._isJumping = false;
+            }
+            else
+            {
+                _coyoteCounter -= Time.deltaTime;
+            }
 
-        if (_jumpBufferCounter > 0)
-        {
-            JumpAction();
-        }
+            if (jump)
+            {
+                jump = false;
+                _jumpBufferCounter = _jumpBufferTime;
+            }
+            else if (!jump && _jumpBufferCounter > 0)
+            {
+                _jumpBufferCounter -= Time.deltaTime;
+            }
 
-        if (Input.GetButton("Jump") && rb2d.velocity.y > 0)
-        {
-            rb2d.gravityScale = _upwardMovementMultiplier;
-        }
-        else if (!Input.GetButton("Jump") || rb2d.velocity.y < 0)
-        {
-            rb2d.gravityScale = _downwardMovementMultiplier;
-        }
-        else if (rb2d.velocity.y == 0)
-        {
-            rb2d.gravityScale = _defaultGravityScale;
-        }
+            if (_jumpBufferCounter > 0)
+            {
+                JumpAction();
+            }
 
-        rb2d.velocity = _velocity;
+            if (Input.GetButton("Jump") && rb2d.velocity.y > 0)
+            {
+                rb2d.gravityScale = _upwardMovementMultiplier;
+            }
+            else if (!Input.GetButton("Jump") || rb2d.velocity.y < 0)
+            {
+                rb2d.gravityScale = _downwardMovementMultiplier;
+            }
+            else if (rb2d.velocity.y == 0)
+            {
+                rb2d.gravityScale = _defaultGravityScale;
+            }
+
+            rb2d.velocity = _velocity;
+        }
     }
 
     /// <summary>

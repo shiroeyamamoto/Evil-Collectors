@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyBody : MonoBehaviour
 {
@@ -13,9 +10,13 @@ public class EnemyBody : MonoBehaviour
     private float currentCritDmg;
     private float currentAlibility;
     private float currentDefense;
+    
+    [HideInInspector] public float currentDamage, parryDamaged;
 
     [SerializeField] SO_EnemyType enemyType;
     [SerializeField] SO_EnemyData enemyData;
+
+    [SerializeField] private Slider enemyHealthBar;
 
     private void Start()
     {
@@ -28,13 +29,21 @@ public class EnemyBody : MonoBehaviour
         currentCritDmg = enemyType.critDmg;
         currentAlibility = enemyType.alibility;
         currentDefense = enemyType.defense;
+        currentDamage = enemyType.damage;
+
+        parryDamaged = currentDamage * 0.1f + Player.Instance.playerData.damage * 0.1f;
+
+        enemyHealthBar.maxValue = enemyType.health;
+        enemyHealthBar.value = currentHealth;
+        enemyHealthBar.minValue = 0;
+        
     }
 
     private void Update()
     {
-        Debug.Log("Enemy max health: "+enemyType.health);
-        Debug.Log("Enemy current health: " + currentHealth);
-        Debug.Log("Enemy default heath: " + enemyData.defaultHealth);
+        //Debug.Log("Enemy max health: "+enemyType.health);
+        //Debug.Log("Enemy current health: " + currentHealth);
+        //Debug.Log("Enemy default heath: " + enemyData.defaultHealth);
     }
     /// <summary>
     /// Enemy chết
@@ -51,7 +60,10 @@ public class EnemyBody : MonoBehaviour
     public void EnemyTakeDamge(float dmg)
     {
         if (currentHealth > 0)
+        {
             currentHealth -= dmg;
+            enemyHealthBar.value = currentHealth;
+        }
         if (currentHealth <= 0)
             EnemyDie();
     }
