@@ -34,7 +34,7 @@ public class Block : MonoBehaviour
             blockTest.SetActive(false);
             canParry = true;
         }
-        Debug.Log("isBlocking: " + Settings.isBlocking);
+        //Debug.Log("isBlocking: " + Settings.isBlocking);
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class Block : MonoBehaviour
         if (blockCounter > 0 && !Settings.isBlocking)
         {
             blockCounter -= Time.deltaTime;
-            Debug.Log("blockCounter:" + blockCounter);
+            //Debug.Log("blockCounter:" + blockCounter);
         }
         // Hết thời gian chờ trước khi được vào trạng thái blocking
         else

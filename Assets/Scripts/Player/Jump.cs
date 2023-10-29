@@ -30,6 +30,9 @@ public class Jump : MonoBehaviour
         if (Settings.isDasing)
             return;
 
+
+        Player.Instance.animator.SetBool("isJumping", Settings._isJumping);
+
         if (!Settings.PlayerDamaged)
         {
             jump |= Input.GetButtonDown("Jump");

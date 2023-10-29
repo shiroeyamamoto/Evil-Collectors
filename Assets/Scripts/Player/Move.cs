@@ -34,10 +34,14 @@ public class Move : MonoBehaviour
 
         Flip();
 
+
+        Player.Instance.animator.SetBool("isDashing", Settings.isDasing);
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
+
+        //MovementSound();
     }
 
     private void FixedUpdate()
@@ -52,14 +56,21 @@ public class Move : MonoBehaviour
     }
 
     /// <summary>
-    /// Movement
+    /// Player di chuyển trái và phải 
     /// </summary>
     private void PlayerMovement()
     {
         Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask(Settings.groundLayerMask));
 
         float move = Input.GetAxisRaw("Horizontal");
-        
+
+        Player.Instance.animator.SetFloat("Speed", Mathf.Abs(move));
+
+        if (move != 0 && !Settings.isMove)
+            Settings.isMove = true;
+        else if(move == 0 && Settings.isMove)
+            Settings.isMove = false;
+
         rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
 
         Horizontal = move;
@@ -97,5 +108,22 @@ public class Move : MonoBehaviour
         rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+    }
+
+    /// <summary>
+    /// Âm thanh khi di chuyển
+    /// </summary>
+    private void MovementSound()
+    {
+        if (Settings.isMove)
+        {
+            Player.Instance.audioSource.clip = Player.Instance.playerSound.Running;
+            Player.Instance.audioSource.Play();
+        }
+        else if (!Settings.isMove)
+        {
+            Player.Instance.audioSource.clip = null;
+            Player.Instance.audioSource.Stop();
+        }
     }
 }

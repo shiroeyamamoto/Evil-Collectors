@@ -4,27 +4,49 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer spriteRendererGameObject;
+    [SerializeField, Range(0f, 1f)] private float chargingAttack;
     [SerializeField, Range(0f, 10f)] private float timeAttack = 0.5f;
     [SerializeField, Range(1f, 10f)] private float timeCooldown = 2f;
     [SerializeField, Range(0f, 10f)] private float normalDamagePercent = 1f;
     [SerializeField, Range(0f, 5f)] private float pushForce = 2f;
 
     private bool canAttack = true;
+    private float chargingAttackCooldown;
+    private SpriteRenderer spriteRendererBackup = new SpriteRenderer();
 
     private void Awake()
     {
+        spriteRendererBackup = spriteRendererGameObject;
+    }
+    private void Start()
+    {
         canAttack = true;
+        chargingAttackCooldown = chargingAttack;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            EnemyBody thisEnemyBody = gameObject.GetComponentInParent<EnemyBody>();
-            //Debug.Log("Đang tấn công");
-            StartCoroutine(AttackNormal(thisEnemyBody, collision));
-            canAttack = false;
+            if (chargingAttackCooldown > 0)
+            {
+                chargingAttackCooldown -= Time.deltaTime;
+                spriteRendererGameObject.color = Color.red;
+            }
+            else
+            {
+                //Debug.Log("Đang tấn công");
+                EnemyBody thisEnemyBody = gameObject.GetComponentInParent<EnemyBody>();
+                StartCoroutine(AttackNormal(thisEnemyBody, collision));
+                //  canAttack = false;
+            }
         }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        spriteRendererGameObject.color = Color.yellow;
+        chargingAttackCooldown = chargingAttack;
     }
     private IEnumerator AttackNormal(EnemyBody thisEnemyBody, Collider2D collision)
     {
@@ -44,7 +66,7 @@ public class EnemyAttack : MonoBehaviour
                     thisEnemyBody.EnemyTakeDamge(thisEnemyBody.parryDamaged);
                     Settings.canParry = false;
                 }
-                Debug.Log("Parry Damage:" + thisEnemyBody.parryDamaged);
+                //Debug.Log("Parry Damage:" + thisEnemyBody.parryDamaged);
             }
             else
             {
@@ -82,14 +104,17 @@ public class EnemyAttack : MonoBehaviour
                         }
                     }
                 }
-                   
             }
             yield return new WaitForSeconds(timeAttack);
             Settings.isAttackNormal = false;
             Settings.PlayerDamaged = false;
+            //Debug.Log(spriteRendererGameObject.color);
+            //Debug.Log(spriteRendererBackup.color);
+            spriteRendererGameObject.color = Color.yellow;
             sword.SetActive(false);
             yield return new WaitForSeconds(timeCooldown);
             canAttack = true;
+            chargingAttackCooldown = chargingAttack;
         }
     }
 }

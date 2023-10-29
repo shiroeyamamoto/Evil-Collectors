@@ -16,12 +16,15 @@ public class Attack : MonoBehaviour
 
     private bool canAttackNormal, canAttackStrong;
     private Rigidbody2D playerRigid2D;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         canAttackNormal = true;
         canAttackStrong = true;
         playerRigid2D = gameObject.GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     private void Update()
@@ -54,8 +57,8 @@ public class Attack : MonoBehaviour
 
             sword.SetActive(true);
 
-            Player.Instance.playerData.stamina -= 15;
-            Player.Instance.Damage(Player.Instance.playerData.damage * normalDamagePercent);
+            audioSource.clip = Player.Instance.playerSound.Attack;
+            audioSource.Play();
 
             if (!Settings.PlayerDamaged)
             {
@@ -86,6 +89,8 @@ public class Attack : MonoBehaviour
             Settings.isAttackStrong = true;
 
             sword.SetActive(true);
+            audioSource.clip = Player.Instance.playerSound.Attack;
+            audioSource.Play();
 
             Player.Instance.playerData.stamina -= 25;
             Player.Instance.Damage(Player.Instance.playerData.damage*strongDamagePercent);

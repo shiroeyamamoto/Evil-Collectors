@@ -12,6 +12,9 @@ public class Player : SingletonMonobehavious<Player>
     public SO_PlayerData playerData;
 
     private Rigidbody2D rb2d;
+    public Animator animator;
+    public AudioSource audioSource;
+    public PlayerSound playerSound;
 
     [SerializeField] Slider HP;
     [SerializeField] Slider MN;
@@ -20,12 +23,16 @@ public class Player : SingletonMonobehavious<Player>
     float staminaTimeCounter;
 
     [HideInInspector] public float DamageAttack;
+    private bool playerDie;
     float maxHealth, maxMana, maxStamina;
 
     protected override void Awake()
     {
         base.Awake();
         rb2d = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        playerSound = GetComponent<PlayerSound>();
+        animator = GetComponent<Animator>();
         maxHealth = playerData.health;
         maxMana = playerData.mana;
         maxStamina = playerData.stamina;
@@ -42,6 +49,8 @@ public class Player : SingletonMonobehavious<Player>
         TP.minValue = 0;
         TP.value = playerData.stamina;
         staminaTimeCounter = staminaRecoveryTime;
+
+        playerDie = false;
     }
 
     private void FixedUpdate()
@@ -49,7 +58,6 @@ public class Player : SingletonMonobehavious<Player>
         // Giữ player không sleep
         rb2d.position += Vector2.zero;
         MN.value = playerData.mana;
-
     }
     private void Update()
     {
@@ -72,7 +80,7 @@ public class Player : SingletonMonobehavious<Player>
         }
         else
         {
-            Debug.Log("Vừa recovery xong");
+            //Debug.Log("Vừa recovery xong");
             if (playerData.stamina < maxStamina)
                 playerData.stamina += playerData.staminaRecovery;
             TP.value = playerData.stamina;
@@ -110,15 +118,17 @@ public class Player : SingletonMonobehavious<Player>
             }
 
             if (playerData.health <= 0)
+            {
                 PlayerDie();
+            }
         }
     }
 
     private void PlayerDie()
     {
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        playerDie = true;
     }
-    
 
     // Cheat
     public void ZombieMode()
@@ -132,6 +142,19 @@ public class Player : SingletonMonobehavious<Player>
         {
             Settings.zombieMode = false;
             //HP.value = playerData.health;
+        }
+    }
+    public void PlayerRespawn()
+    {
+        if (playerDie)
+        {
+            Vector2 position = gameObject.transform.position;
+
+            position.y += 10f;
+
+            gameObject.transform.position = position;
+
+            gameObject.SetActive(true);
         }
     }
 }
