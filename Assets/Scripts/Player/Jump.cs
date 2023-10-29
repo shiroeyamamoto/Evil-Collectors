@@ -31,7 +31,7 @@ public class Jump : MonoBehaviour
             return;
 
 
-        Player.Instance.animator.SetBool("isJumping", Settings._isJumping);
+        //Player.Instance.animator.SetBool("isJumping", Settings._isJumping);
 
         if (!Settings.PlayerDamaged)
         {
