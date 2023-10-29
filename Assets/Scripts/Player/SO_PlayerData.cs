@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SO_PlayerData : ScriptableObject
 {
-    [SerializeField] GameObject gameObject;
+    [SerializeField] GameObject defaultGameObject;
 
     [SerializeField] float defaultHealth;
     [SerializeField] float defaultMana;
@@ -16,6 +16,8 @@ public class SO_PlayerData : ScriptableObject
     [SerializeField] float defaultDefense;
     [SerializeField] float defaultDamage;
     [SerializeField] float defaultStaminaRecovery;
+
+    [HideInInspector] public GameObject gameObject;
 
     [HideInInspector] public float health;
     [HideInInspector] public float mana;
@@ -41,5 +43,6 @@ public class SO_PlayerData : ScriptableObject
         defense = defaultDefense;
         damage = defaultDamage;
         staminaRecovery = defaultStaminaRecovery;
+        gameObject = defaultGameObject;
     }
 }

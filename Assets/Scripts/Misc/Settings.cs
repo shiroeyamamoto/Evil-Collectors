@@ -4,6 +4,7 @@ using UnityEngine;
 public static class Settings
 {
     // Player Movement
+    [Tooltip("Player có đang dash không?")] public static bool isMove = false;
     [Tooltip("Player có đang dash không?")] public static bool isDasing = false;
     [Tooltip("Player đang dash.")] public static bool isFacingRight = true;
 

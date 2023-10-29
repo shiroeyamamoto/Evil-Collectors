@@ -10,13 +10,17 @@ public class EnemyBody : MonoBehaviour
     private float currentCritDmg;
     private float currentAlibility;
     private float currentDefense;
-    
+
     [HideInInspector] public float currentDamage, parryDamaged;
 
     [SerializeField] SO_EnemyType enemyType;
     [SerializeField] SO_EnemyData enemyData;
 
     [SerializeField] private Slider enemyHealthBar;
+
+    public Transform groundCheck;
+    [HideInInspector] public bool isGrounded, isFacingRight;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -31,12 +35,15 @@ public class EnemyBody : MonoBehaviour
         currentDefense = enemyType.defense;
         currentDamage = enemyType.damage;
 
+        isFacingRight = true;
+
         parryDamaged = currentDamage * 0.1f + Player.Instance.playerData.damage * 0.1f;
 
         enemyHealthBar.maxValue = enemyType.health;
         enemyHealthBar.value = currentHealth;
         enemyHealthBar.minValue = 0;
-        
+
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
