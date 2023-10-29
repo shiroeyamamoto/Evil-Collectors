@@ -16,6 +16,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
     
     protected override void Awake()
     {
+
         base.Awake();
         rb2d = GetComponent<Rigidbody2D>();
 
