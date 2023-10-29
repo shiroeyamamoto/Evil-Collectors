@@ -35,7 +35,7 @@ public class Move : MonoBehaviour
         Flip();
 
 
-        Player.Instance.animator.SetBool("isDashing", Settings.isDasing);
+        //Player.Instance.animator.SetBool("isDashing", Settings.isDasing);
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
@@ -64,7 +64,7 @@ public class Move : MonoBehaviour
 
         float move = Input.GetAxisRaw("Horizontal");
 
-        Player.Instance.animator.SetFloat("Speed", Mathf.Abs(move));
+        //Player.Instance.animator.SetFloat("Speed", Mathf.Abs(move));
 
         if (move != 0 && !Settings.isMove)
             Settings.isMove = true;
