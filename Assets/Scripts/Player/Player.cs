@@ -1,187 +1,160 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngineInternal;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : SingletonMonobehavious<Player>
 {
-    [SerializeField]private Transform groundCheck;
+    [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
+    [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
 
-    [Tooltip("Scriptable Object player stats")]
-    //public SO_PlayerStats playerStats;
-
-
-    private void testPull()
-    {
-        // Xin chao
-    }
+    public SO_PlayerData playerData;
 
     private Rigidbody2D rb2d;
+    public Animator animator;
+    public AudioSource audioSource;
+    public PlayerSound playerSound;
 
-    private float Horizontal;
+    [SerializeField] Slider HP;
+    [SerializeField] Slider MN;
+    [SerializeField] Slider TP;
+
+    float staminaTimeCounter;
+
+    [HideInInspector] public float DamageAttack;
+    private bool playerDie;
+    float maxHealth, maxMana, maxStamina;
 
     protected override void Awake()
     {
         base.Awake();
-
         rb2d = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        playerSound = GetComponent<PlayerSound>();
+        animator = GetComponent<Animator>();
+        maxHealth = playerData.health;
+        maxMana = playerData.mana;
+        maxStamina = playerData.stamina;
 
-        Settings.extraJump = Settings.extraJumpValue;
+        HP.maxValue = maxHealth;
+        HP.minValue = 0;
+        HP.value = playerData.health;
+
+        MN.maxValue = maxMana;
+        MN.minValue = 0;
+        MN.value = playerData.mana;
+
+        TP.maxValue = maxStamina;
+        TP.minValue = 0;
+        TP.value = playerData.stamina;
+        staminaTimeCounter = staminaRecoveryTime;
+
+        playerDie = false;
     }
 
     private void FixedUpdate()
     {
-        // Cấm hành động khi dash
-        if (Settings.isDasing)
-        {
-            return;
-        }
-
-        // Cấm hành động khi tấn công  
-        if (Settings.isAttack)
-        {
-            return;
-        }
-        PlayerMovement();
+        // Giữ player không sleep
+        rb2d.position += Vector2.zero;
+        MN.value = playerData.mana;
     }
     private void Update()
     {
-        // Cấm hành động khi dash 
-        if (Settings.isDasing)
-        {
-            return;
-        }
-
-        // Cấm hành động khi tấn công  
-        if (Settings.isAttack)
-        {
-            return;
-        }
-        Flip();
-        PlayerJump();
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Settings.canDash)
-        {
-            StartCoroutine(Dash());
-        }
-
-        // không cho tấn công khi chưa hồi chiêu
-        if (!Settings.canAttack)
-        {
-            return;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCoroutine(Attack(0));
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            StartCoroutine(Attack(1));
-        }
+        StaminaRecovery();
     }
 
-    // Lật mặt
-    private void Flip()
+    private void OnDisable()
     {
-        if(Settings.isFacingRight && Horizontal<0f || !Settings.isFacingRight && Horizontal > 0f)
+        playerData.ResetData();
+    }
+
+    /// <summary>
+    /// Stamina Recovery/time
+    /// </summary>
+    private void StaminaRecovery()
+    {
+        if(staminaTimeCounter > 0)
         {
-            Vector2 localScale = transform.localScale;
-            Settings.isFacingRight = !Settings.isFacingRight;
-            localScale.x *= -1;
-            transform.localScale = localScale;
+            staminaTimeCounter -= Time.deltaTime;
+        }
+        else
+        {
+            //Debug.Log("Vừa recovery xong");
+            if (playerData.stamina < maxStamina)
+                playerData.stamina += playerData.staminaRecovery;
+            TP.value = playerData.stamina;
+            staminaTimeCounter = staminaRecoveryTime;
         }
     }
 
     /// <summary>
-    /// Nhận vào giá trị là chuột trái hay phải,trả về animation tương ứng, trả về cờ sát thương mạnh hay yếu
+    ///  Damage player gây ra 
     /// </summary>
-    private IEnumerator Attack(int typeAttack)
+    public void Damage(float dmg)
     {
-            GameObject sword = transform.Find("Attack").gameObject;
+        DamageAttack = dmg;
+    }
 
-            Settings.canAttack = false;
-            Settings.isAttack = true;
-
-            // test cho animation 
-            sword.SetActive(true);
-
-            if (typeAttack == 0)
-            {
-                Settings.normalAttack = true;
-                /// Sát thương gây ra 
-                /// 
-                Damage(0);
-                yield return new WaitForSeconds(Settings.normalAttackTime);
-                Settings.normalAttack = false;
-                Settings.isAttack = false;
-                sword.SetActive(false);
-                yield return new WaitForSeconds(Settings.normalAttackCooldown);
-            }
-            else if (typeAttack == 1)
-            {
-                Settings.strongAttack = true;
-                /// Sát thương gây ra 
-                /// 
-                Damage(0);
-                yield return new WaitForSeconds(Settings.strongAttackTime);
-                Settings.strongAttack = false;
-                Settings.isAttack = false;
-                sword.SetActive(false);
-                yield return new WaitForSeconds(Settings.strongAttackCooldown);
-            }
-            Settings.canAttack = true;
+    public void NoneDamage()
+    {
+        DamageAttack = 0;
     }
 
     /// <summary>
-    ///  Damage
+    /// Take damage by enemy or trap
     /// </summary>
-    private void Damage(int dmg)
+    public void TakeDamage(float dmg)
     {
-
-    }
-
-    private void PlayerMovement()
-    {
-        Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, LayerMask.GetMask(Settings.groundLayerMask));
-
-        float move = Input.GetAxis("Horizontal");
-
-        rb2d.velocity = new Vector2(move * Settings.speedMove, rb2d.velocity.y);
-
-        Horizontal = move;
-    }
-
-    // Nhảy 
-    private void PlayerJump()
-    {
-        if(Settings.isGrounded == true)
+        if (!Settings.zombieMode)
         {
-            Settings.extraJump = Settings.extraJumpValue;
-        }
+            if (Settings.isBlocking)
+                dmg -= playerData.defense;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Settings.extraJump > 0)
-        {
-            rb2d.velocity = Vector2.up * Settings.jumpForce;
-            Settings.extraJump--;
-        } else if (Input.GetKeyDown(KeyCode.W) && Settings.extraJump == 0 && Settings.isGrounded == true)
-        {
-            rb2d.velocity = Vector2.up * Settings.jumpForce;
+            if (playerData.health > 0)
+            {
+                playerData.health -= dmg;
+                HP.value = playerData.health;
+            }
+
+            if (playerData.health <= 0)
+            {
+                PlayerDie();
+            }
         }
     }
 
-    // dash 
-    private IEnumerator Dash()
+    private void PlayerDie()
     {
-        Settings.canDash = false;
-        Settings.isDasing = true;
+        gameObject.SetActive(false);
+        playerDie = true;
+    }
 
-        float originalGravity = rb2d.gravityScale;
-        rb2d.gravityScale = 0f;
-        rb2d.velocity = new Vector2(transform.localScale.x*Settings.dashForce, 0f);
-        yield return new WaitForSeconds(Settings.dashingTime);
-        Settings.isDasing = false;
-        rb2d.gravityScale = originalGravity;
-        yield return new WaitForSeconds(Settings.dashCooldown);
-        Settings.canDash = true;
+    // Cheat
+    public void ZombieMode()
+    {
+        if(!Settings.zombieMode)
+        {
+            Settings.zombieMode = true;
+            //HP.value = playerData.health;
+        }
+        else
+        {
+            Settings.zombieMode = false;
+            //HP.value = playerData.health;
+        }
+    }
+    public void PlayerRespawn()
+    {
+        if (playerDie)
+        {
+            Vector2 position = gameObject.transform.position;
+
+            position.y += 10f;
+
+            gameObject.transform.position = position;
+
+            gameObject.SetActive(true);
+        }
     }
 }

@@ -1,4 +1,4 @@
-
+/*
 using System.Collections;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
 
     private void FixedUpdate()
     {
-        /*// Cấm hành động khi dash
+        *//*// Cấm hành động khi dash
         if (Settings.isDasing)
         {
             return;
@@ -39,7 +39,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
         if (Settings.isAttack)
         {
             return;
-        }*/
+        }*//*
         
     }
     
@@ -166,7 +166,7 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
 
         float move = Input.GetAxisRaw("Horizontal");
 
-        rb2d.velocity = new Vector2(move * Settings.speedMove, rb2d.velocity.y);
+        //rb2d.velocity = new Vector2(move * Settings.speedMove, rb2d.velocity.y);
 
         Horizontal = move;
     }
@@ -215,3 +215,4 @@ public class Nguyen_Player : SingletonMonobehavious<Nguyen_Player>
         Settings.canDash = true;
     }
 }
+*/

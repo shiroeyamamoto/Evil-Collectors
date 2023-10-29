@@ -9,6 +9,7 @@ public class SO_EnemyType : ScriptableObject
     [SerializeField] NormalEnemy normalEnemy = NormalEnemy.None;
     [SerializeField] GhostEnemy ghostEnemy = GhostEnemy.None;
     [SerializeField] BossEnemy bossEnemy = BossEnemy.None;
+    [SerializeField, Range(0f, 100f)] private float enemyDamage = 20f; 
 
     [HideInInspector] public float health;
     [HideInInspector] public float mana;
@@ -17,6 +18,7 @@ public class SO_EnemyType : ScriptableObject
     [HideInInspector] public float critDmg;
     [HideInInspector] public float alibility;
     [HideInInspector] public float defense;
+    [HideInInspector] public float damage;
 
     public SO_EnemyData enemyData;
 
@@ -65,5 +67,6 @@ public class SO_EnemyType : ScriptableObject
         critDmg = enemyData.defaultCritDmg * x;
         alibility = enemyData.defaultAlibility * x;
         defense = enemyData.defaultDefense * x;
+        damage = enemyDamage;
     }
 }

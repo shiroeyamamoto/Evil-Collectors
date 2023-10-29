@@ -1,35 +1,36 @@
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 public static class Settings
 {
     // Player Movement
-    public const float speedMove = 10f;
+    [Tooltip("Player có đang dash không?")] public static bool isMove = false;
+    [Tooltip("Player có đang dash không?")] public static bool isDasing = false;
+    [Tooltip("Player đang dash.")] public static bool isFacingRight = true;
 
-    public const float jumpForce = 7f;
-    public static int extraJump;
-    public const int extraJumpValue = 1;
-    public static float jumpTime;
-    public const float jumpStartTime = 0.4f;
+    // Jump
+    [Tooltip("Player có đang jump không?")] public static bool _isJumping = false;
 
-    public static bool canDash = true;
-    public static bool isDasing = false;
-    public const float dashForce = 20f;
-    public const float dashingTime = 0.2f;
-    public const float dashCooldown = 0.7f;
+    // Block
+    [Tooltip("Player đang block.")] public static bool isBlocking = false;
+    [Tooltip("Player có thể parry không?")] public static bool canParry = false;
+    [Tooltip("Player đang trạng thái parry?")] public static bool isParry = false;
 
-    public static bool isGrounded = false;
-    public static bool isFacingRight = true;
+    // Ground check
+    [Tooltip("Player đang đứng trên mặt đất?")] public static bool isGrounded = false;
+    [Tooltip("Player đang đứng trên enemy?")] public static bool standInEnemy = false;
 
     // Player Attack
-    public static bool canAttack = true;
-    public static bool isAttack = false;
-    public static bool normalAttack = false;
-    public static bool strongAttack = false;
-    public const float normalAttackTime = 0.5f;
-    public const float strongAttackTime = 1f;
-    public const float normalAttackCooldown = 1f;
-    public const float strongAttackCooldown = 2.5f;
+    [Tooltip("Player tấn công thường?")] public static bool isAttackNormal = false;
+    [Tooltip("Player tấn công mạnh?")] public static bool isAttackStrong = false;
+
+    // Player Status
+    [Tooltip("Player có bận không?")] public static bool PlayerDamaged = false;
 
     // Tag
-    public static string groundLayerMask = "Ground";
+    [Tooltip("LayerMask tên Ground")] public static string groundLayerMask = "Ground";
+    [Tooltip("LayerMask tên Enemy")] public static string enemyLayerMask = "Enemy";
+
+    // Cheats
+    [Tooltip("Player bất tử?")] public static bool zombieMode = false;
 }

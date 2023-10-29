@@ -14,8 +14,8 @@ public class BossController : MonoBehaviour
     {
         phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
+        //GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
     }
 
     private void OnDrawGizmos()
@@ -32,6 +32,10 @@ public class BossController : MonoBehaviour
     [SerializeField] LayerMask wallLayer;
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.transform.CompareTag("Player"))
+        {
+            Player.Instance.TakeDamage(20f);
+        }
         int layer = collision.gameObject.layer;
         if(groundLayer == ( 1<< layer))
         {
