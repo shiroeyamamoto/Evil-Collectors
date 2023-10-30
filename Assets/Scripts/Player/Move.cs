@@ -19,10 +19,12 @@ public class Move : MonoBehaviour
     private float Horizontal;
 
     private Rigidbody2D rb2d;
+    private TrailRenderer trail;
 
     protected void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        trail = GetComponent<TrailRenderer>();
     }
     private void Update()
     {
@@ -98,12 +100,14 @@ public class Move : MonoBehaviour
     {
         canDash = false;
         Settings.isDasing = true;
+        trail.emitting = true;
 
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
         rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
 
         yield return new WaitForSeconds(dashingTime);
+        trail.emitting = false;
         Settings.isDasing = false;
         rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(dashCooldown);

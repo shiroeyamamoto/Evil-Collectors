@@ -57,6 +57,8 @@ public class Attack : MonoBehaviour
 
             sword.SetActive(true);
 
+            Player.Instance.spriteRendererPlayer.color = Color.red;
+
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
@@ -67,6 +69,7 @@ public class Attack : MonoBehaviour
             }
 
             yield return new WaitForSeconds(normalAttackTime);
+            Player.Instance.spriteRendererPlayer.color = Color.white;
             Settings.isAttackNormal = false;
             Settings.PlayerDamaged = false;
             sword.SetActive(false);
@@ -89,6 +92,7 @@ public class Attack : MonoBehaviour
             Settings.isAttackStrong = true;
 
             sword.SetActive(true);
+            Player.Instance.spriteRendererPlayer.color = Color.red;
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
@@ -104,6 +108,7 @@ public class Attack : MonoBehaviour
             }
 
             yield return new WaitForSeconds(strongAttackTime);
+            Player.Instance.spriteRendererPlayer.color = Color.white;
             Settings.isAttackStrong = false;
             Settings.PlayerDamaged = false;
             sword.SetActive(false);

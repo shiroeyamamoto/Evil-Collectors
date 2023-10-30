@@ -12,6 +12,7 @@ public class Player : SingletonMonobehavious<Player>
     public SO_PlayerData playerData;
 
     private Rigidbody2D rb2d;
+    public SpriteRenderer spriteRendererPlayer;
     public Animator animator;
     public AudioSource audioSource;
     public PlayerSound playerSound;
@@ -30,6 +31,7 @@ public class Player : SingletonMonobehavious<Player>
     {
         base.Awake();
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRendererPlayer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         playerSound = GetComponent<PlayerSound>();
         animator = GetComponent<Animator>();
