@@ -114,7 +114,7 @@ public class FinalBossWeapon : MonoBehaviour
     int directionInt;
     void Weapon_1_Controller()
     {
-        Debug.Log("W 1");
+        transform.rotation = new Quaternion(0, 0, 0, 0);
         deleteChildAfterDisable = false;
         moveCompleted = false;
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
@@ -144,6 +144,7 @@ public class FinalBossWeapon : MonoBehaviour
     }
     private void Weapon_2_Controller()
     {
+        transform.rotation = new Quaternion(0, 0, 0, 0);
         bossPos = transform.parent.Find("BossTest");
         transform.position = bossPos.position;
         GameObject player = GameObject.FindGameObjectWithTag("Player");

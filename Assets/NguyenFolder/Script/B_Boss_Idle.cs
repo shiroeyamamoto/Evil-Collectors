@@ -12,6 +12,7 @@ public class B_Boss_Idle : StateMachineBehaviour
     Animator animator;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        SetColor(animator, animator.transform.GetComponent<BossController>().normalColor, 1);
         this.animator = animator;
         ResetDelayTime();
         TransactionDelay(this.delayTime);
@@ -19,7 +20,7 @@ public class B_Boss_Idle : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SetColor(animator, Color.white, 1);
+        
     }
 
 

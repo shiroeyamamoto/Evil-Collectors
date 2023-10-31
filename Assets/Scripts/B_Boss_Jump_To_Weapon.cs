@@ -48,15 +48,13 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
                 boss.DOJump(endPoint, JumpForce, 1, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     weapon.gameObject.SetActive(false);
+                    animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 1f);
                     animator.SetTrigger("NextStep");
                 });
             }
         }
     }
-    void Weapon_2(Animator animator)
-    {
-        
-    }
+    
 
 }

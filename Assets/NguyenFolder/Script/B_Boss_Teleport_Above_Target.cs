@@ -15,8 +15,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // set alpha before teleport
-
-        SetColor(animator, Color.blue, alphaValue);
+        SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
 
         //
         rb2d = animator.GetComponent<Rigidbody2D>();
@@ -46,7 +45,6 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
         rb2d.gravityScale = 1;
         //
 
-        SetColor(animator, Color.white, 1);
     }
 
     void SetColor(Animator animator, Color color, float alpha)

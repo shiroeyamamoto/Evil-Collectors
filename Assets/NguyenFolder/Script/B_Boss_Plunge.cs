@@ -10,8 +10,8 @@ public class B_Boss_Plunge : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-        SetColor(animator, Color.yellow, 0.75f);
+        SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
+
         plungeSpeed = animator.GetComponent<BossController>().velocity;
         rb2d = animator.GetComponent<Rigidbody2D>();
         RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.down, Mathf.Infinity, groundLayer);
@@ -36,7 +36,6 @@ public class B_Boss_Plunge : StateMachineBehaviour
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SetColor(animator, Color.white, 1);
         if (animator.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
         {
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

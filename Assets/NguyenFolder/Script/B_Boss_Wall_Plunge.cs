@@ -16,9 +16,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
-        SetColor(animator, Color.red, alphaValue);
         this.animator = animator;
         Vector3 endJumpPoint = ChooseSideToJump();
 
@@ -31,7 +29,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
 
         animator.transform.DOJump(endJumpPoint, jumpForce, 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
         {
-            SetColor(animator, Color.red, alphaValue);
+            Debug.Log("complete");
             animator.SetTrigger("NextStep");
         });
 
@@ -47,16 +45,19 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         rightSide = this.animator.transform.parent.Find("R_WallJumpRangeMax");
         Transform side;
         int randomSide = Random.Range(0, 2);
-        if(randomSide == 0)
+        //side = leftSide;
+        float offsetX;
+        if (randomSide == 0)
         {
-            side = leftSide;
+            side = leftSide; offsetX = animator.transform.lossyScale.x / 2;
         } else
         {
-            side = rightSide;
+            side = rightSide; offsetX = -animator.transform.lossyScale.x / 2;
         }
-
+        
+        
         Vector3 randomChosenPosition;
-        float x = side.position.x;
+        float x = side.position.x + offsetX;
         float y = Random.Range(Mathf.Min(leftSide.position.y, rightSide.position.y), Mathf.Max(leftSide.position.y, rightSide.position.y));
         
 

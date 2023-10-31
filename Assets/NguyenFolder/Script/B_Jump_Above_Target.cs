@@ -19,7 +19,6 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     {
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
         // set alpha before jump
-        SetColor(animator,  Color.cyan,alphaSprite);
 
         //startJumpPos = animator.transform.position;
         endJumpPos = animator.transform.parent.Find("JumpPosition").position;
@@ -32,8 +31,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
         
         animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
         {
-            animator.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            animator.SetTrigger("NextStep");
         });
     }
 
@@ -46,6 +44,5 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        SetColor(animator, Color.yellow, 1);
-    }
+        }
 }
