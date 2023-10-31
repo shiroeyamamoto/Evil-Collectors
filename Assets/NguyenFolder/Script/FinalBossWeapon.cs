@@ -114,6 +114,7 @@ public class FinalBossWeapon : MonoBehaviour
     int directionInt;
     void Weapon_1_Controller()
     {
+        Debug.Log("W 1");
         deleteChildAfterDisable = false;
         moveCompleted = false;
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
