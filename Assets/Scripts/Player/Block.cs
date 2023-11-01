@@ -33,6 +33,10 @@ public class Block : MonoBehaviour
             Settings.isBlocking = false;
             blockTest.SetActive(false);
             canParry = true;
+
+            // indicator
+            if (Player.Instance.spriteRendererPlayer.color == Color.gray)
+                Player.Instance.spriteRendererPlayer.color = Color.white;
         }
         //Debug.Log("isBlocking: " + Settings.isBlocking);
     }
@@ -62,6 +66,7 @@ public class Block : MonoBehaviour
         {
             Settings.isBlocking = true;
             blockTest.SetActive(true);
+            Player.Instance.spriteRendererPlayer.color = Color.gray;
 
             // canParry đảm bảo parry chỉ 1 lần là hủy bỏ
             if(canParry)
@@ -91,6 +96,7 @@ public class Block : MonoBehaviour
         if(parryCounter>0)
         {
             parryTest.SetActive(true);
+            Player.Instance.spriteRendererPlayer.color = Color.yellow;
             Settings.isParry = true;
         }
         else
