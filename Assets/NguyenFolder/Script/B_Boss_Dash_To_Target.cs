@@ -37,7 +37,7 @@ public class B_Boss_Dash_To_Target : StateMachineBehaviour
                 else endDashPoint = dashPosition;
             }
             float velocity = animator.GetComponent<BossController>().velocity;
-           duration = Vector2.Distance(endDashPoint, animator.transform.position) / velocity;
+            duration = Vector2.Distance(endDashPoint, animator.transform.position) / velocity;
             animator.transform.DOMove(endDashPoint, duration).SetEase(Ease.Linear);
         }
     }

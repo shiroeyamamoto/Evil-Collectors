@@ -11,13 +11,14 @@ public class Block : MonoBehaviour
     [SerializeField, Range(0.1f, 1f), Tooltip("Thời gian thực hiện block trước khi được parry")] private float timeToParry = 0.5f;
     [SerializeField, Range(0.1f, 1f), Tooltip("Thời gian parry")] private float parryTime=0.5f;
 
-    private bool canBlock;
+    private bool canBlock, canParry;
     private float parryCounter, blockCounter;
 
     private void Awake()
     {
         Settings.isBlocking = false;
         canBlock = true;
+        canParry = true;
     }
 
     private void FixedUpdate()
@@ -31,8 +32,13 @@ public class Block : MonoBehaviour
             canBlock = true;
             Settings.isBlocking = false;
             blockTest.SetActive(false);
+            canParry = true;
+
+            // indicator
+            if (Player.Instance.spriteRendererPlayer.color == Color.gray)
+                Player.Instance.spriteRendererPlayer.color = Color.white;
         }
-        Debug.Log("isBlocking: " + Settings.isBlocking);
+        //Debug.Log("isBlocking: " + Settings.isBlocking);
     }
 
     /// <summary>
@@ -53,16 +59,25 @@ public class Block : MonoBehaviour
         if (blockCounter > 0 && !Settings.isBlocking)
         {
             blockCounter -= Time.deltaTime;
-            Debug.Log("blockCounter:" + blockCounter);
+            //Debug.Log("blockCounter:" + blockCounter);
         }
         // Hết thời gian chờ trước khi được vào trạng thái blocking
         else
         {
             Settings.isBlocking = true;
             blockTest.SetActive(true);
+            Player.Instance.spriteRendererPlayer.color = Color.gray;
 
+            // canParry đảm bảo parry chỉ 1 lần là hủy bỏ
+            if(canParry)
+            {
+                canParry = false;
+                Settings.canParry = true;
+            }
             if (parryCounter > 0)
+            {
                 ParryAction();
+            }
         }
     }
 
@@ -79,8 +94,16 @@ public class Block : MonoBehaviour
 
         // Test parry in scene 
         if(parryCounter>0)
+        {
             parryTest.SetActive(true);
+            Player.Instance.spriteRendererPlayer.color = Color.yellow;
+            Settings.isParry = true;
+        }
         else
+        {
             parryTest.SetActive(false);
+            Settings.isParry = false;
+            Settings.canParry = false;
+        }
     }
 }

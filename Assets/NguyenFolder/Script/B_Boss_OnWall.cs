@@ -8,18 +8,16 @@ public class B_Boss_On_Wall : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-    }
-
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
         rb = animator.GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero; rb.bodyType = RigidbodyType2D.Kinematic;
+        SetColor(animator, animator.transform.GetComponent<BossController>().normalColor, 1);
+
+        animator.ResetTrigger("NextStep");
     }
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    void SetColor(Animator animator, Color color, float alpha)
     {
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        color.a = alpha;
+        animator.GetComponent<SpriteRenderer>().color = color;
     }
 }
