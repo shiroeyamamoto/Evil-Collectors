@@ -96,8 +96,8 @@ public class Attack : MonoBehaviour
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
-            GameController.Instance.PlayerData.stamina -= 25;
-            Player.Instance.Damage(GameController.Instance.PlayerData.damage*strongDamagePercent);
+            GameController.Instance.LevelSO.playerData.stamina -= 25;
+            Player.Instance.Damage(GameController.Instance.LevelSO.playerData.damage*strongDamagePercent);
 
             //Debug.Log(Settings.PlayerDamaged);
 
