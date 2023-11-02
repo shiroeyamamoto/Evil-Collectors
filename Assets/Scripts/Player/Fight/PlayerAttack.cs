@@ -7,6 +7,9 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField, Range(0f, 5f)] private float pushForce = 0.5f;
 
+    [HideInInspector] public bool inForwardAttack = false;
+    [HideInInspector] public bool inRetreatAttack = false;
+
     // Va chạm của đòn tấn công tới đối thủ
 
     /// <summary>

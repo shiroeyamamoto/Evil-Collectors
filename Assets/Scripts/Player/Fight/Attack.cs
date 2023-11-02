@@ -12,7 +12,8 @@ public class Attack : MonoBehaviour
     [SerializeField, Range(0.1f, 5f)] private float strongAttackCooldown = 2.5f;
     [SerializeField, Range(0f, 10f)] private float normalDamagePercent = 1f;
     [SerializeField, Range(0f, 10f)] private float strongDamagePercent = 2.5f;
-    [SerializeField, Range(0f, 20f)] private float attackMoveForce = 1f;
+    [SerializeField, Range(0f, 20f)] private float attackMoveForwardForce = 1f;
+    [SerializeField, Range(0f, 20f)] private float attackMoveRetreatForce = 1f;
 
     private bool canAttackNormal, canAttackStrong;
     private Rigidbody2D playerRigid2D;
@@ -48,7 +49,9 @@ public class Attack : MonoBehaviour
     /// <returns></returns>
     private IEnumerator AttackNormal()
     {
-        GameObject sword = transform.Find("Attack").gameObject;
+        GameObject sword = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject;
+
+        PlayerAttack playerAttack = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
 
         if (canAttackNormal)
         {
@@ -65,7 +68,18 @@ public class Attack : MonoBehaviour
             if (!Settings.PlayerDamaged)
             {
                 Settings.PlayerDamaged = true;
-                playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForce, 0f);
+                if (playerAttack.inForwardAttack)
+                {
+                    playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
+                    playerAttack.inForwardAttack = false;
+                    playerAttack.inRetreatAttack = false;
+                }
+                else if (playerAttack.inRetreatAttack)
+                {
+                    playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
+                    playerAttack.inForwardAttack = false;
+                    playerAttack.inRetreatAttack = false;
+                }
             }
 
             yield return new WaitForSeconds(normalAttackTime);
@@ -84,7 +98,9 @@ public class Attack : MonoBehaviour
     /// <returns></returns>
     private IEnumerator AttackStrong()
     {
-        GameObject sword = transform.Find("Attack").gameObject;
+        GameObject sword = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject;
+
+        PlayerAttack playerAttack = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
 
         if (canAttackStrong)
         {
@@ -104,7 +120,18 @@ public class Attack : MonoBehaviour
             if (!Settings.PlayerDamaged)
             {
                 Settings.PlayerDamaged = true;
-                playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForce, 0f);
+                if (playerAttack.inForwardAttack)
+                {
+                    playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
+                    playerAttack.inForwardAttack = false;
+                    playerAttack.inRetreatAttack = false;
+                }
+                else if (playerAttack.inRetreatAttack)
+                {
+                    playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
+                    playerAttack.inForwardAttack = false;
+                    playerAttack.inRetreatAttack = false;
+                }
             }
 
             yield return new WaitForSeconds(strongAttackTime);

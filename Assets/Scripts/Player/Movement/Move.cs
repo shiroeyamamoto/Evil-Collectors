@@ -38,10 +38,11 @@ public class Move : MonoBehaviour
 
 
         //Player.Instance.animator.SetBool("isDashing", Settings.isDasing);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-        {
-            StartCoroutine(Dash());
-        }
+        if(!Settings.PlayerDamaged)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            {
+                StartCoroutine(Dash());
+            }
 
         //MovementSound();
     }
@@ -66,6 +67,8 @@ public class Move : MonoBehaviour
 
         float move = Input.GetAxisRaw("Horizontal");
 
+        Vector2 movement = new Vector2(move, 0f);
+
         //Player.Instance.animator.SetFloat("Speed", Mathf.Abs(move));
 
         if (move != 0 && !Settings.isMove)
@@ -73,6 +76,7 @@ public class Move : MonoBehaviour
         else if(move == 0 && Settings.isMove)
             Settings.isMove = false;
 
+       
         rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
 
         Horizontal = move;
