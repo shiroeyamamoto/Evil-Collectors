@@ -31,6 +31,7 @@ RectTransform:
   m_Children:
   - {fileID: 3008417458635942689}
   m_Father: {fileID: 2556995356176609245}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -119,6 +120,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6879484847749042727}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -200,13 +202,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3329952802601994071}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.352, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2556995356176609245}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3647744449766628049
 GameObject:
@@ -238,6 +240,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7028269147347889104}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -99.097}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -342,6 +345,7 @@ RectTransform:
   - {fileID: 679472192761569118}
   - {fileID: 6879484847749042727}
   m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -574,7 +578,7 @@ MonoBehaviour:
   manaRecoveryTime: 0.2
   playerData: {fileID: 11400000, guid: 70f4bda05b5e1a443ac44b07c47f8532, type: 2}
   spriteRendererPlayer: {fileID: 381255960016215258}
-  animator: {fileID: 0}
+  animator: {fileID: 8722525110218660034}
   audioSource: {fileID: 8575511080996993745}
   playerSound: {fileID: 4219678921564985784}
   HP: {fileID: 0}
@@ -596,9 +600,9 @@ MonoBehaviour:
   groundCheck: {fileID: 7636257690888421765}
   speedMove: 10
   speedAirMove: 15
-  dashForce: 20
+  dashForce: 40
   dashingTime: 0.2
-  dashCooldown: 0.7
+  dashCooldown: 0.3
 --- !u!114 &3640818728430792012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,7 +804,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_MaskInteraction: 0
   m_Autodestruct: 0
-  m_Emitting: 0
+  m_Emitting: 1
   m_ApplyActiveColorSpace: 1
 --- !u!1 &6549960172036281382
 GameObject:
@@ -832,6 +836,7 @@ RectTransform:
   m_Children:
   - {fileID: 3887162483368368235}
   m_Father: {fileID: 2556995356176609245}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 6.109, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -868,6 +873,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2556995356176609245}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -959,6 +965,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2556995356176609245}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

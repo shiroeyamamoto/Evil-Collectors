@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor;
 using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 
 public class FinalBossWeapon : MonoBehaviour
 {
