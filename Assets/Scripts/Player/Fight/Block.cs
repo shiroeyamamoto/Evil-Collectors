@@ -23,6 +23,11 @@ public class Block : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Settings.isDasing)
+        {
+            return;
+        }
+
         if(Input.GetKey(KeyCode.LeftControl))
         {
             BlockAction();

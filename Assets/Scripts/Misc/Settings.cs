@@ -21,6 +21,7 @@ public static class Settings
     [Tooltip("Player đang đứng trên enemy?")] public static bool standInEnemy = false;
 
     // Player Attack
+    [Tooltip("Player đang sử dụng đòn tấn công khác")] public static bool isAttacking = false;
     [Tooltip("Player tấn công thường?")] public static bool isAttackNormal = false;
     [Tooltip("Player tấn công mạnh?")] public static bool isAttackStrong = false;
 
