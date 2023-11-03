@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +10,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
 
-    public SO_PlayerData playerData;
+    
 
     private Rigidbody2D rb2d;
     public SpriteRenderer spriteRendererPlayer;
@@ -17,49 +18,32 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     public AudioSource audioSource;
     public PlayerSound playerSound;
 
-    [SerializeField] Slider HP;
-    [SerializeField] Slider MN;
-    [SerializeField] Slider TP;
-
     float staminaTimeCounter;
 
     [HideInInspector] public float DamageAttack;
     private bool playerDie;
-    float maxHealth, maxMana, maxStamina;
+    private SO_PlayerData currentInfo;
+    private SO_PlayerData infoDefaultSO;
 
-    protected override void Awake()
+    public void Init(SO_PlayerData playerData)
     {
-        base.Awake();
         rb2d = GetComponent<Rigidbody2D>();
         spriteRendererPlayer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         playerSound = GetComponent<PlayerSound>();
         animator = GetComponent<Animator>();
-        maxHealth = playerData.health;
-        maxMana = playerData.mana;
-        maxStamina = playerData.stamina;
 
-        HP.maxValue = maxHealth;
-        HP.minValue = 0;
-        HP.value = playerData.health;
-
-        MN.maxValue = maxMana;
-        MN.minValue = 0;
-        MN.value = playerData.mana;
-
-        TP.maxValue = maxStamina;
-        TP.minValue = 0;
-        TP.value = playerData.stamina;
+        this.currentInfo = new SO_PlayerData(playerData);
+        infoDefaultSO = playerData;
         staminaTimeCounter = staminaRecoveryTime;
-
         playerDie = false;
     }
-
+    
     private void FixedUpdate()
     {
         // Giữ player không sleep
         rb2d.position += Vector2.zero;
-        MN.value = playerData.mana;
+        OnUpdateMana?.Invoke(currentInfo.mana);
     }
     private void Update()
     {
@@ -68,7 +52,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     private void OnDisable()
     {
-        playerData.ResetData();
+        currentInfo.ResetData();
     }
 
     /// <summary>
@@ -83,9 +67,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         else
         {
             //Debug.Log("Vừa recovery xong");
-            if (playerData.stamina < maxStamina)
-                playerData.stamina += playerData.staminaRecovery;
-            TP.value = playerData.stamina;
+            if (currentInfo.stamina < infoDefaultSO.stamina)
+                currentInfo.stamina += currentInfo.staminaRecovery;
+            OnUpdateTP?.Invoke(currentInfo.stamina);
             staminaTimeCounter = staminaRecoveryTime;
         }
     }
@@ -106,20 +90,23 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     /// <summary>
     /// Take damage by enemy or trap
     /// </summary>
+    ///
+
+    public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
     public void TakeDamage(float dmg)
     {
         if (!Settings.zombieMode)
         {
             if (Settings.isBlocking)
-                dmg -= playerData.defense;
+                dmg -= currentInfo.defense;
 
-            if (playerData.health > 0)
+            if (currentInfo.health > 0)
             {
-                playerData.health -= dmg;
-                HP.value = playerData.health;
+                currentInfo.health -= dmg;
+                OnUpdateHP?.Invoke(currentInfo.health);
             }
 
-            if (playerData.health <= 0)
+            if (currentInfo.health <= 0)
             {
                 PlayerDie();
             }

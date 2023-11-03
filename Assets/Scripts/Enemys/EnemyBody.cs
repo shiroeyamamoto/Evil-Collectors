@@ -46,7 +46,7 @@ public class EnemyBody : MonoBehaviour
 
         isFacingRight = true;
 
-        parryDamaged = currentDamage * 0.1f + Player.Instance.playerData.damage * 0.1f;
+        parryDamaged = currentDamage * 0.1f + GameController.Instance.LevelSO.playerData.damage * 0.1f;
 
         enemyHealthBar.maxValue = enemyType.health;
         enemyHealthBar.value = CurrentHealth;

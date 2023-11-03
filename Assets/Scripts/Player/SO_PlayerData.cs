@@ -32,6 +32,17 @@ public class SO_PlayerData : ScriptableObject
 
     [HideInInspector] public float staminaRecovery;
 
+    public SO_PlayerData(SO_PlayerData data)
+    {
+        this.health = data.health;
+        this.mana = data.mana;
+        this.crit = data.crit;
+        this.critDmg = data.critDmg;
+        this.alibility = data.alibility;
+        this.defense = data.defense;
+        this.damage = data.damage;
+    }
+
     public void ResetData()
     {
         health = defaultHealth;
