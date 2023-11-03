@@ -18,15 +18,7 @@ public class PlayerCollision : MonoBehaviour
 
                 Rigidbody2D playerRidid2D = Player.Instance.gameObject.GetComponent<Rigidbody2D>();
 
-                if (gameObject.transform.position.x < collision.transform.position.x)
-                {
-                    playerRidid2D.velocity = new Vector2(-gameObject.transform.localScale.x*pushForce, 0f);
-                }
-                else
-                    if (gameObject.transform.position.x > collision.transform.position.x)
-                {
-                    playerRidid2D.velocity = new Vector2(gameObject.transform.localScale.x*pushForce, 0f);
-                }
+                playerRidid2D.velocity = new Vector2(-gameObject.transform.localScale.x*pushForce, 0f);
             }
         }
     }
@@ -38,6 +30,7 @@ public class PlayerCollision : MonoBehaviour
             if (Settings.PlayerDamaged)
             {
                 Settings.PlayerDamaged = false;
+
             }
         }
     }

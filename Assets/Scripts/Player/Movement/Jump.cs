@@ -30,9 +30,14 @@ public class Jump : MonoBehaviour
             return;
         }
 
-        if(!Settings._isJumping)
+        Debug.Log("Settings._isJumping: " + Settings._isJumping);
+        //Debug.Log("Settings.isGrounded: " + Settings.isGrounded);
+        /*if (!Settings.isGrounded && !Input.GetKey(KeyCode.Space))
+        {
+            Settings._isJumping = false;
             rb2d.gravityScale = _defaultGravityScale;
-
+        }*/
+        //Debug.Log("Settings.PlayerDamaged: "+ Settings.PlayerDamaged);
         if (!Settings.PlayerDamaged)
         {
             if (Settings.isGrounded && Input.GetKeyDown(KeyCode.Space))
@@ -41,6 +46,7 @@ public class Jump : MonoBehaviour
                 _coyoteCounter = _coyoteTime;
                 spamJumpCounter = spamJumpTime;
                 rb2d.velocity = Vector2.up * _jumpHeight;
+                rb2d.gravityScale = _defaultGravityScale;
             }
 
             if (Input.GetKey(KeyCode.Space) && Settings._isJumping)
@@ -57,6 +63,7 @@ public class Jump : MonoBehaviour
                     else
                     {
                         rb2d.gravityScale = _upwardMovementMultiplier;
+                            Settings._isJumping = false;
                     }
                     _coyoteCounter -= Time.deltaTime;
                 }

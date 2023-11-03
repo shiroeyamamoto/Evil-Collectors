@@ -122,7 +122,7 @@ public class Attack : MonoBehaviour
 
             if (!Settings.PlayerDamaged)
             {
-                Settings.PlayerDamaged = true;
+                //Settings.PlayerDamaged = true;
                 if (playerAttack.inForwardAttack)
                 {
                     playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
@@ -140,7 +140,7 @@ public class Attack : MonoBehaviour
             yield return new WaitForSeconds(strongAttackTime);
             Player.Instance.spriteRendererPlayer.color = Color.white;
             Settings.isAttackStrong = false;
-            Settings.PlayerDamaged = false;
+            //Settings.PlayerDamaged = false;
             sword.SetActive(false);
             yield return new WaitForSeconds(strongAttackCooldown);
             canAttackStrong = true;
