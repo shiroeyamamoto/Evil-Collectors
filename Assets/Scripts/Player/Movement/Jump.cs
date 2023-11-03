@@ -7,11 +7,9 @@ public class Jump : MonoBehaviour
 
     [SerializeField, Range(0f, 30f)] private float _jumpHeight = 10f;
     [SerializeField, Range(0f, 30f)] private float _jumpHeightHold = 10f;
-    [SerializeField, Range(0, 5), Tooltip("Số lần nhảy trên không")] private int _maxAirJumps = 0;
     [SerializeField, Range(0f, 20f), Tooltip("Trọng lực khi player đang rơi")] private float _downwardMovementMultiplier = 3f;
     [SerializeField, Range(0f, 20f), Tooltip("Trọng lực khi player nhảy lên")] private float _upwardMovementMultiplier = 1.7f;
     [SerializeField, Range(0f, 2f)] private float _coyoteTime = 0.2f;
-    [SerializeField, Range(0f, 0.3f)] private float _jumpBufferTime = 0.2f;
     [SerializeField, Range(0f, 5f)] private float spamJumpTime = 0.2f;
 
     private float _defaultGravityScale, _coyoteCounter, spamJumpCounter;
@@ -27,9 +25,13 @@ public class Jump : MonoBehaviour
     {
         // không cho nhảy khi đang dash
         if (Settings.isDasing)
+        {
+            _coyoteCounter = 0f;
             return;
+        }
 
-        //JumpWhenHold();
+        if(!Settings._isJumping)
+            rb2d.gravityScale = _defaultGravityScale;
 
         if (!Settings.PlayerDamaged)
         {
@@ -50,8 +52,7 @@ public class Jump : MonoBehaviour
                     {
                         //rb2d.velocity = Vector2.up * _jumpHeight;
                         rb2d.gravityScale = -_downwardMovementMultiplier;
-                        spamJumpCounter -= Time.deltaTime;
-
+                        //Debug.Log(spamJumpCounter);
                     }
                     else
                     {

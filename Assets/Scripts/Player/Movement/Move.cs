@@ -44,6 +44,8 @@ public class Move : MonoBehaviour
                 StartCoroutine(Dash());
             }
 
+        if(Settings.isGrounded)
+            canDash = true;
         //MovementSound();
     }
 
@@ -115,7 +117,7 @@ public class Move : MonoBehaviour
         Settings.isDasing = false;
         rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
+        
     }
 
     /// <summary>

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : SingletonMonobehavious<Player>
+public class Player : SingletonMonobehavious<Player>, IInteractObject
 {
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
@@ -158,5 +158,10 @@ public class Player : SingletonMonobehavious<Player>
 
             gameObject.SetActive(true);
         }
+    }
+
+    public void OnDamage(int damageTaken)
+    {
+        throw new System.NotImplementedException();
     }
 }

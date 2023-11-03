@@ -65,6 +65,9 @@ public class Attack : MonoBehaviour
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
+            Player.Instance.playerData.stamina -= 15;
+            Player.Instance.Damage(Player.Instance.playerData.damage * normalDamagePercent);
+
             if (!Settings.PlayerDamaged)
             {
                 Settings.PlayerDamaged = true;

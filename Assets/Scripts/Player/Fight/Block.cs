@@ -38,7 +38,6 @@ public class Block : MonoBehaviour
             if (Player.Instance.spriteRendererPlayer.color == Color.gray)
                 Player.Instance.spriteRendererPlayer.color = Color.white;
         }
-        //Debug.Log("isBlocking: " + Settings.isBlocking);
     }
 
     /// <summary>
