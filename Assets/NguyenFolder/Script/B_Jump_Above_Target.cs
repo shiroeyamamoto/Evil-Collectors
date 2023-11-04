@@ -10,7 +10,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public AnimationCurve jumpCurve;
     public float jumpDuration;
     public float jumpHeight;
-    int jumpStep;
+    public int jumpStep = 1;
 
     [Space]
     [Range(0,1)]
