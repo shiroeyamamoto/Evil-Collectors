@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0110eefe87af1964db3022ba8d19d96c, type: 3}
-  m_Name: i4_posionKnight
+  m_Name: i4_poisionKnight
   m_EditorClassIdentifier: 
   itemID: i3
-  itemName: Small Mana
+  itemName: Poision Knight
   itemIcon: {fileID: 1392382740, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
-  itemDescription: A little Mana for you
+  itemDescription: A trick for more easy game
   typeItem: 2
   typeBuff: 0
   value: 5

@@ -21,6 +21,7 @@ public class GameController : SingletonMonobehavious<GameController>
         Player.OnUpdateMana += gamePlayUI.Player_OnUpdateMana;
         Player.OnUpdateHP += gamePlayUI.Player_OnUpdateHP;
         Player.OnUpdateTP += gamePlayUI.Player_OnUpdateTP;
+        Player.OnDead += gamePlayUI.Player_OnDead;
          
         gamePlayUI.PlayerInitData(LevelSO.playerData);
     }

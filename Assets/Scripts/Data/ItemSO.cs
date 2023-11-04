@@ -13,13 +13,14 @@ public class ItemSO : ScriptableObject {
     [Header("Parameters")]
     public TypeItem typeItem;
     public TypeBuff typeBuff;
-    [Min(0)] public int value;
+    [Min(0)] public float value;
 }
 
 public enum TypeItem {
     none,
     Buff,
-    AttackToTarget
+    AttackToTarget,
+    Skill
 }
 
 public enum TypeBuff {
