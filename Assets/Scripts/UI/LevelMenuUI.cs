@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelMenuUI : MonoBehaviour
+public class LevelMenuUI : UIBase
 {
     [SerializeField] private SlotLevelUI slotLevelUI;
     [SerializeField] private Transform content;
