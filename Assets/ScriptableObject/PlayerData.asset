@@ -13,15 +13,23 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   defaultGameObject: {fileID: 5411918081781846157, guid: 3c9ce86a01e442141b9a97b324769417, type: 3}
+  defaultHealth: 100
+  defaultMana: 100
+  defaultStamina: 100
+  defaultCrit: 1
+  defaultCritDmg: 20
+  defaultAlibility: 10
+  defaultDefense: 10
+  defaultDamage: 20
+  defaultStaminaRecovery: 1
   gameObject: {fileID: 0}
-  health: 5
+  health: 100
   mana: 100
   stamina: 100
   crit: 1
   critDmg: 20
   alibility: 10
   defense: 10
-  damage: 10
-  inventoryWeight: 10
+  damage: 20
   currentPosititon: {x: 0, y: 0}
   staminaRecovery: 1

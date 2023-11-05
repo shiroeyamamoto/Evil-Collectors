@@ -29,7 +29,7 @@ public class Move : MonoBehaviour
     private void Update()
     {
         // Cấm hành động khi dash 
-        if (Settings.isDasing || Settings.isAttacking)
+        if (Settings.isDasing)
         {
             return;
         }
@@ -56,13 +56,6 @@ public class Move : MonoBehaviour
         {
             return;
         }
-
-        if (Settings.isAttacking)
-        {
-            rb2d.velocity = Vector2.zero;
-            return;
-        }
-
         if(!Settings.PlayerDamaged)
             PlayerMovement();
     }

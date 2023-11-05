@@ -17,6 +17,8 @@ public class Jump : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         _defaultGravityScale = 8;
+        //defaultJumpHeight = _jumpHeight;
+       //spamJumpCounter = spamJumpTime;
     }
     private void Update()
     {
@@ -35,7 +37,7 @@ public class Jump : MonoBehaviour
             rb2d.gravityScale = _defaultGravityScale;
         }*/
         //Debug.Log("Settings.PlayerDamaged: "+ Settings.PlayerDamaged);
-        if (!Settings.PlayerDamaged )
+        if (!Settings.PlayerDamaged)
         {
             if (Settings.isGrounded && Input.GetKeyDown(KeyCode.Space))
             {
