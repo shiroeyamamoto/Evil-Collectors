@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : SingletonMonobehavious<Player>
+public class Player : SingletonMonobehavious<Player>, IInteractObject
 {
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
@@ -77,46 +77,19 @@ public class Player : SingletonMonobehavious<Player>
         }
     }
 
-    /// <summary>
-    ///  Damage player gây ra 
-    /// </summary>
     public void Damage(float dmg)
     {
         DamageAttack = dmg;
     }
-
+    
     public void NoneDamage()
     {
         DamageAttack = 0;
     }
 
-    /// <summary>
-    /// Take damage by enemy or trap
-    /// </summary>
-    ///
-
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
     public Action OnDead;
     
-    public void TakeDamage(float dmg)
-    {
-        if (!Settings.zombieMode)
-        {
-            if (Settings.isBlocking)
-                dmg -= CurrentInfo.defense;
-
-            if (CurrentInfo.health > 0)
-            {
-                CurrentInfo.health -= dmg;
-                OnUpdateHP?.Invoke(CurrentInfo.health);
-            }
-
-            if (CurrentInfo.health <= 0)
-            {
-                PlayerDie();
-            }
-        }
-    }
 
     private void PlayerDie()
     {
@@ -195,12 +168,34 @@ public class Player : SingletonMonobehavious<Player>
         return skill;
     }
 
-    private Type MapSkillScript(SkillName name) {
-        switch (name) {
+    private Type MapSkillScript(SkillName name)
+    {
+        switch (name)
+        {
             case SkillName.FireSphere: return typeof(FireSphere);
             case SkillName.Kamehameha: return typeof(Kamehameha);
-                
+
             default: return null;
+        }
+    }
+
+    public void OnDamage(float damageTaken)
+    {
+        if (!Settings.zombieMode)
+        {
+            if (Settings.isBlocking)
+                damageTaken -= CurrentInfo.defense;
+
+            if (CurrentInfo.health > 0)
+            {
+                CurrentInfo.health -= damageTaken;
+                OnUpdateHP?.Invoke(CurrentInfo.health);
+            }
+
+            if (CurrentInfo.health <= 0)
+            {
+                PlayerDie();
+            }
         }
     }
 }

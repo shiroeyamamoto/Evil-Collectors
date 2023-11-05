@@ -23,6 +23,11 @@ public class Block : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Settings.isDasing)
+        {
+            return;
+        }
+
         if(Input.GetKey(KeyCode.LeftControl))
         {
             BlockAction();
@@ -38,7 +43,6 @@ public class Block : MonoBehaviour
             if (Player.Instance.spriteRendererPlayer.color == Color.gray)
                 Player.Instance.spriteRendererPlayer.color = Color.white;
         }
-        //Debug.Log("isBlocking: " + Settings.isBlocking);
     }
 
     /// <summary>

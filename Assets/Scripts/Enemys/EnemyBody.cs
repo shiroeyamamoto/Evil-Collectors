@@ -17,10 +17,19 @@ public class EnemyBody : MonoBehaviour
     [SerializeField] SO_EnemyData enemyData;
 
     [SerializeField] private Slider enemyHealthBar;
+    private Rigidbody2D rb2d;
 
     public Transform groundCheck;
     [HideInInspector] public bool isGrounded, isFacingRight;
     [HideInInspector] public SpriteRenderer spriteRenderer;
+
+    public float CurrentHealth { get => currentHealth; }
+    public float CurrentMana { get => currentMana; }
+    public float CurrentStamina { get => currentStamina; }
+    public float CurrentCrit { get => currentCrit; }
+    public float CurrentCritDmg { get => currentCritDmg; }
+    public float CurrentAlibility { get => currentAlibility; }
+    public float CurrentDefense { get => currentDefense; }
 
     private void Start()
     {
@@ -40,17 +49,15 @@ public class EnemyBody : MonoBehaviour
         parryDamaged = currentDamage * 0.1f + GameController.Instance.LevelSO.playerData.damage * 0.1f;
 
         enemyHealthBar.maxValue = enemyType.health;
-        enemyHealthBar.value = currentHealth;
+        enemyHealthBar.value = CurrentHealth;
         enemyHealthBar.minValue = 0;
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        //Debug.Log("Enemy max health: "+enemyType.health);
-        //Debug.Log("Enemy current health: " + currentHealth);
-        //Debug.Log("Enemy default heath: " + enemyData.defaultHealth);
     }
     /// <summary>
     /// Enemy chết
