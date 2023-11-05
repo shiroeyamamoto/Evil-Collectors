@@ -79,6 +79,7 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                     float positionX = hitWallLeft.point.x+randomIndex * mapUnitSize + randomOffset;
                     Transform o = Instantiate(transform, new Vector3(positionX, Random.Range(startPosYMin,startPosYMax), 0), Quaternion.identity, animator.transform.parent);
                 }
+                animator.SetTrigger("NextStep");
                 Debug.Log("object not null");
                 return;
             }

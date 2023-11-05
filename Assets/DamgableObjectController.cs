@@ -22,6 +22,7 @@ public class DamgableObjectController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         transform.DOKill();
+        Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.1f);
         Destroy(gameObject);
     }
 }

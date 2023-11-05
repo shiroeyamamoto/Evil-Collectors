@@ -4,15 +4,23 @@ using UnityEngine;
 using DG.Tweening;
 public class Boss_Level_1_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Animator animator;
+    public float duration;
+    public float force;
+
+    Transform damagableObject;
+    private void Awake()
     {
-        
+        animator = GetComponent<Animator>();
+    }
+    void ShakeCamera()
+    {
+        Camera.main.GetComponent<CameraController>().ShakeCamera(duration, force);
     }
 
-    // Update is called once per frame
-    void Update()
+    void ShakeCameraStrong()
     {
-        
+        Camera.main.GetComponent<CameraController>().ShakeCamera(duration*2, force *2);
+        animator.GetBehaviour<Boss_Lv1_Ground_Shake>().SpawnDamagableObject();
     }
 }
