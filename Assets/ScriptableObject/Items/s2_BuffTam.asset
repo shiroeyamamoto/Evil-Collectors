@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0110eefe87af1964db3022ba8d19d96c, type: 3}
-  m_Name: i2_bigHP
+  m_Script: {fileID: 11500000, guid: 86b1bcca2160ad24daf0afef7de36699, type: 3}
+  m_Name: s2_BuffTam
   m_EditorClassIdentifier: 
-  itemID: i2
-  itemName: Big HP
-  itemIcon: {fileID: -1322164336, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
-  itemDescription: more and more hp
-  typeItem: 1
-  typeBuff: 1
-  value: 10
+  itemID: s2
+  itemName: Buff Tam Chieu Thuc
+  itemIcon: {fileID: 0}
+  itemDescription: 
+  isAutoUse: 1
+  multiBullet: 1
+  incSpace: 1
+  supportToSkill: []

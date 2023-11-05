@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,8 +10,6 @@ public class Player : SingletonMonobehavious<Player>
 {
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
-
-    
 
     private Rigidbody2D rb2d;
     public SpriteRenderer spriteRendererPlayer;
@@ -22,8 +21,10 @@ public class Player : SingletonMonobehavious<Player>
 
     [HideInInspector] public float DamageAttack;
     private bool playerDie;
-    private SO_PlayerData currentInfo;
-    private SO_PlayerData infoDefaultSO;
+    public SO_PlayerData CurrentInfo { get; private set; }
+    public SO_PlayerData InfoDefaultSO { get; private set; }
+    
+    public List<SkillBase> SkillList { get; private set; }
 
     public void Init(SO_PlayerData playerData)
     {
@@ -33,8 +34,8 @@ public class Player : SingletonMonobehavious<Player>
         playerSound = GetComponent<PlayerSound>();
         animator = GetComponent<Animator>();
 
-        this.currentInfo = new SO_PlayerData(playerData);
-        infoDefaultSO = playerData;
+        this.CurrentInfo = new SO_PlayerData(playerData);
+        InfoDefaultSO = playerData;
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
     }
@@ -43,7 +44,7 @@ public class Player : SingletonMonobehavious<Player>
     {
         // Giữ player không sleep
         rb2d.position += Vector2.zero;
-        OnUpdateMana?.Invoke(currentInfo.mana);
+        OnUpdateMana?.Invoke(CurrentInfo.mana);
     }
     private void Update()
     {
@@ -52,7 +53,7 @@ public class Player : SingletonMonobehavious<Player>
 
     private void OnDisable()
     {
-        currentInfo.ResetData();
+        CurrentInfo.ResetData();
     }
 
     /// <summary>
@@ -67,9 +68,10 @@ public class Player : SingletonMonobehavious<Player>
         else
         {
             //Debug.Log("Vừa recovery xong");
-            if (currentInfo.stamina < infoDefaultSO.stamina)
-                currentInfo.stamina += currentInfo.staminaRecovery;
-            OnUpdateTP?.Invoke(currentInfo.stamina);
+            if (CurrentInfo.stamina < InfoDefaultSO.stamina)
+                CurrentInfo.stamina += CurrentInfo.staminaRecovery;
+            
+            OnUpdateTP?.Invoke(CurrentInfo.stamina);
             staminaTimeCounter = staminaRecoveryTime;
         }
     }
@@ -98,15 +100,15 @@ public class Player : SingletonMonobehavious<Player>
         if (!Settings.zombieMode)
         {
             if (Settings.isBlocking)
-                dmg -= currentInfo.defense;
+                dmg -= CurrentInfo.defense;
 
-            if (currentInfo.health > 0)
+            if (CurrentInfo.health > 0)
             {
-                currentInfo.health -= dmg;
-                OnUpdateHP?.Invoke(currentInfo.health);
+                CurrentInfo.health -= dmg;
+                OnUpdateHP?.Invoke(CurrentInfo.health);
             }
 
-            if (currentInfo.health <= 0)
+            if (CurrentInfo.health <= 0)
             {
                 PlayerDie();
             }
@@ -144,6 +146,58 @@ public class Player : SingletonMonobehavious<Player>
             gameObject.transform.position = position;
 
             gameObject.SetActive(true);
+        }
+    }
+
+    public void IncreaceHp(float value)
+    {
+        CurrentInfo.health += value;
+        if (CurrentInfo.health > InfoDefaultSO.health) {
+            CurrentInfo.health = InfoDefaultSO.health;
+        }
+    }
+    
+    public void IncreaceMana(float value)
+    {
+        CurrentInfo.mana += value;
+        if (CurrentInfo.mana > InfoDefaultSO.mana) {
+            CurrentInfo.mana = InfoDefaultSO.mana;
+        }
+    }
+
+    public void UpdateSkill(SkillBase skill, SupportItem supportItem) {
+        skill.UpdateSkill(supportItem);
+    }
+
+    public SkillBase GetSkillByBase(SkillBase skill)
+    {
+        for (int i = 0; i < SkillList.Count; i++) {
+            if (SkillList[i] == skill) {
+                return SkillList[i];
+            }  
+        }
+
+        return null;
+    }
+
+    private List<SkillBase> skills;
+    
+    public SkillBase AddSkill(BoosterType type) {
+        SkillBase skill = gameObject.AddComponent(MapSkillScript(type)) as SkillBase;
+        if (skill) {
+            //booster.SetLocalVfxParent(GetComponent<Character>().GraphicTf);
+            skills.Add(skill);
+        }
+
+        return skill;
+    }
+
+    private Type MapSkillScript(BoosterType type) {
+        switch (type) {
+            case BoosterType.FireSphere: return typeof(FireSphere);
+            case BoosterType.Kamehameha: return typeof(Kamehameha);
+                
+            default: return null;
         }
     }
 }

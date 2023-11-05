@@ -9,13 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0110eefe87af1964db3022ba8d19d96c, type: 3}
-  m_Name: i3_smallMana
+  m_Script: {fileID: 11500000, guid: 99c0d22b8b1c53e4396b2a8e546d7d06, type: 3}
+  m_Name: c2_ManaItem
   m_EditorClassIdentifier: 
-  itemID: i3
-  itemName: Small Mana
+  itemID: c2
+  itemName: binh mana
   itemIcon: {fileID: 958399219, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
-  itemDescription: A little Mana for you
-  typeItem: 1
-  typeBuff: 2
-  value: 10
+  itemDescription: 
+  isAutoUse: 0
+  isCanUseInMyTeam: 0
+  isCanUseInTargetTeam: 0
+  startLocation: {fileID: 0}
+  duration: 0
+  hpAmount: 0
+  restoreMaxHP: 0
+  manaAmount: 10
+  restoreMaxMana: 0
