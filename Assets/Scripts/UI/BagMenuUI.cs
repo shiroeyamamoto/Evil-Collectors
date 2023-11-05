@@ -5,17 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BagMenuUI : UIBase {
-    public Action OnSubmit;
     
-    [SerializeField] private List<ItemSO> items;
+    [SerializeField] private List<ItemBase> items;
     [SerializeField] private Transform page_01;
     [SerializeField] private Transform page_02;
     [SerializeField] private List<SlotItemUI> slotItemUis_Bag;
     [SerializeField] private List<SlotItemUI> slotItemUis_Inv;
     [SerializeField] private Button btnSubmit;
 
-    private List<ItemSO> currentItemsBag;
-    private List<ItemSO> currentItemsInv;
+    private List<ItemBase> currentItemsBag;
+    private List<ItemBase> currentItemsInv;
     
     protected override void Start() {
         base.Start();
@@ -29,11 +28,12 @@ public class BagMenuUI : UIBase {
         }
         
         btnSubmit.onClick.AddListener(() => {
-            OnSubmit?.Invoke();
+            GameManager.Instance.SetItemsInventory(currentItemsInv);
+            GameManager.Instance.LoadSceneLevel();
         });
 
-        currentItemsBag = new List<ItemSO>();
-        currentItemsInv = new List<ItemSO>();
+        currentItemsBag = new List<ItemBase>();
+        currentItemsInv = new List<ItemBase>();
         page_01.gameObject.SetActive(true);
         page_02.gameObject.SetActive(false);
         
@@ -68,7 +68,7 @@ public class BagMenuUI : UIBase {
         }
     }
 
-    private void ResetUiWhenClick(List<SlotItemUI> list, List<ItemSO> items) {
+    private void ResetUiWhenClick(List<SlotItemUI> list, List<ItemBase> items) {
         for (int i = 0; i < list.Count; i++) {
             if (i < items.Count) {
                 list[i].Init(items[i]);

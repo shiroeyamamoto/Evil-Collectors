@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6602375b4bd89414fb7e112832573734, type: 3}
-  m_Name: a1_CauLua
+  m_Name: a2_Kamehameha
   m_EditorClassIdentifier: 
-  itemID: a1
-  itemName: Cau Lua
-  itemIcon: {fileID: 869626837, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
+  itemID: a2
+  itemName: Kamehameha
+  itemIcon: {fileID: -225122067, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: 
   isAutoUse: 0
-  skill: {fileID: 0}
-  isToTarget: 0
-  isToDir: 0
+  name: 2
+  bullet: {fileID: 8003730240845780569, guid: 2dbd7a62cfc26204eb1176b70fa2004a, type: 3}

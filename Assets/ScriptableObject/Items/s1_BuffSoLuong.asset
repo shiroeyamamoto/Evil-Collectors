@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: s1
   itemName: Buff so luong
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 232496660, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: 
   isAutoUse: 1
-  multiBullet: 1
-  incSpace: 1.25
-  supportToSkill: []
+  multiBullet: 2
+  incSpace: 1
+  supportToSkill: 01000000

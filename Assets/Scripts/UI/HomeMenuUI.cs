@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HomeMenuUI : MonoBehaviour {
-    public Action OnSubmit;
     [SerializeField] private Button btnPlay;
     [SerializeField] private LevelMenuUI levelMenuUI;
     [SerializeField] private BagMenuUI bagMenuUI;
@@ -19,9 +18,7 @@ public class HomeMenuUI : MonoBehaviour {
         levelMenuUI.OnClick += () => {
             bagMenuUI.Show();
         };
-        listUI.Add(levelMenuUI);
-        GameManager.Instance.SetHomeUI(this);
-        bagMenuUI.OnSubmit += OnSubmit;
+        
     }
 
     public void LoadLevels(LevelManagerSO data)

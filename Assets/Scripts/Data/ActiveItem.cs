@@ -1,20 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Create New Active Item", menuName = "Data/Item/ActiveItem")]
-public class ActiveItem : ItemBase {
-    [SerializeField] private BoosterType type;
-    [SerializeField] private bool isToTarget = false;
-    [SerializeField] private bool isToDir = false;
 
+[Serializable]
+public class ActiveItem : ItemBase {
+    [SerializeField] private SkillName skillName;
+    [SerializeField] private BulletBase bullet;
+    [SerializeField] private float duration = 0;
     public override bool UseToMySelf(Player player)
     {
-        player.AddSkill(type);
+        player.AddSkill(this);
         return true;
     }
 
-    public BoosterType Type => type;
-    public bool IsToTarget => isToTarget;
-    public bool IsToDir => isToDir;
+    public SkillName SkillName => skillName;
+    public BulletBase Bullet => bullet;
+    public float Duration => duration;
 }

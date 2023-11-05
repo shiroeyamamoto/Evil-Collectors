@@ -9,7 +9,6 @@ public class ConsumableItem : ItemBase
     [SerializeField] private bool isCanUseInTargetTeam;
     
     public Transform startLocation;
-    public float duration;
     
     [Header("HP")]
     [SerializeField][Min(0)] private int hpAmount;
@@ -42,17 +41,17 @@ public class ConsumableItem : ItemBase
     private void DoUse(Player player) {
         if (player.CurrentInfo.health > 0) {
             if (restoreMaxHP) {
-                player.IncreaceHp(player.InfoDefaultSO.health);
+                player.IncreaseHp(player.InfoDefaultSO.health);
             }
             else {
-                player.IncreaceHp(hpAmount);
+                player.IncreaseHp(hpAmount);
             }
                 
             if (restoreMaxMana) {
-                player.IncreaceMana(player.InfoDefaultSO.mana);
+                player.IncreaseMana(player.InfoDefaultSO.mana);
             }
             else {
-                player.IncreaceMana(manaAmount);
+                player.IncreaseMana(manaAmount);
             }
         }
     }

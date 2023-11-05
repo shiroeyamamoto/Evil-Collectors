@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -26,11 +27,7 @@ public class GameManager : MonoBehaviour {
 
 	private void Setup() {
 		LoadingUI.Instance.Hide();
-	}
-
-	public void SetHomeUI(HomeMenuUI homeMenuUI) {
-		this.homeMenuUI = homeMenuUI;
-		homeMenuUI.OnSubmit += LoadSceneLevel;
+		this.homeMenuUI = FindObjectOfType<HomeMenuUI>();
 	}
 
 	public void ShowLevel() {
@@ -38,9 +35,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public LevelSO CurrentLevelSelection { get; private set; }
-
+	public List<ItemBase> CurrentItemsInventory { get; private set; }
+	
 	public void SetLevelData(LevelSO levelSO) {
 		CurrentLevelSelection = levelSO;
+	}
+	public void SetItemsInventory(List<ItemBase> currentItemsInventory) {
+		CurrentItemsInventory = currentItemsInventory;
 	}
 
 	public void LoadSceneLevel() {

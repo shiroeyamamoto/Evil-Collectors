@@ -38,6 +38,7 @@ public class Player : SingletonMonobehavious<Player>
         InfoDefaultSO = playerData;
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
+        SkillList = new List<SkillBase>();
     }
     
     private void FixedUpdate()
@@ -152,7 +153,7 @@ public class Player : SingletonMonobehavious<Player>
         }
     }
 
-    public void IncreaceHp(float value)
+    public void IncreaseHp(float value)
     {
         CurrentInfo.health += value;
         if (CurrentInfo.health > InfoDefaultSO.health) {
@@ -160,7 +161,7 @@ public class Player : SingletonMonobehavious<Player>
         }
     }
     
-    public void IncreaceMana(float value)
+    public void IncreaseMana(float value)
     {
         CurrentInfo.mana += value;
         if (CurrentInfo.mana > InfoDefaultSO.mana) {
@@ -183,22 +184,21 @@ public class Player : SingletonMonobehavious<Player>
         return null;
     }
 
-    private List<SkillBase> skills;
-    
-    public SkillBase AddSkill(BoosterType type) {
-        SkillBase skill = gameObject.AddComponent(MapSkillScript(type)) as SkillBase;
+    public SkillBase AddSkill(ActiveItem activeItem) {
+        SkillBase skill = gameObject.AddComponent(MapSkillScript(activeItem.SkillName)) as SkillBase;
         if (skill) {
             //booster.SetLocalVfxParent(GetComponent<Character>().GraphicTf);
-            skills.Add(skill);
+            skill.Init(activeItem);
+            SkillList.Add(skill);
         }
 
         return skill;
     }
 
-    private Type MapSkillScript(BoosterType type) {
-        switch (type) {
-            case BoosterType.FireSphere: return typeof(FireSphere);
-            case BoosterType.Kamehameha: return typeof(Kamehameha);
+    private Type MapSkillScript(SkillName name) {
+        switch (name) {
+            case SkillName.FireSphere: return typeof(FireSphere);
+            case SkillName.Kamehameha: return typeof(Kamehameha);
                 
             default: return null;
         }
