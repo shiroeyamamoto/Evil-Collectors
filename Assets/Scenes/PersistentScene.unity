@@ -716,11 +716,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3292154675565426359, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.56
+      value: 4.66
       objectReference: {fileID: 0}
     - target: {fileID: 3292154675565426359, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.22
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4462417695835792958, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: force
@@ -761,6 +761,10 @@ PrefabInstance:
     - target: {fileID: 8352582040200964395, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_AngularDrag
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8352582040200964395, guid: c775754832f10fe478a2835b665c66f3, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8352582040200964395, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_Interpolate

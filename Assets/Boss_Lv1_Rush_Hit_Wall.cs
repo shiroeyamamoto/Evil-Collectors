@@ -31,7 +31,7 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
             RaycastHit2D hit = Physics2D.Raycast(tranformThis.position, Vector2.right * isPlayerLeft, Mathf.Infinity, wallLayer);
             if (hit)
             {
-                float rushPointX = hit.point.x - tranformThis.lossyScale.x/2* isPlayerLeft;
+                float rushPointX = hit.point.x - Mathf.Abs(tranformThis.lossyScale.x) /2* isPlayerLeft;
                 Debug.Log(rushPointX);
                 float distance = Mathf.Abs(Mathf.Min(rushPointX, tranformThis.position.x) - Mathf.Max(rushPointX, tranformThis.position.x));
                 float duration = distance / velocity;

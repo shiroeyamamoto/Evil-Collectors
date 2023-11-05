@@ -21,7 +21,7 @@ public class Boss_Lv1_Melee_Attack : StateMachineBehaviour
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector3 scale = animator.transform.lossyScale;
-        animator.transform.DOScaleX(Mathf.Abs(scale.x), 0);
+        /*Vector3 scale = animator.transform.lossyScale;
+        animator.transform.DOScaleX(Mathf.Abs(scale.x), 0);*/
     }
 }
