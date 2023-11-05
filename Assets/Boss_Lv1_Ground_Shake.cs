@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +14,25 @@ public class Boss_Lv1_Ground_Shake : StateMachineBehaviour
     float mapSize, mapUnitSize, randomOffset;
     public LayerMask wallLayer;
     Animator animator;
+    
+    public int directionInt;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         this.animator = animator;
+        Transform player = Player.Instance.transform;
+        if (player)
+        {
+            directionInt = (player.position.x < animator.transform.position.x) ? 1 : -1;
+
+            Vector3 scale = animator.transform.lossyScale;
+
+            animator.transform.DOScaleX(directionInt * Mathf.Abs(scale.x), 0);
+        }
+    }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Vector3 scale = animator.transform.lossyScale;
+        animator.transform.DOScaleX(Mathf.Abs(scale.x), 0);
     }
     public void SpawnDamagableObject()
     {

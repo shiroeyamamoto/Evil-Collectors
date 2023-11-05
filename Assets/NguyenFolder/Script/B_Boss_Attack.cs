@@ -6,7 +6,7 @@ public class B_Boss_Attack : StateMachineBehaviour
 {
     [Range(0,10)]
     [SerializeField]int attackType;
-    [SerializeField] int maxAttackType;
+    public int maxAttackType;
     [SerializeField] bool randomAttackType;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

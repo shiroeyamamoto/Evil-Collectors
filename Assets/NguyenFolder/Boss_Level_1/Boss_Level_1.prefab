@@ -196,8 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8010564b10bd03e499e4e73b5c80bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0
-  force: 0
+  duration: 0.5
+  force: 0.5
 --- !u!95 &5804235604077258331
 Animator:
   serializedVersion: 5
@@ -267,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &606837523012131211
 Transform:
   m_ObjectHideFlags: 0

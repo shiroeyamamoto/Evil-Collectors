@@ -730,6 +730,10 @@ PrefabInstance:
       propertyPath: duration
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4462417695835792958, guid: c775754832f10fe478a2835b665c66f3, type: 3}
+      propertyPath: phaseMax
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5804235604077258331, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_Enabled
       value: 1
