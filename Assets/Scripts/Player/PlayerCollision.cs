@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour
 
                 EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
 
-                Player.Instance.OnDamage(1);
+                Player.Instance.OnDamage();
 
                 Rigidbody2D playerRidid2D = Player.Instance.gameObject.GetComponent<Rigidbody2D>();
 

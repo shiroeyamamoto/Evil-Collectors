@@ -86,6 +86,29 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
     public Action OnDead;
     
+    public void UseMana(float manaUsed)
+    {
+        if (!Settings.zombieMode)
+        {
+            if (CurrentInfo.mana > 0)
+            {
+                CurrentInfo.mana -= manaUsed;
+                OnUpdateMana?.Invoke(CurrentInfo.mana);
+            }
+        }
+    }
+
+    public void UseStamina(float staminaUsed)
+    {
+        if (!Settings.zombieMode)
+        {
+            if (CurrentInfo.stamina > 0)
+            {
+                CurrentInfo.stamina -= staminaUsed;
+                OnUpdateTP?.Invoke(CurrentInfo.stamina);
+            }
+        }
+    }
 
     private void PlayerDie()
     {
@@ -175,16 +198,13 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-    public void OnDamage(float damageTaken)
+    public void OnDamage()
     {
         if (!Settings.zombieMode)
         {
-            if (Settings.isBlocking)
-                damageTaken -= CurrentInfo.defense;
-
             if (CurrentInfo.health > 0)
             {
-                CurrentInfo.health -= damageTaken;
+                CurrentInfo.health --;
                 OnUpdateHP?.Invoke(CurrentInfo.health);
             }
 
