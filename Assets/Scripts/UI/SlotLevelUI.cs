@@ -5,8 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotLevelUI : MonoBehaviour
-{
+public class SlotLevelUI : MonoBehaviour {
+    public Action OnClick;
     public Button btn;
     public TMP_Text txtLevel;
 
@@ -16,7 +16,8 @@ public class SlotLevelUI : MonoBehaviour
     {
         btn.onClick.AddListener(() =>
         {
-            GameManager.Instance.LoadScene(levelSO);
+            GameManager.Instance.SetLevelData(levelSO);
+            OnClick?.Invoke();
         });
     }
     

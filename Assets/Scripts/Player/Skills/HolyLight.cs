@@ -16,8 +16,8 @@ public class HolyLight : Skill
 
     public override void ActivateSkill()
     {
-        //Debug.Log("Mana: " + GameController.Instance.LevelSO.playerData.mana);
-        //Debug.Log("TP: " + GameController.Instance.LevelSO.playerData.stamina);
+        Debug.Log("Mana: " + Player.Instance.CurrentInfo.mana);
+        Debug.Log("TP: " + Player.Instance.CurrentInfo.stamina);
         //Debug.Log("base.manaNeed: " + base.manaNeed);
 
         //if (GameController.Instance.LevelSO.playerData.mana < base.manaNeed)
@@ -34,7 +34,7 @@ public class HolyLight : Skill
             this.gameObject.SetActive(true);
             StartCoroutine(HolyLightStart());
 
-            GameController.Instance.Player.UseMana(base.manaNeed);
+            //GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
     private IEnumerator HolyLightStart()
