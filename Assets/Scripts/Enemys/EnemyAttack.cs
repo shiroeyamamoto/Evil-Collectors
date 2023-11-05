@@ -74,7 +74,7 @@ public class EnemyAttack : MonoBehaviour
                 {
                     Settings.PlayerDamaged = true;
                     //Debug.Log("Enemy đã đánh trúng player");
-                    Player.Instance.TakeDamage(thisEnemyBody.currentDamage * normalDamagePercent);
+                    //Player.Instance.TakeDamage(1);
 
                     Rigidbody2D playerRidid2D = collision.gameObject.GetComponent<Rigidbody2D>();
 
