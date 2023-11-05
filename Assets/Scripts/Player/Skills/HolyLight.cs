@@ -16,12 +16,9 @@ public class HolyLight : Skill
 
     public override void ActivateSkill()
     {
-        Debug.Log("Mana: " + Player.Instance.CurrentInfo.mana);
-        Debug.Log("TP: " + Player.Instance.CurrentInfo.stamina);
+        //Debug.Log("Mana: " + Player.Instance.CurrentInfo.mana);
+        //Debug.Log("TP: " + Player.Instance.CurrentInfo.stamina);
         //Debug.Log("base.manaNeed: " + base.manaNeed);
-
-        //if (GameController.Instance.LevelSO.playerData.mana < base.manaNeed)
-        //    return;
 
         if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
         {

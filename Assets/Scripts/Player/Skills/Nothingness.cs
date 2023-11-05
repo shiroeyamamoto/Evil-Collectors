@@ -10,12 +10,12 @@ public class Nothingness : Skill
     [SerializeField, Range(0f, 5f)] private float pushForce = 0.5f;
 
     private int currentSize = 0;
+
     public override void ActivateSkill()
     {
         //Debug.Log("canUseSkill: " + canUseSkill);
         //Debug.Log("isCastingSkill: " + isCastingSkill);
         //Debug.Log("Unlocked: " + Unlocked);
-
 
         if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
         {
@@ -28,7 +28,7 @@ public class Nothingness : Skill
             this.gameObject.SetActive(true);
             StartCoroutine(NothingnessStart());
 
-            GameController.Instance.Player.UseMana(base.manaNeed);
+            //GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
 
@@ -36,9 +36,6 @@ public class Nothingness : Skill
     {
         if (collision.CompareTag("Enemy"))
         {
-
-            Debug.Log("Dược");
-
             Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
 
             // Đẩy kẻ địch khi đánh trúng

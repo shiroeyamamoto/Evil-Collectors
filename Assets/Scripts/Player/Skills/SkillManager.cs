@@ -23,14 +23,14 @@ public class SkillManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Z))
             {
 
-                //if (GameController.Instance.LevelSO.playerData.mana < holyLightSkill.manaNeed)
+                //if (GameController.Instance.Player.CurrentInfo.mana < holyLightSkill.manaNeed)
                 //    return;
 
                 holyLightSkill.ActivateSkill();
             }
             if (Input.GetKeyDown(KeyCode.X))
             {
-                //if (GameController.Instance.LevelSO.playerData.mana < nothingnessSkill.manaNeed)
+                //if (GameController.Instance.Player.CurrentInfo.mana < nothingnessSkill.manaNeed)
                 //    return;
 
                 nothingnessSkill.ActivateSkill();
