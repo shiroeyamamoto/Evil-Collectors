@@ -10,8 +10,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
 
-    
-
     private Rigidbody2D rb2d;
     public SpriteRenderer spriteRendererPlayer;
     public Animator animator;

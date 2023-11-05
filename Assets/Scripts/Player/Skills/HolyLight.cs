@@ -47,7 +47,9 @@ public class HolyLight : Skill
         // Bắt đầu cast phép
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
         while (maxSize > currentSize)
         {
@@ -68,8 +70,10 @@ public class HolyLight : Skill
         transform.localPosition = position;
         transform.localScale = scale;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        
+        this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);
         currentSize = 0;
