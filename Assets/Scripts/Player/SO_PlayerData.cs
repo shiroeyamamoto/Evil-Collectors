@@ -7,17 +7,26 @@ public class SO_PlayerData : ScriptableObject
 {
     [SerializeField] GameObject defaultGameObject;
 
+    [SerializeField] float defaultHealth;
+    [SerializeField] float defaultMana;
+    [SerializeField] float defaultStamina;
+    [SerializeField] float defaultCrit;
+    [SerializeField] float defaultCritDmg;
+    [SerializeField] float defaultAlibility;
+    [SerializeField] float defaultDefense;
+    [SerializeField] float defaultDamage;
+    [SerializeField] float defaultStaminaRecovery;
+
     [HideInInspector] public GameObject gameObject;
 
-    [SerializeField] public int health;
-    [SerializeField] public float mana;
-    [SerializeField] public float stamina;
-    [SerializeField] public float crit;
-    [SerializeField] public float critDmg;
-    [SerializeField] public float alibility;
-    [SerializeField] public float defense;
-    [SerializeField] public float damage;
-    [SerializeField] public float inventoryWeight;
+    [HideInInspector] public float health;
+    [HideInInspector] public float mana;
+    [HideInInspector] public float stamina;
+    [HideInInspector] public float crit;
+    [HideInInspector] public float critDmg;
+    [HideInInspector] public float alibility;
+    [HideInInspector] public float defense;
+    [HideInInspector] public float damage;
 
     [HideInInspector] public Vector2 currentPosititon;
 
@@ -32,6 +41,19 @@ public class SO_PlayerData : ScriptableObject
         this.alibility = data.alibility;
         this.defense = data.defense;
         this.damage = data.damage;
-        this.inventoryWeight = data.inventoryWeight;
+    }
+
+    public void ResetData()
+    {
+        health = defaultHealth;
+        mana = defaultMana;
+        stamina = defaultStamina;
+        crit = defaultCrit;
+        critDmg = defaultCritDmg;
+        alibility = defaultAlibility;
+        defense = defaultDefense;
+        damage = defaultDamage;
+        staminaRecovery = defaultStaminaRecovery;
+        gameObject = defaultGameObject;
     }
 }

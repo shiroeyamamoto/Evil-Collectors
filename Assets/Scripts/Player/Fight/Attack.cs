@@ -33,7 +33,7 @@ public class Attack : MonoBehaviour
         if (Settings.isDasing)
             return;
 
-        //Debug.Log("Settings.isAttacking: " + Settings.isAttacking);
+        Debug.Log("Settings.isAttacking: " + Settings.isAttacking);
 
         if (!Settings.PlayerDamaged)
         {
