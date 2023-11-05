@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Create New Support Item", menuName = "Data/Item/SupportItem")]
 public class SupportItem : ItemBase
 {
-    [Min(1)] public int multiBullet = 1;
+    [Min(0)] public int multiBullet = 0;
     [Range(1, 2)] public float incSpace = 1f;
     public List<SkillName> supportToSkill;
     

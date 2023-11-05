@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FireSphere : SkillBase {
     private int amount = 1;
+    private float scale = 1;
     public override void UseToTarget(Vector2 target) {
         for (int i = 0; i < amount; i++) {
             var bullet = Instantiate(this.bullet, transform.position, Quaternion.identity);
@@ -13,5 +14,6 @@ public class FireSphere : SkillBase {
     }
     public override void UpdateSkill(SupportItem supportItem) {
         amount += supportItem.multiBullet;
+        scale += supportItem.incSpace;
     }
 }
