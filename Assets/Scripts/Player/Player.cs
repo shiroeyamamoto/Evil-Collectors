@@ -22,7 +22,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     [HideInInspector] public float DamageAttack;
     private bool playerDie;
-    private SO_PlayerData currentInfo;
+    [HideInInspector] public SO_PlayerData currentInfo;
     private SO_PlayerData infoDefaultSO;
 
     public void Init(SO_PlayerData playerData)
@@ -43,16 +43,11 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         // Giữ player không sleep
         rb2d.position += Vector2.zero;
-        OnUpdateMana?.Invoke(currentInfo.mana);
+        //OnUpdateMana?.Invoke(currentInfo.mana);
     }
     private void Update()
     {
         StaminaRecovery();
-    }
-
-    private void OnDisable()
-    {
-        currentInfo.ResetData();
     }
 
     /// <summary>
@@ -93,12 +88,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     ///
 
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
-    public void TakeDamage(float dmg)
+    public void TakeDamage(int dmg)
     {
         if (!Settings.zombieMode)
         {
-            if (Settings.isBlocking)
-                dmg -= currentInfo.defense;
+            //if (Settings.isBlocking)
+            //    dmg -= currentInfo.defense;
 
             if (currentInfo.health > 0)
             {
@@ -109,6 +104,20 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             if (currentInfo.health <= 0)
             {
                 PlayerDie();
+            }
+        }
+    }
+    public void UseMana(float manaUsed)
+    {
+        if (!Settings.zombieMode)
+        {
+            //if (Settings.isBlocking)
+            //    dmg -= currentInfo.defense;
+
+            if (currentInfo.mana > 0)
+            {
+                currentInfo.mana -= manaUsed;
+                OnUpdateMana?.Invoke(currentInfo.mana);
             }
         }
     }
@@ -149,6 +158,21 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void OnDamage(int damageTaken)
     {
-        throw new System.NotImplementedException();
+        if (!Settings.zombieMode)
+        {
+            //if (Settings.isBlocking)
+            //    damageTaken -= currentInfo.defense;
+
+            if (currentInfo.health > 0)
+            {
+                currentInfo.health -= damageTaken;
+                OnUpdateHP?.Invoke(currentInfo.health);
+            }
+
+            if (currentInfo.health <= 0)
+            {
+                PlayerDie();
+            }
+        }
     }
 }
