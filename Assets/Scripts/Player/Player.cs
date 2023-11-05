@@ -95,6 +95,8 @@ public class Player : SingletonMonobehavious<Player>
     ///
 
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
+    public Action OnDead;
+    
     public void TakeDamage(float dmg)
     {
         if (!Settings.zombieMode)
@@ -119,6 +121,7 @@ public class Player : SingletonMonobehavious<Player>
     {
         gameObject.SetActive(false);
         playerDie = true;
+        OnDead?.Invoke();
     }
 
     // Cheat
