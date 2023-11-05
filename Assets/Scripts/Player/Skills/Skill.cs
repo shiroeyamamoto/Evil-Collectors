@@ -9,7 +9,8 @@ public abstract class Skill : SingletonMonobehavious<Skill>
     [SerializeField] string decription = "skill decription";
 
     public float manaNeed = 0;
-    public bool Unlocked = false;
+    public bool Unlocked = false, isCastingSkill = false, canUseSkill =true;
+    public Vector3 position, scale;
     [Range(0.1f, 60f)] public float timeCastSkill = 0.5f;
     [Range(0.1f, 60f)] public float timeLifeSkill = 2f;
     [Range(0.1f, 120f)] public float skillCoolDown = 1f;

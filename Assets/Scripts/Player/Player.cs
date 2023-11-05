@@ -22,7 +22,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     [HideInInspector] public float DamageAttack;
     private bool playerDie;
-    [HideInInspector] public SO_PlayerData currentInfo;
+    private SO_PlayerData currentInfo;
     private SO_PlayerData infoDefaultSO;
 
     public void Init(SO_PlayerData playerData)
@@ -92,9 +92,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         if (!Settings.zombieMode)
         {
-            //if (Settings.isBlocking)
-            //    dmg -= currentInfo.defense;
-
             if (currentInfo.health > 0)
             {
                 currentInfo.health -= dmg;
@@ -111,13 +108,22 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         if (!Settings.zombieMode)
         {
-            //if (Settings.isBlocking)
-            //    dmg -= currentInfo.defense;
-
             if (currentInfo.mana > 0)
             {
                 currentInfo.mana -= manaUsed;
                 OnUpdateMana?.Invoke(currentInfo.mana);
+            }
+        }
+    }
+
+    public void UseStamina(float staminaUsed)
+    {
+        if (!Settings.zombieMode)
+        {
+            if (currentInfo.stamina > 0)
+            {
+                currentInfo.stamina -= staminaUsed;
+                OnUpdateTP?.Invoke(currentInfo.stamina);
             }
         }
     }
@@ -156,16 +162,13 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-    public void OnDamage(int damageTaken)
+    public void OnDamage()
     {
         if (!Settings.zombieMode)
         {
-            //if (Settings.isBlocking)
-            //    damageTaken -= currentInfo.defense;
-
             if (currentInfo.health > 0)
             {
-                currentInfo.health -= damageTaken;
+                currentInfo.health --;
                 OnUpdateHP?.Invoke(currentInfo.health);
             }
 
