@@ -27,6 +27,7 @@ public class SO_PlayerData : ScriptableObject
     {
         this.health = data.health;
         this.mana = data.mana;
+        this.stamina = data.stamina;
         this.crit = data.crit;
         this.critDmg = data.critDmg;
         this.alibility = data.alibility;
