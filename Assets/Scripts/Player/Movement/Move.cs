@@ -12,6 +12,7 @@ public class Move : MonoBehaviour
     // Dash
     private bool canDash = true;
     //private bool isDasing = false;
+    [SerializeField, Range(0f, 100f)] private float staminaNeed = 20f;
     [SerializeField, Range(0f, 100f)] private float dashForce = 100f;
     [SerializeField, Range(0f, 5f)] private float dashingTime = 0.2f;
     [SerializeField, Range(0f, 5f)] private float dashCooldown = 0.7f;
@@ -41,6 +42,9 @@ public class Move : MonoBehaviour
         if(!Settings.PlayerDamaged)
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
+
+                // stamina tiêu thụ
+
                 StartCoroutine(Dash());
             }
 

@@ -11,31 +11,20 @@ public class HolyLight : Skill
     [SerializeField, Range(10, 100)] private int maxSize = 10;
 
     private int currentSize = 0;
-    private bool isCastingHolyLight = false, canUseHolyLight = true;
-    Vector3 position, scale;
+    //private bool isCastingHolyLight = false, canUseHolyLight = true;
+    //Vector3 position, scale;
 
     public override void ActivateSkill()
     {
-        //Debug.Log("canUseHolyLight: "+ canUseHolyLight);
-        //Debug.Log("isCastingHolyLight: " + isCastingHolyLight);
-        //Debug.Log("base.Unlocked: " + base.Unlocked);
-        //Debug.Log("currentSize: " + currentSize);
+        //Debug.Log("Mana: " + GameController.Instance.LevelSO.playerData.mana);
+        //Debug.Log("TP: " + GameController.Instance.LevelSO.playerData.stamina);
+        //Debug.Log("base.manaNeed: " + base.manaNeed);
 
-        //if (Player.Instance.currentInfo.mana < base.manaNeed)
+        //if (GameController.Instance.LevelSO.playerData.mana < base.manaNeed)
         //    return;
 
-        Debug.Log("Mana: " + GameController.Instance.LevelSO.playerData.mana);
-        Debug.Log("TP: " + GameController.Instance.LevelSO.playerData.stamina);
-        Debug.Log("base.manaNeed: " + base.manaNeed);
-
-        if (GameController.Instance.LevelSO.playerData.mana < base.manaNeed)
-            return;
-
-        if (canUseHolyLight && !isCastingHolyLight && base.Unlocked)
+        if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
         {
-            //position = transform.localPosition;
-
-            //Debug.Log("hello");
             Vector3 playerPosition = Player.Instance.transform.position;
             position = new Vector3(playerPosition.x, playerPosition.y + 20, playerPosition.z);
             transform.position = position;
@@ -52,11 +41,13 @@ public class HolyLight : Skill
     {
         // niệm phép 
         Settings.isAttacking = true;
-        isCastingHolyLight = true;
+        base.isCastingSkill = true;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
-        canUseHolyLight = false;
+        base.canUseSkill = false;
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
         while (maxSize > currentSize)
         {
@@ -70,17 +61,19 @@ public class HolyLight : Skill
             yield return null; // Chờ một frame
         }
         Settings.isAttacking = false;
-        isCastingHolyLight = false;
+        base.isCastingSkill = false;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
 
         // Hoàn thành phép được tự do di chuyển
         transform.localPosition = position;
         transform.localScale = scale;
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;
         
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);
         currentSize = 0;
-        canUseHolyLight = true;
+        base.canUseSkill = true;
         this.gameObject.SetActive(false);
     }
 }
