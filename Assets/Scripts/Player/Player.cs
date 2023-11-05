@@ -10,6 +10,7 @@ public class Player : SingletonMonobehavious<Player>
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
 
     public SO_PlayerData playerData;
+    //public SO_PlayerData playerData;
 
     private Rigidbody2D rb2d;
     public Animator animator;
