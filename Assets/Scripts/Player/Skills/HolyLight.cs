@@ -45,7 +45,7 @@ public class HolyLight : Skill
             this.gameObject.SetActive(true);
             StartCoroutine(HolyLightStart());
 
-            GameController.Instance.Player.UseMana(base.manaNeed);
+            //GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
     private IEnumerator HolyLightStart()

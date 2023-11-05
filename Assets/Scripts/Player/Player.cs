@@ -52,10 +52,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         StaminaRecovery();
     }
 
-    private void OnDisable()
-    {
-        CurrentInfo.ResetData();
-    }
 
     /// <summary>
     /// Stamina Recovery/time

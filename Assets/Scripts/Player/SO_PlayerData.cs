@@ -9,7 +9,7 @@ public class SO_PlayerData : ScriptableObject
 
     [HideInInspector] public GameObject gameObject;
 
-    [SerializeField] public int health;
+    [SerializeField] public float health;
     [SerializeField] public float mana;
     [SerializeField] public float stamina;
     [SerializeField] public float crit;
