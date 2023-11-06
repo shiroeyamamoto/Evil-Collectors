@@ -5,12 +5,6 @@ using UnityEngine.UIElements;
 
 public class Nothingness : Skill
 {
-    [SerializeField, Range(10, 200)] private int extendSpeed = 1; // Tốc độ kéo dài
-    [SerializeField, Range(10, 100)] private int maxSize = 10;
-    [SerializeField, Range(0f, 5f)] private float pushForce = 0.5f;
-
-    private int currentSize = 0;
-
     public override void ActivateSkill()
     {
         //Debug.Log("canUseSkill: " + canUseSkill);
@@ -31,27 +25,6 @@ public class Nothingness : Skill
             //GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
-
-            // Đẩy kẻ địch khi đánh trúng
-            if (Player.Instance.transform.position.x < collision.transform.position.x)
-            {
-                enemyRigid2D.velocity = new Vector2(collision.gameObject.transform.localScale.x * pushForce, 0f);
-            }
-            else if (Player.Instance.transform.position.x > collision.transform.position.x)
-            {
-                enemyRigid2D.velocity = new Vector2(-collision.gameObject.transform.localScale.x * pushForce, 0f);
-            }
-
-            Player.Instance.NoneDamage();
-        }
-    }
-
     private IEnumerator NothingnessStart()
     {
         // niệm phép 
@@ -62,21 +35,11 @@ public class Nothingness : Skill
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         // bat tu
         if (!Settings.nothingnessSkill)
             Settings.nothingnessSkill = true;
 
-        while (maxSize > currentSize)
-        {
-            float newScaleY = transform.localScale.x + Time.deltaTime * extendSpeed;
-
-            transform.localScale = new Vector3(newScaleY, transform.localScale.y, transform.localScale.z);
-            currentSize++;
-            yield return null; // Chờ một frame
-        }
         Settings.isAttacking = false;
         base.isCastingSkill = false;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng
@@ -85,13 +48,8 @@ public class Nothingness : Skill
         if (Settings.nothingnessSkill)
             Settings.nothingnessSkill = false;
 
-        transform.localScale = scale;
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);
-        currentSize = 0;
         base.canUseSkill = true;
         this.gameObject.SetActive(false);
     }

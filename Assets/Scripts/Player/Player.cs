@@ -208,11 +208,11 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-    public void OnDamage()
+    public void OnDamaged(int dmgTake)
     {
         if (!Settings.zombieMode)
         {
-            if (Settings.nothingnessSkill)
+            if (Settings.nothingnessSkill || Settings.concentrateSKill)
                 return;
 
             if (CurrentInfo.health > 0)
