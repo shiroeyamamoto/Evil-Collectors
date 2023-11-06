@@ -15,7 +15,6 @@ public class HomeMenuUI : MonoBehaviour {
         listUI = new List<UIBase>();
         btnPlay.onClick.AddListener(()=>
         {
-            btnPlay.interactable = false;
             GameManager.Instance.ShowLevel();
         });
         levelMenuUI.gameObject.SetActive(false);
@@ -29,10 +28,5 @@ public class HomeMenuUI : MonoBehaviour {
     {
         levelMenuUI.Show();
         levelMenuUI.LoadLevels(data);
-    }
-
-    public void TurnOnSubmit()
-    {
-        btnPlay.interactable = true;
     }
 }

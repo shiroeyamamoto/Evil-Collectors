@@ -28,6 +28,7 @@ public class BagMenuUI : UIBase {
         
         btnSubmit.onClick.AddListener(() => {
             GameManager.Instance.SetItemsInventory(currentItemsInv);
+            btnSubmit.interactable = false;
             GameManager.Instance.LoadSceneLevel();
         });
 
