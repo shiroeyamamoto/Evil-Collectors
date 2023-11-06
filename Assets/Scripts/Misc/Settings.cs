@@ -28,6 +28,10 @@ public static class Settings
     // Player Status
     [Tooltip("Player có bận không?")] public static bool PlayerDamaged = false;
 
+    // Player Skill
+    [Tooltip("PLayer sài skill concentrate, vô hạn stamina")] public static bool concentrateSKill = false;
+    [Tooltip("PLayer sài skill nothingness, bất tử")] public static bool nothingnessSkill = false;
+
     // Tag
     [Tooltip("LayerMask tên Ground")] public static string groundLayerMask = "Ground";
     [Tooltip("LayerMask tên Enemy")] public static string enemyLayerMask = "Enemy";

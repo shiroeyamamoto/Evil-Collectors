@@ -57,12 +57,17 @@ public class Nothingness : Skill
         // niệm phép 
         Settings.isAttacking = true;
         base.isCastingSkill = true;
+        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        // bat tu
+        if (!Settings.nothingnessSkill)
+            Settings.nothingnessSkill = true;
 
         while (maxSize > currentSize)
         {
@@ -74,7 +79,11 @@ public class Nothingness : Skill
         }
         Settings.isAttacking = false;
         base.isCastingSkill = false;
-        yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
+        yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng
+
+        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        if (Settings.nothingnessSkill)
+            Settings.nothingnessSkill = false;
 
         transform.localScale = scale;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;

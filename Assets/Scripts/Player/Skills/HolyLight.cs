@@ -1,9 +1,5 @@
 ﻿using System.Collections;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class HolyLight : Skill
 {
@@ -16,9 +12,12 @@ public class HolyLight : Skill
 
     public override void ActivateSkill()
     {
-        //Debug.Log("Mana: " + Player.Instance.CurrentInfo.mana);
-        //Debug.Log("TP: " + Player.Instance.CurrentInfo.stamina);
+        //Debug.Log("Mana: " + GameController.Instance.LevelSO.playerData.mana);
+        //Debug.Log("TP: " + GameController.Instance.LevelSO.playerData.stamina);
         //Debug.Log("base.manaNeed: " + base.manaNeed);
+
+        //if (GameController.Instance.LevelSO.playerData.mana < base.manaNeed)
+        //    return;
 
         if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
         {
@@ -31,14 +30,16 @@ public class HolyLight : Skill
             this.gameObject.SetActive(true);
             StartCoroutine(HolyLightStart());
 
-            //GameController.Instance.Player.UseMana(base.manaNeed);
+            GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
+
     private IEnumerator HolyLightStart()
     {
         // niệm phép 
         Settings.isAttacking = true;
         base.isCastingSkill = true;
+        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
@@ -47,6 +48,7 @@ public class HolyLight : Skill
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
 
         while (maxSize > currentSize)
         {
@@ -62,6 +64,8 @@ public class HolyLight : Skill
         Settings.isAttacking = false;
         base.isCastingSkill = false;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
+
+        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 
         // Hoàn thành phép được tự do di chuyển
         transform.localPosition = position;

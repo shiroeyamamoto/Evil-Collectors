@@ -6,11 +6,13 @@ public class SkillManager : MonoBehaviour
 {
     [SerializeField] private Skill holyLightSkill;
     [SerializeField] private Skill nothingnessSkill;
+    [SerializeField] private Skill concentrateSkill;
 
     private void Start()
     {
         holyLightSkill.gameObject.SetActive(false);
         nothingnessSkill.gameObject.SetActive(false);
+        concentrateSkill.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -34,6 +36,13 @@ public class SkillManager : MonoBehaviour
                 //    return;
 
                 nothingnessSkill.ActivateSkill();
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                //if (GameController.Instance.Player.CurrentInfo.mana < nothingnessSkill.manaNeed)
+                //    return;
+
+                concentrateSkill.ActivateSkill();
             }
         }
     }

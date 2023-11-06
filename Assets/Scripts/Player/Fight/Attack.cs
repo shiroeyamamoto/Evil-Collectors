@@ -79,9 +79,9 @@ public class Attack : MonoBehaviour
 
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
-
-            GameController.Instance.LevelSO.playerData.stamina -= 15;
-            Player.Instance.Damage(GameController.Instance.LevelSO.playerData.damage * normalDamagePercent);
+            if (!Settings.concentrateSKill)
+                Player.Instance.UseStamina(15);
+            GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * normalDamagePercent);
 
             if (playerAttack.inForwardAttack)
             {
@@ -129,8 +129,10 @@ public class Attack : MonoBehaviour
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
-            GameController.Instance.LevelSO.playerData.stamina -= 25;
-            Player.Instance.Damage(GameController.Instance.LevelSO.playerData.damage * strongDamagePercent);
+            // stamina tiêu thụ 
+            if (!Settings.concentrateSKill)
+                Player.Instance.UseStamina(25);
+            GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * strongDamagePercent);
 
             //Debug.Log(Settings.PlayerDamaged);
             if (playerAttack.inForwardAttack)

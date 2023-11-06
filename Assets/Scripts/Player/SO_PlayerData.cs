@@ -21,7 +21,7 @@ public class SO_PlayerData : ScriptableObject
 
     [HideInInspector] public Vector2 currentPosititon;
 
-    [HideInInspector] public float staminaRecovery;
+    public float staminaRecovery;
 
     public SO_PlayerData(SO_PlayerData data)
     {
@@ -34,5 +34,6 @@ public class SO_PlayerData : ScriptableObject
         this.defense = data.defense;
         this.damage = data.damage;
         this.inventoryWeight = data.inventoryWeight;
+        this.staminaRecovery = data.staminaRecovery;
     }
 }

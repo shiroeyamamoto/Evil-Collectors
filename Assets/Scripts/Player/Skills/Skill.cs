@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class Skill : SingletonMonobehavious<Skill>
+public abstract class Skill : MonoBehaviour
 {
     [SerializeField] string skillName = "skill name";
     [SerializeField] string decription = "skill decription";

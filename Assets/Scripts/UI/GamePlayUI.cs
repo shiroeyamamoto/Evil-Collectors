@@ -23,7 +23,7 @@ public class GamePlayUI : MonoBehaviour
         
         MN.minValue = 0;
         MN.maxValue = playerData.mana;
-        MN.value = playerData.mana;
+        MN.value = 0;
 
         TP.minValue = 0;
         TP.maxValue = playerData.stamina;

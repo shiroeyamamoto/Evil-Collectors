@@ -44,6 +44,8 @@ public class Move : MonoBehaviour
             {
 
                 // stamina tiêu thụ
+                if (!Settings.concentrateSKill)
+                    Player.Instance.UseStamina(20);
 
                 StartCoroutine(Dash());
             }

@@ -115,6 +115,7 @@ MonoBehaviour:
   skillCoolDown: 2
   extendSpeed: 150
   maxSize: 80
+  pushForce: 0.5
 --- !u!61 &3598051079809843119
 BoxCollider2D:
   m_ObjectHideFlags: 0

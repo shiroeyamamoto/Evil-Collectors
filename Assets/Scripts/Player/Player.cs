@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,6 +37,10 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
         this.CurrentInfo = new SO_PlayerData(playerData);
         InfoDefaultSO = playerData;
+
+        // bắt đầu game mana = 0
+        CurrentInfo.mana = 0;
+
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
         SkillList = new List<SkillBase>();
@@ -45,11 +50,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         // Giữ player không sleep
         rb2d.position += Vector2.zero;
-        OnUpdateMana?.Invoke(CurrentInfo.mana);
+        //OnUpdateMana?.Invoke(CurrentInfo.mana);
     }
     private void Update()
     {
-        StaminaRecovery();
+        if(!Settings.concentrateSKill)
+            StaminaRecovery();
     }
 
 
@@ -202,6 +208,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         if (!Settings.zombieMode)
         {
+            if (Settings.nothingnessSkill)
+                return;
+
             if (CurrentInfo.health > 0)
             {
                 CurrentInfo.health --;

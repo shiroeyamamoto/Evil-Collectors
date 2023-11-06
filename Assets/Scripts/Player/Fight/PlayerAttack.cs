@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
         {
             EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
 
-            enemyBody.EnemyTakeDamge(Player.Instance.DamageAttack);
+            enemyBody.EnemyTakeDamge(GameController.Instance.Player.DamageAttack);
 
             Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
 
