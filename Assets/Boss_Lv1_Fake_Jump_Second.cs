@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,14 +34,24 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
                     }
                     else
                     {
-                        endPoint.x = player.transform.position.x;
+                        endPoint.x = animator.transform.position.x + jumpDistanceX * directionInt;
                     }
 
-                    endPoint.y = hitToGround.point.y + animator.transform.lossyScale.y;
+                    endPoint.y = hitToGround.point.y + Mathf.Abs(animator.transform.lossyScale.y)/2;
                 }
 
-
+                animator.transform.DOJump(endPoint, jumpHeightY, 1, 1).SetEase(Ease.Linear).OnComplete(() =>
+                {
+                    animator.SetTrigger("NextStep");
+                    animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                });
             }
         }
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.ResetTrigger("NextStep");
+
     }
 }

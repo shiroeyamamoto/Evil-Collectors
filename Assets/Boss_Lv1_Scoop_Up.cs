@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractObject 
-{ 
-    void OnDamaged(float damage);
+public class Boss_Lv1_Scoop_Up : StateMachineBehaviour
+{
+    
 }
