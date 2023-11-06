@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 	private void Setup() {
 		LoadingUI.Instance.Hide();
 		this.homeMenuUI = FindObjectOfType<HomeMenuUI>();
+		homeMenuUI.TurnOnSubmit();
 	}
 
 	public void ShowLevel() {
