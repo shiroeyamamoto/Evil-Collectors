@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class StoreSlot : MonoBehaviour
 {
-    public Action<ItemBase> OnBuy;
+    public Func<DictionaryForItem, bool> OnBuy;
     private DictionaryForItem dic;
     [SerializeField] private Button btn;
     [SerializeField] private TMP_Text txtContent, txtPrice;
@@ -17,7 +17,16 @@ public class StoreSlot : MonoBehaviour
     {
         btn.onClick.AddListener(() =>
         {
-            OnBuy?.Invoke(dic.ItemBase);
+            bool result = OnBuy.Invoke(dic);
+            if (result)
+            {
+                Debug.Log("Mua Thanh cong");
+                btn.interactable = false;
+            }
+            else
+            {
+                Debug.Log("Mua k Thanh cong");
+            }
         });
     }
 

@@ -12,10 +12,10 @@ public class StoreManager : SingletonMonobehavious<StoreManager>
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public bool BuyItem(ItemBase itemBase) {
+    public bool BuyItem(DictionaryForItem dic) {
         foreach (var data in storeData)
         {
-            if (data.ItemBase == itemBase) {
+            if (data.ItemBase == dic.ItemBase) {
                 if (GameManager.Instance.Coin < data.price) {
                     continue;
                 }

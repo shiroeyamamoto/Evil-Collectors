@@ -25,6 +25,7 @@ public class StoreUI : UIBase
         {
             var slot = Instantiate(storeSlot, content);
             slot.Init(dic);
+            slot.OnBuy += StoreManager.Instance.BuyItem;
         }
         
         storeSlot.gameObject.SetActive(false);
