@@ -39,22 +39,27 @@ public class Attack : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && !Settings.isAttacking)
             {
-                StartCoroutine(AttackNormal());
+                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
+                {
+                    StartCoroutine(AttackNormal());
+                }
+                else if (Settings.concentrateSKill)
+                {
+                    StartCoroutine(AttackNormal());
+                }
             }
             else if (Input.GetMouseButtonDown(1) && !Settings.isAttacking)
             {
-                StartCoroutine(AttackStrong());
+                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
+                {
+                    StartCoroutine(AttackStrong());
+                }
+                else if (Settings.concentrateSKill)
+                {
+                    StartCoroutine(AttackStrong());
+                }
             }
         }
-
-        /*if (Input.GetMouseButtonUp(0))
-        {
-            Settings.isAttacking = false;
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            Settings.isAttacking = false;
-        }*/
     }
 
     /// <summary>
@@ -79,8 +84,11 @@ public class Attack : MonoBehaviour
 
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
+
             if (!Settings.concentrateSKill)
+            {
                 Player.Instance.UseStamina(15);
+            }
             GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * normalDamagePercent);
 
             if (playerAttack.inForwardAttack)
@@ -129,9 +137,11 @@ public class Attack : MonoBehaviour
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
-            // stamina tiêu thụ 
             if (!Settings.concentrateSKill)
+            {
                 Player.Instance.UseStamina(25);
+            }
+
             GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * strongDamagePercent);
 
             //Debug.Log(Settings.PlayerDamaged);

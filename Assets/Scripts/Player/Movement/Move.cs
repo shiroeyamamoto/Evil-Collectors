@@ -44,10 +44,14 @@ public class Move : MonoBehaviour
             {
 
                 // stamina tiêu thụ
-                if (!Settings.concentrateSKill)
-                    Player.Instance.UseStamina(20);
-
-                StartCoroutine(Dash());
+                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
+                {
+                    StartCoroutine(Dash());
+                }
+                else if (Settings.concentrateSKill)
+                {
+                    StartCoroutine(Dash());
+                }
             }
 
         if(Settings.isGrounded)
@@ -124,6 +128,10 @@ public class Move : MonoBehaviour
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
         rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        if (!Settings.concentrateSKill)
+        {
+            Player.Instance.UseStamina(20);
+        }
 
         yield return new WaitForSeconds(dashingTime);
         trail.emitting = false;

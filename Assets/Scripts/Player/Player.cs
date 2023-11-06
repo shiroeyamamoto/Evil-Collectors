@@ -54,7 +54,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     }
     private void Update()
     {
-        if(!Settings.concentrateSKill)
+        if(!Settings.concentrateSKill) 
             StaminaRecovery();
     }
 
@@ -99,6 +99,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             if (CurrentInfo.mana > 0)
             {
                 CurrentInfo.mana -= manaUsed;
+                if (CurrentInfo.mana < 0)
+                    CurrentInfo.mana = 0;
                 OnUpdateMana?.Invoke(CurrentInfo.mana);
             }
         }
@@ -111,6 +113,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             if (CurrentInfo.stamina > 0)
             {
                 CurrentInfo.stamina -= staminaUsed;
+                if (CurrentInfo.stamina < 0)
+                    CurrentInfo.stamina = 0;
                 OnUpdateTP?.Invoke(CurrentInfo.stamina);
             }
         }
@@ -222,5 +226,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                 PlayerDie();
             }
         }
+    }
+
+    public void UpdatePlayerUI()
+    {
+        OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
+        OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
 }

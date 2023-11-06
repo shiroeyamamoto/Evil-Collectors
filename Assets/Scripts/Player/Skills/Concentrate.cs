@@ -48,6 +48,8 @@ public class Concentrate : Skill
         {
             Settings.concentrateSKill = true;
             Player.Instance.CurrentInfo.stamina = Player.Instance.InfoDefaultSO.stamina;
+
+            Player.Instance.UpdatePlayerUI();
         }
         StartCoroutine(DecreaseStaminaOverTime());
 
