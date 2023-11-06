@@ -17,5 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: -225122067, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: 
   isAutoUse: 0
-  name: 2
+  skillName: 2
   bullet: {fileID: 8003730240845780569, guid: 2dbd7a62cfc26204eb1176b70fa2004a, type: 3}
+  duration: 0
+  tags: 02000000

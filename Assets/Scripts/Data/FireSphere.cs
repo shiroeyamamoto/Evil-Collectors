@@ -14,6 +14,6 @@ public class FireSphere : SkillBase {
     }
     public override void UpdateSkill(SupportItem supportItem) {
         amount += supportItem.multiBullet;
-        scale += supportItem.incSpace;
+        scale *= supportItem.incSpace;
     }
 }

@@ -19,4 +19,4 @@ MonoBehaviour:
   isAutoUse: 1
   multiBullet: 0
   incSpace: 1.25
-  supportToSkill: 02000000
+  supportToTags: 02000000

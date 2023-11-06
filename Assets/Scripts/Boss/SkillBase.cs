@@ -11,13 +11,27 @@ public class SkillBase : MonoBehaviour {
     public virtual void UseToDir(Vector2 dir) { }
     public virtual void UseToTarget(Vector2 target) { }
     public virtual void UpdateSkill(SupportItem supportItem) { }
-    public SkillName skillName { get; protected set; }
+    public List<SkillTag> SkillTag { get; protected set; }
     public void Init(ActiveItem activeItem) {
         this.bullet = activeItem.Bullet;
-        this.skillName = activeItem.SkillName;
+        this.SkillTag = activeItem.Tags;
     }
 }
 [Serializable]
+public enum SkillTag
+{
+    none,
+    attack, 
+    magic, 
+    projectile, 
+    fire, 
+    instance, 
+    channeling, 
+    light, 
+    aoe, 
+    spell
+}
+
 public enum SkillName
 {
     none,
