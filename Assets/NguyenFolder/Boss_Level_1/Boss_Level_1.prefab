@@ -173,7 +173,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1000000
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -182,10 +182,10 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!114 &4462417695835792958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +203,8 @@ MonoBehaviour:
   currentPhase: 1
   phaseMax: 2
   maxAttackType: 0
-  currentAttackType: 0
-  previousAttackType: 0
+  currentAttackType: 1
+  previousAttackType: 2
   duration: 0.5
   force: 0.5
   prefab: {fileID: 8187357815557252860, guid: 8ab3fde463902ec4495a98e3bd5be89a, type: 3}
@@ -275,7 +275,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -284,14 +284,23 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        time: 0.014778325
+        value: 0.9890703
+        inSlope: -1.0610538
+        outSlope: -1.0610538
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.115
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1.0487826
+        outSlope: -1.0487826
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.13750002
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
