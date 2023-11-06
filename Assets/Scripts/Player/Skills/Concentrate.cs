@@ -25,6 +25,17 @@ public class Concentrate : Skill
         currentStaminaDecreaseRate = initialStaminaDecreaseRate;
     }
 
+    private void Update()
+    {
+        if (timeAuraCounter > 0)
+            timeAuraCounter -= Time.deltaTime;
+        else
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -82,6 +93,10 @@ public class Concentrate : Skill
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
 
+
+        timeAuraCounter = timeExitAura;
+
+        
 
         while (maxSize > currentSize)
         {
