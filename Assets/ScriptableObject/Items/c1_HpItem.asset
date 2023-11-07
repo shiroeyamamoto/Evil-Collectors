@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: c1
   itemName: binh hp
   itemIcon: {fileID: -117265631, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
-  itemDescription: 
+  itemDescription: tiet canh
   isAutoUse: 0
   isCanUseInMyTeam: 0
   isCanUseInTargetTeam: 0
   startLocation: {fileID: 0}
-  duration: 0
   hpAmount: 10
   restoreMaxHP: 0
   manaAmount: 0

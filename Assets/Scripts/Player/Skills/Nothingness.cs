@@ -9,7 +9,7 @@ public class Nothingness : Skill
     {
         //Debug.Log("canUseSkill: " + canUseSkill);
         //Debug.Log("isCastingSkill: " + isCastingSkill);
-        //Debug.Log("Unlocked: " + Unlocked);
+        Debug.Log("Unlocked: " + Unlocked);
 
         if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
         {
@@ -22,9 +22,15 @@ public class Nothingness : Skill
             this.gameObject.SetActive(true);
             StartCoroutine(NothingnessStart());
 
-            //GameController.Instance.Player.UseMana(base.manaNeed);
+            GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
+
+    public override void ActivateSkill(int amount, float scale)
+    {
+        return;
+    }
+
     private IEnumerator NothingnessStart()
     {
         // niệm phép 

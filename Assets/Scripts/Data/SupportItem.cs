@@ -7,13 +7,17 @@ public class SupportItem : ItemBase
 {
     [Min(0)] public int multiBullet = 0;
     [Range(1, 2)] public float incSpace = 1f;
-    public List<SkillName> supportToSkill;
+    public List<SkillTag> supportToTags;
     
     public override bool UseToMySelf(Player player) {
         foreach (var skill in player.SkillList) {
-            if (supportToSkill.Contains(skill.skillName)) {
-                skill.UpdateSkill(this);
+            foreach (var skillTag in skill.SkillTag) {
+                if (supportToTags.Contains(skillTag)) {
+                    skill.UpdateSkill(this);
+                    break;
+                }
             }
+            
         }
 
         return true;

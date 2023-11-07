@@ -73,6 +73,8 @@ public class Concentrate : Skill
 
             this.gameObject.SetActive(true);
             StartCoroutine(ConcentrateStart());
+
+            GameController.Instance.Player.UseMana(base.manaNeed);
         }
     }
 
@@ -150,5 +152,10 @@ public class Concentrate : Skill
 
             yield return null;
         }
+    }
+
+    public override void ActivateSkill(int amount, float scale)
+    {
+        return;
     }
 }

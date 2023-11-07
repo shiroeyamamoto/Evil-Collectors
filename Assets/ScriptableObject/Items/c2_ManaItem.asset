@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: c2
   itemName: binh mana
   itemIcon: {fileID: 958399219, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
-  itemDescription: 
+  itemDescription: nuoccc
   isAutoUse: 0
   isCanUseInMyTeam: 0
   isCanUseInTargetTeam: 0
   startLocation: {fileID: 0}
-  duration: 0
   hpAmount: 0
   restoreMaxHP: 0
   manaAmount: 10

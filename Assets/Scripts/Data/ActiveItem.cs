@@ -10,6 +10,7 @@ public class ActiveItem : ItemBase {
     [SerializeField] private SkillName skillName;
     [SerializeField] private BulletBase bullet;
     [SerializeField] private float duration = 0;
+    [SerializeField] private List<SkillTag> tags;
     public override bool UseToMySelf(Player player)
     {
         player.AddSkill(this);
@@ -17,6 +18,7 @@ public class ActiveItem : ItemBase {
     }
 
     public SkillName SkillName => skillName;
+    public List<SkillTag> Tags => tags;
     public BulletBase Bullet => bullet;
     public float Duration => duration;
 }

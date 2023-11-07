@@ -17,6 +17,7 @@ public abstract class Skill : MonoBehaviour
     [Range(0.1f, 120f)] public float skillCoolDown = 1f;
 
     public abstract void ActivateSkill();
+    public abstract void ActivateSkill(int amount, float scale);
 
     public virtual void Size(int size)
     {

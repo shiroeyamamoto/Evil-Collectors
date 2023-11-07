@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class BagMenuUI : UIBase {
     
-    [SerializeField] private List<ItemBase> items;
     [SerializeField] private Transform page_01;
     [SerializeField] private Transform page_02;
     [SerializeField] private List<SlotItemUI> slotItemUis_Bag;
@@ -29,6 +28,7 @@ public class BagMenuUI : UIBase {
         
         btnSubmit.onClick.AddListener(() => {
             GameManager.Instance.SetItemsInventory(currentItemsInv);
+            btnSubmit.interactable = false;
             GameManager.Instance.LoadSceneLevel();
         });
 
@@ -61,10 +61,14 @@ public class BagMenuUI : UIBase {
                 ResetUiWhenClick(slotItemUis_Inv, currentItemsInv);
             };
         }
-        
-        for (int i = 0; i < items.Count; i++) {
-            slotItemUis_Bag[i].Init(items[i]);
-            currentItemsBag.Add(items[i]);
+
+        foreach (var data in StoreManager.Instance.StoreData)
+        {
+            if (data.IsBought)
+            {
+                slotItemUis_Bag[currentItemsBag.Count].Init(data.ItemBase);
+                currentItemsBag.Add(data.ItemBase);
+            }
         }
     }
 

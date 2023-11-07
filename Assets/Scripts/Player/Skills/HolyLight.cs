@@ -34,6 +34,11 @@ public class HolyLight : Skill
         }
     }
 
+    public override void ActivateSkill(int amount, float scale)
+    {
+        return;
+    }
+
     private IEnumerator HolyLightStart()
     {
         // niệm phép 

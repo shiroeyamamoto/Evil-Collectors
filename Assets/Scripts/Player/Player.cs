@@ -189,7 +189,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     public SkillBase AddSkill(ActiveItem activeItem) {
         SkillBase skill = gameObject.AddComponent(MapSkillScript(activeItem.SkillName)) as SkillBase;
         if (skill) {
-            //booster.SetLocalVfxParent(GetComponent<Character>().GraphicTf);
             skill.Init(activeItem);
             SkillList.Add(skill);
         }
@@ -197,9 +196,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         return skill;
     }
 
-    private Type MapSkillScript(SkillName name)
+    private Type MapSkillScript(SkillName skillName)
     {
-        switch (name)
+        switch (skillName)
         {
             case SkillName.FireSphere: return typeof(FireSphere);
             case SkillName.Kamehameha: return typeof(Kamehameha);

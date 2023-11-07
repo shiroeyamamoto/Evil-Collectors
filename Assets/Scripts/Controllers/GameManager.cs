@@ -5,12 +5,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+	private const string PlayerPrefs_Coin = "coin_data";
+	
 	public static GameManager Instance;
 
 	[SerializeField] private HomeMenuUI homeMenuUI;
 	[SerializeField] private LevelManagerSO data;
 
+
+	public int Coin { get; private set; }
 	private void Awake() {
 		if (Instance != null) {
 			Destroy(gameObject);
@@ -22,8 +27,37 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void Start() {
+		GetDataSaved();
 		Setup();
 	}
+
+	private void GetDataSaved()
+	{
+		Coin = 0;
+		if (PlayerPrefs.HasKey(PlayerPrefs_Coin))
+		{
+			Coin = PlayerPrefs.GetInt(PlayerPrefs_Coin);
+		}
+	}
+	
+	public void UseCoin(int dataPrice)
+	{
+		Coin -= dataPrice;
+		Save();
+	}
+
+	private void Save()
+	{
+		PlayerPrefs.SetInt(PlayerPrefs_Coin, Coin);
+	}
+
+	[ContextMenu("Debug_Add100Coin")]
+	public void Debug_Add100Coin()
+	{
+		PlayerPrefs.SetInt(PlayerPrefs_Coin, 100);
+	}
+	
+	
 
 	private void Setup() {
 		LoadingUI.Instance.Hide();

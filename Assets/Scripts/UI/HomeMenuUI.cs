@@ -13,7 +13,10 @@ public class HomeMenuUI : MonoBehaviour {
     private void Start()
     {
         listUI = new List<UIBase>();
-        btnPlay.onClick.AddListener(GameManager.Instance.ShowLevel);
+        btnPlay.onClick.AddListener(()=>
+        {
+            GameManager.Instance.ShowLevel();
+        });
         levelMenuUI.gameObject.SetActive(false);
         levelMenuUI.OnClick += () => {
             bagMenuUI.Show();
