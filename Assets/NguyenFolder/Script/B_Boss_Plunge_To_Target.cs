@@ -21,14 +21,14 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
         if (target)
         {
             float velocity = animator.GetComponent<BossController>().velocity;
-            rayTargetToGround = Physics2D.Raycast(animator.transform.position, target.transform.position - animator.transform.position, Mathf.Infinity, groundLayer);
+            rayTargetToGround = Physics2D.Raycast(animator.transform.position, Vector2.down, Mathf.Infinity, groundLayer);
             
             if(rayTargetToGround)
             {
                 Debug.Log(rayTargetToGround.point);
                 Vector2 newTarget = 
                 new Vector2(target.transform.position.x,
-                            rayTargetToGround.point.y + 2
+                            rayTargetToGround.point.y + animator.transform.lossyScale.y/2
                             );
 
                 plungeDuration = Vector2.Distance(newTarget, animator.transform.position) / velocity;
@@ -42,7 +42,10 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
         } 
     }
 
-
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.ResetTrigger("NextStep");
+    }
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;

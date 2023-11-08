@@ -13,9 +13,14 @@ public class Boss_Lv1_Intro : StateMachineBehaviour
     [Header("Camera")]
     public float cameraShakeForce;
     public float cameraShakeDuration;
+
+    [Space]
+    [Header("Particle")]
+    public Transform groundSlamPrefab;
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Transform startPosTransform = animator.transform.parent.Find("StartPosition");
+        Transform startPosTransform = GameObject.Find("StartPosition").transform;
         Debug.Log(startPosTransform);
         if (!startPosTransform) return;
         Vector3 startPosition = startPosTransform.position;
@@ -39,9 +44,14 @@ public class Boss_Lv1_Intro : StateMachineBehaviour
         }).OnComplete(() =>
         {
             Debug.Log("Jump Down Complete");
+            groundSlamPrefab = animator.transform.Find("GroundSlam");
+            if(groundSlamPrefab)
+            {
+                groundSlamPrefab.position = new Vector3(animator.transform.position.x, animator.transform.position.y - animator.transform.lossyScale.y / 2, 0);
+                groundSlamPrefab.GetComponent<ParticleSystem>().Play();
+            }
             // Rung chấn khi nhảy xuống
             Camera.main.GetComponent<CameraController>().ShakeCamera(cameraShakeDuration, cameraShakeForce);
-
             // Rung chấn khi đe dọa 
             Camera.main.GetComponent<CameraController>().ShakeCamera(2, 0.1f, cameraShakeDuration + 1f, Ease.Linear, () => animator.SetTrigger("NextStep")) ;
         });

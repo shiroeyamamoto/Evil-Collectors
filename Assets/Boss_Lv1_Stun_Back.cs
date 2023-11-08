@@ -8,6 +8,8 @@ public class Boss_Lv1_Stun_Back : StateMachineBehaviour
     public float stunDistance;
     public float stunYPower;
     public float duration;
+
+    public Transform groundSlamPrefab;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int directionInt = animator.GetInteger("FaceRight");
@@ -16,6 +18,12 @@ public class Boss_Lv1_Stun_Back : StateMachineBehaviour
         animator.transform.DOJump(endJumpPos, stunYPower, 1, duration).SetEase(Ease.Linear).OnComplete(() =>
         {
             animator.SetTrigger("NextStep");
+            Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
+            if (groundSlamPrefab)
+            {
+                groundSlamPrefab.position = new Vector3(animator.transform.position.x, animator.transform.position.y - animator.transform.lossyScale.y / 2, 0);
+                groundSlamPrefab.GetComponent<ParticleSystem>().Play();
+            }
         });
     }
 

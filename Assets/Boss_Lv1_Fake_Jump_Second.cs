@@ -43,6 +43,7 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
                 animator.transform.DOJump(endPoint, jumpHeightY, 1, 1).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     animator.SetTrigger("NextStep");
+                    
                     animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 });
             }

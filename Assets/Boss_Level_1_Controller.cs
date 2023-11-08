@@ -28,7 +28,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         animator = GetComponent<Animator>();
         currentPhase = animator.GetInteger("Phase");
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
-        animator.GetBehaviour<B_Boss_Attack>().maxAttackType = maxAttackType;
+        animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         
         //SpawnDamagableObject2();
     }
@@ -53,7 +53,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         {
             currentPhase++; animator.SetInteger("Phase", currentPhase);
             maxAttackType = maxAttackTypeOfPhase(currentPhase);
-            animator.GetBehaviour<B_Boss_Attack>().maxAttackType = maxAttackType;
+            animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         }
     }
 
@@ -125,6 +125,18 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         {
             Debug.Log("I m stronger");
             PhaseUp();
+        }
+    }
+
+    public void PlayGroundParticle()
+    {
+        Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
+        if (groundSlamPrefab)
+        {
+            groundSlamPrefab.position = transform.Find("Weapon2Spawner").position;
+            RaycastHit2D hit = Physics2D.Raycast(groundSlamPrefab.position, Vector2.down, Mathf.Infinity);
+            if (hit) groundSlamPrefab.position = hit.point;
+            groundSlamPrefab.GetComponent<ParticleSystem>().Play();
         }
     }
 }

@@ -37,10 +37,26 @@ public class Boss_Lv1_Jump_To_Player : StateMachineBehaviour
                     }
                     endPoint.y = hit.point.y + animator.transform.lossyScale.y / 2;
                     //endPoint.y = player.position.y - player.lossyScale.y / 2 + animator.transform.lossyScale.y / 2;
-                    animator.transform.DOJump(endPoint, jumpHeight, 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
+                    animator.transform.DOJump(endPoint, jumpHeight, 1, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
+                    {
+                        Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
+                        if (groundSlamPrefab)
+                        {
+                            groundSlamPrefab.position = new Vector3(animator.transform.position.x, animator.transform.position.y - animator.transform.lossyScale.y / 2, 0);
+                            groundSlamPrefab.GetComponent<ParticleSystem>().Play();
+                        }
+                    }).OnComplete(() =>
                     {
                         Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
+                        Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
+                        if (groundSlamPrefab)
+                        {
+                            groundSlamPrefab.position = new Vector3(animator.transform.position.x, animator.transform.position.y - animator.transform.lossyScale.y / 2, 0);
+                            groundSlamPrefab.GetComponent<ParticleSystem>().Play();
+                        }
+
                         animator.SetTrigger("NextStep");
+                        
                     });
                 }
                 

@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-public class BossController : MonoBehaviour
+public class BossController : MonoBehaviour,IInteractObject
 {
+    [Header("Health")]
+    public float health;
+    public float healthPhase2;
+    public float healthPhase3;
+    [Space]
     public Color normalColor;
     public Color attackColor;
     public Color strongAttackColor;
@@ -63,5 +68,29 @@ public class BossController : MonoBehaviour
         
         phase++;
         transform.GetComponent<Animator>().SetInteger("Phase",phase);
+    }
+
+    public void OnDamaged(float damage)
+    {
+        health -= damage;
+        if(health <= healthPhase3)
+        {
+            PhaseUp();
+        }
+        else 
+        if (health<= healthPhase2)
+        {
+            PhaseUp();
+        } else
+        if(health <= 0)
+        {
+            Debug.Log("im dead");
+        }
+    }
+
+    [ContextMenu("Damage Me")]
+    public void damageMe()
+    {
+        OnDamaged(15);
     }
 }

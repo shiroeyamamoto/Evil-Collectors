@@ -12,24 +12,27 @@ public class B_Boss_Attack : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-            chooseAttackType:
+        if (randomAttackType) { attackType = Random.Range(0, maxAttackType + 1); animator.SetInteger("AttackType", attackType); }
+        else
+        {
+            animator.SetInteger("AttackType", attackType);
+        }
+            /*chooseAttackType:
             {
                 if (randomAttackType) { attackType = Random.Range(0, maxAttackType + 1);
-                animator.GetComponent<Boss_Level_1_Controller>().currentAttackType = attackType;
+                animator.GetComponent<BossController>().currentAttackType = attackType;
             }
             }
             
-            if (animator.GetComponent<Boss_Level_1_Controller>().currentAttackType != animator.GetComponent<Boss_Level_1_Controller>().previousAttackType)
+            if (animator.GetComponent<BossController>().currentAttackType != animator.GetComponent<Boss_Level_1_Controller>().previousAttackType)
             {
-                animator.GetComponent<Boss_Level_1_Controller>().previousAttackType = animator.GetComponent<Boss_Level_1_Controller>().currentAttackType;
+                animator.GetComponent<BossController>().previousAttackType = animator.GetComponent<Boss_Level_1_Controller>().currentAttackType;
                 animator.SetInteger("AttackType", animator.GetComponent<Boss_Level_1_Controller>().currentAttackType);
 
             } else
             {
                 goto chooseAttackType;
-            }
-
-
+            }*/
     }
 
 }

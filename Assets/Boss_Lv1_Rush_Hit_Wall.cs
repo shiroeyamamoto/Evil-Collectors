@@ -19,6 +19,10 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
     public int unitSizeNumber;
     public float startPosYMin;
     public float startPosYMax;
+
+    [Space]
+    [Header("Particle")]
+    public Transform wallSlamPrefab;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Transform tranformThis = animator.transform;
@@ -40,6 +44,36 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                     animator.SetInteger("FaceRight", isPlayerLeft);
                     animator.SetTrigger("NextStep");
                     Camera.main.GetComponent<CameraController>().ShakeCamera(shakeDuration, shakeForce);
+
+                    wallSlamPrefab = animator.transform.parent.Find("WallSlam");
+                    if (wallSlamPrefab)
+                    {
+                        float x = Mathf.Abs(animator.transform.lossyScale.x)/ animator.transform.lossyScale.x;
+                        if (x < 0)
+                        {
+                            RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.right, Mathf.Infinity, wallLayer);
+                            if (hit)
+                            {
+                                wallSlamPrefab.transform.position = hit.point;
+                                wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 180, 0);
+                            }
+
+                        }else
+                        {
+                            if (x > 0)
+                            {
+                                RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.left, Mathf.Infinity, wallLayer);
+                                if (hit)
+                                {
+                                    wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
+                                    wallSlamPrefab.transform.position = hit.point;
+                                }
+
+                            }
+                        }
+                        wallSlamPrefab.GetComponent<ParticleSystem>().Play();
+                    }
+
                     SpawnDamagableObject(damagableObjectPrefab, objectNumber,24,animator);
                 });
             }
