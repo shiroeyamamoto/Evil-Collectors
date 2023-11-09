@@ -21,6 +21,7 @@ public class BossController : MonoBehaviour,IInteractObject
 
     private void Start()
     {
+        listSwords = new List<Transform>();
         phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
         //GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -93,4 +94,6 @@ public class BossController : MonoBehaviour,IInteractObject
     {
         OnDamaged(15);
     }
+
+    public List<Transform> listSwords;
 }

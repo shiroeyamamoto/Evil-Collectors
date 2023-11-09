@@ -24,7 +24,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     Transform damagableObject;
     private void Awake()
     {
-       
+        
         animator = GetComponent<Animator>();
         currentPhase = animator.GetInteger("Phase");
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
@@ -139,4 +139,5 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             groundSlamPrefab.GetComponent<ParticleSystem>().Play();
         }
     }
+
 }

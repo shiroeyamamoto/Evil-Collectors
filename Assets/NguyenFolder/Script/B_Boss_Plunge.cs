@@ -36,6 +36,7 @@ public class B_Boss_Plunge : StateMachineBehaviour
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.ResetTrigger("NextStep");
         if (animator.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
         {
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

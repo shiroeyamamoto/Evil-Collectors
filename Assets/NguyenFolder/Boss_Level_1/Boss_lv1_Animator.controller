@@ -131,23 +131,23 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -4135441699419185616}
-    m_Position: {x: 460, y: 10, z: 0}
+    m_Position: {x: 460, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7984918475723194403}
-    m_Position: {x: 460, y: 80, z: 0}
+    m_Position: {x: 460, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3234652921501325650}
-    m_Position: {x: 250, y: 80, z: 0}
+    m_Position: {x: 250, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -459188932889780857}
     m_Position: {x: 460, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4476065236800481962}
-    m_Position: {x: 250, y: 10, z: 0}
+    m_Position: {x: 250, y: -20, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 2899032577803454219}
-    m_Position: {x: 670, y: 80, z: 0}
+    m_Position: {x: 670, y: 30, z: 0}
   m_AnyStateTransitions:
   - {fileID: -953858969356980719}
   m_EntryTransitions: []
@@ -743,7 +743,7 @@ AnimatorController:
   - m_Name: Phase
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 2
+    m_DefaultInt: 1
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Attack

@@ -53,6 +53,5 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("NextStep");
-
     }
 }

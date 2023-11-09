@@ -740,6 +740,22 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2226868901156101597, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2226868901156101597, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
+      propertyPath: ShapeModule.m_Rotation.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2226868901156101597, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2226868901156101597, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8178820106830785084, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
       propertyPath: m_Name
       value: WallSlam

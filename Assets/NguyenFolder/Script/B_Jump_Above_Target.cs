@@ -46,5 +46,6 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        animator.ResetTrigger("NextStep");
     }
 }
