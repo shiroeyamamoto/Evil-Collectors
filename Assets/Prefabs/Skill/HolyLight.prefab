@@ -152,11 +152,16 @@ MonoBehaviour:
   decription: 
   manaNeed: 0
   Unlocked: 1
+  isCastingSkill: 0
+  canUseSkill: 1
+  position: {x: 0, y: 0, z: 0}
+  scale: {x: 0, y: 0, z: 0}
   timeCastSkill: 1
   timeLifeSkill: 2
   skillCoolDown: 5
   extendSpeed: 150
   maxSize: 35
+  maxManaNeed: 50
 --- !u!1 &6763317061565489968
 GameObject:
   m_ObjectHideFlags: 0

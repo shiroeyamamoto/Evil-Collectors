@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -20,9 +18,11 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            Settings.canKnockback = true;
+
             EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
 
-            enemyBody.EnemyTakeDamge(Player.Instance.DamageAttack);
+            enemyBody.EnemyTakeDamge(GameController.Instance.Player.DamageAttack);
 
             Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
 
