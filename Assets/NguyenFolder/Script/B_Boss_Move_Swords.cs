@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class B_Boss_Move_Swords : StateMachineBehaviour
 {
-    List<Transform> listSwords;
+    public List<Transform> listSwords;
     public Transform swordPrefab;
 
     public float moveDistance;
@@ -16,7 +16,7 @@ public class B_Boss_Move_Swords : StateMachineBehaviour
     {
         listSwords = animator.GetComponent<BossController>().listSwords;
         MoveAllSwords(animator);
-        DestroyAllSwords(animator);
+        
         
     }
     void MoveAllSwords(Animator animator)
@@ -28,7 +28,8 @@ public class B_Boss_Move_Swords : StateMachineBehaviour
             {
                 sword.DOMoveY(moveDistance, moveDuration).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    //Destroy(sword);
+                    Destroy(sword.gameObject);
+                    DestroyAllSwords(animator);
                 });
             });
         }
