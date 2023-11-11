@@ -11,7 +11,7 @@ public class Nothingness : Skill
         //Debug.Log("isCastingSkill: " + isCastingSkill);
         Debug.Log("Unlocked: " + Unlocked);
 
-        if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
+        if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
             position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
@@ -31,26 +31,31 @@ public class Nothingness : Skill
         return;
     }
 
+    public override void HoldKeySkill()
+    {
+        return;
+    }
+
     private IEnumerator NothingnessStart()
     {
         // niệm phép 
         Settings.isAttacking = true;
-        base.isCastingSkill = true;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
+        Settings.isCatingSkill = true;
+        Settings.playerRenderer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        Settings.playerRenderer.color = Color.red;
         // bat tu
         if (!Settings.nothingnessSkill)
             Settings.nothingnessSkill = true;
 
         Settings.isAttacking = false;
-        base.isCastingSkill = false;
+        Settings.isCatingSkill = false;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng
 
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        Settings.playerRenderer.color = Color.white;
         if (Settings.nothingnessSkill)
             Settings.nothingnessSkill = false;
 

@@ -61,3 +61,33 @@ MonoBehaviour:
   timeCastSkill: 0.5
   timeLifeSkill: 10
   skillCoolDown: 5
+  initialStaminaDecreaseRate: 1
+  decreaseRateIncrease: 0.5
+  manaDecayCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.3
+      outSlope: 0.3
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 3
+      inSlope: 0.3
+      outSlope: 0.3
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  extendSpeed: 1
+  maxSize: 10
+  pushForce: 0.5
+  timeExitAura: 0.5

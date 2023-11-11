@@ -18,22 +18,27 @@ public static class Settings
 
     // Ground check
     [Tooltip("Player đang đứng trên mặt đất?")] public static bool isGrounded = false;
+    [Tooltip("Player đang đụng tường?")] public static bool isWalled = false;
     [Tooltip("Player đang đứng trên enemy?")] public static bool standInEnemy = false;
 
     // Player Attack
     [Tooltip("Player đang sử dụng đòn tấn công khác")] public static bool isAttacking = false;
     [Tooltip("Player tấn công thường?")] public static bool isAttackNormal = false;
     [Tooltip("Player tấn công mạnh?")] public static bool isAttackStrong = false;
+    [Tooltip("Player knockback")] public static bool canKnockback = false;
 
     // Player Status
     [Tooltip("Player có bận không?")] public static bool PlayerDamaged = false;
+    public static SpriteRenderer playerRenderer;
 
     // Player Skill
+    [Tooltip("Player đang dùng chiêu")] public static bool isCatingSkill = false;
     [Tooltip("PLayer sài skill concentrate, vô hạn stamina")] public static bool concentrateSKill = false;
     [Tooltip("PLayer sài skill nothingness, bất tử")] public static bool nothingnessSkill = false;
 
     // Tag
     [Tooltip("LayerMask tên Ground")] public static string groundLayerMask = "Ground";
+    [Tooltip("LayerMask tên Ground")] public static string wallLayerMask = "Wall";
     [Tooltip("LayerMask tên Enemy")] public static string enemyLayerMask = "Enemy";
 
     // Cheats

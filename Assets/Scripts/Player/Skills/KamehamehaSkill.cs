@@ -18,7 +18,7 @@ public class KamehamehaSkill : Skill
 
     public override void ActivateSkill(int amount, float scale)
     {
-        if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
+        if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
             position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
@@ -43,15 +43,15 @@ public class KamehamehaSkill : Skill
     {
         // niệm phép 
         Settings.isAttacking = true;
-        base.isCastingSkill = true;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
+        Settings.isCatingSkill = true;
+        Settings.playerRenderer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        Settings.playerRenderer.color = Color.red;
 
         while (maxSize > currentSize)
         {
@@ -70,13 +70,13 @@ public class KamehamehaSkill : Skill
             currentSize++;
             yield return null; // Chờ một frame
         }
-        base.isCastingSkill = false;
+        Settings.isCatingSkill = false;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
 
 
         // Hoàn thành phép được tự do di chuyển
         Settings.isAttacking = false;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        Settings.playerRenderer.color = Color.white;
 
         transform.localPosition = position;
         transform.localScale = scaleOrigin;
@@ -88,5 +88,10 @@ public class KamehamehaSkill : Skill
         currentSize = 0;
         base.canUseSkill = true;
         this.gameObject.SetActive(false);
+    }
+
+    public override void HoldKeySkill()
+    {
+        return;
     }
 }

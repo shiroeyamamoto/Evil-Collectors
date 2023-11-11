@@ -14,7 +14,7 @@ public class FireBallSkill : Skill
     }
     public override void ActivateSkill(int amount, float scale)
     {
-        if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
+        if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
             position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
@@ -47,5 +47,10 @@ public class FireBallSkill : Skill
 
         //rb.gravityScale = 0;
         rb.velocity = moveDirection.normalized * speedBullet;
+    }
+
+    public override void HoldKeySkill()
+    {
+        return;
     }
 }

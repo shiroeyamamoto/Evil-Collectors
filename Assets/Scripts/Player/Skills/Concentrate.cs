@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Concentrate : Skill
 {
-    [SerializeField, Range(0.1f,5f)] private float initialStaminaDecreaseRate = 1f; // Tốc độ giảm stamina ban đầu
-    private float currentStaminaDecreaseRate; // Tốc độ giảm stamina hiện tại
-    [SerializeField, Range(0.1f, 5f)] public float decreaseRateIncrease = 0.5f; // Tốc độ tăng giảm stamina mỗi giây
-    //[SerializeField, Range(0.1f, 20f)] private float 
-
-
     [SerializeField, Range(10, 200)] private int extendSpeed = 1; // Tốc độ kéo dài
     [SerializeField, Range(10, 100)] private int maxSize = 10;
     [SerializeField, Range(0f, 5f)] private float pushForce = 0.5f;
@@ -19,12 +13,16 @@ public class Concentrate : Skill
     private int currentSize = 0;
     private float timeAuraCounter;
 
+    private float timeToExhaust = 10f; // Thời gian để hết stamina (ví dụ: 10 giây)
+    private float staminaDecreaseRate; // Tốc độ giảm stamina mặc định
+    private float decreaseInterval; // Thời gian giảm stamina (ví dụ: 1 giây)
+    private float elapsedTime = 0f; // Thời gian đã trôi qua
 
     void Start()
     {
-        currentStaminaDecreaseRate = initialStaminaDecreaseRate;
+        decreaseInterval = timeLifeSkill / 100f;
     }
-
+    int x = 0, y=0,z=0;
     private void Update()
     {
         if (timeAuraCounter > 0)
@@ -33,6 +31,46 @@ public class Concentrate : Skill
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+
+        if(timeToExhaust > 0)
+        {
+            elapsedTime += Time.deltaTime;
+            timeToExhaust -= Time.deltaTime;
+
+            if (elapsedTime > decreaseInterval)
+            {
+                elapsedTime = 0f;
+
+                if (timeToExhaust > (timeLifeSkill * (2f / 3f)) && timeToExhaust < timeLifeSkill)
+                {
+                    // Trong 1/3 thời gian đầu, stamina mặc định sẽ trừ bằng 20% stamina max
+                    staminaDecreaseRate = ((Player.Instance.InfoDefaultSO.stamina * (1f / 5f)) * (1f / 33.3f));
+
+                    Player.Instance.UseStamina(staminaDecreaseRate);
+                    x++;
+                    Debug.Log(x);
+                }
+                else if (timeToExhaust > (timeLifeSkill * (1f / 3f)) && timeToExhaust < (timeLifeSkill * (2f / 3f)))
+                {
+                    // Trong khoảng 1/3 - 2/3 thời gian, stamina mặc định sẽ trừ bằng 35% stamina max
+                    staminaDecreaseRate = ((Player.Instance.InfoDefaultSO.stamina * (35f / 100f)) * (1f / 33.3f));
+
+                    Player.Instance.UseStamina(staminaDecreaseRate);
+                    y++;
+                    Debug.Log(y);
+                }
+                else if (timeToExhaust < (timeLifeSkill * (1f / 3f)))
+                {
+                    // Trong khoảng <1/3 thời gian, stamina mặc định sẽ trừ bằng 35% stamina max
+                    staminaDecreaseRate = ((Player.Instance.InfoDefaultSO.stamina * (45f / 100f)) * (1f / 33.3f));
+
+                    Player.Instance.UseStamina(staminaDecreaseRate);
+                    z++;
+                    Debug.Log(z);
+                }
+            }
         }
     }
 
@@ -63,7 +101,7 @@ public class Concentrate : Skill
         if (Player.Instance.CurrentInfo.health > 1)
             return;
 
-        if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
+        if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
             position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
@@ -84,21 +122,18 @@ public class Concentrate : Skill
     {
         // niệm phép 
         Settings.isAttacking = true;
-        base.isCastingSkill = true;
+        Settings.isCatingSkill = true;
 
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
+        Settings.playerRenderer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-
+        Settings.playerRenderer.color = Color.green;
 
         timeAuraCounter = timeExitAura;
-
-        
 
         while (maxSize > currentSize)
         {
@@ -114,13 +149,12 @@ public class Concentrate : Skill
         {
             Settings.concentrateSKill = true;
             Player.Instance.CurrentInfo.stamina = Player.Instance.InfoDefaultSO.stamina;
-
             Player.Instance.UpdatePlayerUI();
         }
-        StartCoroutine(DecreaseStaminaOverTime());
-
         Settings.isAttacking = false;
-        base.isCastingSkill = false;
+        Settings.isCatingSkill = false;
+        timeToExhaust = timeLifeSkill;
+        elapsedTime = 0f;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
 
         if (Settings.concentrateSKill)
@@ -130,7 +164,7 @@ public class Concentrate : Skill
         transform.localScale = scale;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        Player.Instance.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        Settings.playerRenderer.color = Color.white;
 
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);
@@ -140,21 +174,12 @@ public class Concentrate : Skill
         this.gameObject.SetActive(false);
     }
 
-    private IEnumerator DecreaseStaminaOverTime()
+    public override void ActivateSkill(int amount, float scale)
     {
-        while (Player.Instance.CurrentInfo.stamina > 0)
-        {
-            // Giảm giá trị stamina dựa trên tốc độ giảm stamina hiện tại
-            Player.Instance.UseStamina(currentStaminaDecreaseRate * Time.deltaTime);
-
-            // Tăng tốc độ giảm stamina theo thời gian
-            currentStaminaDecreaseRate += decreaseRateIncrease * Time.deltaTime;
-
-            yield return null;
-        }
+        return;
     }
 
-    public override void ActivateSkill(int amount, float scale)
+    public override void HoldKeySkill()
     {
         return;
     }

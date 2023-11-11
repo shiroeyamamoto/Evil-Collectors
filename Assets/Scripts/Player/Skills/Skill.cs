@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,6 +11,7 @@ public abstract class Skill : MonoBehaviour
 
     public float manaNeed = 0;
     public bool Unlocked = false;
+    [HideInInspector ]public bool cancelSkill = false;
     [HideInInspector] public bool isCastingSkill = false, canUseSkill =true;
     public Vector3 position, scale;
     [Range(0.1f, 60f)] public float timeCastSkill = 0.5f;
@@ -19,9 +21,6 @@ public abstract class Skill : MonoBehaviour
     public abstract void ActivateSkill();
     public abstract void ActivateSkill(int amount, float scale);
 
-    public virtual void Size(int size)
-    {
-
-    }
+    public abstract void HoldKeySkill();
 }
 

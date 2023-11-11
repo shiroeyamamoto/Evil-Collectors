@@ -44,6 +44,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
         SkillList = new List<SkillBase>();
+
+        Settings.playerRenderer = transform.Find("Body").gameObject.GetComponent<SpriteRenderer>();
     }
     
     private void FixedUpdate()
