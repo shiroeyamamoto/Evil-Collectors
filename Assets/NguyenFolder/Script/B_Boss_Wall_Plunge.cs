@@ -7,9 +7,10 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
 {
     public float jumpDuration;
     [SerializeField] float jumpForce;
+    public LayerMask wallLayer;
+    public float maxY;
+    public float minY;
     Animator animator;
-    [SerializeField] Transform leftSide;
-    [SerializeField] Transform rightSide;
 
     [Range(0, 1)]
     public float alphaValue = 0.25f;
@@ -17,53 +18,45 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
-        this.animator = animator;
-        Vector3 endJumpPoint = ChooseSideToJump();
-
-        float velocity = animator.GetComponent<BossController>().velocity;
-        float distance = (float)Vector3.Distance(endJumpPoint, animator.transform.position);
-        
-        jumpDuration = (float)  (distance/velocity);
-
-        
-
-        animator.transform.DOJump(endJumpPoint, jumpForce, 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
+        int randomSide;
+        Label:
         {
-            Debug.Log("complete");
-            animator.SetTrigger("NextStep");
-        });
+            randomSide = Random.Range(-1, 2);
+        }
+        RaycastHit2D hit;
+        if (randomSide != 0)
+        {
+            hit = Physics2D.Raycast(animator.transform.position, Vector2.right * randomSide, Mathf.Infinity, wallLayer);
+            Vector3 endPointJump;
+            endPointJump.x = hit.point.x - Mathf.Abs(animator.transform.lossyScale.x) / 2 * randomSide;
+            endPointJump.y = Random.Range(minY, maxY);
+            endPointJump.z = 0f;
+            animator.transform.DOJump(endPointJump, jumpForce,1, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
+            {
+                animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            }).OnComplete(() =>
+            {
+                animator.SetTrigger("NextStep");
+            });
+        }
+        else
+        {
+            goto Label;
+        }
 
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.ResetTrigger("NextStep");
+
+        //animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;
         animator.GetComponent<SpriteRenderer>().color = color;
     }
-    Vector3 ChooseSideToJump()
-    {
-        leftSide = this.animator.transform.parent.Find("L_WallJumpRangeMin");
-        rightSide = this.animator.transform.parent.Find("R_WallJumpRangeMax");
-        Transform side;
-        int randomSide = Random.Range(0, 2);
-        //side = leftSide;
-        float offsetX;
-        if (randomSide == 0)
-        {
-            side = leftSide; offsetX = animator.transform.lossyScale.x / 2;
-        } else
-        {
-            side = rightSide; offsetX = -animator.transform.lossyScale.x / 2;
-        }
-        
-        
-        Vector3 randomChosenPosition;
-        float x = side.position.x + offsetX;
-        float y = Random.Range(Mathf.Min(leftSide.position.y, rightSide.position.y), Mathf.Max(leftSide.position.y, rightSide.position.y));
-        
-
-        randomChosenPosition = new Vector3(x, y);
-
-        return randomChosenPosition;
-    }
+    
 
 }

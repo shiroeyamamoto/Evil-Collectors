@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   WeaponId: 3
   areaNumber: 7
   areaIndex: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   velocity: 0
   groundNWallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   delayTime: 0
   disableTime: 5
   moveCompleted: 0
