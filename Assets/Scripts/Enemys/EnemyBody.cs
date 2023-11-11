@@ -80,5 +80,16 @@ public class EnemyBody : MonoBehaviour
         }
         if (currentHealth <= 0)
             EnemyDie();
+
+        //Debug.Log("CurrentInfo.mana" + GameController.Instance.Player.CurrentInfo.mana);
+        //Debug.Log("InfoDefaultSO.mana" + GameController.Instance.Player.InfoDefaultSO.mana);
+        // Tăng mana cho player khi đánh trúng enemy
+        if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        {
+            GameController.Instance.Player.CurrentInfo.mana += dmg;
+            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        }
     }
 }

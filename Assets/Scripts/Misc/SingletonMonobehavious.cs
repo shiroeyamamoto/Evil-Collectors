@@ -21,6 +21,11 @@ public abstract class SingletonMonobehavious<T> : MonoBehaviour where T : MonoBe
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        OnAwake();
     }
+
+    protected virtual void OnAwake(){}
 }
