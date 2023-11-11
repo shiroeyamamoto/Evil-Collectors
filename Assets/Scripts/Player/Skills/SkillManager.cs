@@ -50,8 +50,15 @@ public class SkillManager : MonoBehaviour
                 if (Settings.isMove)
                     return;
 
-                //if (GameController.Instance.Player.CurrentInfo.mana < holyLightSkill.GetMaxManaNeed())
-                //    return;
+                if (GameController.Instance.Player.CurrentInfo.mana < Player.Instance.InfoDefaultSO.mana / 10f)
+                {
+                    holyLightSkill.cancelSkill = true;
+                    return;
+                }
+
+                if (GameController.Instance.Player.CurrentInfo.mana < holyLightSkill.GetMaxManaNeed())
+                    return;
+
                 if (Input.GetKeyDown(KeyCode.Space))
                 { 
                     holyLightSkill.cancelSkill = true;
