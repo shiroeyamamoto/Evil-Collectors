@@ -9,7 +9,7 @@ public class SO_PlayerData : ScriptableObject
 
     [HideInInspector] public GameObject gameObject;
 
-    [SerializeField] public float health;
+    [SerializeField] public int health;
     [SerializeField] public float mana;
     [SerializeField] public float stamina;
     [SerializeField] public float crit;
@@ -21,19 +21,17 @@ public class SO_PlayerData : ScriptableObject
 
     [HideInInspector] public Vector2 currentPosititon;
 
-    public float staminaRecovery;
+    [HideInInspector] public float staminaRecovery;
 
     public SO_PlayerData(SO_PlayerData data)
     {
         this.health = data.health;
         this.mana = data.mana;
-        this.stamina = data.stamina;
         this.crit = data.crit;
         this.critDmg = data.critDmg;
         this.alibility = data.alibility;
         this.defense = data.defense;
         this.damage = data.damage;
         this.inventoryWeight = data.inventoryWeight;
-        this.staminaRecovery = data.staminaRecovery;
     }
 }

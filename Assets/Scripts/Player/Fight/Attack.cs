@@ -14,9 +14,8 @@ public class Attack : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float strongDamagePercent = 2.5f;
     [SerializeField, Range(0f, 20f)] private float attackMoveForwardForce = 1f;
     [SerializeField, Range(0f, 20f)] private float attackMoveRetreatForce = 1f;
-    [SerializeField, Range(0f, 20f)] private float knockbackForce = 10f;
 
-    private bool canAttackNormal, canAttackStrong, isUpAttack, isDownAttack;
+    private bool canAttackNormal, canAttackStrong;
     private Rigidbody2D playerRigid2D;
     private AudioSource audioSource;
 
@@ -34,57 +33,28 @@ public class Attack : MonoBehaviour
         if (Settings.isDasing)
             return;
 
-        if (Settings.isCatingSkill)
-            return;
         //Debug.Log("Settings.isAttacking: " + Settings.isAttacking);
 
         if (!Settings.PlayerDamaged)
         {
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                Transform weaponSize = transform.Find("WeaponSize").gameObject.transform;
-                Vector3 upAttack = new Vector3(0, 0, 90);
-                weaponSize.rotation = Quaternion.Euler(upAttack * transform.localScale.x);
-                isUpAttack = true;
-            }else if (Input.GetKey(KeyCode.S))
-            {
-                Transform weaponSize = transform.Find("WeaponSize").gameObject.transform;
-                Vector3 downAttack = new Vector3(0, 0, -90);
-                weaponSize.rotation = Quaternion.Euler(downAttack * transform.localScale.x);
-                isDownAttack = true;
-            }
-            else if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.S))
-            {
-                Transform weaponSize = transform.Find("WeaponSize").gameObject.transform;
-                weaponSize.rotation = Quaternion.Euler(Vector3.zero);
-                isUpAttack = false;
-                isDownAttack = false;
-            }
-
             if (Input.GetMouseButtonDown(0) && !Settings.isAttacking)
             {
-                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
-                {
-                    StartCoroutine(AttackNormal());
-                }
-                else if (Settings.concentrateSKill)
-                {
-                    StartCoroutine(AttackNormal());
-                }
+                StartCoroutine(AttackNormal());
             }
             else if (Input.GetMouseButtonDown(1) && !Settings.isAttacking)
             {
-                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
-                {
-                    StartCoroutine(AttackStrong());
-                }
-                else if (Settings.concentrateSKill)
-                {
-                    StartCoroutine(AttackStrong());
-                }
+                StartCoroutine(AttackStrong());
             }
         }
+
+        /*if (Input.GetMouseButtonUp(0))
+        {
+            Settings.isAttacking = false;
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            Settings.isAttacking = false;
+        }*/
     }
 
     /// <summary>
@@ -105,48 +75,29 @@ public class Attack : MonoBehaviour
 
             sword.SetActive(true);
 
-            Settings.playerRenderer.color = Color.red;
+            Player.Instance.spriteRendererPlayer.color = Color.red;
 
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
-            if (!Settings.concentrateSKill)
+            GameController.Instance.LevelSO.playerData.stamina -= 15;
+            Player.Instance.Damage(GameController.Instance.LevelSO.playerData.damage * normalDamagePercent);
+
+            if (playerAttack.inForwardAttack)
             {
-                Player.Instance.UseStamina(15);
+                playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
+                playerAttack.inForwardAttack = false;
+                playerAttack.inRetreatAttack = false;
             }
-            GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * normalDamagePercent);
-
-            if (isDownAttack && Settings.canKnockback)
+            else if (playerAttack.inRetreatAttack)
             {
-                transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.up * knockbackForce, 1f);
-            }
-
-            if(!isUpAttack && !isDownAttack)
-            {
-                if (playerAttack.inForwardAttack)
-                {
-                    //playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
-
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2, 0.2f);
-
-                    playerAttack.inForwardAttack = false;
-                    playerAttack.inRetreatAttack = false;
-                    //Settings.PlayerDamaged = false;
-                }
-                else if (playerAttack.inRetreatAttack)
-                {
-                    //playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
-
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2, 0.2f);
-
-                    playerAttack.inForwardAttack = false;
-                    playerAttack.inRetreatAttack = false;
-                    //Settings.PlayerDamaged = false;
-                }
+                playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
+                playerAttack.inForwardAttack = false;
+                playerAttack.inRetreatAttack = false;
             }
 
             yield return new WaitForSeconds(normalAttackTime);
-            Settings.playerRenderer.color = Color.white;
+            Player.Instance.spriteRendererPlayer.color = Color.white;
             Settings.isAttackNormal = false;
             Settings.PlayerDamaged = false;
             sword.SetActive(false);
@@ -174,50 +125,29 @@ public class Attack : MonoBehaviour
             Settings.isAttackStrong = true;
 
             sword.SetActive(true);
-            Settings.playerRenderer.color = Color.red;
+            Player.Instance.spriteRendererPlayer.color = Color.red;
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
 
-            if (!Settings.concentrateSKill)
-            {
-                Player.Instance.UseStamina(25);
-            }
-
-            GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * strongDamagePercent);
-
-            if (isDownAttack && Settings.canKnockback)
-            {
-                transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.up * knockbackForce, 1f);
-            }
+            GameController.Instance.LevelSO.playerData.stamina -= 25;
+            Player.Instance.Damage(GameController.Instance.LevelSO.playerData.damage * strongDamagePercent);
 
             //Debug.Log(Settings.PlayerDamaged);
-            if (!isUpAttack && !isDownAttack)
+            if (playerAttack.inForwardAttack)
             {
-                if (playerAttack.inForwardAttack)
-                {
-                    //playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
-
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2, 0.2f);
-
-                    playerAttack.inForwardAttack = false;
-                    playerAttack.inRetreatAttack = false;
-                    //Settings.PlayerDamaged = false;
-                }
-                else if (playerAttack.inRetreatAttack)
-                {
-                    //playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
-
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2, 0.2f);
-
-                    playerAttack.inForwardAttack = false;
-                    playerAttack.inRetreatAttack = false;
-                    //Settings.PlayerDamaged = false;
-                }
+                playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
+                playerAttack.inForwardAttack = false;
+                playerAttack.inRetreatAttack = false;
             }
-                
+            else if (playerAttack.inRetreatAttack)
+            {
+                playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
+                playerAttack.inForwardAttack = false;
+                playerAttack.inRetreatAttack = false;
+            }
 
             yield return new WaitForSeconds(strongAttackTime);
-            Settings.playerRenderer.color = Color.white;
+            Player.Instance.spriteRendererPlayer.color = Color.white;
             Settings.isAttackStrong = false;
             //Settings.PlayerDamaged = false;
             sword.SetActive(false);

@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelMenuUI : UIBase {
-    public Action OnClick;
-    
+public class LevelMenuUI : MonoBehaviour
+{
     [SerializeField] private SlotLevelUI slotLevelUI;
     [SerializeField] private Transform content;
     [SerializeField] private Button btnBack;
@@ -31,7 +30,6 @@ public class LevelMenuUI : UIBase {
             var slotLevel = Instantiate(slotLevelUI, content);
             string txt = "Level " + (i + 1);
             slotLevel.Init(data.Levels[i], txt);
-            slotLevel.OnClick += OnClick;
             slotLevelList.Add(slotLevel);
         }
         

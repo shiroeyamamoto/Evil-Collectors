@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Dynamic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +9,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 {
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
+
+    
 
     private Rigidbody2D rb2d;
     public SpriteRenderer spriteRendererPlayer;
@@ -22,10 +22,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     [HideInInspector] public float DamageAttack;
     private bool playerDie;
-    public SO_PlayerData CurrentInfo { get; private set; }
-    public SO_PlayerData InfoDefaultSO { get; private set; }
-    
-    public List<SkillBase> SkillList { get; private set; }
+    private SO_PlayerData currentInfo;
+    private SO_PlayerData infoDefaultSO;
 
     public void Init(SO_PlayerData playerData)
     {
@@ -35,31 +33,22 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         playerSound = GetComponent<PlayerSound>();
         animator = GetComponent<Animator>();
 
-        this.CurrentInfo = new SO_PlayerData(playerData);
-        InfoDefaultSO = playerData;
-
-        // bắt đầu game mana = 0
-        CurrentInfo.mana = 0;
-
+        this.currentInfo = new SO_PlayerData(playerData);
+        infoDefaultSO = playerData;
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
-        SkillList = new List<SkillBase>();
-
-        Settings.playerRenderer = transform.Find("Body").gameObject.GetComponent<SpriteRenderer>();
     }
     
     private void FixedUpdate()
     {
         // Giữ player không sleep
         rb2d.position += Vector2.zero;
-        //OnUpdateMana?.Invoke(CurrentInfo.mana);
+        //OnUpdateMana?.Invoke(currentInfo.mana);
     }
     private void Update()
     {
-        if(!Settings.concentrateSKill) 
-            StaminaRecovery();
+        StaminaRecovery();
     }
-
 
     /// <summary>
     /// Stamina Recovery/time
@@ -73,37 +62,56 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         else
         {
             //Debug.Log("Vừa recovery xong");
-            if (CurrentInfo.stamina < InfoDefaultSO.stamina)
-                CurrentInfo.stamina += CurrentInfo.staminaRecovery;
-            
-            OnUpdateTP?.Invoke(CurrentInfo.stamina);
+            if (currentInfo.stamina < infoDefaultSO.stamina)
+                currentInfo.stamina += currentInfo.staminaRecovery;
+            OnUpdateTP?.Invoke(currentInfo.stamina);
             staminaTimeCounter = staminaRecoveryTime;
         }
     }
 
+    /// <summary>
+    ///  Damage player gây ra 
+    /// </summary>
     public void Damage(float dmg)
     {
         DamageAttack = dmg;
     }
-    
+
     public void NoneDamage()
     {
         DamageAttack = 0;
     }
 
+    /// <summary>
+    /// Take damage by enemy or trap
+    /// </summary>
+    ///
+
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
-    public Action OnDead;
-    
+    public void TakeDamage(int dmg)
+    {
+        if (!Settings.zombieMode)
+        {
+            if (currentInfo.health > 0)
+            {
+                currentInfo.health -= dmg;
+                OnUpdateHP?.Invoke(currentInfo.health);
+            }
+
+            if (currentInfo.health <= 0)
+            {
+                PlayerDie();
+            }
+        }
+    }
     public void UseMana(float manaUsed)
     {
         if (!Settings.zombieMode)
         {
-            if (CurrentInfo.mana > 0)
+            if (currentInfo.mana > 0)
             {
-                CurrentInfo.mana -= manaUsed;
-                if (CurrentInfo.mana < 0)
-                    CurrentInfo.mana = 0;
-                OnUpdateMana?.Invoke(CurrentInfo.mana);
+                currentInfo.mana -= manaUsed;
+                OnUpdateMana?.Invoke(currentInfo.mana);
             }
         }
     }
@@ -112,12 +120,10 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         if (!Settings.zombieMode)
         {
-            if (CurrentInfo.stamina > 0)
+            if (currentInfo.stamina > 0)
             {
-                CurrentInfo.stamina -= staminaUsed;
-                if (CurrentInfo.stamina < 0)
-                    CurrentInfo.stamina = 0;
-                OnUpdateTP?.Invoke(CurrentInfo.stamina);
+                currentInfo.stamina -= staminaUsed;
+                OnUpdateTP?.Invoke(currentInfo.stamina);
             }
         }
     }
@@ -126,7 +132,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         gameObject.SetActive(false);
         playerDie = true;
-        OnDead?.Invoke();
     }
 
     // Cheat
@@ -157,82 +162,20 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-    public void IncreaseHp(float value)
-    {
-        CurrentInfo.health += value;
-        if (CurrentInfo.health > InfoDefaultSO.health) {
-            CurrentInfo.health = InfoDefaultSO.health;
-        }
-    }
-    
-    public void IncreaseMana(float value)
-    {
-        CurrentInfo.mana += value;
-        if (CurrentInfo.mana > InfoDefaultSO.mana) {
-            CurrentInfo.mana = InfoDefaultSO.mana;
-        }
-    }
-
-    public void UpdateSkill(SkillBase skill, SupportItem supportItem) {
-        skill.UpdateSkill(supportItem);
-    }
-
-    public SkillBase GetSkillByBase(SkillBase skill)
-    {
-        for (int i = 0; i < SkillList.Count; i++) {
-            if (SkillList[i] == skill) {
-                return SkillList[i];
-            }  
-        }
-
-        return null;
-    }
-
-    public SkillBase AddSkill(ActiveItem activeItem) {
-        SkillBase skill = gameObject.AddComponent(MapSkillScript(activeItem.SkillName)) as SkillBase;
-        if (skill) {
-            skill.Init(activeItem);
-            SkillList.Add(skill);
-        }
-
-        return skill;
-    }
-
-    private Type MapSkillScript(SkillName skillName)
-    {
-        switch (skillName)
-        {
-            case SkillName.FireSphere: return typeof(FireSphere);
-            case SkillName.Kamehameha: return typeof(Kamehameha);
-
-            default: return null;
-        }
-    }
-
-    public void OnDamaged(int dmgTake)
+    public void OnDamage()
     {
         if (!Settings.zombieMode)
         {
-            if (Settings.nothingnessSkill || Settings.concentrateSKill)
-                return;
-
-            if (CurrentInfo.health > 0)
+            if (currentInfo.health > 0)
             {
-                CurrentInfo.health --;
-                OnUpdateHP?.Invoke(CurrentInfo.health);
+                currentInfo.health --;
+                OnUpdateHP?.Invoke(currentInfo.health);
             }
 
-            if (CurrentInfo.health <= 0)
+            if (currentInfo.health <= 0)
             {
                 PlayerDie();
             }
         }
-    }
-
-    public void UpdatePlayerUI()
-    {
-        OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
-        OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
 }

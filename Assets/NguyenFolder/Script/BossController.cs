@@ -31,7 +31,7 @@ public class BossController : MonoBehaviour
     {
         if(collision.transform.CompareTag("Player"))
         {
-            Player.Instance.OnDamaged(1);
+            Player.Instance.TakeDamage(20);
         }
         int layer = collision.gameObject.layer;
         if(groundLayer == ( 1<< layer))

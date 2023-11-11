@@ -5,13 +5,18 @@ using UnityEngine.UIElements;
 
 public class Nothingness : Skill
 {
+    [SerializeField, Range(10, 200)] private int extendSpeed = 1; // Tốc độ kéo dài
+    [SerializeField, Range(10, 100)] private int maxSize = 10;
+
+    private int currentSize = 0;
     public override void ActivateSkill()
     {
-        //Debug.Log("canUseSkill: " + canUseSkill);
-        //Debug.Log("isCastingSkill: " + isCastingSkill);
+        Debug.Log("canUseSkill: " + canUseSkill);
+        Debug.Log("isCastingSkill: " + isCastingSkill);
         Debug.Log("Unlocked: " + Unlocked);
 
-        if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
+
+        if (base.canUseSkill && !base.isCastingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
             position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
@@ -26,41 +31,41 @@ public class Nothingness : Skill
         }
     }
 
-    public override void ActivateSkill(int amount, float scale)
-    {
-        return;
-    }
-
-    public override void HoldKeySkill()
-    {
-        return;
-    }
-
     private IEnumerator NothingnessStart()
     {
         // niệm phép 
         Settings.isAttacking = true;
-        Settings.isCatingSkill = true;
-        Settings.playerRenderer.color = Color.grey;
+        base.isCastingSkill = true;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
-        Settings.playerRenderer.color = Color.red;
-        // bat tu
-        if (!Settings.nothingnessSkill)
-            Settings.nothingnessSkill = true;
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        //this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
+        while (maxSize > currentSize)
+        {
+            float newScaleY = transform.localScale.x + Time.deltaTime * extendSpeed;
+            //float deltaScaleY = newScaleY - transform.localScale.y;
+            //float newPosY = transform.position.y - deltaScaleY * 0.5f; // Dịch chuyển vị trí theo chiều y để giữ cho object ở vị trí trung tâm
+
+            transform.localScale = new Vector3(newScaleY, transform.localScale.y, transform.localScale.z);
+            //transform.position = new Vector3(transform.position.x, newPosY, transform.position.z);
+            currentSize++;
+            yield return null; // Chờ một frame
+        }
         Settings.isAttacking = false;
-        Settings.isCatingSkill = false;
-        yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng
+        base.isCastingSkill = false;
+        //yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
 
-        Settings.playerRenderer.color = Color.white;
-        if (Settings.nothingnessSkill)
-            Settings.nothingnessSkill = false;
+        //transform.localPosition = position;
+        transform.localScale = scale;
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);
+        currentSize = 0;
         base.canUseSkill = true;
         this.gameObject.SetActive(false);
     }

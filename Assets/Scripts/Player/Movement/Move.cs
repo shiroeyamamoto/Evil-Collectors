@@ -4,7 +4,6 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
 
     // Movement
     [SerializeField, Range(0f, 100f)] private float speedMove = 10f;
@@ -17,39 +16,25 @@ public class Move : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float dashForce = 100f;
     [SerializeField, Range(0f, 5f)] private float dashingTime = 0.2f;
     [SerializeField, Range(0f, 5f)] private float dashCooldown = 0.7f;
-    [SerializeField] private PhysicsMaterial2D Friction;
 
     private float Horizontal;
 
     private Rigidbody2D rb2d;
-    private CapsuleCollider2D playerCollision2D;
     private TrailRenderer trail;
 
     protected void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         trail = GetComponent<TrailRenderer>();
-        playerCollision2D = GetComponent<CapsuleCollider2D>();
     }
     private void Update()
     {
-        if (Settings.isGrounded)
-        {
-            playerCollision2D.sharedMaterial = null;
-        }
-        else
-        {
-            playerCollision2D.sharedMaterial = Friction;
-        }
-
         // Cấm hành động khi dash 
         if (Settings.isDasing || Settings.isAttacking)
         {
             return;
         }
 
-        if (Settings.isCatingSkill)
-            return;
         Flip();
 
 
@@ -59,14 +44,8 @@ public class Move : MonoBehaviour
             {
 
                 // stamina tiêu thụ
-                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
-                {
-                    StartCoroutine(Dash());
-                }
-                else if (Settings.concentrateSKill)
-                {
-                    StartCoroutine(Dash());
-                }
+
+                StartCoroutine(Dash());
             }
 
         if(Settings.isGrounded)
@@ -88,10 +67,7 @@ public class Move : MonoBehaviour
             return;
         }
 
-        if (Settings.isCatingSkill)
-            return;
-
-        if (!Settings.PlayerDamaged)
+        if(!Settings.PlayerDamaged)
             PlayerMovement();
     }
 
@@ -101,8 +77,6 @@ public class Move : MonoBehaviour
     private void PlayerMovement()
     {
         Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask(Settings.groundLayerMask));
-        //Settings.isWalled = Physics2D.OverlapBox(wallCheck.position, new Vector2(1.1f, 0.1f), LayerMask.GetMask(Settings.wallLayerMask));
-        Settings.isWalled = Physics2D.OverlapCircle(wallCheck.position, 0.55f, LayerMask.GetMask(Settings.wallLayerMask));
 
         float move = Input.GetAxisRaw("Horizontal");
 
@@ -119,12 +93,6 @@ public class Move : MonoBehaviour
         rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
 
         Horizontal = move;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(wallCheck.position, 0.55f);
     }
 
     /// <summary>
@@ -154,10 +122,6 @@ public class Move : MonoBehaviour
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
         rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
-        if (!Settings.concentrateSKill)
-        {
-            Player.Instance.UseStamina(20);
-        }
 
         yield return new WaitForSeconds(dashingTime);
         trail.emitting = false;
