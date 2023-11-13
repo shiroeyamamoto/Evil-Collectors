@@ -22,13 +22,17 @@ public class B_Boss_Plunge : StateMachineBehaviour
             float endPointMoveY = hit.point.y + animator.transform.lossyScale.y/2;
 
             float plungeDuration = (animator.transform.position.y - endPointMoveY)/plungeSpeed;
-            animator.transform.DOMoveY(endPointMoveY, plungeDuration).OnComplete(() =>
+            animator.transform.DOMoveY(animator.transform.position.y + 3, 0.2f).OnComplete(() =>
             {
-                CameraController cameraController = Camera.main.GetComponent<CameraController>();
-                cameraController.ShakeCamera(0.5f, 0.5f);
-                animator.SetTrigger("NextStep");
-                PlayParticle(animator);
+                animator.transform.DOMoveY(endPointMoveY, plungeDuration).OnComplete(() =>
+                {
+                    CameraController cameraController = Camera.main.GetComponent<CameraController>();
+                    cameraController.ShakeCamera(0.5f, 0.5f);
+                    animator.SetTrigger("NextStep");
+                    PlayParticle(animator);
+                });
             });
+            
         }
     }
 

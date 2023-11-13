@@ -571,12 +571,13 @@ MonoBehaviour:
   offsetHeight: 1
   jumpPower: 5
   jumpDuration: 1
-  airAttackTimes: 100
+  airAttackTimes: 7
   attackMomentTime: []
   isAttacked: 
   swordPrefab: {fileID: 523094792827630754, guid: cb93ffcd42b783a449ecf342aa940892, type: 3}
   groundPosXs: []
   isSwordGrounded: 
+  wallSlamPrefab: {fileID: 8637909754235295089, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
 --- !u!1101 &-5860990532402545314
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -673,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9701da0d6e1ede64b976b449af212674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackType: 3
+  attackType: 0
   maxAttackType: 3
   randomAttackType: 1
 --- !u!114 &-4831004305664858543
@@ -1099,6 +1100,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   swords: []
+  groundSlamPrefab: {fileID: 8400607461737528046, guid: 8ea06ce35796b3740ba399e3e0af998c, type: 3}
 --- !u!1102 &-2881606446416666310
 AnimatorState:
   serializedVersion: 6
@@ -1427,9 +1429,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9701da0d6e1ede64b976b449af212674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackType: 3
+  attackType: 2
   maxAttackType: 3
-  randomAttackType: 1
+  randomAttackType: 0
 --- !u!114 &-1271549952581925078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1624,7 +1626,7 @@ AnimatorController:
   - m_Name: Phase
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 3
+    m_DefaultInt: 2
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: OnWall
@@ -1734,10 +1736,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_ExitTime: 0.3071127
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1814,7 +1816,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
