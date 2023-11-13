@@ -480,6 +480,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 646267696968450417, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 762746726058705830, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -490,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 762746726058705830, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.83
+      value: 37.4
       objectReference: {fileID: 0}
     - target: {fileID: 762746726058705830, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -560,9 +564,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4740924437470626528, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.192
+      objectReference: {fileID: 0}
     - target: {fileID: 5705518332929305476, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993472562049746131, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8311807317060555121, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_RenderMode
@@ -740,6 +752,18 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.m_ColorSpace
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8486520711567693800, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: velocity
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486520711567693800, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: wallSlamPrefab
+      value: 
+      objectReference: {fileID: 8637909754235295089, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
+    - target: {fileID: 8486520711567693800, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: groundSlamPrefab
+      value: 
+      objectReference: {fileID: 8637909754235295089, guid: 4ca5a67b95670164e828f8b145ab0c9e, type: 3}
     - target: {fileID: 9023724403054719497, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_Name
       value: Boss Final

@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using static UnityEngine.ParticleSystem;
+
 public class B_Boss_Plunge : StateMachineBehaviour
 {
     Rigidbody2D rb2d;
     public float plungeSpeed;
     [SerializeField] LayerMask groundLayer;
+    public Transform particles;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
 
         plungeSpeed = animator.GetComponent<BossController>().velocity;
         rb2d = animator.GetComponent<Rigidbody2D>();
@@ -25,6 +27,7 @@ public class B_Boss_Plunge : StateMachineBehaviour
                 CameraController cameraController = Camera.main.GetComponent<CameraController>();
                 cameraController.ShakeCamera(0.5f, 0.5f);
                 animator.SetTrigger("NextStep");
+                PlayParticle(animator);
             });
         }
     }
@@ -37,12 +40,22 @@ public class B_Boss_Plunge : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("NextStep");
+        SetColor(animator, animator.transform.GetComponent<BossController>().normalColor, 1);
         if (animator.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
         {
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
     }
-
+    void PlayParticle(Animator animator)
+    {
+        Vector3 particleSpawnPoint;
+        particleSpawnPoint.x = animator.transform.position.x;
+        particleSpawnPoint.y = animator.transform.position.y - Mathf.Abs(animator.transform.lossyScale.y) / 2;
+        particleSpawnPoint.z = 0;
+        Transform o = Instantiate(particles, particleSpawnPoint, Quaternion.identity, null);
+        o.GetComponent<ParticleSystem>().Play();
+        Destroy(o.gameObject, 10f);
+    }
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;

@@ -11,7 +11,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     public float maxY;
     public float minY;
     Animator animator;
-
+    public Transform wallSlamPrefab;
     [Range(0, 1)]
     public float alphaValue = 0.25f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -36,6 +36,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
                 animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             }).OnComplete(() =>
             {
+                PlayParticle(animator, endPointJump);
                 animator.SetTrigger("NextStep");
             });
         }
@@ -43,9 +44,14 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         {
             goto Label;
         }
-
     }
 
+    void PlayParticle(Animator animator,Vector3 hitPoint)
+    {
+        Transform wallSlam = Instantiate(wallSlamPrefab, hitPoint, Quaternion.identity, null);
+        wallSlam.GetComponent<ParticleSystem>().Play();
+        Destroy(wallSlam.gameObject, 5);
+    }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("NextStep");
