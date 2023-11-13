@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 2778453742029427194}
   - component: {fileID: 8338767017225245052}
   - component: {fileID: 4219678921564985784}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -571,6 +571,7 @@ MonoBehaviour:
   staminaRecoveryTime: 0.2
   manaRecoveryTime: 0.2
   playerData: {fileID: 11400000, guid: 70f4bda05b5e1a443ac44b07c47f8532, type: 2}
+  animator: {fileID: 0}
   audioSource: {fileID: 8575511080996993745}
   playerSound: {fileID: 4219678921564985784}
   HP: {fileID: 0}

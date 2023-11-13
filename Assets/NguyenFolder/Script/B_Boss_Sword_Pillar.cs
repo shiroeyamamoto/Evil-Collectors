@@ -28,7 +28,7 @@ public class B_Boss_Sword_Pillar : StateMachineBehaviour
             float xSpawn = player.position.x + distanceToOther * isRight * ((i+1)/2);
             float ySpawn = player.position.y;
 
-            Vector3 endPoint = new Vector3(xSpawn, ySpawn,0);
+            Vector3 endPoint = new Vector3(xSpawn, ySpawn - 10,0);
             Debug.Log(endPoint.x);
             Transform sword = Instantiate(swordPrefab, endPoint,Quaternion.identity,null);
             animator.transform.GetComponent<BossController>().listSwords.Add(sword);

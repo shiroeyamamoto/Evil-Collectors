@@ -676,6 +676,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4575764749607740874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5705518332929305476}
+  m_Layer: 0
+  m_Name: Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5705518332929305476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575764749607740874}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.2847595, y: 2.069576, z: -0.025036532}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2506703283375673614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4816581309029192839
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +722,7 @@ GameObject:
   - component: {fileID: 2147899605377334714}
   - component: {fileID: 9129312048117138354}
   - component: {fileID: 8106030423322903763}
+  - component: {fileID: 1011422317644484341}
   m_Layer: 0
   m_Name: BossTest
   m_TagString: Untagged
@@ -886,6 +918,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   phase: 0
+  listSwords: []
 --- !u!96 &8106030423322903763
 TrailRenderer:
   serializedVersion: 3
@@ -999,6 +1032,18 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1011422317644484341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816581309029192839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e91e3ea7e00e94ca2718a52f81f41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7630885915596446287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1233,7 @@ Transform:
   - {fileID: 4976315812953126885}
   - {fileID: 2797239548081726848}
   - {fileID: 6403483278950429833}
+  - {fileID: 5705518332929305476}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9071161955871062637

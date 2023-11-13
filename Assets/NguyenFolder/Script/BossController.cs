@@ -96,4 +96,5 @@ public class BossController : MonoBehaviour,IInteractObject
     }
 
     public List<Transform> listSwords;
+
 }
