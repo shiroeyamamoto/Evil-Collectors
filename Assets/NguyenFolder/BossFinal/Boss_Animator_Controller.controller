@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 2
   maxAttackType: 3
-  randomAttackType: 0
+  randomAttackType: 1
 --- !u!114 &-1271549952581925078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1626,7 +1626,7 @@ AnimatorController:
   - m_Name: Phase
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 2
+    m_DefaultInt: 3
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: OnWall
@@ -1933,6 +1933,8 @@ MonoBehaviour:
   swordIndicatePrefab: {fileID: 7495205192670291088, guid: 8a71c5b63ce436141add2e81dc7fad08, type: 3}
   fadeTime: 0.5
   existTime: 2
+  delayOffset: 0.02
+  c: {fileID: 0}
 --- !u!1101 &2008496841607093481
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

@@ -32,7 +32,7 @@ public class B_Boss_Teleport_A_Side : StateMachineBehaviour
 
         // Get coroutines
         coroutines = animator.GetComponent<Coroutines>();
-        Debug.Log(coroutines);
+        
         /*coroutines.WaitForSeconds(totalDuration, () =>
         {
             Teleport(animator);
