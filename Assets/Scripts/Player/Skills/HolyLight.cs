@@ -200,7 +200,7 @@ public class HolyLight : Skill
 
         // Hoàn thành phép được tự do di chuyển
         transform.localPosition = position;
-        transform.localScale = scale;
+        transform.localScale = Vector3.zero;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;

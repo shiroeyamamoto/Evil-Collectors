@@ -232,7 +232,7 @@ Transform:
   m_GameObject: {fileID: 2818223435631303039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0.102, y: -0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1191,7 +1191,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 7771886347669154651}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 70495ad43e9e54044a8080dd57f97bc8, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1283,7 +1283,8 @@ MonoBehaviour:
   dashForce: 40
   dashingTime: 0.2
   dashCooldown: 0.3
-  Friction: {fileID: 6200000, guid: 70495ad43e9e54044a8080dd57f97bc8, type: 2}
+  jumpController: {fileID: 6516433872049495414}
+  Horizontal: 0
 --- !u!114 &6516433872049495414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1301,6 +1302,13 @@ MonoBehaviour:
   _coyoteTime: 0.4
   spamJumpTime: 0.2
   extraJump: 1
+  wallSlidingSpeed: 1
+  wallJumpingDirection: 5
+  wallJumpingTime: 0.2
+  wallJumpingDuration: 0.4
+  wallForceJump: {x: 25, y: 25}
+  moveController: {fileID: 2464400052084966794}
+  isWallJumping: 0
 --- !u!114 &8766290314839327474
 MonoBehaviour:
   m_ObjectHideFlags: 0

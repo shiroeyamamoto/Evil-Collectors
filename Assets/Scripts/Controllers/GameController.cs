@@ -33,7 +33,12 @@ public class GameController : SingletonMonobehavious<GameController>
                 //item.UseToTargetTeam(playerTeam);
             }
         }
-        
+
+        foreach (var item in ItemBases)
+        {
+            Debug.Log(item.itemName);
+        }
+
         Player.OnUpdateMana += gamePlayUI.Player_OnUpdateMana;
         Player.OnUpdateHP += gamePlayUI.Player_OnUpdateHP;
         Player.OnUpdateTP += gamePlayUI.Player_OnUpdateTP;

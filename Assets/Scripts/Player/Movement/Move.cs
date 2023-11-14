@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Move : MonoBehaviour
@@ -17,30 +18,28 @@ public class Move : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float dashForce = 100f;
     [SerializeField, Range(0f, 5f)] private float dashingTime = 0.2f;
     [SerializeField, Range(0f, 5f)] private float dashCooldown = 0.7f;
-    [SerializeField] private PhysicsMaterial2D Friction;
+    public Jump jumpController;
 
-    private float Horizontal;
+    [HideInInspector]public float Horizontal;
 
     private Rigidbody2D rb2d;
-    private CapsuleCollider2D playerCollision2D;
     private TrailRenderer trail;
 
     protected void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         trail = GetComponent<TrailRenderer>();
-        playerCollision2D = GetComponent<CapsuleCollider2D>();
     }
     private void Update()
     {
-        if (Settings.isGrounded)
+        /*if (Settings.isGrounded)
         {
             playerCollision2D.sharedMaterial = null;
         }
         else
         {
             playerCollision2D.sharedMaterial = Friction;
-        }
+        }*/
 
         // Cấm hành động khi dash 
         if (Settings.isDasing || Settings.isAttacking)
@@ -84,7 +83,6 @@ public class Move : MonoBehaviour
 
         if (Settings.isAttacking)
         {
-            rb2d.velocity = Vector2.zero;
             return;
         }
 
@@ -92,7 +90,8 @@ public class Move : MonoBehaviour
             return;
 
         if (!Settings.PlayerDamaged)
-            PlayerMovement();
+            if(!jumpController.isWallJumping)
+                PlayerMovement();
     }
 
     /// <summary>
@@ -100,13 +99,12 @@ public class Move : MonoBehaviour
     /// </summary>
     private void PlayerMovement()
     {
+
         Settings.isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask(Settings.groundLayerMask));
         //Settings.isWalled = Physics2D.OverlapBox(wallCheck.position, new Vector2(1.1f, 0.1f), LayerMask.GetMask(Settings.wallLayerMask));
-        Settings.isWalled = Physics2D.OverlapCircle(wallCheck.position, 0.55f, LayerMask.GetMask(Settings.wallLayerMask));
+        Settings.isWalled = Physics2D.OverlapCircle(wallCheck.position, 0.65f, LayerMask.GetMask(Settings.wallLayerMask));
 
         float move = Input.GetAxisRaw("Horizontal");
-
-        Vector2 movement = new Vector2(move, 0f);
 
         //Player.Instance.animator.SetFloat("Speed", Mathf.Abs(move));
 
@@ -124,14 +122,18 @@ public class Move : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(wallCheck.position, 0.55f);
+        Gizmos.DrawWireSphere(wallCheck.position, 0.65f);
     }
 
     /// <summary>
     /// Lật mặt 
     /// </summary>
-    private void Flip()
+    public void Flip()
     {
+
+        if (jumpController.isSliding)
+            return;
+
         if (Settings.isFacingRight && Horizontal < 0f || !Settings.isFacingRight && Horizontal > 0f)
         {
             Vector2 localScale = transform.localScale;
@@ -153,7 +155,15 @@ public class Move : MonoBehaviour
 
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
-        rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+
+        //if (jumpController.isSliding)
+        //{
+        //    rb2d.velocity = new Vector2(-transform.localScale.x * dashForce, 0f);
+        //}
+        //else
+        //{
+            rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        //}
         if (!Settings.concentrateSKill)
         {
             Player.Instance.UseStamina(20);
@@ -182,5 +192,15 @@ public class Move : MonoBehaviour
             Player.Instance.audioSource.clip = null;
             Player.Instance.audioSource.Stop();
         }
+    }
+
+    public bool PlayerDontCanMove(bool canMove)
+    {
+        if (canMove)
+            return true;
+        if (!canMove)
+            return false;
+
+        return false;
     }
 }

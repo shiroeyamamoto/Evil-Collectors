@@ -22,7 +22,7 @@ public class Nothingness : Skill
             this.gameObject.SetActive(true);
             StartCoroutine(NothingnessStart());
 
-            GameController.Instance.Player.UseMana(base.manaNeed);
+            GameController.Instance.Player.UseMana(Player.Instance.InfoDefaultSO.mana*(70f/100f));
         }
     }
 
