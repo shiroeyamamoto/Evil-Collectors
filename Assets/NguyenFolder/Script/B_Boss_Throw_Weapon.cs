@@ -9,6 +9,7 @@ public class B_Boss_Throw_Weapon : StateMachineBehaviour
         Transform weapon  = animator.transform.parent.Find("Boss Weapon 1");
         if (weapon)
         {
+            Debug.Log(weapon.name);
             weapon.GetComponent<FinalBossWeapon>().WeaponId = 1;
             weapon.gameObject.SetActive(true);
         }

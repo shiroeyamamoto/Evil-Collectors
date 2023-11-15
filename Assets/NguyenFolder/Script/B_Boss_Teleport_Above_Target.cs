@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,18 +15,41 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // set alpha before teleport
+        /*// set alpha before teleport
         SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
 
         //
-        rb2d = animator.GetComponent<Rigidbody2D>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        animator.transform.position = (Vector2)player.transform.position + Vector2.up * heightOffset;
-        isTeleport = true;
+        
         // set alpha
         Color color = animator.GetComponent<SpriteRenderer>().color;
         color.a = alphaValue;
-        animator.GetComponent<SpriteRenderer>().color = color;
+        animator.GetComponent<SpriteRenderer>().color = color;*/
+        animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        animator.transform.GetComponent<SpriteRenderer>().DOFade(0, 0.25f)
+        .OnStart(() =>
+        {
+            animator.transform.GetComponent<Collider2D>().isTrigger = true;
+            animator.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+        })
+        .OnComplete(() =>
+        {
+            rb2d = animator.GetComponent<Rigidbody2D>();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            isTeleport = true;
+            animator.transform.position = (Vector2)player.transform.position + Vector2.up * heightOffset;
+            animator.SetTrigger("NextStep");
+            animator.transform.GetComponent<SpriteRenderer>().DOFade(1, 0.25f).OnComplete(() =>
+            {
+                animator.transform.GetComponent<Collider2D>().isTrigger = false;
+                animator.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+
+            });
+            
+            //Teleport(animator);
+            
+            
+        });
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -35,6 +59,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
         {
             rb2d.velocity = Vector2.zero;
             rb2d.gravityScale = 0;
+            //SetColor(animator, Color.white, 1);
         }
     }
 
@@ -43,6 +68,8 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
     {
         rb2d.velocity = Vector2.zero;
         rb2d.gravityScale = 1;
+        animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        animator.ResetTrigger("NextStep");
         //
 
     }

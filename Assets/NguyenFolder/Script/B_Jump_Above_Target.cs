@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using static UnityEngine.ParticleSystem;
 
 public class B_Jump_Above_Target : StateMachineBehaviour
 {
@@ -10,6 +11,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public float jumpDuration;
     public float jumpHeight;
     public int jumpStep = 1;
+    public Transform particles;
 
     [Space]
     [Range(0,1)]
@@ -30,13 +32,24 @@ public class B_Jump_Above_Target : StateMachineBehaviour
         
         animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
         {
+            PlayParticle(animator);
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }).OnComplete(() =>
         {
+            SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
             animator.SetTrigger("NextStep");
         });
     }
-
+    void PlayParticle(Animator animator)
+    {
+        Vector3 particleSpawnPoint;
+        particleSpawnPoint.x = animator.transform.position.x;
+        particleSpawnPoint.y = animator.transform.position.y - Mathf.Abs(animator.transform.lossyScale.y) / 2;
+        particleSpawnPoint.z = 0;
+        Transform o = Instantiate(particles, particleSpawnPoint, Quaternion.identity, null);
+        o.GetComponent<ParticleSystem>().Play();
+        Destroy(o.gameObject, 10f);
+    }
 
     void SetColor(Animator animator, Color color , float alpha)
     {

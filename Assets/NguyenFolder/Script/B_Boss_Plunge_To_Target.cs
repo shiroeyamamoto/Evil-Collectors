@@ -8,7 +8,7 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
     [SerializeField] float plungeDuration;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] RaycastHit2D rayTargetToGround;
-    [SerializeField] Transform test;
+    [SerializeField] Transform particleEnd;
     [Range(0, 1)]
     public float alphaValue = 0.75f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -36,12 +36,18 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
                 {
                     animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
+                    PlayParticle(animator, newTarget);
                     animator.SetTrigger("NextStep");
                 });
             }
         } 
     }
-
+    void PlayParticle(Animator animator, Vector3 hitPoint)
+    {
+        Transform wallSlam = Instantiate(particleEnd, hitPoint, Quaternion.identity, null);
+        wallSlam.GetComponent<ParticleSystem>().Play();
+        Destroy(wallSlam.gameObject, 5);
+    }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("NextStep");

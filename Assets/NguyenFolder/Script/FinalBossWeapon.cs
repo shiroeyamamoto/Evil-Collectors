@@ -28,6 +28,11 @@ public class FinalBossWeapon : MonoBehaviour
 
     [Min(0.0001f)]
     [SerializeField] float velocity;
+
+    [Header("Particles")]
+    [Space]
+    public Transform groundSlamPrefab;
+    public Transform wallSlamPrefab;
     private void OnEnable()
     {
         animator = transform.parent.Find("BossTest").GetComponent<Animator>();
@@ -122,17 +127,22 @@ public class FinalBossWeapon : MonoBehaviour
         if (player)
         {
             float distance = player.transform.position.x - transform.position.x;
-            directionInt = (int)(distance / Mathf.Abs(distance));
+
+            directionInt = (int)(distance / Mathf.Abs(distance));// -1 :1;
             Flip(directionInt);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * directionInt, Mathf.Infinity, wallLayer);
             if (hit)
             {
+                float distanceToWall = Vector3.Distance(transform.position, hit.point);
                 transform.DORotate(Vector3.zero, 0).OnComplete(() =>
                 {
-                    transform.DOMoveX(hit.point.x, (float)(Mathf.Abs(distance) / velocity)).SetEase(Ease.Linear).OnComplete(() =>
+                    transform.DOMoveX(hit.point.x, (float)(Mathf.Abs(distanceToWall) / velocity)).SetEase(Ease.Linear).OnComplete(() =>
                     {
                         Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                         moveCompleted = true;
+                        Transform wallSlam = Instantiate(wallSlamPrefab, transform.position, Quaternion.identity, null);
+                        wallSlam.GetComponent<ParticleSystem>().Play();
+                        Destroy(wallSlam.gameObject,5);
                         AnimatorParamSet();
                     });
 
@@ -155,7 +165,10 @@ public class FinalBossWeapon : MonoBehaviour
             angleRotate = Mathf.Acos(angleRotate) * Mathf.Rad2Deg;
             float duration = distance / velocity;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, Mathf.Infinity, groundNWallLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, 
+                                                player.transform.position - transform.position, 
+                                                Mathf.Infinity, 
+                                                groundNWallLayer);
             Debug.Log(hit.point);
             Vector2 endPoint = hit.point;
 

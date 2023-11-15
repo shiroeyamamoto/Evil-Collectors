@@ -54,6 +54,7 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
         
         animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear).OnStart(() => 
         {
+            PlayParticle(animator, endPoint);
             timer = 0;
             float attackStep = jumpDuration / (airAttackTimes + 1);
             float attackPosStep = mapSize / (airAttackTimes + 1);
@@ -106,11 +107,18 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
         
         .OnComplete(() =>
         {
+            PlayParticle(animator, endPoint);
             Debug.Log("Jump to Other size completed");
         });
     }
 
-
+    public Transform wallSlamPrefab;
+    void PlayParticle(Animator animator, Vector3 hitPoint)
+    {
+        Transform wallSlam = Instantiate(wallSlamPrefab, hitPoint, Quaternion.identity, null);
+        wallSlam.GetComponent<ParticleSystem>().Play();
+        Destroy(wallSlam.gameObject, 5);
+    }
     public void CreateSpawnSword()
     {
 

@@ -34,6 +34,7 @@ public class B_Boss_Plunge_Diagonally : StateMachineBehaviour
 
             OnComplete(() =>
             {
+                PlayParticle(animator, endPoint);
                 Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                 foreach(Transform t in swords)
                 {
@@ -53,6 +54,13 @@ public class B_Boss_Plunge_Diagonally : StateMachineBehaviour
         return Vector3.Angle(vector1,vector2);
     }
 
+    public Transform groundSlamPrefab;
+    void PlayParticle(Animator animator, Vector3 hitPoint)
+    {
+        Transform wallSlam = Instantiate(groundSlamPrefab, hitPoint, Quaternion.identity, null);
+        wallSlam.GetComponent<ParticleSystem>().Play();
+        Destroy(wallSlam.gameObject, 5);
+    }
     public Vector2 CaculateSecondVector(Vector2 vector, float angle)
     {
         // Tạo quaternion xoay từ góc

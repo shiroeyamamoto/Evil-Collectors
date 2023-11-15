@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Reflection.Emit;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
 {
@@ -11,6 +12,8 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
     public LayerMask wallLayer;
 
     [SerializeField] float JumpForce;
+    public Transform particlesStart;
+    public Transform particlesEnd;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // get boss
@@ -32,8 +35,14 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
         {
             endPoint.x = weapon.position.x - Mathf.Abs(animator.transform.lossyScale.x) / 2 * directionInt;
             endPoint.z = weapon.position.z;
-            boss.DOJump(endPoint, JumpForce, 1, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+            boss.DOJump(endPoint, JumpForce, 1, 0.5f).SetEase(Ease.Linear).OnStart(() =>
             {
+                PlayParticle(animator);
+            })
+                
+                .OnComplete(() =>
+            {
+                PlayParticle(animator);
                 weapon.gameObject.SetActive(false);
                 animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 1f);
@@ -70,6 +79,16 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
                 }
             }
         */
+    }
+    void PlayParticle(Animator animator)
+    {
+        Vector3 particleSpawnPoint;
+        particleSpawnPoint.x = animator.transform.position.x;
+        particleSpawnPoint.y = animator.transform.position.y - Mathf.Abs(animator.transform.lossyScale.y) / 2;
+        particleSpawnPoint.z = 0;
+        Transform o = Instantiate(particlesEnd, particleSpawnPoint, Quaternion.identity, null);
+        o.GetComponent<ParticleSystem>().Play();
+        Destroy(o.gameObject, 10f);
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
