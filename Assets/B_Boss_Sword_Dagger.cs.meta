@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/NguyenFolder/Script/B_Boss_Intro.cs.meta
+guid: 54a1bc06c28516c4287a0249e99a3d5c
+========
 guid: d2fcfa908bff28c4a8620614732d3ff3
+>>>>>>>> nguyen:Assets/B_Boss_Sword_Dagger.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

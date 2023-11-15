@@ -6,7 +6,11 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/NguyenFolder/BossFinal/Sword_Pillar.anim
   m_Name: Sword_Pillar
+========
+  m_Name: Sword_Dagger
+>>>>>>>> nguyen:Assets/NguyenFolder/BossFinal/Sword_Dagger.anim
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0

@@ -7,42 +7,33 @@ public class SO_PlayerData : ScriptableObject
 {
     [SerializeField] GameObject defaultGameObject;
 
-    [SerializeField] float defaultHealth;
-    [SerializeField] float defaultMana;
-    [SerializeField] float defaultStamina;
-    [SerializeField] float defaultCrit;
-    [SerializeField] float defaultCritDmg;
-    [SerializeField] float defaultAlibility;
-    [SerializeField] float defaultDefense;
-    [SerializeField] float defaultDamage;
-    [SerializeField] float defaultStaminaRecovery;
-
     [HideInInspector] public GameObject gameObject;
 
-    [HideInInspector] public float health;
-    [HideInInspector] public float mana;
-    [HideInInspector] public float stamina;
-    [HideInInspector] public float crit;
-    [HideInInspector] public float critDmg;
-    [HideInInspector] public float alibility;
-    [HideInInspector] public float defense;
-    [HideInInspector] public float damage;
+    [SerializeField] public float health;
+    [SerializeField] public float mana;
+    [SerializeField] public float stamina;
+    [SerializeField] public float crit;
+    [SerializeField] public float critDmg;
+    [SerializeField] public float alibility;
+    [SerializeField] public float defense;
+    [SerializeField] public float damage;
+    [SerializeField] public float inventoryWeight;
 
     [HideInInspector] public Vector2 currentPosititon;
 
-    [HideInInspector] public float staminaRecovery;
+    public float staminaRecovery;
 
-    public void ResetData()
+    public SO_PlayerData(SO_PlayerData data)
     {
-        health = defaultHealth;
-        mana = defaultMana;
-        stamina = defaultStamina;
-        crit = defaultCrit;
-        critDmg = defaultCritDmg;
-        alibility = defaultAlibility;
-        defense = defaultDefense;
-        damage = defaultDamage;
-        staminaRecovery = defaultStaminaRecovery;
-        gameObject = defaultGameObject;
+        this.health = data.health;
+        this.mana = data.mana;
+        this.stamina = data.stamina;
+        this.crit = data.crit;
+        this.critDmg = data.critDmg;
+        this.alibility = data.alibility;
+        this.defense = data.defense;
+        this.damage = data.damage;
+        this.inventoryWeight = data.inventoryWeight;
+        this.staminaRecovery = data.staminaRecovery;
     }
 }
