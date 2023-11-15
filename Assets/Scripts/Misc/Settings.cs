@@ -36,10 +36,6 @@ public static class Settings
     [Tooltip("PLayer sài skill concentrate, vô hạn stamina")] public static bool concentrateSKill = false;
     [Tooltip("PLayer sài skill nothingness, bất tử")] public static bool nothingnessSkill = false;
 
-    // Player Skill
-    [Tooltip("PLayer sài skill concentrate, vô hạn stamina")] public static bool concentrateSKill = false;
-    [Tooltip("PLayer sài skill nothingness, bất tử")] public static bool nothingnessSkill = false;
-
     // Tag
     [Tooltip("LayerMask tên Ground")] public static string groundLayerMask = "Ground";
     [Tooltip("LayerMask tên Ground")] public static string wallLayerMask = "Wall";

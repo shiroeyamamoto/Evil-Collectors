@@ -209,7 +209,15 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-    public void OnDamaged(int dmgTake)
+
+    public void UpdatePlayerUI()
+    {
+        OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
+        OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
+    }
+
+    public void OnDamaged(float damage)
     {
         if (!Settings.zombieMode)
         {
@@ -218,7 +226,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
             if (CurrentInfo.health > 0)
             {
-                CurrentInfo.health --;
+                CurrentInfo.health--;
                 OnUpdateHP?.Invoke(CurrentInfo.health);
             }
 
@@ -227,12 +235,5 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                 PlayerDie();
             }
         }
-    }
-
-    public void UpdatePlayerUI()
-    {
-        OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
-        OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
 }
