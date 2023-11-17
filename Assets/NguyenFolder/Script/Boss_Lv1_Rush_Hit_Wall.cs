@@ -111,7 +111,7 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                 {
                     int randomIndex = Random.Range(0, max);
                     float positionX = hitWallLeft.point.x+randomIndex * mapUnitSize + randomOffset;
-                    Transform o = Instantiate(transform, new Vector3(positionX, Random.Range(startPosYMin,startPosYMax), 0), Quaternion.identity, animator.transform.parent);
+                    Transform o = ObjectPoolManager.SpawnObject(transform.gameObject, new Vector3(positionX, Random.Range(startPosYMin, startPosYMax), 0), Quaternion.identity).transform;//Instantiate(transform, new Vector3(positionX, Random.Range(startPosYMin,startPosYMax), 0), Quaternion.identity, animator.transform.parent);
                 }
                 animator.SetTrigger("NextStep");
                 Debug.Log("object not null");

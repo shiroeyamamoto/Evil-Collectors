@@ -64,7 +64,7 @@ public class BossController : MonoBehaviour,IInteractObject
         }
     }
 
-    [SerializeField] int phase;
+    [SerializeField]public int phase;
     [ContextMenu("Phase Up")]
     void PhaseUp()
     {

@@ -25,7 +25,7 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
             
             if(rayTargetToGround)
             {
-                Debug.Log(rayTargetToGround.point);
+                
                 Vector2 newTarget = 
                 new Vector2(target.transform.position.x,
                             rayTargetToGround.point.y + animator.transform.lossyScale.y/2
