@@ -19,7 +19,9 @@ public class HomeMenuUI : MonoBehaviour {
         });
         levelMenuUI.gameObject.SetActive(false);
         levelMenuUI.OnClick += () => {
-            bagMenuUI.Show();
+            GameManager.Instance.LoadSceneLevel();
+            // origin of Quan dev
+            //bagMenuUI.Show();
         };
         
     }

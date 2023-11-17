@@ -44,14 +44,14 @@ public class KamehamehaSkill : Skill
         // niệm phép 
         Settings.isAttacking = true;
         Settings.isCatingSkill = true;
-        Settings.playerRenderer.color = Color.grey;
+        Player.Instance.spriteRendererPlayer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        Settings.playerRenderer.color = Color.red;
+        Player.Instance.spriteRendererPlayer.color = Color.red;
 
         while (maxSize > currentSize)
         {
@@ -76,13 +76,13 @@ public class KamehamehaSkill : Skill
 
         // Hoàn thành phép được tự do di chuyển
         Settings.isAttacking = false;
-        Settings.playerRenderer.color = Color.white;
+        Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
 
         transform.localPosition = position;
         transform.localScale = scaleOrigin;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
+        
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);
         currentSize = 0;

@@ -9,6 +9,7 @@ public class ItemBase : ScriptableObject {
     public string itemName;
     public Sprite itemIcon;
     public string itemDescription;
+    public TagItem itemTag;
     public bool isAutoUse = false;
 
     public virtual bool UseToMySelf(Player player) {
@@ -26,10 +27,16 @@ public class ItemBase : ScriptableObject {
     public virtual bool UseToTargetTeam(List<Player> players) {
         return false;
     }
-    
+
+    public virtual void UseItem()
+    {
+        Debug.Log("ItemBase");
+    }
+
 }
 
 public enum TagItem {
+    None,
     Deco, 
     Active,
     Passives
