@@ -12,6 +12,8 @@ public class BossController : MonoBehaviour,IInteractObject
     public Color normalColor;
     public Color attackColor;
     public Color strongAttackColor;
+    public Color takeDamgeColor;
+    [Space]
     public bool onGround;
     public bool onWall;
     Rigidbody2D rb2d;
@@ -97,4 +99,14 @@ public class BossController : MonoBehaviour,IInteractObject
 
     public List<Transform> listSwords;
 
+    [ContextMenu("Damage Effect")]
+    void DoEffect()
+    {
+        TakeDamageEffect takeDamageEffect = transform.GetComponent<TakeDamageEffect>();
+        if (takeDamageEffect != null)
+        {
+            Color oldColor = transform.GetComponent<SpriteRenderer>().color;
+            takeDamageEffect.DoEffect(TakeDamageEffectEnum.ChangeColor, 0.5f, oldColor, takeDamgeColor);
+        }
+    }
 }

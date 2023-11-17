@@ -38,7 +38,8 @@ public class B_Boss_Plunge_Diagonally : StateMachineBehaviour
                 Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                 foreach(Transform t in swords)
                 {
-                    Destroy(t.gameObject);
+                    ObjectPoolManager.ReturnObjectToPool(t.gameObject);
+                 //   Destroy(t.gameObject);
                 }
                 swords.Clear();
                 animator.SetTrigger("NextStep");
