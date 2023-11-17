@@ -7,17 +7,19 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
 {
     public float jumpDistanceX;
     public float jumpHeightY;
+    public int jumpSecondFar;
 
     public LayerMask wallLayer;
     public LayerMask groundLayer;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         Transform player = Player.Instance.transform;
         if (player)
         {
             int directionInt = (player.transform.position.x <= animator.transform.position.x) ? -1 : 1 ;
             float distanceToPlayer = Mathf.Abs(player.transform.position.x - animator.transform.position.x);
-
+            
             RaycastHit2D hitToWall = Physics2D.Raycast(animator.transform.position, Vector2.right * directionInt,Mathf.Infinity,wallLayer);
             if (hitToWall)
             {
@@ -28,7 +30,7 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
                 RaycastHit2D hitToGround = Physics2D.Raycast(animator.transform.position, Vector2.down, Mathf.Infinity, groundLayer);
                 if (hitToGround)
                 {
-                    if (distanceToWall <= distanceToPlayer+ jumpDistanceX)
+                    if (distanceToWall <= distanceToPlayer + jumpDistanceX)
                     {
                         endPoint.x = jumpPointX;
                     }
@@ -49,7 +51,12 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
             }
         }
     }
-
+    public void GetJumpDistanceSecond(Animator animator ,float distance)
+    {
+        int numerator = animator.GetBehaviour<Boss_Lv1_Fake_Jump>().numerator;
+        int denominator = animator.GetBehaviour<Boss_Lv1_Fake_Jump>().denominator;
+        int newNumerator = numerator + jumpSecondFar;
+    }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("NextStep");

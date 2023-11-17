@@ -51,7 +51,7 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
         endPoint.y = Mathf.Clamp(endPoint.y, 0.5f, 12f);
 
         float timer = 0;
-        
+        // jump to other size
         animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear).OnStart(() => 
         {
             PlayParticle(animator, endPoint);
@@ -75,7 +75,7 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
                 if(timer >= attackMomentTime[i] && !isAttacked[i])
                 {
                     isAttacked[i] = true;
-                    Transform o = Instantiate(swordPrefab, animator.transform.position, Quaternion.identity, null);
+                    Transform o = ObjectPoolManager.SpawnObject(swordPrefab.gameObject, animator.transform.position, Quaternion.identity).transform;
                     animator.GetComponent<BossController>().listSwords.Add(o);
                     int index;
                     chosenRandomIndexToMove:
@@ -118,9 +118,5 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
         Transform wallSlam = Instantiate(wallSlamPrefab, hitPoint, Quaternion.identity, null);
         wallSlam.GetComponent<ParticleSystem>().Play();
         Destroy(wallSlam.gameObject, 5);
-    }
-    public void CreateSpawnSword()
-    {
-
     }
 }

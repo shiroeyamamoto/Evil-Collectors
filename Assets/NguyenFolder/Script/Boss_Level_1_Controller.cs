@@ -91,7 +91,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
 
             //Debug.Log($"tranform boss = {transform.position.x} ,distanceToBoss = {distanceToBoss} ,offset = {offset}, distanceToOther = {distanceToOther}, i = {i} , x = {x}");
 
-            Vector3 point = new Vector3(x, 0, 0);
+            Vector3 point = new Vector3(x, transform.position.y- transform.lossyScale.y, 0);
             GameObject o = Instantiate(prefab, startPosition, Quaternion.identity).gameObject;
             o.transform.DOJump(point, Random.Range(8, 15), 1, Random.Range(1f, 1.2f)).SetEase(Ease.Linear).OnComplete(() =>
             {

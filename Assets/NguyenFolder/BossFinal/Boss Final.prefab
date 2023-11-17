@@ -386,7 +386,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   delayTime: 0
-  disableTime: 1
+  disableTime: 3
   moveCompleted: 0
   directionInt: 0
 --- !u!212 &5798630689627414486
@@ -441,6 +441,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1684444824586754163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7753470370212708112}
+  m_Layer: 0
+  m_Name: WeaponHolding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7753470370212708112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684444824586754163}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 37.416092, y: 0.38516557, z: -0.03737741}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2506703283375673614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1869357354707661789
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +538,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   delayTime: 0
-  disableTime: 1
+  disableTime: 3
   moveCompleted: 0
   directionInt: 0
 --- !u!212 &563151717037156973
@@ -628,7 +659,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   delayTime: 0
-  disableTime: 1
+  disableTime: 3
   moveCompleted: 0
   directionInt: 0
 --- !u!212 &7613535199638383147
@@ -845,6 +876,7 @@ GameObject:
   - component: {fileID: 9129312048117138354}
   - component: {fileID: 8106030423322903763}
   - component: {fileID: 1011422317644484341}
+  - component: {fileID: 2368765044683344441}
   m_Layer: 0
   m_Name: BossTest
   m_TagString: Untagged
@@ -909,7 +941,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1027,9 +1059,10 @@ MonoBehaviour:
   health: 100
   healthPhase2: 70
   healthPhase3: 40
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  normalColor: {r: 1, g: 0, b: 0, a: 1}
   attackColor: {r: 1, g: 0, b: 0, a: 1}
   strongAttackColor: {r: 0, g: 0.8402312, b: 1, a: 1}
+  takeDamgeColor: {r: 1, g: 1, b: 1, a: 1}
   onGround: 0
   onWall: 0
   velocity: 40
@@ -1164,6 +1197,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1e91e3ea7e00e94ca2718a52f81f41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2368765044683344441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816581309029192839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f134b2fcbee8904f85665e4f6b3198a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7630885915596446287
@@ -1472,6 +1517,7 @@ Transform:
   - {fileID: 2797239548081726848}
   - {fileID: 6403483278950429833}
   - {fileID: 5705518332929305476}
+  - {fileID: 7753470370212708112}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9071161955871062637

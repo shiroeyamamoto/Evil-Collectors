@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Boss_Lv1_Fake_Jump : StateMachineBehaviour
 {
-    public float numerator;
-    public float denominator;
+    public int numerator;
+    public int denominator;
 
     public float heightOffset;
     float fraction;
