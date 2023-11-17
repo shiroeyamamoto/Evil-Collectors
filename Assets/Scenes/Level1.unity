@@ -389,7 +389,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 170356271}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 70495ad43e9e54044a8080dd57f97bc8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -877,7 +877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &984968010
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,7 +1098,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1055292713}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 70495ad43e9e54044a8080dd57f97bc8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

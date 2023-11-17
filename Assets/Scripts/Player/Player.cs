@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class Player : SingletonMonobehavious<Player>, IInteractObject
 {
@@ -30,7 +25,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     public void Init(SO_PlayerData playerData)
     {
         rb2d = GetComponent<Rigidbody2D>();
-        spriteRendererPlayer = GetComponent<SpriteRenderer>();
+        spriteRendererPlayer = transform.Find("Body").gameObject.GetComponent<SpriteRenderer>();
+        Settings.playerColor = spriteRendererPlayer.color;
         audioSource = GetComponent<AudioSource>();
         playerSound = GetComponent<PlayerSound>();
         animator = GetComponent<Animator>();
@@ -45,7 +41,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         playerDie = false;
         SkillList = new List<SkillBase>();
 
-        Settings.playerRenderer = transform.Find("Body").gameObject.GetComponent<SpriteRenderer>();
+        Settings.isFacingRight = true;
     }
     
     private void FixedUpdate()
@@ -93,7 +89,21 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
     public Action OnDead;
-    
+
+    public void UseHealth(float healthUsed)
+    {
+        if (!Settings.zombieMode)
+        {
+            if (CurrentInfo.health > 0)
+            {
+                CurrentInfo.health -= healthUsed;
+                if (CurrentInfo.health > InfoDefaultSO.health)
+                    CurrentInfo.health = InfoDefaultSO.health;
+                OnUpdateHP?.Invoke(CurrentInfo.health);
+            }
+        }
+    }
+
     public void UseMana(float manaUsed)
     {
         if (!Settings.zombieMode)
@@ -188,7 +198,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         return null;
     }
 
-    public SkillBase AddSkill(ActiveItem activeItem) {
+    /*public SkillBase AddSkill(ActiveItem activeItem) {
         SkillBase skill = gameObject.AddComponent(MapSkillScript(activeItem.SkillName)) as SkillBase;
         if (skill) {
             skill.Init(activeItem);
@@ -196,7 +206,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
 
         return skill;
-    }
+    }*/
 
     private Type MapSkillScript(SkillName skillName)
     {
@@ -209,15 +219,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-
-    public void UpdatePlayerUI()
-    {
-        OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
-        OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
-    }
-
-    public void OnDamaged(float damage)
+    public void OnDamaged(float dmgTake)
     {
         if (!Settings.zombieMode)
         {
@@ -226,7 +228,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
             if (CurrentInfo.health > 0)
             {
-                CurrentInfo.health--;
+                CurrentInfo.health --;
                 OnUpdateHP?.Invoke(CurrentInfo.health);
             }
 
@@ -235,5 +237,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                 PlayerDie();
             }
         }
+    }
+
+    public void UpdatePlayerUI()
+    {
+        OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
+        OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
 }

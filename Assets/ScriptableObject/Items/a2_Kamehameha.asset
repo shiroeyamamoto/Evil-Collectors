@@ -16,8 +16,10 @@ MonoBehaviour:
   itemName: Kamehameha
   itemIcon: {fileID: -225122067, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: hoa than thanh songoku
+  itemTag: 2
   isAutoUse: 0
   skillName: 2
   bullet: {fileID: 7927646333712399543, guid: f558cdd91be8a0941a8bd7c27c0e6e34, type: 3}
   duration: 0
   tags: 08000000
+  skillBase: {fileID: 5784675032779808412, guid: f558cdd91be8a0941a8bd7c27c0e6e34, type: 3}

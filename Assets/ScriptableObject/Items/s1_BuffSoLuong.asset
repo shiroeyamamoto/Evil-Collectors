@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: Buff so luong
   itemIcon: {fileID: 232496660, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: buff them 2 dan dao
+  itemTag: 3
   isAutoUse: 1
   multiBullet: 2
   incSpace: 1

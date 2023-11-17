@@ -29,7 +29,7 @@ public static class Settings
 
     // Player Status
     [Tooltip("Player có bận không?")] public static bool PlayerDamaged = false;
-    public static SpriteRenderer playerRenderer;
+    public static Color playerColor = Color.green;
 
     // Player Skill
     [Tooltip("Player đang dùng chiêu")] public static bool isCatingSkill = false;
@@ -42,5 +42,5 @@ public static class Settings
     [Tooltip("LayerMask tên Enemy")] public static string enemyLayerMask = "Enemy";
 
     // Cheats
-    [Tooltip("Player bất tử?")] public static bool zombieMode = true;
+    [Tooltip("Player bất tử?")] public static bool zombieMode = false;
 }

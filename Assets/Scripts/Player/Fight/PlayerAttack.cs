@@ -39,4 +39,12 @@ public class PlayerAttack : MonoBehaviour
             Player.Instance.NoneDamage();
         }   
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Settings.canKnockback = false;
+        }
+    }
 }
