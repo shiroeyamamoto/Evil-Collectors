@@ -11,6 +11,8 @@ public class SkillManager : MonoBehaviour
 
     private int currentItemQuickKey;
 
+    [SerializeField] private ItemSwitcher itemSwitcher;
+
     private void Start()
     {
         holyLightSkill.gameObject.SetActive(false);
@@ -23,20 +25,14 @@ public class SkillManager : MonoBehaviour
         if (!Settings.isGrounded)
             return;
 
-        if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing)
+        if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing && !Settings.isMove)
         {
 
 
             // Quick key
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-
-                UseItemQuickKey(currentItemQuickKey);
-
-                /*foreach (var item in Player.Instance.SkillList)
-                {
-                    item.UseToDir(new Vector2());
-                }*/
+                itemSwitcher.UseItem();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -45,18 +41,8 @@ public class SkillManager : MonoBehaviour
 
             // HolyLight
             if (Input.GetKey(KeyCode.Z))
-            {
-
+            { 
                 if (Settings.isMove)
-                    return;
-
-                if (GameController.Instance.Player.CurrentInfo.mana < Player.Instance.InfoDefaultSO.mana / 10f)
-                {
-                    holyLightSkill.cancelSkill = true;
-                    return;
-                }
-
-                if (GameController.Instance.Player.CurrentInfo.mana < holyLightSkill.GetMaxManaNeed())
                     return;
 
                 if (Input.GetKeyDown(KeyCode.Space))

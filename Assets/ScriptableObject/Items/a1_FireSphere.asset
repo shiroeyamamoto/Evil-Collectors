@@ -16,8 +16,10 @@ MonoBehaviour:
   itemName: Cau Lua
   itemIcon: {fileID: 869626837, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: cau lua skillll ne
+  itemTag: 2
   isAutoUse: 0
   skillName: 1
   bullet: {fileID: 2958075601290497035, guid: f86cfc3fc32d5584d863cb1788718f20, type: 3}
   duration: 0
   tags: 040000000800000003000000
+  skillBase: {fileID: 8972744085203581427, guid: f86cfc3fc32d5584d863cb1788718f20, type: 3}

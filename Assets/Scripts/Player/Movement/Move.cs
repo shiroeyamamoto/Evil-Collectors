@@ -11,6 +11,8 @@ public class Move : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float speedMove = 10f;
     [SerializeField, Range(0f, 100f)] private float speedAirMove = 20f;
 
+    [Range(0f, 90f)] public float rotationWhenMove = 18f;
+
     // Dash
     private bool canDash = true;
     //private bool isDasing = false;
@@ -113,7 +115,11 @@ public class Move : MonoBehaviour
         else if(move == 0 && Settings.isMove)
             Settings.isMove = false;
 
-       
+        if(jumpController.isSliding)
+            PlayerRotation(0);
+        else
+            PlayerRotation(move);
+
         rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
 
         Horizontal = move;
@@ -191,6 +197,22 @@ public class Move : MonoBehaviour
         {
             Player.Instance.audioSource.clip = null;
             Player.Instance.audioSource.Stop();
+        }
+    }
+
+    public void PlayerRotation(float move)
+    {
+        if (move > 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, -rotationWhenMove);
+        }
+        else if(move <0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, rotationWhenMove);
+        }
+        else if(move == 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 

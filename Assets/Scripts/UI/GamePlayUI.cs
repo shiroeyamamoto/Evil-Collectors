@@ -35,7 +35,10 @@ public class GamePlayUI : MonoBehaviour
         btnBackMenu.onClick.AddListener(GameManager.Instance.LoadSceneMenu);
         resutlUI.OnClick += () => {
             resutlUI.Hide();
-            storeUI.Show();
+            GameManager.Instance.LoadSceneMenu();
+
+            // origin of Quan dev
+            //storeUI.Show();
         };
         
         resutlUI.gameObject.SetActive(false);

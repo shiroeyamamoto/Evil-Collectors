@@ -124,14 +124,14 @@ public class Concentrate : Skill
         Settings.isAttacking = true;
         Settings.isCatingSkill = true;
 
-        Settings.playerRenderer.color = Color.grey;
+        Player.Instance.spriteRendererPlayer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        Settings.playerRenderer.color = Color.green;
+        Player.Instance.spriteRendererPlayer.color = Color.green;
 
         timeAuraCounter = timeExitAura;
 
@@ -164,7 +164,7 @@ public class Concentrate : Skill
         transform.localScale = scale;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        Settings.playerRenderer.color = Color.white;
+        Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
 
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);

@@ -39,7 +39,7 @@ public class FireBallSkill : Skill
     {
         // Hướng ngẫu nhiên bắn
         float randomAngle = Random.Range(-5f, 5f); // góc bắn
-        Vector2 moveDirection = Quaternion.Euler(0, 0, randomAngle) * Vector2.right;
+        Vector2 moveDirection = Quaternion.Euler(0, 0, randomAngle) * (Player.Instance.transform.localScale.x>0? Vector2.right : Vector2.left);
 
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
 
@@ -52,5 +52,19 @@ public class FireBallSkill : Skill
     public override void HoldKeySkill()
     {
         return;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 3) ;
+        {
+            //Debug.Log("Wall");
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.1f);
+            Destroy(this.gameObject);
+        }
     }
 }

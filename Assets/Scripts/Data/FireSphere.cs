@@ -10,7 +10,7 @@ public class FireSphere : SkillBase {
     private float scale = 1;
     public override void UseToTarget(Vector2 target) {
         for (int i = 0; i < amount; i++) {
-            var bullet = Instantiate(this.bullet, transform.position, Quaternion.identity);
+            var bullet = Instantiate(this.bullet, Player.Instance.transform.position, Quaternion.identity);
             bullet.ActiveToTarget(target);
         }
     }
@@ -25,7 +25,7 @@ public class FireSphere : SkillBase {
 
         for (int i = 0; i < amount; i++)
         {
-            var bullet = Instantiate(this.bullet, transform.position, Quaternion.identity);
+            var bullet = Instantiate(this.bullet, dir, Quaternion.identity);
 
             FireBallSkill skill = bullet.GetComponent<FireBallSkill>();
             skill.ActivateSkill(amount,scale);

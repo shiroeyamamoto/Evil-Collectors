@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: -3543007043060444602}
   - component: {fileID: 6095051927803334779}
   - component: {fileID: 3889797867373870912}
-  m_Layer: 0
-  m_Name: Circle
+  - component: {fileID: -4083367569652870092}
+  m_Layer: 7
+  m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,6 +117,7 @@ MonoBehaviour:
   decription: skill decription
   manaNeed: 0
   Unlocked: 1
+  cancelSkill: 0
   isCastingSkill: 0
   canUseSkill: 1
   position: {x: 0, y: 0, z: 0}
@@ -186,3 +188,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-4083367569652870092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972744085203581427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8e2db6e85a8df46acf59731861df2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 2958075601290497035}
+  duration: 0

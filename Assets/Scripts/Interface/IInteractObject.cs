@@ -1,4 +1,4 @@
 public interface IInteractObject
 {
-    void OnDamaged(int dmgTake);
+    void OnDamaged(float dmgTake);
 }

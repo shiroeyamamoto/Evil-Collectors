@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: Buff Tam Chieu Thuc
   itemIcon: {fileID: 1850554297, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: to hon
+  itemTag: 3
   isAutoUse: 1
   multiBullet: 0
   incSpace: 1.25

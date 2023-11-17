@@ -98,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2547582766247208456}
   - component: {fileID: 3610710053529889534}
+  - component: {fileID: 2692958516146380846}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -143,6 +144,22 @@ MonoBehaviour:
   holyLightSkill: {fileID: 6658897892832660534}
   nothingnessSkill: {fileID: 6113235814982284127}
   concentrateSkill: {fileID: 7218063468144412283}
+  itemSwitcher: {fileID: 2692958516146380846}
+--- !u!114 &2692958516146380846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839797980769212187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca9173e03c24354c8aba1ef18f24a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 11400000, guid: 98bdf3358645b8d45adb5455f74d4af0, type: 2}
+  - {fileID: 11400000, guid: dc9c5d157fa12ae43a19d0ebd24d3042, type: 2}
 --- !u!1001 &829315481199018610
 PrefabInstance:
   m_ObjectHideFlags: 0

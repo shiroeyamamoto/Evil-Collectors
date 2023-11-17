@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SkillBase : MonoBehaviour {
+public class SkillBase : MonoBehaviour
+{
     public BulletBase bullet;
     public float duration;
 
@@ -13,6 +14,7 @@ public class SkillBase : MonoBehaviour {
     public virtual void UpdateSkill(SupportItem supportItem) { }
     public List<SkillTag> SkillTag { get; protected set; }
     public void Init(ActiveItem activeItem) {
+        Debug.Log("Đã khởi tạo SkillBase");
         this.bullet = activeItem.Bullet;
         this.SkillTag = activeItem.Tags;
     }

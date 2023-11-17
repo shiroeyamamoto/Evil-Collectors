@@ -19,25 +19,25 @@ public class GameController : SingletonMonobehavious<GameController>
     {
         Player = Instantiate(playerPrefab);
         Player.Init(LevelSO.playerData);
-        foreach (var item in ItemBases) {
+        /*foreach (var item in ItemBases) {
             if (item as ActiveItem) {
                 item.UseToMySelf(Player);
             }
-        }
+        }*/
 
-        foreach (var item in ItemBases) {
+        /*foreach (var item in ItemBases) {
             if (item.isAutoUse) {
                 item.UseToMySelf(Player);
                 //item.UseToMyTeam(playerTeam);
                 //item.UseToTarget(player);
                 //item.UseToTargetTeam(playerTeam);
             }
-        }
+        }*/
 
-        foreach (var item in ItemBases)
+        /*foreach (var item in ItemBases)
         {
-            Debug.Log(item.itemName);
-        }
+            Debug.Log($"{item.itemName} - {item.itemTag}");
+        }*/
 
         Player.OnUpdateMana += gamePlayUI.Player_OnUpdateMana;
         Player.OnUpdateHP += gamePlayUI.Player_OnUpdateHP;

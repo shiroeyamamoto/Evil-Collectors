@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: binh hp
   itemIcon: {fileID: -117265631, guid: 6b0a570e967bf8044b3cf1f76110f2fa, type: 3}
   itemDescription: tiet canh
+  itemTag: 1
   isAutoUse: 0
   isCanUseInMyTeam: 0
   isCanUseInTargetTeam: 0

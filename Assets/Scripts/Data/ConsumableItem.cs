@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,6 +52,30 @@ public class ConsumableItem : ItemBase
             }
             else {
                 player.IncreaseMana(manaAmount);
+            }
+        }
+    }
+    public override void UseItem()
+    {
+
+        if (Player.Instance.CurrentInfo.health > 0)
+        {
+            if (restoreMaxHP)
+            {
+                Player.Instance.IncreaseHp(Player.Instance.InfoDefaultSO.health);
+            }
+            else
+            {
+                Player.Instance.IncreaseHp(hpAmount);
+            }
+
+            if (restoreMaxMana)
+            {
+                Player.Instance.IncreaseMana(Player.Instance.InfoDefaultSO.mana);
+            }
+            else
+            {
+                Player.Instance.IncreaseMana(manaAmount);
             }
         }
     }

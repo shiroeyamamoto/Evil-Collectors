@@ -18,12 +18,16 @@ public class HolyLight : Skill
 
     public override void HoldKeySkill()
     {
+        //Debug.Log("Mana: "+Player.Instance.CurrentInfo.mana);
+
+
+
         if (cancelSkill)
         {
             Settings.isCatingSkill = false;
             inSkill = false;
             Debug.Log("cancel");
-            Settings.playerRenderer.color = Color.white;
+            Player.Instance.spriteRendererPlayer.color = Color.white;
             Player.Instance.UseMana(-manaNeed);
             manaNeed = 0;
 
@@ -40,16 +44,19 @@ public class HolyLight : Skill
         if (Settings.isCatingSkill && !inSkill )
             return;
 
-        if (base.canUseSkill && base.Unlocked)
+        if (base.canUseSkill && base.Unlocked && Player.Instance.CurrentInfo.mana>0)
         {
 
             Vector3 playerPosition = Player.Instance.transform.position;
-            if (!Settings.isCatingSkill)
+            if (!Settings.isCatingSkill && canUseSkill)
             {
                 manaNeed = 0f;
                 elapsedTime = 0f;
                 decreaseInterval = timeHoldSkill / 100f;
                 timeToExhaust = timeHoldSkill;
+
+                Debug.Log("timeToExhaust: " + timeToExhaust);
+
                 cancelSkill = false;
                 position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
 
@@ -59,7 +66,7 @@ public class HolyLight : Skill
                 transform.localScale = new Vector2(0, transform.localScale.y);
                 //transform.Find("Circle").gameObject.GetComponent<SpriteRenderer>().enabled = true;
                 auraCircle.localScale = new Vector2(0, 0);
-                Settings.playerRenderer.color = Color.yellow;
+                Player.Instance.spriteRendererPlayer.color = Color.yellow;
 
             }
             Settings.isCatingSkill = true;
@@ -115,6 +122,8 @@ public class HolyLight : Skill
 
                     Player.Instance.UpdatePlayerUI();
 
+                    //Debug.Log("Toi o day");
+
                     transform.localScale = new Vector2(transform.localScale.x+0.05f, transform.localScale.y);
 
                     auraCircle.localScale = new Vector2(transform.localScale.x*5, transform.localScale.x * 5);
@@ -124,7 +133,7 @@ public class HolyLight : Skill
             }
             else
             {
-                auraCircle.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                auraCircle.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
             }
         }
     }
@@ -135,12 +144,12 @@ public class HolyLight : Skill
         {
             if (base.canUseSkill && base.Unlocked)
             {
-                Debug.Log("Push1");
+                //Debug.Log("Push1");
                 Vector3 playerPosition = Player.Instance.transform.position;
                 position = new Vector3(playerPosition.x, playerPosition.y + 80, playerPosition.z);
                 transform.position = position;
 
-                scale = transform.localScale;
+                //scale = transform.localScale;
 
                 gameObject.SetActive(true);
 
@@ -148,7 +157,7 @@ public class HolyLight : Skill
                 //transform.Find("Circle").gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
                 this.gameObject.SetActive(true);
-                Debug.Log("Push2");
+                //Debug.Log("Push2");
                 StartCoroutine(HolyLightStart());
             }
         }
@@ -166,7 +175,7 @@ public class HolyLight : Skill
         // niệm phép 
         Settings.isAttacking = true;
         //base.isCastingSkill = true;
-        Settings.playerRenderer.color = Color.grey;
+        Player.Instance.spriteRendererPlayer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
         // Bắt đầu cast phép
         base.canUseSkill = false;
@@ -175,7 +184,7 @@ public class HolyLight : Skill
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = true;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        Settings.playerRenderer.color = Color.red;
+        Player.Instance.spriteRendererPlayer.color = Color.red;
 
         while (maxSize > currentSize)
         {
@@ -189,14 +198,12 @@ public class HolyLight : Skill
             yield return null; // Chờ một frame
         }
         Settings.isAttacking = false;
-        //base.isCastingSkill = false;
-
         Settings.isCatingSkill = false;
-        base.isCastingSkill = false;
+
         inSkill = true;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
 
-        Settings.playerRenderer.color = Color.white;
+        Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
 
         // Hoàn thành phép được tự do di chuyển
         transform.localPosition = position;

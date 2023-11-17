@@ -41,12 +41,12 @@ public class Nothingness : Skill
         // niệm phép 
         Settings.isAttacking = true;
         Settings.isCatingSkill = true;
-        Settings.playerRenderer.color = Color.grey;
+        Player.Instance.spriteRendererPlayer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
         base.canUseSkill = false;
-        Settings.playerRenderer.color = Color.red;
+        Player.Instance.spriteRendererPlayer.color = Color.red;
         // bat tu
         if (!Settings.nothingnessSkill)
             Settings.nothingnessSkill = true;
@@ -55,7 +55,7 @@ public class Nothingness : Skill
         Settings.isCatingSkill = false;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng
 
-        Settings.playerRenderer.color = Color.white;
+        Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
         if (Settings.nothingnessSkill)
             Settings.nothingnessSkill = false;
 
