@@ -106,9 +106,20 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         OnDamaged(10);
     }
 
+
+    public float eyeScale;
+    public float scaleDuration;
     public void OnDamaged(float damage)
     {
         //damage = 10;
+        //damage animation
+        float scaleDefault = transform.Find("Body").Find("Eyes").localScale.y;
+        Debug.Log(scaleDefault);
+        transform.Find("Body").Find("Eyes").DOScaleY(eyeScale, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
+        });
+        //damage minus
         health -= damage;
         CheckHealth();
     }

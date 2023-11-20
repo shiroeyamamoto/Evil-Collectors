@@ -14,6 +14,9 @@ public class Boss_Lv1_Fake_Jump : StateMachineBehaviour
     public float jumpDuration;
     public int directionInt;
     public float distanceX;
+    [Space]
+    public float scaleChange;
+    public float scaleSpeed;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
@@ -35,9 +38,16 @@ public class Boss_Lv1_Fake_Jump : StateMachineBehaviour
             endPoint.y = animator.transform.position.y + heightOffset;
             endPoint.z = 0f;
 
-            Debug.Log(endPoint); 
+            Debug.Log(endPoint);
+            animator.transform.Find("Body").DOScaleY(scaleChange, scaleSpeed).SetEase(Ease.Linear);
+            animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y - (1 - scaleChange) / 2, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y + (1 - scaleChange) / 2, scaleSpeed).SetEase(Ease.Linear);
+                animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(() => {
+                    animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear);
+                });
+            });
             
-            animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear)
                 /*.OnStart(() =>
             {
                 jumpDurationCaculate = jumpDuration;
@@ -60,7 +70,7 @@ public class Boss_Lv1_Fake_Jump : StateMachineBehaviour
                 animator.SetTrigger("NextStep");
                 Debug.Log("First Jump Completed");
             })*/
-            ;
+            
         }
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

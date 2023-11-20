@@ -23,6 +23,11 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
     [Space]
     [Header("Particle")]
     public Transform wallSlamPrefab;
+
+    [Space]
+    public float angleRotate;
+    public float rotateDuration;
+    public float rotateReturnDelay;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Transform tranformThis = animator.transform;
@@ -39,43 +44,53 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                 Debug.Log(rushPointX);
                 float distance = Mathf.Abs(Mathf.Min(rushPointX, tranformThis.position.x) - Mathf.Max(rushPointX, tranformThis.position.x));
                 float duration = distance / velocity;
-                tranformThis.DOMoveX(rushPointX, duration).SetEase(Ease.Linear).OnComplete(() =>
+                tranformThis.Find("Body").DOLocalRotate(new Vector3(0, 0, angleRotate), rotateDuration).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    animator.SetInteger("FaceRight", isPlayerLeft);
-                    animator.SetTrigger("NextStep");
-                    Camera.main.GetComponent<CameraController>().ShakeCamera(shakeDuration, shakeForce);
-
-                    wallSlamPrefab = animator.transform.parent.Find("WallSlam");
-                    if (wallSlamPrefab)
+                    tranformThis.Find("Body").DOLocalRotate(new Vector3(0, 0, 0), 0).SetDelay(rotateReturnDelay).SetEase(Ease.Linear).OnComplete(() =>
                     {
-                        float x = Mathf.Abs(animator.transform.lossyScale.x)/ animator.transform.lossyScale.x;
-                        if (x < 0)
+                        tranformThis.DOMoveX(rushPointX, duration).SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.right, Mathf.Infinity, wallLayer);
-                            if (hit)
-                            {
-                                wallSlamPrefab.transform.position = hit.point;
-                                wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 180, 0);
-                            }
+                            animator.SetInteger("FaceRight", isPlayerLeft);
+                            animator.SetTrigger("NextStep");
+                            Camera.main.GetComponent<CameraController>().ShakeCamera(shakeDuration, shakeForce);
 
-                        }else
-                        {
-                            if (x > 0)
+                            wallSlamPrefab = animator.transform.parent.Find("WallSlam");
+                            if (wallSlamPrefab)
                             {
-                                RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.left, Mathf.Infinity, wallLayer);
-                                if (hit)
+                                float x = Mathf.Abs(animator.transform.lossyScale.x) / animator.transform.lossyScale.x;
+                                if (x < 0)
                                 {
-                                    wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
-                                    wallSlamPrefab.transform.position = hit.point;
+                                    RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.right, Mathf.Infinity, wallLayer);
+                                    if (hit)
+                                    {
+                                        wallSlamPrefab.transform.position = hit.point;
+                                        wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 180, 0);
+                                    }
+
                                 }
+                                else
+                                {
+                                    if (x > 0)
+                                    {
+                                        RaycastHit2D hit = Physics2D.Raycast(animator.transform.position, Vector2.left, Mathf.Infinity, wallLayer);
+                                        if (hit)
+                                        {
+                                            wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
+                                            wallSlamPrefab.transform.position = hit.point;
+                                        }
 
+                                    }
+                                }
+                                wallSlamPrefab.GetComponent<ParticleSystem>().Play();
                             }
-                        }
-                        wallSlamPrefab.GetComponent<ParticleSystem>().Play();
-                    }
 
-                    SpawnDamagableObject(damagableObjectPrefab, objectNumber,24,animator);
+                            SpawnDamagableObject(damagableObjectPrefab, objectNumber, 24, animator);
+                        });
+
+                    });
                 });
+
+                /**/
             }
         }
 
