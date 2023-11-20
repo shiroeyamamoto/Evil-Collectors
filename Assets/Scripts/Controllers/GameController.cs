@@ -15,7 +15,7 @@ public class GameController : SingletonMonobehavious<GameController>
     public LevelSO LevelSO => GameManager.Instance.CurrentLevelSelection;
     public List<ItemBase> ItemBases => GameManager.Instance.CurrentItemsInventory;
 
-    private void Start()
+    private void Awake()
     {
         Player = Instantiate(playerPrefab);
         Player.Init(LevelSO.playerData);
