@@ -43,7 +43,7 @@ public class B_Boss_Idle : StateMachineBehaviour
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;
-        animator.GetComponent<SpriteRenderer>().color = color;
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
     }
     public List<string> actions;
     public void DecideAction()

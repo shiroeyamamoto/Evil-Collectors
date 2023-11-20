@@ -22,7 +22,6 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
                 {
                     animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
                     {
-                        
                             isColorCompleted = true;
                             animator.SetTrigger("NextStep");
                     });
@@ -39,10 +38,6 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
         {
             faceToTarget = 1;
         }
-        // set alpha
-        /*Color color = animator.GetComponent<SpriteRenderer>().color;
-        color.a = alphaValue;
-        animator.GetComponent<SpriteRenderer>().color = color;*/
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

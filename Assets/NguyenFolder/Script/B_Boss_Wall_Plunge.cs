@@ -14,6 +14,10 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     public Transform wallSlamPrefab;
     [Range(0, 1)]
     public float alphaValue = 0.25f;
+
+    [Space]
+    public float scaleValue;
+    public float scaleSpeed;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -24,21 +28,15 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
             randomSide = Random.Range(-1, 2);
         }
         RaycastHit2D hit;
+        hit = Physics2D.Raycast(animator.transform.position, Vector2.right * randomSide, Mathf.Infinity, wallLayer);
+        Vector3 endPointJump;
+        endPointJump.x = hit.point.x - Mathf.Abs(animator.transform.lossyScale.x) / 2 * randomSide;
+        endPointJump.y = Random.Range(minY, maxY);
+        endPointJump.z = 0f;
+        
         if (randomSide != 0)
         {
-            hit = Physics2D.Raycast(animator.transform.position, Vector2.right * randomSide, Mathf.Infinity, wallLayer);
-            Vector3 endPointJump;
-            endPointJump.x = hit.point.x - Mathf.Abs(animator.transform.lossyScale.x) / 2 * randomSide;
-            endPointJump.y = Random.Range(minY, maxY);
-            endPointJump.z = 0f;
-            animator.transform.DOJump(endPointJump, jumpForce,1, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
-            {
-                animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            }).OnComplete(() =>
-            {
-                PlayParticle(animator, endPointJump);
-                animator.SetTrigger("NextStep");
-            });
+            PrepareJump(animator, endPointJump);
         }
         else
         {
@@ -63,6 +61,29 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         color.a = alpha;
         animator.GetComponent<SpriteRenderer>().color = color;
     }
-    
 
+    public void PrepareJump(Animator animator,Vector3 endPointJump)
+    {
+        animator.transform.Find("Body").DOScaleY(scaleValue, scaleSpeed).SetEase(Ease.Linear);
+        animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y - (1 - scaleValue) / 2, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y + (1 - scaleValue) / 2, scaleSpeed).SetEase(Ease.Linear);
+            animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                Jump(animator,endPointJump);
+            });
+        });
+    }
+
+    public void Jump(Animator animator,Vector3 endPointJump)
+    {
+        animator.transform.DOJump(endPointJump, jumpForce, 1, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
+        {
+            animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }).OnComplete(() =>
+        {
+            PlayParticle(animator, endPointJump);
+            animator.SetTrigger("NextStep");
+        });
+    }
 }

@@ -16,7 +16,7 @@ public class Boss_Final_Eyebrow_Controller : MonoBehaviour
 
     void GetPhase()
     {
-        phase = transform.parent.parent.GetComponent<BossController>().phase;
+        phase = transform.parent.parent.parent.GetComponent<BossController>().phase;
         Debug.Log(phase);
         if (phase == 1)
         {
