@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField, Range(0f, 20f)] private float pushForce = 2f;
+    [SerializeField, Range(0f, 100f)] private float pushForce = 2f;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -18,7 +18,12 @@ public class PlayerCollision : MonoBehaviour
 
                 Rigidbody2D playerRidid2D = Player.Instance.gameObject.GetComponent<Rigidbody2D>();
 
-                playerRidid2D.velocity = new Vector2(-gameObject.transform.localScale.x*pushForce, 0f);
+                float direction = Mathf.Sign(gameObject.transform.localScale.x); // Xác định hướng player
+                playerRidid2D.AddForce(new Vector2(-direction * pushForce, 25f), ForceMode2D.Impulse);
+
+                //playerRidid2D.AddForce(new Vector2(-gameObject.transform.localScale.x * pushForce, 25f), ForceMode2D.Impulse);
+
+                //playerRidid2D.velocity = new Vector2(-gameObject.transform.localScale.x*pushForce, 0f);
             }
         }
     }

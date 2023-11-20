@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSwitcher : MonoBehaviour
+public class ItemSwitcher : SingletonMonobehavious<ItemSwitcher>
 {
 
     private ItemBase currentItemQuickKey;
@@ -12,10 +13,14 @@ public class ItemSwitcher : MonoBehaviour
 
     public ItemBase CurrentItemQuickKey { get => currentItemQuickKey; set => currentItemQuickKey = value; }
 
+
+    public Action<Sprite> OnIconSwitch;
     private void Start()
     {
         //CurrentItemQuickKey = GameController.Instance.ItemBases[indexCurrentItem];
         CurrentItemQuickKey = itemList[0];
+
+        OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon);
     }
 
     private void Update()
@@ -61,6 +66,8 @@ public class ItemSwitcher : MonoBehaviour
         }
         ///Debug.Log("_----------------");
         Debug.Log($"{CurrentItemQuickKey.itemName} - {CurrentItemQuickKey.itemTag}");
+
+        OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon);
 
         // Cập nhật UI hoặc thông tin hiển thị với item hiện tại
         UpdateDisplay();

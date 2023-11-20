@@ -131,7 +131,7 @@ public class Concentrate : Skill
         base.canUseSkill = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        Player.Instance.spriteRendererPlayer.color = Color.green;
+        Player.Instance.spriteRendererPlayer.color = Color.white;
 
         timeAuraCounter = timeExitAura;
 

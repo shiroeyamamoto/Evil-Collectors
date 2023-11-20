@@ -1,25 +1,40 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePlayUI : MonoBehaviour
+public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
 {
-    [SerializeField] private Slider HP;
+    [SerializeField] private GameObject HP;
     [SerializeField] private Slider MN;
     [SerializeField] private Slider TP;
     [SerializeField] private Button btnBackMenu;
+    [SerializeField] private Image hpTwinklingLight;
+    [SerializeField] private Image hpTwinklingStrong;
+    [SerializeField] private Image iconSwitch;
 
     [SerializeField] private ResutlUI resutlUI;
     [SerializeField] private StoreUI storeUI;
 
     private SO_PlayerData playerData;
+    int currentIndex;
     public void PlayerInitData(SO_PlayerData playerData)
     {
-        HP.minValue = 0;
-        HP.maxValue = playerData.health;
-        HP.value = playerData.health;
+        //HP.minValue = 0;
+        //HP.maxValue = playerData.health;
+        //HP.value = playerData.health;
+
+        currentIndex = playerData.health;
+
+        for(int i=0; i < currentIndex; i++)
+        {
+            Image keyImage = HP.transform.Find($"{i+1}").gameObject.GetComponent<Image>();
+
+            keyImage.color = Color.red;
+
+            keyImage.gameObject.SetActive(true);
+        }
         
         MN.minValue = 0;
         MN.maxValue = playerData.mana;
@@ -53,7 +68,13 @@ public class GamePlayUI : MonoBehaviour
     
     public void Player_OnUpdateHP(float value)
     {
-        HP.value = value;
+        //HP.value = value;
+
+        //Debug.Log("Mất màus rồi;");
+
+        Image lostHP = HP.transform.Find($"{value+1}").gameObject.GetComponent<Image>();
+        lostHP.color = Color.black;
+
     }
     
     public void Player_OnUpdateTP(float value)
@@ -66,4 +87,28 @@ public class GamePlayUI : MonoBehaviour
         // save data
     }
 
+    public void Player_OnDamaged(int value)
+    {
+        if (Player.Instance.undeadCounter > 0)
+        {
+            hpTwinklingLight.enabled = true;
+
+            if (value == 1)
+                hpTwinklingStrong.enabled = true;
+            else
+                if (value == 2)
+                hpTwinklingStrong.enabled = false;
+        }
+        else
+        {
+            hpTwinklingLight.enabled = false;
+            hpTwinklingStrong.enabled = false;
+        }
+    }
+    public void UI_IconSwitchKey(Sprite value)
+    {
+
+        Debug.Log("Toi o day");
+        iconSwitch.sprite = value;
+    }
 }
