@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-
-public class Boss_Lv1_Dead : StateMachineBehaviour
+using DG.Tweening;
+public class B_Boss_Dead : StateMachineBehaviour
 {
+
     public LayerMask groundLayer;
     [Space]
     public float jumpPower;
@@ -24,7 +24,7 @@ public class Boss_Lv1_Dead : StateMachineBehaviour
         {
             animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(0, fadeDuration).SetEase(Ease.Linear).OnComplete(() =>
             {
-                animator.GetComponent<Boss_Level_1_Controller>().OnDead();
+                animator.GetComponent<BossController>().OnDead();
             });
         });
     }

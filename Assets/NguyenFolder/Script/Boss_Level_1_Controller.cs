@@ -130,7 +130,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         {
             health = 0;
             Debug.Log("I m D e a d");
-            this.enabled = false;animator.SetTrigger("Death");
+            this.enabled = false;
+            animator.SetTrigger("Death");
         }
         else if(health <= healthPhase2)
         {
@@ -151,4 +152,11 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         }
     }
 
+    public void OnDead()
+    {
+        // UI OnDead
+
+        // Disable Animator
+        animator.enabled = false;
+    }
 }

@@ -87,6 +87,7 @@ public class BossController : MonoBehaviour,IInteractObject
         } else
         if(health <= 0)
         {
+            OnDead();
             Debug.Log("im dead");
         }
     }
@@ -95,6 +96,18 @@ public class BossController : MonoBehaviour,IInteractObject
     public void damageMe()
     {
         OnDamaged(15);
+    }
+
+    public void OnDead()
+    {
+        //UI OnDead
+
+        //Disable animator
+        Animator animator = GetComponent<Animator>();
+        if (animator)
+        {
+            animator.enabled = false;
+        }
     }
 
     public List<Transform> listSwords;
