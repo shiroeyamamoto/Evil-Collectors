@@ -15,18 +15,19 @@ public class ItemSwitcher : SingletonMonobehavious<ItemSwitcher>
 
 
     public Action<Sprite, Sprite> OnIconSwitch;
-    private void Start()
+    public void Init()
     {
         //CurrentItemQuickKey = GameController.Instance.ItemBases[indexCurrentItem];
+
         CurrentItemQuickKey = itemList[indexCurrentItem];
 
         OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon, itemList[indexCurrentItem == 0 ? 1 : 0].itemIcon);
 
-        Debug.Log("Tao o day");
     }
 
     private void Update()
     {
+
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         if (scrollInput != 0)
         {
