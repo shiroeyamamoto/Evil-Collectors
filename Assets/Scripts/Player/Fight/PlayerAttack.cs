@@ -16,25 +16,27 @@ public class PlayerAttack : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.GetComponent<IInteractObject>() != null)
         {
             Settings.canKnockback = true;
 
-            EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
+            collision.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack);
 
-            enemyBody.EnemyTakeDamge(GameController.Instance.Player.DamageAttack);
+            //EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
 
-            Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
+            //enemyBody.EnemyTakeDamge(GameController.Instance.Player.DamageAttack);
+
+            //Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
 
             // Đẩy kẻ địch khi đánh trúng
-            if (Player.Instance.transform.position.x < collision.transform.position.x)
-            {
-                enemyRigid2D.velocity = new Vector2(collision.gameObject.transform.localScale.x * pushForce, 0f);
-            }
-            else if(Player.Instance.transform.position.x > collision.transform.position.x)
-            {
-                enemyRigid2D.velocity = new Vector2(-collision.gameObject.transform.localScale.x * pushForce, 0f);
-            }
+            //if (Player.Instance.transform.position.x < collision.transform.position.x)
+            //{
+            //    enemyRigid2D.velocity = new Vector2(collision.gameObject.transform.localScale.x * pushForce, 0f);
+            //}
+            //else if(Player.Instance.transform.position.x > collision.transform.position.x)
+            //{
+            //    enemyRigid2D.velocity = new Vector2(-collision.gameObject.transform.localScale.x * pushForce, 0f);
+            //}
 
             Player.Instance.NoneDamage();
         }   
