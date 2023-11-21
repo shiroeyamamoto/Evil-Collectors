@@ -14,6 +14,8 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
+
         animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
         {
             animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>

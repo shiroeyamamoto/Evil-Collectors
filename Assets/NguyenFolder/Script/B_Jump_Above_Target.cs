@@ -21,6 +21,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public float scaleSpeed;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
         // set alpha before jump
 
@@ -32,11 +33,12 @@ public class B_Jump_Above_Target : StateMachineBehaviour
 
         float velocity = animator.GetComponent<BossController>().velocity;
         jumpDuration = Vector2.Distance(endJumpPos, animator.transform.position) / velocity;
-        
+        PrepareJump(animator);
         /**/
     }
     void PlayParticle(Animator animator)
     {
+        
         Vector3 particleSpawnPoint;
         particleSpawnPoint.x = animator.transform.position.x;
         particleSpawnPoint.y = animator.transform.position.y - Mathf.Abs(animator.transform.lossyScale.y) / 2;
