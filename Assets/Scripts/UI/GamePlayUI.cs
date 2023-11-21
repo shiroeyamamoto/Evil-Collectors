@@ -12,7 +12,8 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
     [SerializeField] private Button btnBackMenu;
     [SerializeField] private Image hpTwinklingLight;
     [SerializeField] private Image hpTwinklingStrong;
-    [SerializeField] private Image iconSwitch;
+    [SerializeField] private Image iconSwitchFirst;
+    [SerializeField] private Image iconSwitchSecond;
 
     [SerializeField] private ResutlUI resutlUI;
     [SerializeField] private StoreUI storeUI;
@@ -105,10 +106,10 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
             hpTwinklingStrong.enabled = false;
         }
     }
-    public void UI_IconSwitchKey(Sprite value)
+    public void UI_IconSwitchKey(Sprite value1, Sprite value2)
     {
-
         Debug.Log("Toi o day");
-        iconSwitch.sprite = value;
+        iconSwitchFirst.sprite = value2;
+        iconSwitchSecond.sprite = value1;
     }
 }

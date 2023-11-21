@@ -45,7 +45,7 @@ public class GameController : SingletonMonobehavious<GameController>
         Player.OnDead += gamePlayUI.Player_OnDead;
         Player.OnDamagedTwinkling += gamePlayUI.Player_OnDamaged;
         ItemSwitcher.Instance.OnIconSwitch += gamePlayUI.UI_IconSwitchKey;
-
+        ItemSwitcher.Instance.Init();
 
         gamePlayUI.PlayerInitData(LevelSO.playerData);
     }
