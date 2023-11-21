@@ -32,7 +32,7 @@ public class B_Boss_Sword_Pillar : StateMachineBehaviour
             
             Transform sword = Instantiate(swordPrefab, endPoint,Quaternion.identity,null);
             animator.transform.GetComponent<BossController>().listSwords.Add(sword);
-            sword.GetComponent<SpriteRenderer>().DOFade(0.25f, fadeTime).OnComplete(() =>
+            sword.transform.GetComponent<SpriteRenderer>().DOFade(0.25f, fadeTime).OnComplete(() =>
             {
                 //animator.SetTrigger("NextStep");
             });

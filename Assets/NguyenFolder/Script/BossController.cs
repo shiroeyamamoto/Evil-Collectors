@@ -105,7 +105,7 @@ public class BossController : MonoBehaviour,IInteractObject
         TakeDamageEffect takeDamageEffect = transform.GetComponent<TakeDamageEffect>();
         if (takeDamageEffect != null)
         {
-            Color oldColor = transform.GetComponent<SpriteRenderer>().color;
+            Color oldColor = transform.Find("Body").GetComponent<SpriteRenderer>().color;
             takeDamageEffect.DoEffect(TakeDamageEffectEnum.ChangeColor, 0.5f, oldColor, takeDamgeColor);
         }
     }

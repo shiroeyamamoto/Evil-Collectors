@@ -16,13 +16,13 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
     {
         animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
 
-        animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
         {
-            animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
+            animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
             {
-                animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
+                animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
                 {
-                    animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
+                    animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
                     {
                             isColorCompleted = true;
                             animator.SetTrigger("NextStep");
@@ -57,9 +57,9 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
         isColorCompleted = false;
         rb2d.velocity = Vector2.zero;
         // reset alpha
-        Color color = animator.GetComponent<SpriteRenderer>().color;
+        Color color = animator.transform.Find("Body").GetComponent<SpriteRenderer>().color;
         color.a = 1;
-        animator.GetComponent<SpriteRenderer>().color = color;
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
         animator.ResetTrigger("NextStep");
     }
 

@@ -61,7 +61,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;
-        animator.GetComponent<SpriteRenderer>().color = color;
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
     }
 
     public void PrepareJump(Animator animator,Vector3 endPointJump)
