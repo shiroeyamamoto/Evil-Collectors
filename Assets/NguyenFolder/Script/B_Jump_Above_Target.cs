@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using static UnityEngine.ParticleSystem;
 
 public class B_Jump_Above_Target : StateMachineBehaviour
 {
@@ -16,8 +15,13 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     [Space]
     [Range(0,1)]
     public float alphaSprite = 0.75f;
+    [Space]
+    public float scaleValue;
+    public float defaultScaleValue = 1;
+    public float scaleSpeed;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
         // set alpha before jump
 
@@ -29,19 +33,12 @@ public class B_Jump_Above_Target : StateMachineBehaviour
 
         float velocity = animator.GetComponent<BossController>().velocity;
         jumpDuration = Vector2.Distance(endJumpPos, animator.transform.position) / velocity;
-        
-        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
-        {
-            PlayParticle(animator);
-            animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        }).OnComplete(() =>
-        {
-            SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
-            animator.SetTrigger("NextStep");
-        });
+        PrepareJump(animator);
+        /**/
     }
     void PlayParticle(Animator animator)
     {
+        
         Vector3 particleSpawnPoint;
         particleSpawnPoint.x = animator.transform.position.x;
         particleSpawnPoint.y = animator.transform.position.y - Mathf.Abs(animator.transform.lossyScale.y) / 2;
@@ -54,11 +51,37 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     void SetColor(Animator animator, Color color , float alpha)
     {
         color.a = alpha;
-        animator.GetComponent<SpriteRenderer>().color = color;
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         animator.ResetTrigger("NextStep");
+    }
+
+    public void PrepareJump(Animator animator)
+    {
+        animator.transform.Find("Body").DOScaleY(scaleValue, scaleSpeed).SetEase(Ease.Linear);
+        animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y - (1 - scaleValue) / 2, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y + (1 - scaleValue) / 2, scaleSpeed).SetEase(Ease.Linear);
+            animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                Jump(animator);
+            });
+        });
+    }
+
+    public void Jump(Animator animator)
+    {
+        animator.transform.DOJump(endJumpPos, jumpHeight, jumpStep, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
+                {
+                    PlayParticle(animator);
+                    animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                }).OnComplete(() =>
+                {
+                    SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
+                    animator.SetTrigger("NextStep");
+                });
     }
 }

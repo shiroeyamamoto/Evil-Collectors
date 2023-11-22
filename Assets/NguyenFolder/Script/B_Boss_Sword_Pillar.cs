@@ -29,10 +29,10 @@ public class B_Boss_Sword_Pillar : StateMachineBehaviour
             float ySpawn = player.position.y;
 
             Vector3 endPoint = new Vector3(xSpawn, ySpawn - 10,0);
-            Debug.Log(endPoint.x);
+            
             Transform sword = Instantiate(swordPrefab, endPoint,Quaternion.identity,null);
             animator.transform.GetComponent<BossController>().listSwords.Add(sword);
-            sword.GetComponent<SpriteRenderer>().DOFade(0.25f, fadeTime).OnComplete(() =>
+            sword.transform.GetComponent<SpriteRenderer>().DOFade(0.25f, fadeTime).OnComplete(() =>
             {
                 //animator.SetTrigger("NextStep");
             });

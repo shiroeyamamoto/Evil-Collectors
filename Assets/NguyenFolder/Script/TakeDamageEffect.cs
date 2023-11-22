@@ -34,7 +34,7 @@ public class TakeDamageEffect : MonoBehaviour
 
     public void ChangeColor(Color newColor)
     {
-        transform.GetComponent<SpriteRenderer>().color = newColor;
+        transform.Find("Body").GetComponent<SpriteRenderer>().color = newColor;
         Debug.Log("Start Change Color");
     }
 
@@ -45,7 +45,7 @@ public class TakeDamageEffect : MonoBehaviour
 
     public void StopColor(Color oldColor)
     {
-        transform.GetComponent<SpriteRenderer>().color = oldColor;
+        transform.Find("Body").GetComponent<SpriteRenderer>().color = oldColor;
         Debug.Log("Stop Change Color");
     }
 
