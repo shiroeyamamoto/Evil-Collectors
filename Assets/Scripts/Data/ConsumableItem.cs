@@ -41,7 +41,7 @@ public class ConsumableItem : ItemBase
     private void DoUse(Player player) {
         if (player.CurrentInfo.health > 0) {
             if (restoreMaxHP) {
-                player.IncreaseHp((int)player.InfoDefaultSO.health);
+                player.IncreaseHp(player.InfoDefaultSO.health);
             }
             else {
                 player.IncreaseHp(hpAmount);
@@ -62,7 +62,7 @@ public class ConsumableItem : ItemBase
         {
             if (restoreMaxHP)
             {
-                Player.Instance.IncreaseHp((int)Player.Instance.InfoDefaultSO.health);
+                Player.Instance.IncreaseHp(Player.Instance.InfoDefaultSO.health);
             }
             else
             {
