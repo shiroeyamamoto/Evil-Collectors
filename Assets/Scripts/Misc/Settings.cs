@@ -30,6 +30,7 @@ public static class Settings
     // Player Status
     [Tooltip("Player có bận không?")] public static bool PlayerDamaged = false;
     public static Color playerColor = Color.green;
+    public static Color playerHatColor = Color.green;
 
     // Player Skill
     [Tooltip("Player đang dùng chiêu")] public static bool isCatingSkill = false;

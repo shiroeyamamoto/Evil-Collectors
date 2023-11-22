@@ -14,7 +14,7 @@ public class GameController : SingletonMonobehavious<GameController>
     public Player Player { get; private set; }
     public LevelSO LevelSO => GameManager.Instance.CurrentLevelSelection;
     public List<ItemBase> ItemBases => GameManager.Instance.CurrentItemsInventory;
-    
+
     private void Start()
     {
         Player = Instantiate(playerPrefab);
@@ -43,7 +43,10 @@ public class GameController : SingletonMonobehavious<GameController>
         Player.OnUpdateHP += gamePlayUI.Player_OnUpdateHP;
         Player.OnUpdateTP += gamePlayUI.Player_OnUpdateTP;
         Player.OnDead += gamePlayUI.Player_OnDead;
-         
+        Player.OnDamagedTwinkling += gamePlayUI.Player_OnDamaged;
+        ItemSwitcher.Instance.OnIconSwitch += gamePlayUI.UI_IconSwitchKey;
+        ItemSwitcher.Instance.Init();
+
         gamePlayUI.PlayerInitData(LevelSO.playerData);
     }
 }

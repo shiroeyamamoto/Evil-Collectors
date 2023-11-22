@@ -596,7 +596,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.7169812, g: 0.6597752, b: 0, a: 1}
+  m_Color: {r: 0.021603467, g: 0.3773585, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1258,7 +1258,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staminaRecoveryTime: 0.2
   manaRecoveryTime: 0.2
+  undeadTime: 2
   spriteRendererPlayer: {fileID: 55451076758968930}
+  hatSpriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   audioSource: {fileID: 5814648130409259796}
   playerSound: {fileID: 414235825509752478}
@@ -1374,7 +1376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9128c140f5b08e24eb9777b87b2a7e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 18.8
+  pushForce: 50
 --- !u!95 &6731154079067448037
 Animator:
   serializedVersion: 5

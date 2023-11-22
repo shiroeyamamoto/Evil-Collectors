@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +7,10 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 {
     [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
+    [SerializeField, Range(0.5f, 5f)] private float undeadTime =2f;
 
     private Rigidbody2D rb2d;
-    public SpriteRenderer spriteRendererPlayer;
+    public SpriteRenderer spriteRendererPlayer, hatSpriteRenderer;
     public Animator animator;
     public AudioSource audioSource;
     public PlayerSound playerSound;
@@ -17,6 +19,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     [HideInInspector] public float DamageAttack;
     private bool playerDie;
+    public float undeadCounter;
     public SO_PlayerData CurrentInfo { get; private set; }
     public SO_PlayerData InfoDefaultSO { get; private set; }
     
@@ -26,7 +29,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         rb2d = GetComponent<Rigidbody2D>();
         spriteRendererPlayer = transform.Find("Body").gameObject.GetComponent<SpriteRenderer>();
+        hatSpriteRenderer = transform.Find("Hat").gameObject.GetComponent<SpriteRenderer>();
         Settings.playerColor = spriteRendererPlayer.color;
+        Settings.playerHatColor = hatSpriteRenderer.color;
         audioSource = GetComponent<AudioSource>();
         playerSound = GetComponent<PlayerSound>();
         animator = GetComponent<Animator>();
@@ -52,7 +57,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     }
     private void Update()
     {
-        if(!Settings.concentrateSKill) 
+        UndeadTime();
+
+        if (!Settings.concentrateSKill) 
             StaminaRecovery();
     }
 
@@ -89,8 +96,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
     public Action OnDead;
+    public Action<int> OnDamagedTwinkling;
 
-    public void UseHealth(float healthUsed)
+    public void UseHealth(int healthUsed)
     {
         if (!Settings.zombieMode)
         {
@@ -167,7 +175,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
-    public void IncreaseHp(float value)
+    public void IncreaseHp(int value)
     {
         CurrentInfo.health += value;
         if (CurrentInfo.health > InfoDefaultSO.health) {
@@ -230,6 +238,9 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             {
                 CurrentInfo.health --;
                 OnUpdateHP?.Invoke(CurrentInfo.health);
+                Settings.zombieMode = true;
+                undeadCounter = undeadTime;
+
             }
 
             if (CurrentInfo.health <= 0)
@@ -237,12 +248,51 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                 PlayerDie();
             }
         }
+
+        
     }
 
-    public void UpdatePlayerUI()
+    private void UndeadTime()
+    {
+        if (undeadCounter > 0)
+        {
+            undeadCounter -= Time.deltaTime;
+
+            StartCoroutine(Twinkling());
+        }
+        else
+        {
+            undeadCounter = 0;
+            Settings.zombieMode = false;
+            spriteRendererPlayer.color = Settings.playerColor;
+            hatSpriteRenderer.color = Settings.playerHatColor;
+            OnDamagedTwinkling?.Invoke(1);
+            OnDamagedTwinkling?.Invoke(2);
+            //StopCoroutine(Twinkling());
+        }
+    }
+
+    private IEnumerator Twinkling()
+    {
+        while (undeadCounter > 0)
+        {
+            spriteRendererPlayer.color = Color.white;
+            hatSpriteRenderer.color = Color.white;
+            OnDamagedTwinkling?.Invoke(1);
+            yield return new WaitForSeconds(0.3f);
+            spriteRendererPlayer.color = Settings.playerColor;
+            hatSpriteRenderer.color = Settings.playerHatColor;
+            OnDamagedTwinkling?.Invoke(2);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+        public void UpdatePlayerUI()
     {
         OnUpdateHP?.Invoke(Player.Instance.CurrentInfo.health);
         OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
         OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
+
+
 }

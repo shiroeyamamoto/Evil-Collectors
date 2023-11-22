@@ -132,6 +132,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             Debug.Log("I m D e a d");
             //this.enabled = false;
             animator.SetTrigger("Death");
+            Player.Instance.OnDead();
         }
         else if(health <= healthPhase2)
         {

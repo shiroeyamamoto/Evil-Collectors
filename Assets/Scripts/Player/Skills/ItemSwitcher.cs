@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSwitcher : MonoBehaviour
+public class ItemSwitcher : SingletonMonobehavious<ItemSwitcher>
 {
 
     private ItemBase currentItemQuickKey;
@@ -12,16 +13,22 @@ public class ItemSwitcher : MonoBehaviour
 
     public ItemBase CurrentItemQuickKey { get => currentItemQuickKey; set => currentItemQuickKey = value; }
 
-    private void Start()
+
+    public Action<Sprite, Sprite> OnIconSwitch;
+    public void Init()
     {
         //CurrentItemQuickKey = GameController.Instance.ItemBases[indexCurrentItem];
-        CurrentItemQuickKey = itemList[0];
+
+        CurrentItemQuickKey = itemList[indexCurrentItem];
+
+        OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon, itemList[indexCurrentItem == 0 ? 1 : 0].itemIcon);
+
     }
 
     private void Update()
     {
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
 
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         if (scrollInput != 0)
         {
             // Chuyển đổi vật phẩm dựa vào hướng lăng chuột
@@ -61,6 +68,8 @@ public class ItemSwitcher : MonoBehaviour
         }
         ///Debug.Log("_----------------");
         Debug.Log($"{CurrentItemQuickKey.itemName} - {CurrentItemQuickKey.itemTag}");
+
+        OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon, itemList[indexCurrentItem == 0 ? 1 : 0].itemIcon);
 
         // Cập nhật UI hoặc thông tin hiển thị với item hiện tại
         UpdateDisplay();
