@@ -43,5 +43,5 @@ public static class Settings
     [Tooltip("LayerMask tên Enemy")] public static string enemyLayerMask = "Enemy";
 
     // Cheats
-    [Tooltip("Player bất tử?")] public static bool zombieMode = false;
+    [Tooltip("Player bất tử?")] public static bool zombieMode = true;
 }

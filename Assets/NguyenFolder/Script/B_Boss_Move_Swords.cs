@@ -12,6 +12,9 @@ public class B_Boss_Move_Swords : StateMachineBehaviour
 
     public float moveDistance;
     public float moveDuration;
+
+    public float swordSpawnYPosition;
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         listSwords = animator.GetComponent<BossController>().listSwords;
@@ -23,7 +26,7 @@ public class B_Boss_Move_Swords : StateMachineBehaviour
     {
 
         foreach (Transform t in listSwords) {
-            Transform sword = Instantiate(swordPrefab, new Vector3(t.position.x, -3, 0), Quaternion.identity, null);
+            Transform sword = Instantiate(swordPrefab, new Vector3(t.position.x, swordSpawnYPosition, 0), Quaternion.identity, null);
             sword.DORotate(new Vector3(0, 0, -90), 0).OnComplete(() =>
             {
                 sword.DOMoveY(moveDistance, moveDuration).SetEase(Ease.Linear).OnComplete(() =>

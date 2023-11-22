@@ -37,7 +37,7 @@ public class B_Boss_Teleport_A_Side : StateMachineBehaviour
         {
             Teleport(animator);
         });*/
-        animator.transform.GetComponent<SpriteRenderer>().DOFade(0, 0.25f)
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(0, 0.25f)
         .OnStart(() =>
         {
             animator.transform.GetComponent<Collider2D>().isTrigger = true;
@@ -46,7 +46,7 @@ public class B_Boss_Teleport_A_Side : StateMachineBehaviour
         .OnComplete(() =>
         {
             Teleport(animator);
-            animator.transform.GetComponent<SpriteRenderer>().DOFade(1, 0.25f).OnComplete(() =>
+            animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(1, 0.25f).OnComplete(() =>
             {
                 animator.transform.GetComponent<Collider2D>().isTrigger = false;
                 animator.transform.GetComponent<Rigidbody2D>().gravityScale = 0;

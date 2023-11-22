@@ -106,9 +106,20 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         OnDamaged(10);
     }
 
+
+    public float eyeScale;
+    public float scaleDuration;
     public void OnDamaged(float damage)
     {
         //damage = 10;
+        //damage animation
+        float scaleDefault = transform.Find("Body").Find("Eyes").localScale.y;
+        Debug.Log(scaleDefault);
+        transform.Find("Body").Find("Eyes").DOScaleY(eyeScale, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
+        });
+        //damage minus
         health -= damage;
         CheckHealth();
     }
@@ -119,8 +130,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         {
             health = 0;
             Debug.Log("I m D e a d");
-            this.enabled = false;
-            Player.Instance.OnDead();
+            //this.enabled = false;
+            animator.SetTrigger("Death");
         }
         else if(health <= healthPhase2)
         {
@@ -141,4 +152,11 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         }
     }
 
+    public void OnDead()
+    {
+        // UI OnDead
+
+        // Disable Animator
+        transform.parent.gameObject.SetActive(false);
+    }
 }

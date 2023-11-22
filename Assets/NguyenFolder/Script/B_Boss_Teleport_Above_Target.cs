@@ -26,7 +26,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
         animator.GetComponent<SpriteRenderer>().color = color;*/
         animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        animator.transform.GetComponent<SpriteRenderer>().DOFade(0, 0.25f)
+        animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(0, 0.25f)
         .OnStart(() =>
         {
             animator.transform.GetComponent<Collider2D>().isTrigger = true;
@@ -39,7 +39,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
             isTeleport = true;
             animator.transform.position = (Vector2)player.transform.position + Vector2.up * heightOffset;
             animator.SetTrigger("NextStep");
-            animator.transform.GetComponent<SpriteRenderer>().DOFade(1, 0.25f).OnComplete(() =>
+            animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(1, 0.25f).OnComplete(() =>
             {
                 animator.transform.GetComponent<Collider2D>().isTrigger = false;
                 animator.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -77,7 +77,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;
-        animator.GetComponent<SpriteRenderer>().color = color;
+        animator.transform.Find("Body").Find("Body").GetComponent<SpriteRenderer>().color = color;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
