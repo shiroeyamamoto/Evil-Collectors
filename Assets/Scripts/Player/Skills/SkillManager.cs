@@ -30,7 +30,7 @@ public class SkillManager : MonoBehaviour
 
 
             // Quick key
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 itemSwitcher.UseItem();
             }
