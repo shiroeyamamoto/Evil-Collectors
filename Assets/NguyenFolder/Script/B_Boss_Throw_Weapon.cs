@@ -6,8 +6,6 @@ public class B_Boss_Throw_Weapon : StateMachineBehaviour
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
-
         Transform weapon  = animator.transform.parent.Find("Boss Weapon 1");
         if (weapon)
         {

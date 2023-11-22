@@ -14,18 +14,19 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
-
-        animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
+        animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
         {
-            animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
+            animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
             {
-                animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
+                animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
                 {
-                    animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
+                    animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
                     {
+                        animator.transform.GetComponent<SpriteRenderer>().DOColor(Color.white, 0).SetDelay(colorDuration).OnComplete(() =>
+                        {
                             isColorCompleted = true;
                             animator.SetTrigger("NextStep");
+                        });
                     });
                 });
             });
@@ -40,6 +41,10 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
         {
             faceToTarget = 1;
         }
+        // set alpha
+        /*Color color = animator.GetComponent<SpriteRenderer>().color;
+        color.a = alphaValue;
+        animator.GetComponent<SpriteRenderer>().color = color;*/
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -57,9 +62,9 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
         isColorCompleted = false;
         rb2d.velocity = Vector2.zero;
         // reset alpha
-        Color color = animator.transform.Find("Body").GetComponent<SpriteRenderer>().color;
+        Color color = animator.GetComponent<SpriteRenderer>().color;
         color.a = 1;
-        animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
+        animator.GetComponent<SpriteRenderer>().color = color;
         animator.ResetTrigger("NextStep");
     }
 

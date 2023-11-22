@@ -169,8 +169,8 @@ public class FinalBossWeapon : MonoBehaviour
                                                 player.transform.position - transform.position, 
                                                 Mathf.Infinity, 
                                                 groundNWallLayer);
-            //Debug.Log(hit.point);
-            Vector2 endPoint = hit.point;   
+            Debug.Log(hit.point);
+            Vector2 endPoint = hit.point;
 
 
             transform.DORotate(new Vector3(0, 0, angleRotate), 0).OnComplete(() => {

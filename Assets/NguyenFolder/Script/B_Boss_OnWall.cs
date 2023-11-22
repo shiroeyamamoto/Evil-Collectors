@@ -18,6 +18,6 @@ public class B_Boss_On_Wall : StateMachineBehaviour
     void SetColor(Animator animator, Color color, float alpha)
     {
         color.a = alpha;
-        animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
+        animator.GetComponent<SpriteRenderer>().color = color;
     }
 }
