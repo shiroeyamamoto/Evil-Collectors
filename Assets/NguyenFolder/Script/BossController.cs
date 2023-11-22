@@ -23,6 +23,7 @@ public class BossController : MonoBehaviour,IInteractObject
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         listSwords = new List<Transform>();
         phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
@@ -42,11 +43,11 @@ public class BossController : MonoBehaviour,IInteractObject
             Player.Instance.OnDamaged(20f);
         }
         int layer = collision.gameObject.layer;
-        if(groundLayer == ( 1<< layer))
+        if(groundLayer == ( 1 << layer))
         {
             onGround = true;
         }
-        if (wallLayer == (1 << layer))
+        if (wallLayer == ( 1 << layer))
         {
             onWall = true;
         }
@@ -76,20 +77,21 @@ public class BossController : MonoBehaviour,IInteractObject
     public void OnDamaged(float damage)
     {
         health -= damage;
-        if(health <= healthPhase3)
-        {
-            PhaseUp();
-        }
-        else 
-        if (health<= healthPhase2)
-        {
-            PhaseUp();
-        } else
-        if(health <= 0)
+        if (health <= 0)
         {
             OnDead();
+            
             Debug.Log("im dead");
         }
+        if (health <= healthPhase2)
+        {
+            PhaseUp();
+        }
+        if (health <= healthPhase3)
+        {
+            PhaseUp();
+        }
+        
     }
 
     [ContextMenu("Damage Me")]
@@ -97,16 +99,15 @@ public class BossController : MonoBehaviour,IInteractObject
     {
         OnDamaged(15);
     }
-
+    Animator animator;
     public void OnDead()
     {
         //UI OnDead
 
         //Disable animator
-        Animator animator = GetComponent<Animator>();
         if (animator)
         {
-            animator.enabled = false;
+            animator.SetTrigger("Dead");
         }
     }
 

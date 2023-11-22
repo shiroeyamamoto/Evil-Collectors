@@ -680,6 +680,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Final
       objectReference: {fileID: 0}
+    - target: {fileID: 9023724403054719497, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129312048117138354, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -932,6 +940,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1968955238352259545, guid: c775754832f10fe478a2835b665c66f3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2247918659640160090, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.289188
@@ -974,7 +986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4462417695835792958, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: health
-      value: 70
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4462417695835792958, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: eyeScale

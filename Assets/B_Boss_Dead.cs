@@ -17,14 +17,19 @@ public class B_Boss_Dead : StateMachineBehaviour
         RaycastHit2D hitToGround = Physics2D.Raycast(animator.transform.position, Vector2.down, Mathf.Infinity, groundLayer);
         Vector3 endPoint = hitToGround.point;
         endPoint.x = hitToGround.point.x;
-        endPoint.x = hitToGround.point.y + animator.transform.lossyScale.y / 2;
+        endPoint.y = hitToGround.point.y + Mathf.Abs(animator.transform.lossyScale.y) / 2;
         endPoint.z = 0f;
 
         animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
         {
-            animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(0, fadeDuration).SetEase(Ease.Linear).OnComplete(() =>
+            animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(0, fadeDuration).SetEase(Ease.Linear).OnStart(() =>
             {
-                animator.GetComponent<BossController>().OnDead();
+                animator.transform.Find("Body").Find("Eyes").GetComponent<SpriteRenderer>().DOFade(0, fadeDuration).SetEase(Ease.Linear);
+                animator.transform.Find("Body").Find("Eyes").Find("Eyebrow").GetComponent<SpriteRenderer>().DOFade(0, fadeDuration).SetEase(Ease.Linear);
+
+            }).OnComplete(() =>
+            {
+                animator.transform.parent.gameObject.SetActive(false);
             });
         });
     }
