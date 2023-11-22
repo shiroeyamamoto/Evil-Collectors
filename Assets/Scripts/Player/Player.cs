@@ -293,4 +293,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
         OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
+
+
 }
