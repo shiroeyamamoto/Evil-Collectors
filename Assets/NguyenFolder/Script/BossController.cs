@@ -4,6 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class BossController : MonoBehaviour,IInteractObject
 {
+    [Header("Phase")]
+    [Space]
+    public int phaseRangeMin;
+    public int phaseRangeMax;
+    [Space]
     [Header("Health")]
     public float health;
     public float healthPhase2;
@@ -32,7 +37,6 @@ public class BossController : MonoBehaviour,IInteractObject
     }
     private void Update()
     {
-
     }
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
@@ -69,8 +73,8 @@ public class BossController : MonoBehaviour,IInteractObject
     [ContextMenu("Phase Up")]
     void PhaseUp()
     {
-        
         phase++;
+        phase = Mathf.Clamp(phase,phaseRangeMin, phaseRangeMax);
         transform.GetComponent<Animator>().SetInteger("Phase",phase);
     }
 

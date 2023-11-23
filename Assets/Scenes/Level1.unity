@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1707146130724080008, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2247918659640160090, guid: c775754832f10fe478a2835b665c66f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -835,7 +835,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9023724403054719497, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129312048117138354, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: phase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129312048117138354, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: phaseRangeMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129312048117138354, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
+      propertyPath: phaseRangeMin
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
