@@ -21,7 +21,6 @@ public class B_Jump_Above_Target : StateMachineBehaviour
     public float scaleSpeed;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetBehaviour<B_Boss_Idle>().Flip(animator);
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
         // set alpha before jump
 

@@ -11,11 +11,11 @@ public class Boss_Lv1_Idle : StateMachineBehaviour
     {
         string action = DecideAction();
         animator.SetTrigger(action);
-        Flip(animator);
     }
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         Flip(animator);
     }
 

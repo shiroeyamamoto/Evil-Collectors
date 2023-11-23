@@ -36,8 +36,8 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         
         if (randomSide != 0)
         {
-            scaleAfterJump = randomSide * animator.transform.lossyScale.x;
-            animator.transform.DOScaleX(-scaleAfterJump, 0);
+            //scaleAfterJump = randomSide * animator.transform.lossyScale.x;
+            //animator.transform.DOScaleX(-scaleAfterJump, 0);
             PrepareJump(animator, endPointJump);
         }
         else
