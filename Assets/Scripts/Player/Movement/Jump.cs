@@ -1,7 +1,4 @@
-﻿using DG.Tweening;
-using System.Runtime.InteropServices;
-using UnityEditor.Tilemaps;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
@@ -19,13 +16,13 @@ public class Jump : MonoBehaviour
 
     [SerializeField, Range(0f, 5f)] private float wallJumpingDirection = 15;
     [SerializeField, Range(0f, 5f)] private float wallJumpingTime = 0.2f;
-    [SerializeField, Range(0f, 5f)] private float wallJumpingDuration=0.4f;
+    [SerializeField, Range(0f, 5f)] private float wallJumpingDuration = 0.4f;
     [SerializeField] private Vector2 wallForceJump;
 
     public Move moveController;
     [HideInInspector] public bool isWallJumping, isSliding;
 
-    private float _defaultGravityScale, _coyoteCounter,h, wallJumpingCounter;
+    private float _defaultGravityScale, _coyoteCounter, h, wallJumpingCounter;
     private int currentExtraJump;
     private bool jumpInAir, isJumpedInWall, flipWall;
 
@@ -49,7 +46,7 @@ public class Jump : MonoBehaviour
             return;
 
 
-        if (!Settings.PlayerDamaged )
+        if (!Settings.PlayerDamaged)
         {
 
             WallJump();
@@ -61,10 +58,10 @@ public class Jump : MonoBehaviour
 
             h = Input.GetAxisRaw("Horizontal");
 
-            if(Settings.isWalled && !Settings.isGrounded && h!=0)
+            if (Settings.isWalled && !Settings.isGrounded && h != 0)
             {
                 isSliding = true;
-                
+
             }
             else
             {
@@ -92,7 +89,7 @@ public class Jump : MonoBehaviour
 
             if (jumpInAir && Input.GetKeyDown(KeyCode.Space))
             {
-                rb2d.velocity = Vector2.up * _jumpHeight*0.5f;
+                rb2d.velocity = Vector2.up * _jumpHeight * 0.5f;
                 //Debug.Log("Nhảy từ mặt đất 1");
             }
 
@@ -101,7 +98,7 @@ public class Jump : MonoBehaviour
                 if (_coyoteCounter > 0)
                 {
                     rb2d.velocity = Vector2.up * (_jumpHeight);
-                        rb2d.gravityScale = _upwardMovementMultiplier;
+                    rb2d.gravityScale = _upwardMovementMultiplier;
                     _coyoteCounter -= Time.deltaTime;
 
 
@@ -132,7 +129,7 @@ public class Jump : MonoBehaviour
             }
         }
 
-       
+
         //Player.Instance.animator.SetBool("isJumping", Settings._isJumping);
     }
 
@@ -152,7 +149,7 @@ public class Jump : MonoBehaviour
                 transform.localScale = localScale;
                 Settings.isFacingRight = !Settings.isFacingRight;
 
-                if (h > 0 && transform.localScale.x>0 || h < 0 && transform.localScale.x < 0)
+                if (h > 0 && transform.localScale.x > 0 || h < 0 && transform.localScale.x < 0)
                 {
                     localScale.x *= -1;
                     transform.localScale = localScale;
@@ -161,7 +158,8 @@ public class Jump : MonoBehaviour
 
                 flipWall = false;
             }
-            rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
+
+            rb2d.velocity = new Vector2(0, Mathf.Clamp(rb2d.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
     }
 
@@ -182,16 +180,16 @@ public class Jump : MonoBehaviour
             flipWall = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f && h==0)
+        if (Input.GetKeyDown(KeyCode.Space) && wallJumpingCounter > 0f && h == 0)
         {
             isWallJumping = true;
-            
-            rb2d.velocity = new Vector2(wallJumpingDirection * wallForceJump.x , wallForceJump.y);
+
+            rb2d.velocity = new Vector2(wallJumpingDirection * wallForceJump.x, wallForceJump.y);
 
 
             currentExtraJump = 0;
 
-            Debug.Log("Nhảy từ tường ra xa tường ");
+            //Debug.Log("Nhảy từ tường ra xa tường ");
             wallJumpingCounter = 0f;
 
             isJumpedInWall = true;
@@ -201,10 +199,10 @@ public class Jump : MonoBehaviour
 
             //if (transform.localScale.x == wallJumpingDirection)
             //{
-                //Settings.isFacingRight = !Settings.isFacingRight;
-                //Vector3 localScale = transform.localScale;
-                //localScale.x *= -1f;
-                //transform.localScale = localScale;
+            //Settings.isFacingRight = !Settings.isFacingRight;
+            //Vector3 localScale = transform.localScale;
+            //localScale.x *= -1f;
+            //transform.localScale = localScale;
             //}
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);

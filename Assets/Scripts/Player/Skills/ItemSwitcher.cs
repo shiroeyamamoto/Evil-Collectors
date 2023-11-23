@@ -67,7 +67,7 @@ public class ItemSwitcher : SingletonMonobehavious<ItemSwitcher>
             SwitchItem(direction);
         }
         ///Debug.Log("_----------------");
-        Debug.Log($"{CurrentItemQuickKey.itemName} - {CurrentItemQuickKey.itemTag}");
+        //Debug.Log($"{CurrentItemQuickKey.itemName} - {CurrentItemQuickKey.itemTag}");
 
         OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon, itemList[indexCurrentItem == 0 ? 1 : 0].itemIcon);
 

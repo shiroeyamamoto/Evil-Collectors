@@ -83,6 +83,15 @@ public class BossController : MonoBehaviour,IInteractObject
             
             Debug.Log("im dead");
         }
+
+        if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        {
+            GameController.Instance.Player.CurrentInfo.mana += damage;
+            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        }
+
         if (health <= healthPhase2)
         {
             PhaseUp();
@@ -103,7 +112,7 @@ public class BossController : MonoBehaviour,IInteractObject
     public void OnDead()
     {
         //UI OnDead
-        Player.Instance.OnDead();
+        Player.Instance.OnDead?.Invoke(true);
         //Disable animator
         if (animator)
         {

@@ -83,7 +83,15 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
         TP.value = value;
     }
 
-    public void Player_OnDead() {
+    public void Player_OnDead(bool value) {
+
+        if (resutlUI.gameObject.activeSelf)
+            return;
+
+        if (!value && !resutlUI.gameObject.activeSelf)
+            resutlUI.transform.Find("YouDie").gameObject.SetActive(true);
+        else
+            resutlUI.transform.Find("VICTORY").gameObject.SetActive(true);
         resutlUI.Show();
         // save data
     }
@@ -108,7 +116,7 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
     }
     public void UI_IconSwitchKey(Sprite value1, Sprite value2)
     {
-        Debug.Log("Toi o day");
+        //Debug.Log("Toi o day");
         iconSwitchFirst.sprite = value2;
         iconSwitchSecond.sprite = value1;
     }

@@ -9,7 +9,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
     [SerializeField, Range(0.5f, 5f)] private float undeadTime =2f;
 
-    private Rigidbody2D rb2d;
+    [HideInInspector] public Rigidbody2D rb2d ;
     public SpriteRenderer spriteRendererPlayer, hatSpriteRenderer;
     public Animator animator;
     public AudioSource audioSource;
@@ -95,7 +95,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     }
 
     public Action<float> OnUpdateHP, OnUpdateMana, OnUpdateTP;
-    public Action OnDead;
+    public Action<bool> OnDead;
     public Action<int> OnDamagedTwinkling;
 
     public void UseHealth(int healthUsed)
@@ -144,7 +144,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         gameObject.SetActive(false);
         playerDie = true;
-        OnDead?.Invoke();
+        OnDead?.Invoke(false);
     }
 
     // Cheat
@@ -258,10 +258,16 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         {
             undeadCounter -= Time.deltaTime;
 
+            GetComponent<CapsuleCollider2D>().enabled = true;
+
+            gameObject.transform.Find("Body").gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+
             StartCoroutine(Twinkling());
         }
         else
         {
+            gameObject.transform.Find("Body").gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<CapsuleCollider2D>().enabled = false;
             undeadCounter = 0;
             Settings.zombieMode = false;
             spriteRendererPlayer.color = Settings.playerColor;

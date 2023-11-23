@@ -120,6 +120,15 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
         });
         //damage minus
+
+        if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        {
+            GameController.Instance.Player.CurrentInfo.mana += damage;
+            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        }
+
         health -= damage;
         CheckHealth();
     }
@@ -132,7 +141,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             Debug.Log("I m D e a d");
             //this.enabled = false;
             animator.SetTrigger("Death");
-            Player.Instance.OnDead();
+            Player.Instance.OnDead?.Invoke(true);
         }
         else if(health <= healthPhase2)
         {
@@ -159,5 +168,6 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
 
         // Disable Animator
         transform.parent.gameObject.SetActive(false);
+
     }
 }

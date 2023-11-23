@@ -33,6 +33,11 @@ public class LevelMenuUI : UIBase {
             slotLevel.Init(data.Levels[i], txt);
             slotLevel.OnClick += OnClick;
             slotLevelList.Add(slotLevel);
+
+            if (i > 0)
+            {
+                slotLevel.btn.interactable = false;
+            }
         }
         
         slotLevelUI.gameObject.SetActive(false);
