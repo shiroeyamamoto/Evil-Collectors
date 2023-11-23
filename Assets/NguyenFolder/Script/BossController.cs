@@ -107,7 +107,7 @@ public class BossController : MonoBehaviour,IInteractObject
     public void OnDead()
     {
         //UI OnDead
-        Player.Instance.OnDead();
+        Player.Instance.OnDead(true);
         //Disable animator
         if (animator)
         {
