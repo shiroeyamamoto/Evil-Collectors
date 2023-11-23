@@ -16,6 +16,24 @@ public class KamehamehaSkill : Skill
         //timeLifeSkill = Player.Instance.SkillList;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Enter");
+
+        if (collision.transform.GetComponent<IInteractObject>() != null)
+        {
+            Player.Instance.DamageAttack = 5;
+
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack);
+
+            Debug.Log("GameController.Instance.Player.DamageAttack: " + GameController.Instance.Player.DamageAttack);
+
+            Player.Instance.NoneDamage();
+
+            Debug.Log("AttackDamaga");
+        }
+    }
+
     public override void ActivateSkill(int amount, float scale)
     {
         if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
@@ -28,6 +46,7 @@ public class KamehamehaSkill : Skill
             transform.localScale = new Vector2(transform.localScale.x,transform.localScale.y*scale);
             scaleOrigin = transform.localScale;
             this.gameObject.SetActive(true);
+            Player.Instance.UseMana(-10);
             StartCoroutine(KamehamehaStart());
 
             //GameController.Instance.Player.UseMana(base.manaNeed);
@@ -88,6 +107,7 @@ public class KamehamehaSkill : Skill
         currentSize = 0;
         base.canUseSkill = true;
         this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 
     public override void HoldKeySkill()

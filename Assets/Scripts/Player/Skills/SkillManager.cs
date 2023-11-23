@@ -25,12 +25,17 @@ public class SkillManager : MonoBehaviour
         if (!Settings.isGrounded)
             return;
 
+        if (Settings.PlayerDamaged)
+        {
+            holyLightSkill.cancelSkill = true;
+        }
+
         if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing && !Settings.isMove)
         {
 
 
             // Quick key
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 itemSwitcher.UseItem();
             }

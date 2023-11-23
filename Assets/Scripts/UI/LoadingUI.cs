@@ -21,12 +21,12 @@ public class LoadingUI : SingletonMonobehavious<LoadingUI> {
    }
 
    public void Hide() {
-      Debug.Log("Hide");
+      //Debug.Log("Hide");
       gameObject.SetActive(false);
    }
 
    public void Show() {
-      Debug.Log("Show");
+      //Debug.Log("Show");
       gameObject.SetActive(true);
    }
 }

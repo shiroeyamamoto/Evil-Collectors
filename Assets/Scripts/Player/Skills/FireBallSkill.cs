@@ -24,6 +24,8 @@ public class FireBallSkill : Skill
 
             this.gameObject.SetActive(true);
 
+            Player.Instance.UseMana(-5);
+
             FireBallStart( amount,  scale);
 
             //GameController.Instance.Player.UseMana(base.manaNeed);
@@ -56,15 +58,18 @@ public class FireBallSkill : Skill
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Enter");
+
         if (collision.gameObject.layer == 3) ;
         {
             //Debug.Log("Wall");
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.CompareTag("Enemy"))
+
+        if (collision.transform.GetComponent<IInteractObject>() != null)
         {
-            collision.gameObject.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.1f);
-            Destroy(this.gameObject);
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.2f);
+            Debug.Log("AttackDamaga");
         }
     }
 }

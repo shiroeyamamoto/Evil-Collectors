@@ -839,6 +839,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlayUI: {fileID: 1425270984}
   playerPrefab: {fileID: 8750334777375035854, guid: 3c9ce86a01e442141b9a97b324769417, type: 3}
+  firstBossPrefab: {fileID: 1707146130724080008, guid: c775754832f10fe478a2835b665c66f3, type: 3}
+  finalBossPrefab: {fileID: 9023724403054719497, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
 --- !u!1001 &6853087899125054049
 PrefabInstance:
   m_ObjectHideFlags: 0

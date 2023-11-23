@@ -19,7 +19,7 @@ MonoBehaviour:
   itemTag: 2
   isAutoUse: 0
   skillName: 2
-  bullet: {fileID: 7927646333712399543, guid: f558cdd91be8a0941a8bd7c27c0e6e34, type: 3}
+  bullet: {fileID: 7927646333712399543, guid: 83d15b700ab74c84b8abc0bf4db09ece, type: 3}
   duration: 0
   tags: 08000000
-  skillBase: {fileID: 5784675032779808412, guid: f558cdd91be8a0941a8bd7c27c0e6e34, type: 3}
+  skillBase: {fileID: 5784675032779808412, guid: 83d15b700ab74c84b8abc0bf4db09ece, type: 3}
