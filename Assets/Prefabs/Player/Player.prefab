@@ -1265,6 +1265,7 @@ MonoBehaviour:
   audioSource: {fileID: 5814648130409259796}
   playerSound: {fileID: 414235825509752478}
   DamageAttack: 0
+  undeadCounter: 0
 --- !u!114 &2464400052084966794
 MonoBehaviour:
   m_ObjectHideFlags: 0

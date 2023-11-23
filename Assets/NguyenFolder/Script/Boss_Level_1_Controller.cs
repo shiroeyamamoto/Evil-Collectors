@@ -51,7 +51,9 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     {
         if(currentPhase < phaseMax)
         {
-            currentPhase++; animator.SetInteger("Phase", currentPhase);
+            currentPhase++;
+            currentPhase = Mathf.Clamp(currentPhase, 1, phaseMax);
+            animator.SetInteger("Phase", currentPhase);
             maxAttackType = maxAttackTypeOfPhase(currentPhase);
             animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         }
