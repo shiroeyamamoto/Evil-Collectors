@@ -19,7 +19,10 @@ public class B_Boss_Idle : StateMachineBehaviour
         ResetDelayTime();
         TransactionDelay(this.delayTime);
     }
-
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Flip(animator);
+    }
     public void Flip(Animator animator)
     {
         int directionInt = (Player.Instance.transform.position.x <= animator.transform.position.x) ? -1 : 1;

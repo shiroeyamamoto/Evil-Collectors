@@ -14,6 +14,11 @@ public class Boss_Lv1_Idle : StateMachineBehaviour
         Flip(animator);
     }
 
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Flip(animator);
+    }
+
     private void Flip(Animator animator)
     {
         int directionInt = (Player.Instance.transform.position.x <= animator.transform.position.x) ? 1 : -1;
