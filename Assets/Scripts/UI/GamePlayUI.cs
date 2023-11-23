@@ -91,7 +91,10 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
         if (!value && !resutlUI.gameObject.activeSelf)
             resutlUI.transform.Find("YouDie").gameObject.SetActive(true);
         else
+        {
             resutlUI.transform.Find("VICTORY").gameObject.SetActive(true);
+            GameManager.Instance.levelTwoScene = true;
+        }
         resutlUI.Show();
         // save data
     }

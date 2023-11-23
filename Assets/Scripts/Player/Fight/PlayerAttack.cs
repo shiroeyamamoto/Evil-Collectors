@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
             collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack);
+
             //Settings.canKnockback = true;
 
             //EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();

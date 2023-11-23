@@ -123,8 +123,6 @@ public class HolyLight : Skill
                     }
                     manaNeed += staminaDecreaseRate;
 
-                    
-
                     Player.Instance.UpdatePlayerUI();
 
                     //Debug.Log("Toi o day");
@@ -206,7 +204,7 @@ public class HolyLight : Skill
         Settings.isAttacking = false;
         Settings.isCatingSkill = false;
 
-        Debug.Log("Player.Instance.DamageAttack: " + Player.Instance.DamageAttack);
+        //Debug.Log("Player.Instance.DamageAttack: " + Player.Instance.DamageAttack);
 
         inSkill = true;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 

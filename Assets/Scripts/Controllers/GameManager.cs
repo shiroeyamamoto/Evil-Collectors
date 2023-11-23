@@ -5,12 +5,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonobehavious<GameManager>
 {
 	private const string PlayerPrefs_Coin = "coin_data";
 	
 	public static GameManager Instance;
 
+	[HideInInspector] public bool levelTwoScene = false;
 	[SerializeField] private HomeMenuUI homeMenuUI;
 	[SerializeField] private LevelManagerSO data;
 
