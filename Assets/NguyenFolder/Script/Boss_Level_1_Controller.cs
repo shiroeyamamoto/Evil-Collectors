@@ -161,6 +161,13 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         // UI OnDead
 
         // Disable Animator
+        TweenKill();
         transform.parent.gameObject.SetActive(false);
+    }
+
+    public void TweenKill()
+    {
+        var activeTween = DOTween.KillAll();
+        Debug.Log(activeTween);
     }
 }

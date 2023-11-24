@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8010564b10bd03e499e4e73b5c80bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 80
+  health: 100
   healthPhase2: 50
   currentPhase: 1
   phaseMax: 2
@@ -332,6 +332,7 @@ MonoBehaviour:
   distanceToBoss: 7
   eyeScale: 0.5
   scaleDuration: 0.1
+  scaleDefault: 0
 --- !u!95 &5804235604077258331
 Animator:
   serializedVersion: 5
