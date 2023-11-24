@@ -24,7 +24,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     Transform damagableObject;
     private void Awake()
     {
-        
+        scaleDefault = transform.Find("Body").Find("Eyes").localScale.y;
         animator = GetComponent<Animator>();
         currentPhase = animator.GetInteger("Phase");
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
@@ -111,12 +111,13 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
 
     public float eyeScale;
     public float scaleDuration;
+    public float scaleDefault;
     public void OnDamaged(float damage)
     {
         //damage = 10;
         //damage animation
-        float scaleDefault = transform.Find("Body").Find("Eyes").localScale.y;
         Debug.Log(scaleDefault);
+
         transform.Find("Body").Find("Eyes").DOScaleY(eyeScale, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
         {
             transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
