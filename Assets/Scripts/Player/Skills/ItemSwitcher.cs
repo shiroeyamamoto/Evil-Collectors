@@ -71,8 +71,6 @@ public class ItemSwitcher : SingletonMonobehavious<ItemSwitcher>
 
         OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon, itemList[indexCurrentItem == 0 ? 1 : 0].itemIcon);
 
-        OnIconSwitch?.Invoke(CurrentItemQuickKey.itemIcon, itemList[indexCurrentItem == 0 ? 1 : 0].itemIcon);
-
         // Cập nhật UI hoặc thông tin hiển thị với item hiện tại
         UpdateDisplay();
     }

@@ -59,6 +59,13 @@ public class Move : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
 
+                // coliision trên đường lướt của player, dùng cho chức năng khi enemy đánh trúng đoạn này => hồi mana 
+                if(Settings.isFacingRight)
+                    PlayerManager.Instance.DashCollison.transform.position = new Vector3(Player.Instance.transform.position.x + 3.5f, Player.Instance.transform.position.y, 0);
+                else if(!Settings.isFacingRight)
+                    PlayerManager.Instance.DashCollison.transform.position = new Vector3(Player.Instance.transform.position.x - 3.5f, Player.Instance.transform.position.y, 0);
+
+
                 // stamina tiêu thụ
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
                 {
@@ -69,6 +76,7 @@ public class Move : MonoBehaviour
                     StartCoroutine(Dash());
                 }
             }
+
 
         if (Settings.isGrounded)
             canDash = true;
@@ -159,6 +167,8 @@ public class Move : MonoBehaviour
         Settings.isDasing = true;
         trail.emitting = true;
 
+        PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
 
@@ -177,6 +187,8 @@ public class Move : MonoBehaviour
 
         yield return new WaitForSeconds(dashingTime);
         trail.emitting = false;
+
+        PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Settings.isDasing = false;
         rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(dashCooldown);

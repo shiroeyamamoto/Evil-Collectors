@@ -6127,6 +6127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 2897621073105218506}
   wallCheck: {fileID: 8959768139146702008}
+  DashCollider: {fileID: 0}
   speedMove: 10
   speedAirMove: 15
   rotationWhenMove: 18
