@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
     [SerializeField, Range(0f, 5f)] private float dashCooldown = 0.7f;
     public Jump jumpController;
 
-    [HideInInspector]public float Horizontal;
+    [HideInInspector] public float Horizontal;
 
     private Rigidbody2D rb2d;
     private TrailRenderer trail;
@@ -55,9 +55,16 @@ public class Move : MonoBehaviour
 
 
         //Player.Instance.animator.SetBool("isDashing", Settings.isDasing);
-        if(!Settings.PlayerDamaged)
+        if (!Settings.PlayerDamaged)
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
+
+                // coliision trên đường lướt của player, dùng cho chức năng khi enemy đánh trúng đoạn này => hồi mana 
+                if(Settings.isFacingRight)
+                    PlayerManager.Instance.DashCollison.transform.position = new Vector3(Player.Instance.transform.position.x + 3.5f, Player.Instance.transform.position.y, 0);
+                else if(!Settings.isFacingRight)
+                    PlayerManager.Instance.DashCollison.transform.position = new Vector3(Player.Instance.transform.position.x - 3.5f, Player.Instance.transform.position.y, 0);
+
 
                 // stamina tiêu thụ
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
@@ -70,7 +77,8 @@ public class Move : MonoBehaviour
                 }
             }
 
-        if(Settings.isGrounded)
+
+        if (Settings.isGrounded)
             canDash = true;
         //MovementSound();
     }
@@ -92,7 +100,7 @@ public class Move : MonoBehaviour
             return;
 
         if (!Settings.PlayerDamaged)
-            if(!jumpController.isWallJumping)
+            if (!jumpController.isWallJumping)
                 PlayerMovement();
     }
 
@@ -112,10 +120,10 @@ public class Move : MonoBehaviour
 
         if (move != 0 && !Settings.isMove)
             Settings.isMove = true;
-        else if(move == 0 && Settings.isMove)
+        else if (move == 0 && Settings.isMove)
             Settings.isMove = false;
 
-        if(jumpController.isSliding)
+        if (jumpController.isSliding)
             PlayerRotation(0);
         else
             PlayerRotation(move);
@@ -159,6 +167,8 @@ public class Move : MonoBehaviour
         Settings.isDasing = true;
         trail.emitting = true;
 
+        PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
 
@@ -168,7 +178,7 @@ public class Move : MonoBehaviour
         //}
         //else
         //{
-            rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
         //}
         if (!Settings.concentrateSKill)
         {
@@ -177,10 +187,12 @@ public class Move : MonoBehaviour
 
         yield return new WaitForSeconds(dashingTime);
         trail.emitting = false;
+
+        PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Settings.isDasing = false;
         rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(dashCooldown);
-        
+
     }
 
     /// <summary>
@@ -206,11 +218,11 @@ public class Move : MonoBehaviour
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, -rotationWhenMove);
         }
-        else if(move <0)
+        else if (move < 0)
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, rotationWhenMove);
         }
-        else if(move == 0)
+        else if (move == 0)
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }

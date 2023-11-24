@@ -55,7 +55,7 @@ public class HolyLight : Skill
                 decreaseInterval = timeHoldSkill / 100f;
                 timeToExhaust = timeHoldSkill;
 
-                Debug.Log("timeToExhaust: " + timeToExhaust);
+                //Debug.Log("timeToExhaust: " + timeToExhaust);
 
                 cancelSkill = false;
                 position = new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
@@ -92,6 +92,8 @@ public class HolyLight : Skill
 
                         Player.Instance.UseMana(staminaDecreaseRate);
 
+                        Player.Instance.DamageAttack += 0.1f;
+
                         //Debug.Log("staminaDecreaseRate: "+ staminaDecreaseRate);
                         x++;
                         //Debug.Log("x: "+x);
@@ -102,6 +104,7 @@ public class HolyLight : Skill
                         staminaDecreaseRate = ((maxManaNeed * (35f / 100f)) * (1f / 33.3f));
 
                         Player.Instance.UseMana(staminaDecreaseRate);
+                        Player.Instance.DamageAttack += 0.25f;
                         //Debug.Log("staminaDecreaseRate: " + staminaDecreaseRate);
                         y++;
                         //Debug.Log("y: " + y);
@@ -112,19 +115,20 @@ public class HolyLight : Skill
                         staminaDecreaseRate = ((maxManaNeed * (45f / 100f)) * (1f / 33.3f));
 
                         Player.Instance.UseMana(staminaDecreaseRate);
+
+                        Player.Instance.DamageAttack += 0.45f;
                         //Debug.Log("staminaDecreaseRate: " + staminaDecreaseRate);
                         z++;
                         //Debug.Log("z: " + z);
                     }
                     manaNeed += staminaDecreaseRate;
 
-                    
-
                     Player.Instance.UpdatePlayerUI();
 
                     //Debug.Log("Toi o day");
 
                     transform.localScale = new Vector2(transform.localScale.x+0.05f, transform.localScale.y);
+
 
                     auraCircle.localScale = new Vector2(transform.localScale.x*5, transform.localScale.x * 5);
 
@@ -146,7 +150,7 @@ public class HolyLight : Skill
             {
                 //Debug.Log("Push1");
                 Vector3 playerPosition = Player.Instance.transform.position;
-                position = new Vector3(playerPosition.x, playerPosition.y + 80, playerPosition.z);
+                position = new Vector3(playerPosition.x, playerPosition.y + 60, playerPosition.z);
                 transform.position = position;
 
                 //scale = transform.localScale;
@@ -199,6 +203,8 @@ public class HolyLight : Skill
         }
         Settings.isAttacking = false;
         Settings.isCatingSkill = false;
+
+        //Debug.Log("Player.Instance.DamageAttack: " + Player.Instance.DamageAttack);
 
         inSkill = true;
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng 
