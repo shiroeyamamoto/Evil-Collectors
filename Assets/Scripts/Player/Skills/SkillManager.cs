@@ -25,13 +25,16 @@ public class SkillManager : MonoBehaviour
         if (!Settings.isGrounded)
             return;
 
+
         if (Settings.PlayerDamaged)
         {
             holyLightSkill.cancelSkill = true;
-        }
-        else
-        {
-            holyLightSkill.cancelSkill = false;
+            holyLightSkill.HoldKeySkill();
+            /*if (!holyLightSkill.cancelSkill)
+                holyLightSkill.ActivateSkill();
+            else
+                holyLightSkill.cancelSkill = false;*/
+            return;
         }
 
         if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing && !Settings.isMove)
@@ -59,6 +62,7 @@ public class SkillManager : MonoBehaviour
                     holyLightSkill.cancelSkill = true;
                     return;
                 }
+
                 holyLightSkill.HoldKeySkill();
             }
             if (Input.GetKeyUp(KeyCode.Z))

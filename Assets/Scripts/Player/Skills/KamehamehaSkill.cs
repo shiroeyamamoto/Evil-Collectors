@@ -24,7 +24,7 @@ public class KamehamehaSkill : Skill
         {
             Player.Instance.DamageAttack = 5;
 
-            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack);
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, false);
 
             Debug.Log("GameController.Instance.Player.DamageAttack: " + GameController.Instance.Player.DamageAttack);
 
@@ -36,6 +36,9 @@ public class KamehamehaSkill : Skill
 
     public override void ActivateSkill(int amount, float scale)
     {
+        if (Player.Instance.CurrentInfo.mana < 10)
+            return;
+
         if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
@@ -46,7 +49,7 @@ public class KamehamehaSkill : Skill
             transform.localScale = new Vector2(transform.localScale.x,transform.localScale.y*scale);
             scaleOrigin = transform.localScale;
             this.gameObject.SetActive(true);
-            Player.Instance.UseMana(-10);
+            Player.Instance.UseMana(10);
             StartCoroutine(KamehamehaStart());
 
             //GameController.Instance.Player.UseMana(base.manaNeed);
