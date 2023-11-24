@@ -25,7 +25,7 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
                     animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOColor(Color.red, 0).SetDelay(colorDuration).OnComplete(() =>
                     {
                             isColorCompleted = true;
-                            animator.SetTrigger("NextStep");
+                            
                     });
                 });
             });
@@ -52,6 +52,7 @@ public class B_Boss_MoveFowardTarget : StateMachineBehaviour
         Color color = animator.transform.Find("Body").GetComponent<SpriteRenderer>().color;
         color.a = 1;
         animator.transform.Find("Body").GetComponent<SpriteRenderer>().color = color;
+        animator.SetTrigger("NextStep");
         animator.ResetTrigger("NextStep");
     }
 
