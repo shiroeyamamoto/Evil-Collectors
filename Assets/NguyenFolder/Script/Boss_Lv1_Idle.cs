@@ -11,6 +11,11 @@ public class Boss_Lv1_Idle : StateMachineBehaviour
     {
         string action = DecideAction();
         animator.SetTrigger(action);
+    }
+
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
         Flip(animator);
     }
 

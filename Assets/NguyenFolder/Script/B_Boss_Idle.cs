@@ -13,13 +13,15 @@ public class B_Boss_Idle : StateMachineBehaviour
     Animator animator;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Flip(animator);
         SetColor(animator, animator.transform.GetComponent<BossController>().normalColor, 1);
         this.animator = animator;
         ResetDelayTime();
         TransactionDelay(this.delayTime);
     }
-
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Flip(animator);
+    }
     public void Flip(Animator animator)
     {
         int directionInt = (Player.Instance.transform.position.x <= animator.transform.position.x) ? -1 : 1;
