@@ -14,6 +14,9 @@ public class FireBallSkill : Skill
     }
     public override void ActivateSkill(int amount, float scale)
     {
+        if (Player.Instance.CurrentInfo.mana < 5)
+            return;
+
         if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
@@ -22,9 +25,11 @@ public class FireBallSkill : Skill
 
             //scale = transform.localScale;
 
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
             this.gameObject.SetActive(true);
 
-            Player.Instance.UseMana(-5);
+            Player.Instance.UseMana(5);
 
             FireBallStart( amount,  scale);
 
@@ -68,7 +73,7 @@ public class FireBallSkill : Skill
 
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
-            collision.transform.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.2f);
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.2f,false);
             Debug.Log("AttackDamaga");
         }
     }

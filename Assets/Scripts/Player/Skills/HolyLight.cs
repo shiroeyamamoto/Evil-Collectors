@@ -29,12 +29,19 @@ public class HolyLight : Skill
             Debug.Log("cancel");
             Player.Instance.spriteRendererPlayer.color = Color.white;
             Player.Instance.UseMana(-manaNeed);
+
+            Debug.Log("Mana Player: " + manaNeed);
+
+            //Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
             manaNeed = 0;
 
             this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;
             this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            transform.localScale = Vector3.zero;
             this.gameObject.SetActive(false);
             auraCircle.gameObject.SetActive(false);
+
+            //cancelSkill = true;
             return;
         }
 
