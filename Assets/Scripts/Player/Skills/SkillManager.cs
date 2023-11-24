@@ -29,6 +29,10 @@ public class SkillManager : MonoBehaviour
         {
             holyLightSkill.cancelSkill = true;
         }
+        else
+        {
+            holyLightSkill.cancelSkill = false;
+        }
 
         if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing && !Settings.isMove)
         {
