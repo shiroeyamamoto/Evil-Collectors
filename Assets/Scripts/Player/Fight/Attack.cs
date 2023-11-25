@@ -127,7 +127,7 @@ public class Attack : MonoBehaviour
                 {
                     //playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2*transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -137,7 +137,7 @@ public class Attack : MonoBehaviour
                 {
                     //playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2 * transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -197,7 +197,7 @@ public class Attack : MonoBehaviour
                 {
                     //playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2 * transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -207,7 +207,7 @@ public class Attack : MonoBehaviour
                 {
                     //playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2 * transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;

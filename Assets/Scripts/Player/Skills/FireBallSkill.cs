@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -44,6 +45,12 @@ public class FireBallSkill : Skill
 
     private void FireBallStart(int amount, float scale)
     {
+
+        if (Settings.isFacingRight)
+        {
+            gameObject.transform.localScale = new Vector3(-gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+        }
+
         // Hướng ngẫu nhiên bắn
         float randomAngle = Random.Range(-5f, 5f); // góc bắn
         Vector2 moveDirection = Quaternion.Euler(0, 0, randomAngle) * (Player.Instance.transform.localScale.x>0? Vector2.right : Vector2.left);

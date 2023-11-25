@@ -57,11 +57,11 @@ public class SkillManager : MonoBehaviour
                 if (Settings.isMove)
                     return;
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                /*if (Input.GetKeyDown(KeyCode.Space))
                 { 
                     holyLightSkill.cancelSkill = true;
                     return;
-                }
+                }*/
 
                 holyLightSkill.HoldKeySkill();
             }
