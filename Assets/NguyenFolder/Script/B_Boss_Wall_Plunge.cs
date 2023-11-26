@@ -21,6 +21,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        scaleAfterJump = animator.transform.lossyScale.x;
         Camera.main.GetComponent<CameraController>().ShakeCamera(0.1f, 0.1f);
         int randomSide;
         Label:
@@ -36,8 +37,8 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         
         if (randomSide != 0)
         {
-            scaleAfterJump = randomSide * animator.transform.lossyScale.x;
-            animator.transform.DOScaleX(-scaleAfterJump, 0);
+            //scaleAfterJump = randomSide * animator.transform.lossyScale.x;
+            //animator.transform.DOScaleX(-scaleAfterJump, 0);
             PrepareJump(animator, endPointJump);
         }
         else

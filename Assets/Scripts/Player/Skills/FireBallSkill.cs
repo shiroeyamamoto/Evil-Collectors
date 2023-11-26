@@ -16,7 +16,10 @@ public class FireBallSkill : Skill
     public override void ActivateSkill(int amount, float scale)
     {
         if (Player.Instance.CurrentInfo.mana < 5)
+        {
+            Destroy(this.gameObject);
             return;
+        }
 
         if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {

@@ -5595,8 +5595,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.21
@@ -6194,7 +6194,7 @@ MonoBehaviour:
   undeadTime: 2
   rb2d: {fileID: 0}
   spriteRendererPlayer: {fileID: 55451076758968930}
-  hatSpriteRenderer: {fileID: 0}
+  hatSpriteRenderer: {fileID: 8564542384692429042}
   animator: {fileID: 0}
   audioSource: {fileID: 5814648130409259796}
   playerSound: {fileID: 414235825509752478}

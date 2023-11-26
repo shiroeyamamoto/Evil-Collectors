@@ -50,35 +50,6 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
             });
 
         }
-        /*if (Physics2D.Raycast(weapon.position, Vector2.left, animator.transform.lossyScale.x / 2, wallLayer))
-        {
-            endPointX = weapon.position.x + animator.transform.lossyScale.x / 2;
-            goto label;
-        }
-        else
-        {
-            endPointX = weapon.position.x;
-        }
-        if (Physics2D.Raycast(weapon.position, Vector2.right, animator.transform.lossyScale.x / 2, wallLayer))
-        {
-            endPointX = weapon.position.x - animator.transform.lossyScale.x / 2;
-        }*/
-
-        /*label:
-            {
-                Vector2 endPoint = new Vector2(endPointX, endPointY);
-                if (boss && weapon)
-                {
-                    boss.DOJump(endPoint, JumpForce, 1, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
-                    {
-                        weapon.gameObject.SetActive(false);
-                        animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                        Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 1f);
-                        animator.SetTrigger("NextStep");
-                    });
-                }
-            }
-        */
     }
     void PlayParticle(Animator animator)
     {

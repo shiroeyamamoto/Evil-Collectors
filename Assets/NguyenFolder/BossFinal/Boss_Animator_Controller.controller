@@ -1507,7 +1507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 3
   maxAttackType: 3
-  randomAttackType: 1
+  randomAttackType: 0
 --- !u!114 &-1271549952581925078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1680,7 +1680,7 @@ AnimatorController:
   - m_Name: Phase
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 3
+    m_DefaultInt: 1
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: OnWall

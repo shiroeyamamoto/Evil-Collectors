@@ -15,15 +15,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        /*// set alpha before teleport
-        SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
-
-        //
         
-        // set alpha
-        Color color = animator.GetComponent<SpriteRenderer>().color;
-        color.a = alphaValue;
-        animator.GetComponent<SpriteRenderer>().color = color;*/
         animator.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
         animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(0, 0.25f)
@@ -45,9 +37,6 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
                 animator.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
 
             });
-            
-            //Teleport(animator);
-            
             
         });
     }
