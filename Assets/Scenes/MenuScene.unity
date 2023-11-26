@@ -207,13 +207,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154668301}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &329715780
 GameObject:
@@ -239,13 +239,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329715780}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &329715782
 MonoBehaviour:
@@ -285,13 +285,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681911101}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1681911103
 MonoBehaviour:
@@ -311,19 +311,19 @@ MonoBehaviour:
     IsBought: 0
   - ItemBase: {fileID: 11400000, guid: 98bdf3358645b8d45adb5455f74d4af0, type: 2}
     price: 2
-    IsBought: 0
+    IsBought: 1
   - ItemBase: {fileID: 11400000, guid: a391fcf83ab4c5c43b6ee1a70a9179c1, type: 2}
     price: 3
-    IsBought: 0
+    IsBought: 1
   - ItemBase: {fileID: 11400000, guid: 7d51f6ea9fa664341baf4e786aba0434, type: 2}
     price: 4
     IsBought: 0
   - ItemBase: {fileID: 11400000, guid: a3276ed8005150946947df1d1ee4bfed, type: 2}
     price: 5
-    IsBought: 0
+    IsBought: 1
   - ItemBase: {fileID: 11400000, guid: 26724e8a930daa64d95e6c0c34c93120, type: 2}
     price: 6
-    IsBought: 0
+    IsBought: 1
 --- !u!1001 &6162398975853290493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -346,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4095187643074130670, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4095187643074130670, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
       propertyPath: m_AnchorMax.x
@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7047300452264387924, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7047300452264387924, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_LocalPosition.x
@@ -526,12 +526,3 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93248c786cbed9b488d3484537254954, type: 3}
---- !u!1660057539 &9223372036854775807
-SceneRoots:
-  m_ObjectHideFlags: 0
-  m_Roots:
-  - {fileID: 6162398975853290493}
-  - {fileID: 329715781}
-  - {fileID: 9148333053379720392}
-  - {fileID: 154668304}
-  - {fileID: 1681911102}

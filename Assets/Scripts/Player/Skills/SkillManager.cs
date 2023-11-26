@@ -15,8 +15,8 @@ public class SkillManager : MonoBehaviour
         holyLightSkill.gameObject.SetActive(false);
         nothingnessSkill.gameObject.SetActive(false);
         concentrateSkill.gameObject.SetActive(false);
-        kamehamehaSkill.gameObject.SetActive(false);
-        fireBallSkill.gameObject.SetActive(false);
+        //kamehamehaSkill.gameObject.SetActive(false);
+        //fireBallSkill.gameObject.SetActive(false);
     }
 
     private void Update()
