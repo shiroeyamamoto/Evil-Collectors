@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using SpriteTrailRenderer;
 
 public class Move : MonoBehaviour
 {
@@ -25,12 +26,15 @@ public class Move : MonoBehaviour
     [HideInInspector] public float Horizontal;
 
     private Rigidbody2D rb2d;
-    private TrailRenderer trail;
+    //private TrailRenderer trail;
+    private SpriteTrailRenderer.SpriteTrailRenderer trailRenderer;
 
     protected void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        trail = GetComponent<TrailRenderer>();
+        trailRenderer = GetComponent<SpriteTrailRenderer.SpriteTrailRenderer>();
+        trailRenderer.enabled = false;
+        //trail = GetComponent<TrailRenderer>();
     }
     private void Update()
     {
@@ -165,7 +169,8 @@ public class Move : MonoBehaviour
     {
         canDash = false;
         Settings.isDasing = true;
-        trail.emitting = true;
+        trailRenderer.enabled = true;
+        //trail.emitting = true;
 
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
@@ -186,7 +191,8 @@ public class Move : MonoBehaviour
         }
 
         yield return new WaitForSeconds(dashingTime);
-        trail.emitting = false;
+        //trail.emitting = false;
+        trailRenderer.enabled = false;
 
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Settings.isDasing = false;
