@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using Unity.VisualScripting;
 
 public class Attack : MonoBehaviour
 {
@@ -38,7 +40,7 @@ public class Attack : MonoBehaviour
             return;
         //Debug.Log("Settings.isAttacking: " + Settings.isAttacking);
 
-        if (!Settings.PlayerDamaged)
+        if (!Settings.PlayerDamaged )
         {
 
             if (Input.GetKey(KeyCode.W))
@@ -62,7 +64,7 @@ public class Attack : MonoBehaviour
                 isDownAttack = false;
             }
 
-            if (Input.GetMouseButtonDown(0) && !Settings.isAttacking)
+            if (Input.GetMouseButtonDown(0) && !Settings.isAttacking )
             {
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
                 {
@@ -73,7 +75,7 @@ public class Attack : MonoBehaviour
                     StartCoroutine(AttackNormal());
                 }
             }
-            else if (Input.GetMouseButtonDown(1) && !Settings.isAttacking)
+            else if (Input.GetMouseButtonDown(1) && !Settings.isAttacking )
             {
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
                 {
@@ -96,12 +98,14 @@ public class Attack : MonoBehaviour
         GameObject sword = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject;
 
         PlayerAttack playerAttack = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
+        Vector3 originalPositionWeapon = new Vector3();
 
         if (canAttackNormal)
         {
             Settings.isAttacking = true;
             canAttackNormal = false;
             Settings.isAttackNormal = true;
+            
 
             sword.SetActive(true);
 
@@ -121,13 +125,52 @@ public class Attack : MonoBehaviour
                 transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.up * knockbackForce, 1f);
             }
 
-            if(!isUpAttack && !isDownAttack)
+            if (isDownAttack)
             {
+                if (!Settings.isFacingRight)
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
+                }
+                else
+                {
+
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -45);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, -135);
+                }
+            }
+
+            if (isUpAttack)
+            {
+                if (!Settings.isFacingRight)
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 315);
+                }
+                else
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 135);
+                }
+            }
+
+            if (!isUpAttack && !isDownAttack)
+            {
+                if (Settings.isFacingRight)
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                }
+                else
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                }
+                RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 0f);
+
                 if (playerAttack.inForwardAttack)
                 {
                     //playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2*transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -137,7 +180,7 @@ public class Attack : MonoBehaviour
                 {
                     //playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2 * transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -190,14 +233,36 @@ public class Attack : MonoBehaviour
                 transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.up * knockbackForce, 1f);
             }
 
+            /*if (isDownAttack)
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
+                RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
+            }
+
+            if (isUpAttack)
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
+                RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 315);
+            }*/
+
             //Debug.Log(Settings.PlayerDamaged);
             if (!isUpAttack && !isDownAttack)
             {
+                if (Settings.isFacingRight)
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                }
+                else
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                }
+                RotateObject90Degrees(playerAttack.gameObject, strongAttackTime, 0f);
+
                 if (playerAttack.inForwardAttack)
                 {
                     //playerRigid2D.velocity = new Vector2(gameObject.transform.localScale.x * attackMoveForwardForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.right * 2 * transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -207,7 +272,7 @@ public class Attack : MonoBehaviour
                 {
                     //playerRigid2D.velocity = new Vector2(-gameObject.transform.localScale.x * attackMoveRetreatForce, 0f);
 
-                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2, 0.2f);
+                    transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.left * 2 * transform.localScale.x, 0.2f);
 
                     playerAttack.inForwardAttack = false;
                     playerAttack.inRetreatAttack = false;
@@ -225,5 +290,12 @@ public class Attack : MonoBehaviour
             yield return new WaitForSeconds(strongAttackCooldown);
             canAttackStrong = true;
         }
+    }
+
+    void RotateObject90Degrees(GameObject gameObject,float duration, float value)
+    {
+        // Sử dụng DOTween để thực hiện tweening
+        gameObject.transform.DORotate(new Vector3(0, 0, value), duration)
+            .SetEase(Ease.InOutQuad);
     }
 }

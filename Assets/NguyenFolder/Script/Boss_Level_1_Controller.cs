@@ -51,9 +51,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     {
         if(currentPhase < phaseMax)
         {
-            currentPhase++;
-            currentPhase = Mathf.Clamp(currentPhase, 1, phaseMax);
-            animator.SetInteger("Phase", currentPhase);
+            currentPhase++; animator.SetInteger("Phase", currentPhase);
             maxAttackType = maxAttackTypeOfPhase(currentPhase);
             animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         }
@@ -111,6 +109,23 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
 
     public float eyeScale;
     public float scaleDuration;
+
+    // true sẽ cộng mana khi gây sát thương 
+    public void OnDamaged(float damage, bool value)
+    {
+        OnDamaged(damage);
+
+        if (!value)
+            return;
+
+            if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        {
+            GameController.Instance.Player.CurrentInfo.mana += damage;
+            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        }
+    }
     public void OnDamaged(float damage)
     {
         //damage = 10;
@@ -122,6 +137,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
         });
         //damage minus
+
+
         health -= damage;
         CheckHealth();
     }
@@ -134,7 +151,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             Debug.Log("I m D e a d");
             //this.enabled = false;
             animator.SetTrigger("Death");
-            Player.Instance.OnDead(true);
+            Player.Instance.OnDead?.Invoke(true);
         }
         else if(health <= healthPhase2)
         {
@@ -161,5 +178,6 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
 
         // Disable Animator
         transform.parent.gameObject.SetActive(false);
+
     }
 }
