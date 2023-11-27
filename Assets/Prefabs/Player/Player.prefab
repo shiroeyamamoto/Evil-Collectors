@@ -6730,9 +6730,7 @@ MonoBehaviour:
   _rainbowMode: 0
   _userSelectedColorPalette:
   - serializedVersion: 2
-    rgba: 2521890427
-  - serializedVersion: 2
-    rgba: 2521890427
+    rgba: 557252219
 --- !u!1 &7844301447279339480
 GameObject:
   m_ObjectHideFlags: 0
