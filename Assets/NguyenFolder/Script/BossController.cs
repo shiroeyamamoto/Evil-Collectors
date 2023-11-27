@@ -99,7 +99,6 @@ public class BossController : MonoBehaviour,IInteractObject
             
             Debug.Log("im dead");
         }
-
         if (health <= healthPhase2)
         {
             PhaseUp();
@@ -121,6 +120,7 @@ public class BossController : MonoBehaviour,IInteractObject
     {
         //UI OnDead
         Player.Instance.OnDead?.Invoke(true);
+        Player.Instance.OnDead(true);
         //Disable animator
         if (animator)
         {

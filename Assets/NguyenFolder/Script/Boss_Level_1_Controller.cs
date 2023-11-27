@@ -24,7 +24,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     Transform damagableObject;
     private void Awake()
     {
-        
+        scaleDefault = transform.Find("Body").Find("Eyes").localScale.y;
         animator = GetComponent<Animator>();
         currentPhase = animator.GetInteger("Phase");
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
@@ -126,18 +126,18 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
         }
     }
+    public float scaleDefault;
     public void OnDamaged(float damage)
     {
         //damage = 10;
         //damage animation
-        float scaleDefault = transform.Find("Body").Find("Eyes").localScale.y;
         Debug.Log(scaleDefault);
+
         transform.Find("Body").Find("Eyes").DOScaleY(eyeScale, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
         {
             transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
         });
         //damage minus
-
 
         health -= damage;
         CheckHealth();
@@ -152,6 +152,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             //this.enabled = false;
             animator.SetTrigger("Death");
             Player.Instance.OnDead?.Invoke(true);
+            Player.Instance.OnDead(true);
         }
         else if(health <= healthPhase2)
         {
@@ -177,7 +178,13 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         // UI OnDead
 
         // Disable Animator
+        TweenKill();
         transform.parent.gameObject.SetActive(false);
+    }
 
+    public void TweenKill()
+    {
+        var activeTween = DOTween.KillAll();
+        Debug.Log(activeTween);
     }
 }
