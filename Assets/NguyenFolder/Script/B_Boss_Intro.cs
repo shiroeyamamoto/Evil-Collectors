@@ -1,36 +1,65 @@
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class B_Boss_Intro : StateMachineBehaviour
 {
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    [Header("Jump Force")]
+    [Min(0.1f)]
+    public float velocity;
+    public float jumpPowerOffset;
+    public int jumpNumbs;
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    [Space]
+    [Header("Camera")]
+    public float cameraShakeForce;
+    public float cameraShakeDuration;
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    [Space]
+    [Header("Particle")]
+    public Transform groundSlamPrefab;
 
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Transform startPosTransform = GameObject.Find("StartPosition").transform;
+        Debug.Log(startPosTransform);
+        if (!startPosTransform) return;
+        Vector3 startPosition = startPosTransform.position;
+        // Check point to ground
+        RaycastHit2D hit = Physics2D.Raycast(startPosition, Vector2.down, Mathf.Infinity);
+        if (!hit) return;
 
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
+        Vector3 endPoint;
+        endPoint.x = hit.point.x;
+        endPoint.y = hit.point.y + animator.transform.lossyScale.y / 2;
+        endPoint.z = 0;
+        startPosition = endPoint;
+
+
+        // Do Jump
+        float distance = Vector3.Distance(startPosition, animator.transform.position);
+        float duration = distance / velocity;
+        animator.transform.DOJump(startPosition, velocity + jumpPowerOffset, jumpNumbs, duration).SetEase(Ease.Linear).OnStart(() =>
+        {
+            Debug.Log("Jump Down Start");
+        }).OnComplete(() =>
+        {
+            Debug.Log("Jump Down Complete");
+            groundSlamPrefab = animator.transform.Find("GroundSlam");
+            if (groundSlamPrefab)
+            {
+                groundSlamPrefab.position = new Vector3(animator.transform.position.x, animator.transform.position.y - animator.transform.lossyScale.y / 2, 0);
+                groundSlamPrefab.GetComponent<ParticleSystem>().Play();
+            }
+            // Rung chấn khi nhảy xuống
+            Camera.main.GetComponent<CameraController>().ShakeCamera(cameraShakeDuration, cameraShakeForce);
+            // Rung chấn khi đe dọa 
+            Camera.main.GetComponent<CameraController>().ShakeCamera(2, 0.1f, cameraShakeDuration + 1f, Ease.Linear, () => animator.SetTrigger("NextStep"));
+        });
+    }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.ResetTrigger("NextStep");
+    }
 }
