@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc99c5a626d34794182c0586a1efbf61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelTwoScene: 0
   homeMenuUI: {fileID: 0}
   data: {fileID: 11400000, guid: 934ce7ec2c1272e4dacdac6108ec6ae4, type: 2}
 --- !u!1 &1681911101
