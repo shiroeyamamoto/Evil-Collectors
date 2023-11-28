@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
+using SpriteTrailRenderer;
 
 public class PlayerAttack : MonoBehaviour
 {
 
     [SerializeField, Range(0f, 5f)] private float pushForce = 0.5f;
+    [SerializeField] private SpriteTrailRenderer.SpriteTrailRenderer spriteTrailRenderer; 
 
     [HideInInspector] public bool inForwardAttack = false;
     [HideInInspector] public bool inRetreatAttack = false;
+
+    private void Start()
+    {
+        this.gameObject.SetActive(false);
+        spriteTrailRenderer._startScale = new Vector2(0.5f, 0.5f);
+        spriteTrailRenderer._endScale = new Vector2(0.5f, 0.5f);
+    }
 
     // Va chạm của đòn tấn công tới đối thủ
 
@@ -18,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
-            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack);
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, true);
 
             //Settings.canKnockback = true;
 
