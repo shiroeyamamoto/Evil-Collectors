@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 54e5a180cdc2b7a40b460338ce636841
+guid: 4379adac74553074990016039c35e1ca
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -126,14 +126,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 9605e3f74a53dee4d842d9c46081ae4c, type: 3}
-      name: PlayerSpriteEmisson
+    secondaryTextures: []
     nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

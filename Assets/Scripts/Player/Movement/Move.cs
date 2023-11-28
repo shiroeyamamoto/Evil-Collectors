@@ -170,21 +170,19 @@ public class Move : MonoBehaviour
         canDash = false;
         Settings.isDasing = true;
         trailRenderer.enabled = true;
+        trailRenderer._startScale = new Vector2(0.75f,0.75f);
+        trailRenderer._endScale = new Vector2(1.5f, 1.5f);
         //trail.emitting = true;
 
+        Settings.enterEnemy = false;
+        Settings.ememyMiss = true;
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
 
-        //if (jumpController.isSliding)
-        //{
-        //    rb2d.velocity = new Vector2(-transform.localScale.x * dashForce, 0f);
-        //}
-        //else
-        //{
         rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
-        //}
+
         if (!Settings.concentrateSKill)
         {
             Player.Instance.UseStamina(20);
@@ -193,6 +191,19 @@ public class Move : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         //trail.emitting = false;
         trailRenderer.enabled = false;
+
+        Debug.Log("Settings.enterEnemy: " + Settings.enterEnemy);
+        Debug.Log("Settings.ememyMiss: " + Settings.ememyMiss);
+        if (!Settings.enterEnemy && !Settings.ememyMiss)
+        {
+            if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+            {
+                GameController.Instance.Player.CurrentInfo.mana += 10;
+                if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                    GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+                Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+            }
+        }
 
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Settings.isDasing = false;

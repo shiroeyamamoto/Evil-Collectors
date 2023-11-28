@@ -36,6 +36,10 @@ public class SkillManager : MonoBehaviour
                 holyLightSkill.cancelSkill = false;*/
             return;
         }
+        else
+        {
+            holyLightSkill.cancelSkill = false;
+        }
 
         if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing && !Settings.isMove)
         {
@@ -85,7 +89,7 @@ public class SkillManager : MonoBehaviour
             // concentrate
             if (Input.GetKeyDown(KeyCode.C))
             {
-                if (GameController.Instance.Player.CurrentInfo.mana < nothingnessSkill.manaNeed)
+                if (GameController.Instance.Player.CurrentInfo.mana < concentrateSkill.manaNeed)
                     return;
 
                 concentrateSkill.ActivateSkill();
