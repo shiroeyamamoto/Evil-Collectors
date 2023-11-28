@@ -312,9 +312,14 @@ public class Attack : MonoBehaviour
     }
     void RotateObject90Degrees(GameObject gameObject,float duration, float value)
     {
+        
+
+
         // Sử dụng DOTween để thực hiện tweening
         gameObject.transform.DORotate(new Vector3(0, 0, value), duration)
-            .SetEase(Ease.InOutQuad);
+            .SetEase(Ease.InOutQuad).OnComplete(() => {
+                gameObject.transform.DOKill();
+            });
     }
     public void TweenKill()
     {

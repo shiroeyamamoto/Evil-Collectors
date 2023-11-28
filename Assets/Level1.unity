@@ -1336,6 +1336,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3467463099209965805, guid: 73a356a29a7a97741825670ec9ff93f2, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4279344653558046059, guid: 73a356a29a7a97741825670ec9ff93f2, type: 3}
       propertyPath: m_Name
       value: LevelManager

@@ -36,7 +36,7 @@ public class BossController : MonoBehaviour,IInteractObject
     }
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
-    private void OnCollisionEnter2D(Collision2D collision)
+   /* private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.transform.CompareTag("Player"))
         {
@@ -63,7 +63,7 @@ public class BossController : MonoBehaviour,IInteractObject
         {
             onWall = false ;
         }
-    }
+    }*/
 
     [SerializeField]public int phase;
     [ContextMenu("Phase Up")]
