@@ -38,8 +38,6 @@ public class Nothingness : Skill
 
     private IEnumerator NothingnessStart()
     {
-        Debug.Log("nothingness skill");
-
         // niệm phép 
         Settings.isAttacking = true;
         Settings.isCatingSkill = true;

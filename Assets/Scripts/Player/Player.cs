@@ -33,7 +33,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         rb2d = GetComponent<Rigidbody2D>();
         spriteRendererPlayer = transform.Find("Body").gameObject.GetComponent<SpriteRenderer>();
-        Color color = new Color();
         hatSpriteRenderer = transform.Find("Hat").gameObject.GetComponent<SpriteRenderer>();
         Settings.playerColor = spriteRendererPlayer.color;
         Settings.playerHatColor = hatSpriteRenderer.color;
@@ -51,8 +50,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         playerDie = false;
         SkillList = new List<SkillBase>();
 
-        Settings.DefaultSetting();
-}
+        Settings.isFacingRight = true;
+    }
     
     private void FixedUpdate()
     {
@@ -147,8 +146,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     private void PlayerDie()
     {
-        gameObject.GetComponent<Attack>().TweenKill();
-
         gameObject.SetActive(false);
         playerDie = true;
         OnDead?.Invoke(false);
