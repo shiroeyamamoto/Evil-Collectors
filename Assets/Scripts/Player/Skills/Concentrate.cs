@@ -125,6 +125,7 @@ public class Concentrate : Skill
         Settings.isCatingSkill = true;
 
         Player.Instance.spriteRendererPlayer.color = Color.grey;
+
         yield return new WaitForSeconds(base.timeCastSkill);
 
         // Bắt đầu cast phép
@@ -132,6 +133,7 @@ public class Concentrate : Skill
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Player.Instance.spriteRendererPlayer.color = Color.white;
+        Player.Instance.spriteRendererPlayer.material.color = Color.green * 10f;
 
         timeAuraCounter = timeExitAura;
 
@@ -165,6 +167,7 @@ public class Concentrate : Skill
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
+        Player.Instance.spriteRendererPlayer.material.color = Color.green;
 
         // Thời gian hồi phép 
         yield return new WaitForSeconds(base.skillCoolDown);

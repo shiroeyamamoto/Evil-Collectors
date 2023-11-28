@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Unity.VisualScripting;
 
 public class Attack : MonoBehaviour
 {
@@ -158,13 +158,14 @@ public class Attack : MonoBehaviour
             {
                 if (Settings.isFacingRight)
                 {
-                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45f);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, -45f);
                 }
                 else
                 {
-                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -45f);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
                 }
-                RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 0f);
 
                 if (playerAttack.inForwardAttack)
                 {
@@ -233,30 +234,48 @@ public class Attack : MonoBehaviour
                 transform.position = Vector2.Lerp(transform.position, transform.position + Vector3.up * knockbackForce, 1f);
             }
 
-            /*if (isDownAttack)
+            if (isDownAttack)
             {
-                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
-                RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
+                if (!Settings.isFacingRight)
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
+                }
+                else
+                {
+
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -45);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, -135);
+                }
             }
 
             if (isUpAttack)
             {
-                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
-                RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 315);
-            }*/
+                if (!Settings.isFacingRight)
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 315);
+                }
+                else
+                {
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 135);
+                }
+            }
 
             //Debug.Log(Settings.PlayerDamaged);
             if (!isUpAttack && !isDownAttack)
             {
                 if (Settings.isFacingRight)
                 {
-                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45f);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, -45f);
                 }
                 else
                 {
-                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -45f);
+                    RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
                 }
-                RotateObject90Degrees(playerAttack.gameObject, strongAttackTime, 0f);
 
                 if (playerAttack.inForwardAttack)
                 {
@@ -289,13 +308,16 @@ public class Attack : MonoBehaviour
             Settings.isAttacking = false;
             yield return new WaitForSeconds(strongAttackCooldown);
             canAttackStrong = true;
-        }
+        }   
     }
-
     void RotateObject90Degrees(GameObject gameObject,float duration, float value)
     {
         // Sử dụng DOTween để thực hiện tweening
         gameObject.transform.DORotate(new Vector3(0, 0, value), duration)
             .SetEase(Ease.InOutQuad);
+    }
+    public void TweenKill()
+    {
+        var activeTween = DOTween.KillAll();
     }
 }

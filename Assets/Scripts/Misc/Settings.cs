@@ -11,6 +11,10 @@ public static class Settings
     // Jump
     [Tooltip("Player có đang jump không?")] public static bool _isJumping = false;
 
+    // Dash
+    [Tooltip("Khi dash có va chạm enemy không?")] public static bool enterEnemy = false;
+    [Tooltip("Khi dash enemy đánh hụt?")] public static bool ememyMiss = true;
+
     // Block
     [Tooltip("Player đang block.")] public static bool isBlocking = false;
     [Tooltip("Player có thể parry không?")] public static bool canParry = false;
@@ -44,4 +48,43 @@ public static class Settings
 
     // Cheats
     [Tooltip("Player bất tử?")] public static bool zombieMode = true;
+
+    public static void DefaultSetting()
+    {
+        // Player Movement
+        Settings.isMove = false;
+        Settings.isDasing = false;
+        Settings.isFacingRight = true;
+
+        // Jump
+        Settings._isJumping = false;
+
+        // Dash
+        Settings.enterEnemy = false;
+        Settings.ememyMiss = true;
+
+        // Block
+        Settings.isBlocking = false;
+        Settings.canParry = false;
+        Settings.isParry = false;
+
+        // Ground check
+        Settings.isGrounded = false;
+        Settings.isWalled = false;
+        Settings.standInEnemy = false;
+
+        // Player Attack
+        Settings.isAttacking = false;
+        Settings.isAttackNormal = false;
+        Settings.isAttackStrong = false;
+        Settings.canKnockback = false;
+
+        // Player Status
+        Settings.PlayerDamaged = false;
+
+        // Player Skill
+        Settings.isCatingSkill = false;
+        Settings.concentrateSKill = false;
+        Settings.nothingnessSkill = false;
+    }
 }

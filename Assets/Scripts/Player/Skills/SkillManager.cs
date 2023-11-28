@@ -25,9 +25,16 @@ public class SkillManager : MonoBehaviour
         if (!Settings.isGrounded)
             return;
 
+
         if (Settings.PlayerDamaged)
         {
             holyLightSkill.cancelSkill = true;
+            holyLightSkill.HoldKeySkill();
+            /*if (!holyLightSkill.cancelSkill)
+                holyLightSkill.ActivateSkill();
+            else
+                holyLightSkill.cancelSkill = false;*/
+            return;
         }
         else
         {
@@ -54,11 +61,12 @@ public class SkillManager : MonoBehaviour
                 if (Settings.isMove)
                     return;
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                /*if (Input.GetKeyDown(KeyCode.Space))
                 { 
                     holyLightSkill.cancelSkill = true;
                     return;
-                }
+                }*/
+
                 holyLightSkill.HoldKeySkill();
             }
             if (Input.GetKeyUp(KeyCode.Z))
@@ -81,7 +89,7 @@ public class SkillManager : MonoBehaviour
             // concentrate
             if (Input.GetKeyDown(KeyCode.C))
             {
-                if (GameController.Instance.Player.CurrentInfo.mana < nothingnessSkill.manaNeed)
+                if (GameController.Instance.Player.CurrentInfo.mana < concentrateSkill.manaNeed)
                     return;
 
                 concentrateSkill.ActivateSkill();

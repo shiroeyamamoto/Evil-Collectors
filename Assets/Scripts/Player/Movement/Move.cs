@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using SpriteTrailRenderer;
 
 public class Move : MonoBehaviour
 {
@@ -25,12 +26,15 @@ public class Move : MonoBehaviour
     [HideInInspector] public float Horizontal;
 
     private Rigidbody2D rb2d;
-    private TrailRenderer trail;
+    //private TrailRenderer trail;
+    private SpriteTrailRenderer.SpriteTrailRenderer trailRenderer;
 
     protected void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        trail = GetComponent<TrailRenderer>();
+        trailRenderer = GetComponent<SpriteTrailRenderer.SpriteTrailRenderer>();
+        trailRenderer.enabled = false;
+        //trail = GetComponent<TrailRenderer>();
     }
     private void Update()
     {
@@ -165,28 +169,41 @@ public class Move : MonoBehaviour
     {
         canDash = false;
         Settings.isDasing = true;
-        trail.emitting = true;
+        trailRenderer.enabled = true;
+        trailRenderer._startScale = new Vector2(0.75f,0.75f);
+        trailRenderer._endScale = new Vector2(1.5f, 1.5f);
+        //trail.emitting = true;
 
+        Settings.enterEnemy = false;
+        Settings.ememyMiss = true;
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
         float originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
 
-        //if (jumpController.isSliding)
-        //{
-        //    rb2d.velocity = new Vector2(-transform.localScale.x * dashForce, 0f);
-        //}
-        //else
-        //{
         rb2d.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
-        //}
+
         if (!Settings.concentrateSKill)
         {
             Player.Instance.UseStamina(20);
         }
 
         yield return new WaitForSeconds(dashingTime);
-        trail.emitting = false;
+        //trail.emitting = false;
+        trailRenderer.enabled = false;
+
+        Debug.Log("Settings.enterEnemy: " + Settings.enterEnemy);
+        Debug.Log("Settings.ememyMiss: " + Settings.ememyMiss);
+        if (!Settings.enterEnemy && !Settings.ememyMiss)
+        {
+            if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+            {
+                GameController.Instance.Player.CurrentInfo.mana += 10;
+                if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                    GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+                Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+            }
+        }
 
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Settings.isDasing = false;
