@@ -10,7 +10,6 @@ public class GameManager : SingletonMonobehavious<GameManager>
 	private const string PlayerPrefs_Coin = "coin_data";
 	
 	public static GameManager Instance;
-	public List<SlotLevelUI> listSlotLevelUI;
 
 	[HideInInspector] public bool levelTwoScene = false;
 	[SerializeField] private HomeMenuUI homeMenuUI;

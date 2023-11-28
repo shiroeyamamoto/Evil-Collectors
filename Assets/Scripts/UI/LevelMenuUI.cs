@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +25,6 @@ public class LevelMenuUI : UIBase {
         }
         
         slotLevelList = new List<SlotLevelUI>();
-        GameManager.Instance.listSlotLevelUI = new List<SlotLevelUI>();
         slotLevelUI.gameObject.SetActive(true);
         
         for (int i = 0; i < data.Levels.Count; i++) {
@@ -36,7 +34,7 @@ public class LevelMenuUI : UIBase {
             slotLevel.OnClick += OnClick;
             slotLevelList.Add(slotLevel);
 
-
+            
             if (i > 0)
             {
                 slotLevel.btn.interactable = false;
@@ -45,9 +43,6 @@ public class LevelMenuUI : UIBase {
             {
                 slotLevel.btn.interactable = true;
             }
-
-            // truyền vào item level vào GameManager
-            GameManager.Instance.listSlotLevelUI.Add(slotLevel);
         }
 
         slotLevelUI.gameObject.SetActive(false);
@@ -56,10 +51,6 @@ public class LevelMenuUI : UIBase {
     private void Remove()
     {
         foreach (var slot in slotLevelList)
-        {
-            Destroy(slot.gameObject);
-        }
-        foreach (var slot in GameManager.Instance.listSlotLevelUI)
         {
             Destroy(slot.gameObject);
         }
