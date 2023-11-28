@@ -8,6 +8,14 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public bool inForwardAttack = false;
     [HideInInspector] public bool inRetreatAttack = false;
 
+<<<<<<< HEAD
+=======
+    private void Start()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+>>>>>>> Khang_06
     // Va chạm của đòn tấn công tới đối thủ
 
     /// <summary>

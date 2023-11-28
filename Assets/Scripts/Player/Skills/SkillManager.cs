@@ -81,7 +81,7 @@ public class SkillManager : MonoBehaviour
             // concentrate
             if (Input.GetKeyDown(KeyCode.C))
             {
-                if (GameController.Instance.Player.CurrentInfo.mana < nothingnessSkill.manaNeed)
+                if (GameController.Instance.Player.CurrentInfo.mana < concentrateSkill.manaNeed)
                     return;
 
                 concentrateSkill.ActivateSkill();
