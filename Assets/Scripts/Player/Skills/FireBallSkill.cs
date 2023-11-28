@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -14,6 +15,12 @@ public class FireBallSkill : Skill
     }
     public override void ActivateSkill(int amount, float scale)
     {
+        if (Player.Instance.CurrentInfo.mana < 5)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {
             Vector3 playerPosition = Player.Instance.transform.position;
@@ -22,9 +29,11 @@ public class FireBallSkill : Skill
 
             //scale = transform.localScale;
 
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
             this.gameObject.SetActive(true);
 
-            Player.Instance.UseMana(-5);
+            Player.Instance.UseMana(5);
 
             FireBallStart( amount,  scale);
 
@@ -39,6 +48,12 @@ public class FireBallSkill : Skill
 
     private void FireBallStart(int amount, float scale)
     {
+
+        if (Settings.isFacingRight)
+        {
+            gameObject.transform.localScale = new Vector3(-gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+        }
+
         // Hướng ngẫu nhiên bắn
         float randomAngle = Random.Range(-5f, 5f); // góc bắn
         Vector2 moveDirection = Quaternion.Euler(0, 0, randomAngle) * (Player.Instance.transform.localScale.x>0? Vector2.right : Vector2.left);
@@ -68,7 +83,7 @@ public class FireBallSkill : Skill
 
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
-            collision.transform.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.2f);
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(Player.Instance.CurrentInfo.damage * 0.2f,false);
             Debug.Log("AttackDamaga");
         }
     }

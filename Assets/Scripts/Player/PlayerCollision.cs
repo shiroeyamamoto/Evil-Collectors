@@ -20,6 +20,8 @@ public class PlayerCollision : MonoBehaviour
 
                 Player.Instance.rb2d.AddForce(new Vector2(-direction * pushForce, 25f), ForceMode2D.Impulse);
 
+                Settings.enterEnemy = true;
+
                 //playerRidid2D.AddForce(new Vector2(-gameObject.transform.localScale.x * pushForce, 25f), ForceMode2D.Impulse);
 
                 //playerRidid2D.velocity = new Vector2(-gameObject.transform.localScale.x*pushForce, 0f);
@@ -54,6 +56,8 @@ public class PlayerCollision : MonoBehaviour
                 //Player.Instance.gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
 
                 Player.Instance.rb2d.AddForce(new Vector2(-direction * pushForce, 25f), ForceMode2D.Impulse);
+
+                Settings.enterEnemy = true;
 
                 //playerRidid2D.AddForce(new Vector2(-gameObject.transform.localScale.x * pushForce, 25f), ForceMode2D.Impulse);
 

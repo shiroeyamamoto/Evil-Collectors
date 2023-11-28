@@ -11,6 +11,10 @@ public static class Settings
     // Jump
     [Tooltip("Player có đang jump không?")] public static bool _isJumping = false;
 
+    // Dash
+    [Tooltip("Khi dash có va chạm enemy không?")] public static bool enterEnemy = false;
+    [Tooltip("Khi dash enemy đánh hụt?")] public static bool ememyMiss = true;
+
     // Block
     [Tooltip("Player đang block.")] public static bool isBlocking = false;
     [Tooltip("Player có thể parry không?")] public static bool canParry = false;
