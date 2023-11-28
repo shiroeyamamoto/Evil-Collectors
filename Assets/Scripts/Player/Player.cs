@@ -307,5 +307,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         OnUpdateTP?.Invoke(Player.Instance.CurrentInfo.stamina);
     }
 
-
+    public void OnDamaged(float damage, bool value)
+    {
+        throw new NotImplementedException();
+    }
 }
