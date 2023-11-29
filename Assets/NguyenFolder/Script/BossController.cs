@@ -27,8 +27,7 @@ public class BossController : MonoBehaviour,IInteractObject
         listSwords = new List<Transform>();
         phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
-        //GameObject player = GameObject.FindGameObjectWithTag("Player");
-        //Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
+        
     }
     private void Update()
     {
@@ -71,6 +70,7 @@ public class BossController : MonoBehaviour,IInteractObject
     {
         
         phase++;
+        phase = Mathf.Clamp(phase,1, 3);
         transform.GetComponent<Animator>().SetInteger("Phase",phase);
     }
 
@@ -99,11 +99,11 @@ public class BossController : MonoBehaviour,IInteractObject
             
             Debug.Log("im dead");
         }
-        if (health <= healthPhase2)
+        if (health <= healthPhase2 && phase == 1)
         {
             PhaseUp();
         }
-        if (health <= healthPhase3)
+        if (health <= healthPhase3 && phase == 2)
         {
             PhaseUp();
         }

@@ -33,6 +33,7 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
             animator.SetTrigger("NextStep");
             animator.transform.Find("Body").GetComponent<SpriteRenderer>().DOFade(1, 0.25f).OnComplete(() =>
             {
+                animator.DOKill();
                 animator.transform.GetComponent<Collider2D>().isTrigger = false;
                 animator.transform.GetComponent<Rigidbody2D>().gravityScale = 0;
 
@@ -69,15 +70,4 @@ public class B_Boss_Teleport_Above_Target : StateMachineBehaviour
         animator.transform.Find("Body").Find("Body").GetComponent<SpriteRenderer>().color = color;
     }
 
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }

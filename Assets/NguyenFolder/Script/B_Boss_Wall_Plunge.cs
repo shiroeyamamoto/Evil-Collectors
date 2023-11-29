@@ -73,6 +73,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
             animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y + (1 - scaleValue) / 2, scaleSpeed).SetEase(Ease.Linear);
             animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
             {
+                //animator.transform.DOKill();
                 Jump(animator,endPointJump);
             });
         });
@@ -85,6 +86,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
             animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }).OnComplete(() =>
         {
+            //animator.DOKill();
             PlayParticle(animator, endPointJump);
             FlipAfterJump(animator,scaleAfterJump);
             animator.SetTrigger("NextStep");

@@ -259,9 +259,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc99c5a626d34794182c0586a1efbf61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listSlotLevelUI: []
   levelTwoScene: 0
   homeMenuUI: {fileID: 0}
   data: {fileID: 11400000, guid: 934ce7ec2c1272e4dacdac6108ec6ae4, type: 2}
+--- !u!1 &1552544521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1552544523}
+  - component: {fileID: 1552544522}
+  m_Layer: 0
+  m_Name: Tweener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1552544522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552544521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d320c552c42de47a84a0c03c3ec927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweener: []
+--- !u!4 &1552544523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552544521}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 948.5742, y: 572.6465, z: -11.994012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681911101
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,3 +586,4 @@ SceneRoots:
   - {fileID: 9148333053379720392}
   - {fileID: 154668304}
   - {fileID: 1681911102}
+  - {fileID: 1552544523}

@@ -29,6 +29,7 @@ public class B_Boss_Dead : StateMachineBehaviour
 
             }).OnComplete(() =>
             {
+                //animator.DOKill();
                 animator.transform.parent.gameObject.SetActive(false);
             });
         });

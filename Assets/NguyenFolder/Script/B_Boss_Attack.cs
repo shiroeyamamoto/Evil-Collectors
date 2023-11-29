@@ -17,22 +17,6 @@ public class B_Boss_Attack : StateMachineBehaviour
         {
             animator.SetInteger("AttackType", attackType);
         }
-            /*chooseAttackType:
-            {
-                if (randomAttackType) { attackType = Random.Range(0, maxAttackType + 1);
-                animator.GetComponent<BossController>().currentAttackType = attackType;
-            }
-            }
-            
-            if (animator.GetComponent<BossController>().currentAttackType != animator.GetComponent<Boss_Level_1_Controller>().previousAttackType)
-            {
-                animator.GetComponent<BossController>().previousAttackType = animator.GetComponent<Boss_Level_1_Controller>().currentAttackType;
-                animator.SetInteger("AttackType", animator.GetComponent<Boss_Level_1_Controller>().currentAttackType);
-
-            } else
-            {
-                goto chooseAttackType;
-            }*/
     }
 
 }

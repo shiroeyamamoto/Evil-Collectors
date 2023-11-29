@@ -44,32 +44,12 @@ public class Boss_Lv1_Fake_Jump : StateMachineBehaviour
             {
                 animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y + (1 - scaleChange) / 2, scaleSpeed).SetEase(Ease.Linear);
                 animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(() => {
-                    animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear);
+                    animator.transform.DOJump(endPoint, jumpPower, 1, jumpDuration).SetEase(Ease.Linear).OnComplete(() =>
+                    {
+                        //animator.transform.DOKill();
+                    });
                 });
             });
-            
-                /*.OnStart(() =>
-            {
-                jumpDurationCaculate = jumpDuration;
-                value = 0f;
-                delay = (jumpDuration * 0.2f) / 10;
-            })*/
-                /*.OnUpdate(() =>
-            {
-                jumpDurationCaculate -=  Time.deltaTime;
-                timer += Time.deltaTime;
-                if (jumpDurationCaculate < jumpDuration * 0.2f && timer >= delay)
-                {
-                    timer = 0; 
-                    value += 0.1f;
-                    animator.SetFloat("Blend", value);
-                }
-            })*/
-            /*.OnComplete(() =>
-            {
-                animator.SetTrigger("NextStep");
-                Debug.Log("First Jump Completed");
-            })*/
             
         }
     }
