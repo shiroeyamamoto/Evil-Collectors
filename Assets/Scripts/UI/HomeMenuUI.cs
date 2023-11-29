@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HomeMenuUI : MonoBehaviour {
-    [SerializeField] private string sceneLoadString;
 
     [SerializeField] private Button btnPlay;
     [SerializeField] private LevelMenuUI levelMenuUI;
@@ -18,7 +17,7 @@ public class HomeMenuUI : MonoBehaviour {
         listUI = new List<UIBase>();
         btnPlay.onClick.AddListener(()=>
         {
-            SceneManager.LoadScene(sceneLoadString);
+            StartCoroutine(LoadScene(loadTime));
             //GameManager.Instance.ShowLevel();
 
         });
@@ -30,7 +29,16 @@ public class HomeMenuUI : MonoBehaviour {
         };
         
     }
-
+    [Space]
+    public Animator animator;
+    public float loadTime;
+    [SerializeField] private string sceneLoadString;
+    public IEnumerator LoadScene(float loadTime)
+    {
+        animator.SetTrigger("Start");
+        yield return new WaitForSeconds(loadTime);
+        SceneManager.LoadScene(sceneLoadString);
+    }
     public void LoadLevels(LevelManagerSO data)
     {
         levelMenuUI.Show();
