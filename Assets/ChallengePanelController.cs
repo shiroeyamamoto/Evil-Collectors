@@ -1,21 +1,24 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class ChallengePanelController : MonoBehaviour
 {
+    public string sceneName;
     private void OnEnable()
     {
-        //Time.timeScale = 0;
-
+       
     }
     private void OnDisable()
     {
-        //Time.timeScale = 1;
+        
     }
     public void BossFightScene()
     {
+        if (sceneName != null)
+        SceneManager.LoadScene(sceneName);
         Debug.Log("I'm ChallengeBoss");
     }
 

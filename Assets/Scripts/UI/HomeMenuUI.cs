@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HomeMenuUI : MonoBehaviour {
+    [SerializeField] private string sceneLoadString;
+
     [SerializeField] private Button btnPlay;
     [SerializeField] private LevelMenuUI levelMenuUI;
     [SerializeField] private BagMenuUI bagMenuUI;
@@ -15,7 +18,9 @@ public class HomeMenuUI : MonoBehaviour {
         listUI = new List<UIBase>();
         btnPlay.onClick.AddListener(()=>
         {
-            GameManager.Instance.ShowLevel();
+            SceneManager.LoadScene(sceneLoadString);
+            //GameManager.Instance.ShowLevel();
+
         });
         levelMenuUI.gameObject.SetActive(false);
         levelMenuUI.OnClick += () => {

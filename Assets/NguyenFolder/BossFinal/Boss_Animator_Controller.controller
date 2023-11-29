@@ -1507,7 +1507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 3
   maxAttackType: 3
-  randomAttackType: 0
+  randomAttackType: 1
 --- !u!114 &-1271549952581925078
 MonoBehaviour:
   m_ObjectHideFlags: 1

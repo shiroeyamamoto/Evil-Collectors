@@ -17,13 +17,14 @@ public class SlotLevelUI : MonoBehaviour {
     {
         btn.onClick.AddListener(() =>
         {
-            GameManager.Instance.SetLevelData(levelSO);
+            Debug.Log("Play Button Click");
+            /*GameManager.Instance.SetLevelData(levelSO);
             foreach (SlotLevelUI slot in GameManager.Instance.listSlotLevelUI)
             {
                 slot.btn.interactable = false;
             }
             //btn.interactable = false;
-            OnClick?.Invoke();
+            OnClick?.Invoke();*/
         });
     }
     
