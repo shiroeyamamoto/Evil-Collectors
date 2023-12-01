@@ -306,7 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listSlotLevelUI: []
   levelTwoScene: 0
-  homeMenuUI: {fileID: 0}
+  homeMenuUI: {fileID: 1860024112}
   data: {fileID: 11400000, guid: 934ce7ec2c1272e4dacdac6108ec6ae4, type: 2}
 --- !u!1 &815368178 stripped
 GameObject:
@@ -376,6 +376,17 @@ MonoBehaviour:
   - ItemBase: {fileID: 11400000, guid: 26724e8a930daa64d95e6c0c34c93120, type: 2}
     price: 6
     IsBought: 0
+--- !u!114 &1860024112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6130630454985198939, guid: 93248c786cbed9b488d3484537254954, type: 3}
+  m_PrefabInstance: {fileID: 9148333053379720392}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e07844176233344c9913ebc97959275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1886949023 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2003095672679042052, guid: 93248c786cbed9b488d3484537254954, type: 3}
@@ -407,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3479857364714200769, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4095187643074130670, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
       propertyPath: m_Pivot.x
@@ -497,6 +508,10 @@ PrefabInstance:
       propertyPath: m_MatchWidthOrHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8381372653054166759, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -512,7 +527,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 163360897969466333, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4552747397432025950, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_Name

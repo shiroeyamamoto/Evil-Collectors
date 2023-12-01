@@ -17,7 +17,10 @@ public class HomeMenuUI : MonoBehaviour {
         listUI = new List<UIBase>();
         btnPlay.onClick.AddListener(()=>
         {
+            // Nguyen Code
             StartCoroutine(LoadScene(loadTime));
+
+            // Quan Code
             //GameManager.Instance.ShowLevel();
 
         });
@@ -37,7 +40,8 @@ public class HomeMenuUI : MonoBehaviour {
     {
         animator.SetTrigger("Start");
         yield return new WaitForSeconds(loadTime);
-        SceneManager.LoadScene(sceneLoadString);
+        SceneManager.LoadScene("PersistentScene");
+        SceneManager.LoadScene(sceneLoadString,LoadSceneMode.Additive);
     }
     public void LoadLevels(LevelManagerSO data)
     {

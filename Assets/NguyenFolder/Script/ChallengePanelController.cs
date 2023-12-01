@@ -1,25 +1,18 @@
-
-using UnityEditor.SearchService;
+using System;
 using UnityEngine;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class ChallengePanelController : MonoBehaviour
 {
+    [SerializeField] public LevelSO levelSO;
     public string sceneName;
-    private void OnEnable()
-    {
-       
-    }
-    private void OnDisable()
-    {
-        
-    }
+    
     public void BossFightScene()
     {
-        if (sceneName != null)
-        SceneManager.LoadScene(sceneName);
-        Debug.Log("I'm ChallengeBoss");
+        var scene_01 = SceneManager.LoadSceneAsync("PersistentScene");
+        var scene_02 = SceneManager.LoadSceneAsync("Level1", LoadSceneMode.Additive);
+        Time.timeScale = 1;
     }
 
     public void CancelChallenge()

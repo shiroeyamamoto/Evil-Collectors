@@ -11,20 +11,20 @@ public class SlotLevelUI : MonoBehaviour {
     public Button btn;
     public TMP_Text txtLevel;
 
-    private LevelSO levelSO;
+    [SerializeField]private LevelSO levelSO;
     
     private void Start()
     {
         btn.onClick.AddListener(() =>
         {
             Debug.Log("Play Button Click");
-            /*GameManager.Instance.SetLevelData(levelSO);
+            GameManager.Instance.SetLevelData(levelSO);
             foreach (SlotLevelUI slot in GameManager.Instance.listSlotLevelUI)
             {
                 slot.btn.interactable = false;
             }
             //btn.interactable = false;
-            OnClick?.Invoke();*/
+            OnClick?.Invoke();
         });
     }
     
@@ -33,6 +33,4 @@ public class SlotLevelUI : MonoBehaviour {
         this.levelSO = levelSO;
         txtLevel.text = txt;
     }
-
-    
 }

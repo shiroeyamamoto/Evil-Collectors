@@ -25,6 +25,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     
     public List<SkillBase> SkillList { get; private set; }
 
+    
+
     public void Init(SO_PlayerData playerData)
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -53,7 +55,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     private void FixedUpdate()
     {
         // Giữ player không sleep
-        rb2d.position += Vector2.zero;
+        rb2d.position += Vector2.zero;  
         //OnUpdateMana?.Invoke(CurrentInfo.mana);
     }
     private void Update()
