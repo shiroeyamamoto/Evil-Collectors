@@ -333,6 +333,8 @@ MonoBehaviour:
   eyeScale: 0.5
   scaleDuration: 0.1
   scaleDefault: 0
+  bsso_current: {fileID: 11400000, guid: cc45f8dbdb400d343a881c2c7e55a5d7, type: 2}
+  bsso_unlock: {fileID: 11400000, guid: 5074b8bff946dc24991c322dfd9b8666, type: 2}
 --- !u!95 &5804235604077258331
 Animator:
   serializedVersion: 5

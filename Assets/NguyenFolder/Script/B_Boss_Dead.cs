@@ -11,6 +11,9 @@ public class B_Boss_Dead : StateMachineBehaviour
     public float jumpDuration;
     [Space]
     public float fadeDuration;
+
+    public BossStatus_SO bsso_current;
+    public BossStatus_SO bsso_next;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //  Jump To Ground
@@ -30,7 +33,11 @@ public class B_Boss_Dead : StateMachineBehaviour
             }).OnComplete(() =>
             {
                 //animator.DOKill();
-                animator.transform.parent.gameObject.SetActive(false);
+                animator.transform.parent.gameObject.SetActive(false);//UI OnDead
+                Player.Instance.OnDead?.Invoke(true);
+                Player.Instance.OnDead(true);
+                bsso_current.defeated = true;
+                bsso_next.unlocked = true;
             });
         });
     }

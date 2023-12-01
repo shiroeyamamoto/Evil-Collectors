@@ -114,13 +114,12 @@ public class BossController : MonoBehaviour,IInteractObject
     public void damageMe()
     {
         OnDamaged(15);
+        DoEffect();
     }
     Animator animator;
     public void OnDead()
     {
-        //UI OnDead
-        Player.Instance.OnDead?.Invoke(true);
-        Player.Instance.OnDead(true);
+        
         //Disable animator
         if (animator)
         {

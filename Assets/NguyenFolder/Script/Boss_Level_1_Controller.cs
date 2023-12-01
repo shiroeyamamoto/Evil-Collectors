@@ -155,8 +155,9 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             Debug.Log("I m D e a d");
             //this.enabled = false;
             animator.SetTrigger("Death");
-            Player.Instance.OnDead?.Invoke(true);
-            Player.Instance.OnDead(true);
+
+            // ro code
+            
         }
         else if(health <= healthPhase2)
         {
@@ -177,13 +178,21 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         }
     }
 
+    public BossStatus_SO bsso_current;
+    public BossStatus_SO bsso_unlock;
+
     public void OnDead()
     {
         // UI OnDead
 
         // Disable Animator
         TweenKill();
+        bsso_current.defeated = true;
+        Debug.Log(bsso_current.defeated);
+        bsso_unlock.unlocked = true;
         transform.parent.gameObject.SetActive(false);
+        Player.Instance.OnDead?.Invoke(true);
+        Player.Instance.OnDead(true);
     }
 
     public void TweenKill()

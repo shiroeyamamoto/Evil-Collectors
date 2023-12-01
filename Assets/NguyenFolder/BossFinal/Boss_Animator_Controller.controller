@@ -2155,6 +2155,8 @@ MonoBehaviour:
   jumpPower: 5
   jumpDuration: 1
   fadeDuration: 1
+  bsso_current: {fileID: 11400000, guid: 5074b8bff946dc24991c322dfd9b8666, type: 2}
+  bsso_next: {fileID: 11400000, guid: 5074b8bff946dc24991c322dfd9b8666, type: 2}
 --- !u!1101 &2561940592874018023
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2730,7 +2732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a1bc06c28516c4287a0249e99a3d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordNumber: 15
+  swordNumber: 12
   angleRangeMin: -10
   angleRangeMax: 90
   force: 40
