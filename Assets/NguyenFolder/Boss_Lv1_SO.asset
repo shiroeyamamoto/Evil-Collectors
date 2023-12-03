@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossId: 1
   unlocked: 1
-  defeated: 0
+  defeated: 1
