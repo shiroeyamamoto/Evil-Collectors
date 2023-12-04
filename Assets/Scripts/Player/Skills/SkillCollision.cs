@@ -8,7 +8,7 @@ public class SkillCollision : MonoBehaviour
     {
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
-            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack);
+            collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, false);
 
             Debug.Log("GameController.Instance.Player.DamageAttack: " + GameController.Instance.Player.DamageAttack);
 

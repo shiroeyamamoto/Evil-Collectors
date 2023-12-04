@@ -10,8 +10,8 @@ public class GameController : SingletonMonobehavious<GameController>
 
     [Header("Prefab")]
     [SerializeField] private Player playerPrefab;
-    public GameObject firstBossPrefab;
-    public GameObject finalBossPrefab;
+    //public GameObject firstBossPrefab;
+    //public GameObject finalBossPrefab;
     
     public Player Player { get; private set; }
     public LevelSO LevelSO => GameManager.Instance.CurrentLevelSelection;
