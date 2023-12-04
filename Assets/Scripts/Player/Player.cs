@@ -25,10 +25,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     
     public List<SkillBase> SkillList { get; private set; }
 
-    private void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-    }
     public void Init(SO_PlayerData playerData)
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -278,7 +274,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             undeadCounter = 0;
             Settings.zombieMode = false;
             spriteRendererPlayer.color = Settings.playerColor;
-            //hatSpriteRenderer.color = Settings.playerHatColor;
+            hatSpriteRenderer.color = Settings.playerHatColor;
             OnDamagedTwinkling?.Invoke(1);
             OnDamagedTwinkling?.Invoke(2);
             //StopCoroutine(Twinkling());
@@ -309,6 +305,6 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void OnDamaged(float damage, bool value)
     {
-        throw new NotImplementedException();
+        return;
     }
 }
