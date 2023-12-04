@@ -16,8 +16,8 @@ public class WindZoneController : MonoBehaviour
     private void Awake()
     {
         transformSizeX = transform.localScale.x / 2;
-        //speedMove = Player.Instance.GetComponent<Move>().speedMove;
-        //speedAirMove = Player.Instance.GetComponent<Move>().speedAirMove;
+        speedMove = Player.Instance.GetComponent<Move>().speedMove;
+        speedAirMove = Player.Instance.GetComponent<Move>().speedAirMove;
     }
     public float ratio;
     public void Update()
@@ -33,7 +33,7 @@ public class WindZoneController : MonoBehaviour
             ratio = 1;
             Debug.Log("exit windzone");
         }
-        //speedMove = Player.Instance.GetComponent<Move>().ratio = ratio;
+        speedMove = Player.Instance.GetComponent<Move>().ratio = ratio;
         //Player.Instance.rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove) * ratio, Player.Instance.rb2d.velocity.y);
 
     }
