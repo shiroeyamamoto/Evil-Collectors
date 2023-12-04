@@ -749,8 +749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646d143ba9422cc4c993ab1ecda29559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstBoss: {fileID: 0}
-  finalBoss: {fileID: 0}
+  firstBoss: {fileID: 1707146130724080008, guid: c775754832f10fe478a2835b665c66f3, type: 3}
+  finalBoss: {fileID: 9023724403054719497, guid: a05108db79f6fec4daf93bf143aab5f1, type: 3}
 --- !u!4 &784481597
 Transform:
   m_ObjectHideFlags: 0

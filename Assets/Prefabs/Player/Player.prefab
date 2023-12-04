@@ -15650,7 +15650,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushForce: 1.5
-  spriteTrailRenderer: {fileID: 0}
   inForwardAttack: 0
   inRetreatAttack: 0
 --- !u!82 &7096717928604901328
@@ -16162,6 +16161,7 @@ MonoBehaviour:
   dashCooldown: 0.3
   jumpController: {fileID: 6516433872049495414}
   Horizontal: 0
+  ratio: 1
 --- !u!114 &6516433872049495414
 MonoBehaviour:
   m_ObjectHideFlags: 0
