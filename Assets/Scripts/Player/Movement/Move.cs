@@ -9,8 +9,8 @@ public class Move : MonoBehaviour
     [SerializeField] private Transform wallCheck;
 
     // Movement
-    [SerializeField, Range(0f, 100f)] private float speedMove = 10f;
-    [SerializeField, Range(0f, 100f)] private float speedAirMove = 20f;
+    [SerializeField, Range(0f, 100f)] public float speedMove = 10f;
+    [SerializeField, Range(0f, 100f)] public float speedAirMove = 20f;
 
     [Range(0f, 90f)] public float rotationWhenMove = 18f;
 
@@ -132,11 +132,11 @@ public class Move : MonoBehaviour
         else
             PlayerRotation(move);
 
-        rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
+        rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove) * ratio, rb2d.velocity.y);
 
         Horizontal = move;
     }
-
+    public float ratio;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
