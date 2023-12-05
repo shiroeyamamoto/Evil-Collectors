@@ -25,7 +25,10 @@ public class B_Boss_Idle : StateMachineBehaviour
     public void Flip(Animator animator)
     {
         int directionInt = (Player.Instance.transform.position.x <= animator.transform.position.x) ? -1 : 1;
-        animator.transform.DOScaleX(Mathf.Abs(animator.transform.lossyScale.x) * directionInt,0);
+        animator.transform.DOScaleX(Mathf.Abs(animator.transform.lossyScale.x) * directionInt, 0).OnComplete(() =>
+        {
+            //animator.transform.DOKill();
+        });
     }
 
 

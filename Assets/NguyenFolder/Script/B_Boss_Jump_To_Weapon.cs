@@ -1,10 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Reflection.Emit;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
 {
@@ -42,6 +37,7 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
                 
                 .OnComplete(() =>
             {
+                //boss.DOKill();
                 PlayParticle(animator);
                 weapon.gameObject.SetActive(false);
                 animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

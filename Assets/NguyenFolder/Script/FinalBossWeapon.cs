@@ -107,6 +107,7 @@ public class FinalBossWeapon : MonoBehaviour
         moveDistance = Vector3.Distance(bossPos.position, endPos);
         moveDuration = (moveDistance / velocity);
         transform.DOMove(endPos, moveDuration).SetEase(Ease.Linear).OnComplete(() => {
+            //transform.DOKill();
             transform.GetComponent<SpriteRenderer>().color = Color.red;
             StartCoroutine(DelayAttack());
         });
@@ -138,6 +139,7 @@ public class FinalBossWeapon : MonoBehaviour
                 {
                     transform.DOMoveX(hit.point.x, (float)(Mathf.Abs(distanceToWall) / velocity)).SetEase(Ease.Linear).OnComplete(() =>
                     {
+                        //transform.DOKill();
                         Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                         moveCompleted = true;
                         Transform wallSlam = Instantiate(wallSlamPrefab, transform.position, Quaternion.identity, null);
@@ -170,12 +172,12 @@ public class FinalBossWeapon : MonoBehaviour
                                                 Mathf.Infinity, 
                                                 groundNWallLayer);
             //Debug.Log(hit.point);
-            Vector2 endPoint = hit.point;   
-
+            Vector2 endPoint = hit.point;
 
             transform.DORotate(new Vector3(0, 0, angleRotate), 0).OnComplete(() => {
                 transform.DOMove(endPoint, duration).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    //transform.DOKill();
                     moveCompleted = true;
                     AnimatorParamSet();
                     Camera.main.GetComponent<CameraController>().ShakeCamera(0.25f, 0.25f);
@@ -192,7 +194,10 @@ public class FinalBossWeapon : MonoBehaviour
     }
     void Flip(float faceRight)
     {
-        transform.DOScaleX(-faceRight * Mathf.Abs(transform.lossyScale.x), 0f);
+        transform.DOScaleX(-faceRight * Mathf.Abs(transform.lossyScale.x), 0f).OnComplete(() =>
+        {
+            //transform.DOKill();
+        });
     }
 
     void AnimatorParamSet()

@@ -71,7 +71,8 @@ public class Move : MonoBehaviour
 
 
                 // stamina tiêu thụ
-                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
+                if (!Settings.concentrateSKill 
+                    && Player.Instance.CurrentInfo.stamina >= 20)
                 {
                     StartCoroutine(Dash());
                 }

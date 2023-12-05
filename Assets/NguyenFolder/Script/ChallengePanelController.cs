@@ -1,22 +1,18 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class ChallengePanelController : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        //Time.timeScale = 0;
-
-    }
-    private void OnDisable()
-    {
-        //Time.timeScale = 1;
-    }
+    [SerializeField] public LevelSO levelSO;
+    public string sceneName;
+    
     public void BossFightScene()
     {
-        Debug.Log("I'm ChallengeBoss");
+        var scene_01 = SceneManager.LoadSceneAsync("PersistentScene");
+        var scene_02 = SceneManager.LoadSceneAsync("Level1", LoadSceneMode.Additive);
+        Time.timeScale = 1;
     }
 
     public void CancelChallenge()

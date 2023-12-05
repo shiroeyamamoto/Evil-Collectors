@@ -22,7 +22,7 @@ public class B_Boss_Intro : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Transform startPosTransform = GameObject.Find("StartPosition").transform;
+        Transform startPosTransform = animator.transform.parent.Find("StartPosition").transform;
         Debug.Log(startPosTransform);
         if (!startPosTransform) return;
         Vector3 startPosition = startPosTransform.position;

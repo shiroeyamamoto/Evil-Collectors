@@ -34,6 +34,7 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
                 plungeDuration = Vector2.Distance(newTarget, animator.transform.position) / velocity;
                 animator.transform.DOMove(newTarget, plungeDuration).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    animator.transform.DOKill();
                     animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                     PlayParticle(animator, newTarget);

@@ -50,6 +50,7 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                     {
                         tranformThis.DOMoveX(rushPointX, duration).SetEase(Ease.Linear).OnComplete(() =>
                         {
+                            
                             animator.SetInteger("FaceRight", isPlayerLeft);
                             animator.SetTrigger("NextStep");
                             Camera.main.GetComponent<CameraController>().ShakeCamera(shakeDuration, shakeForce);
@@ -66,7 +67,6 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                                         wallSlamPrefab.transform.position = hit.point;
                                         wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 180, 0);
                                     }
-
                                 }
                                 else
                                 {
@@ -78,19 +78,15 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                                             wallSlamPrefab.transform.rotation = Quaternion.Euler(0, 0, 0);
                                             wallSlamPrefab.transform.position = hit.point;
                                         }
-
                                     }
                                 }
                                 wallSlamPrefab.GetComponent<ParticleSystem>().Play();
                             }
-
                             SpawnDamagableObject(damagableObjectPrefab, objectNumber, 24, animator);
                         });
 
                     });
                 });
-
-                /**/
             }
         }
 

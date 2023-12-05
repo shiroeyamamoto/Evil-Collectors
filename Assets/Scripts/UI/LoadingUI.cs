@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LoadingUI : SingletonMonobehavious<LoadingUI> {
    [SerializeField] private Image imgFill;
-
    private void Start() {
       if (Instance != null && Instance != this) {
          Destroy(this.gameObject);
@@ -15,7 +14,6 @@ public class LoadingUI : SingletonMonobehavious<LoadingUI> {
       
       DontDestroyOnLoad(this.gameObject);
    }
-
    public void SetFill(float value) {
       imgFill.fillAmount = value;
    }

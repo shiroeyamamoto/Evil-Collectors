@@ -7,8 +7,6 @@ public class Boss_Final_Eyebrow_Controller : MonoBehaviour
     [Range(1,3)]
     public int phase;
 
-
-
     void Update()
     {
         GetPhase();

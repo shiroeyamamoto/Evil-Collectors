@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using static UnityEngine.ParticleSystem;
 
 public class B_Boss_Plunge : StateMachineBehaviour
 {
@@ -26,6 +23,7 @@ public class B_Boss_Plunge : StateMachineBehaviour
             {
                 animator.transform.DOMoveY(endPointMoveY, plungeDuration).OnComplete(() =>
                 {
+                    //animator.transform.DOKill();
                     CameraController cameraController = Camera.main.GetComponent<CameraController>();
                     cameraController.ShakeCamera(0.5f, 0.5f);
                     animator.SetTrigger("NextStep");
