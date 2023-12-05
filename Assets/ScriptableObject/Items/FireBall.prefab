@@ -5059,7 +5059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: skill name
   decription: skill decription
-  manaNeed: 0
+  manaNeed: 5
   Unlocked: 1
   cancelSkill: 0
   isCastingSkill: 0
@@ -5067,7 +5067,7 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   scale: {x: 0, y: 0, z: 0}
   timeCastSkill: 0.5
-  timeLifeSkill: 2
+  timeLifeSkill: 10
   skillCoolDown: 1
   speedBullet: 10
 --- !u!50 &6095051927803334779

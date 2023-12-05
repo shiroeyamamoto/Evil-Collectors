@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class Attack : MonoBehaviour
 {
@@ -77,7 +76,7 @@ public class Attack : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(1) && !Settings.isAttacking )
             {
-                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
+                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 50)
                 {
                     StartCoroutine(AttackStrong());
                 }
@@ -116,7 +115,7 @@ public class Attack : MonoBehaviour
 
             if (!Settings.concentrateSKill)
             {
-                Player.Instance.UseStamina(15);
+                Player.Instance.UseStamina(20);
             }
             GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * normalDamagePercent);
 
@@ -209,6 +208,9 @@ public class Attack : MonoBehaviour
 
         GameObject sword = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject;
 
+        // Kiếm to hơn đánh thường 
+        sword.transform.localScale = new Vector2(sword.transform.localScale.x,0.5f);
+
         PlayerAttack playerAttack = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
 
         if (canAttackStrong)
@@ -224,7 +226,7 @@ public class Attack : MonoBehaviour
 
             if (!Settings.concentrateSKill)
             {
-                Player.Instance.UseStamina(25);
+                Player.Instance.UseStamina(50);
             }
 
             GameController.Instance.Player.Damage(GameController.Instance.Player.CurrentInfo.damage * strongDamagePercent);
@@ -236,6 +238,8 @@ public class Attack : MonoBehaviour
 
             if (isDownAttack)
             {
+                // animation strong attack 
+
                 if (!Settings.isFacingRight)
                 {
                     playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
@@ -251,6 +255,8 @@ public class Attack : MonoBehaviour
 
             if (isUpAttack)
             {
+                // animation strong attack 
+
                 if (!Settings.isFacingRight)
                 {
                     playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
@@ -266,6 +272,8 @@ public class Attack : MonoBehaviour
             //Debug.Log(Settings.PlayerDamaged);
             if (!isUpAttack && !isDownAttack)
             {
+                // animation strong attack 
+
                 if (Settings.isFacingRight)
                 {
                     playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45f);
@@ -298,10 +306,24 @@ public class Attack : MonoBehaviour
                     //Settings.PlayerDamaged = false;
                 }
             }
-                
+            // hiệu ứng strong attack 
+            /*if (Settings.isAttackStrong)
+            {
+                if (Settings.isFacingRight)
+                {
+                    PlayerManager.Instance.attackStrongParticle.transform.position = new Vector3(gameObject.transform.position.x + 2, gameObject.transform.position.y , gameObject.transform.position.z);
+                }
+                else if (!Settings.isFacingRight)
+                {
+                    PlayerManager.Instance.attackStrongParticle.transform.position = new Vector3(gameObject.transform.position.x - 2, gameObject.transform.position.y , gameObject.transform.position.z);
+                }
+
+                PlayerManager.Instance.attackStrongParticle.GetComponent<ParticleSystem>().Play();
+            }*/
 
             yield return new WaitForSeconds(strongAttackTime);
             Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
+            sword.transform.localScale = new Vector2(sword.transform.localScale.x, 0.25f);
             Settings.isAttackStrong = false;
             //Settings.PlayerDamaged = false;
             sword.SetActive(false);
@@ -312,9 +334,6 @@ public class Attack : MonoBehaviour
     }
     void RotateObject90Degrees(GameObject gameObject,float duration, float value)
     {
-        
-
-
         // Sử dụng DOTween để thực hiện tweening
         gameObject.transform.DORotate(new Vector3(0, 0, value), duration)
             .SetEase(Ease.InOutQuad).OnComplete(() => {

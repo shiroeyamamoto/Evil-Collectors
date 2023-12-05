@@ -36,8 +36,11 @@ public class KamehamehaSkill : Skill
 
     public override void ActivateSkill(int amount, float scale)
     {
-        if (Player.Instance.CurrentInfo.mana < 10)
+        if (Player.Instance.CurrentInfo.mana < manaNeed)
+        {
+            Destroy(this.gameObject);
             return;
+        }
 
         if (base.canUseSkill && !Settings.isCatingSkill && base.Unlocked)
         {

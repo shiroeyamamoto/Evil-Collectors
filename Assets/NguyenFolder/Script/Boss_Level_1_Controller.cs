@@ -114,17 +114,19 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     public void OnDamaged(float damage, bool value)
     {
         OnDamaged(damage);
-
+        Player.Instance.ShowDamage(damage, this.gameObject);
         if (!value)
             return;
 
-            if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        Player.Instance.UseMana(-damage);
+
+            /*if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
         {
             GameController.Instance.Player.CurrentInfo.mana += damage;
             if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
                 GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
             Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        }
+        }*/
     }
     public float scaleDefault;
     public void OnDamaged(float damage)
