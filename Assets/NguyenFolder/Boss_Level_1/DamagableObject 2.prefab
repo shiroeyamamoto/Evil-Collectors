@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1029688228916391501}
   - component: {fileID: 8956520936680541697}
   - component: {fileID: 8938852975823830439}
-  - component: {fileID: -4052051829951057837}
   m_Layer: 0
   m_Name: DamagableObject 2
   m_TagString: Enemy
@@ -98,7 +97,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3537879098215541367}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -287,25 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4da5b55ebcf554b924870d04fedb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4052051829951057837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3537879098215541367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  echoSprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
-  echoColor: {r: 1, g: 0.18431373, b: 0, a: 1}
-  echoCooldown: 0.05
-  echoStartime: 0
-  echoScale: {x: 1, y: 1, z: 1}
-  fadeTime: 0.3
-  spawner: {fileID: 0}
 --- !u!1 &8612657026022347778
 GameObject:
   m_ObjectHideFlags: 0

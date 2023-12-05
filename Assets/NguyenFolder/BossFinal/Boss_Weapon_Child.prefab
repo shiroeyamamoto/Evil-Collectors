@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: -4668765031805582900}
   - component: {fileID: 3534487826766771455}
   - component: {fileID: 6517755878454973370}
-  - component: {fileID: 1273932027137989873}
   m_Layer: 0
   m_Name: Boss_Weapon_Child
   m_TagString: Enemy
@@ -123,7 +122,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446970940346084511}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -228,27 +227,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &1273932027137989873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446970940346084511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  echoSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  echoColor: {r: 1, g: 0.18431373, b: 0, a: 1}
-  echoCooldown: 0.05
-  echoStartime: 0
-  echoScale: {x: 1, y: 1, z: 1}
-  echoOffset: {x: 0, y: 0, z: 0}
-  fadeTime: 0.3
-  spawner: {fileID: 0}
-  useIdentityRotation: 0
 --- !u!1 &7978609945368383379
 GameObject:
   m_ObjectHideFlags: 0

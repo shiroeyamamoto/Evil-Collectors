@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f555a01a9449e724bba8320b0d4825e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackType: 2
+  attackType: 0
   maxAttackType: 2
   randomAttackType: 1
 --- !u!1101 &2563432888827148099

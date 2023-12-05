@@ -29,7 +29,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         currentPhase = animator.GetInteger("Phase");
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
         animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
-        transform.GetComponent<EchoEffect>().enabled = false;
+        
         //SpawnDamagableObject2();
     }
 
@@ -55,8 +55,6 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             maxAttackType = maxAttackTypeOfPhase(currentPhase);
             animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         }
-
-        transform.GetComponent<EchoEffect>().enabled = true;
     }
 
     public int maxAttackTypeOfPhase(int currentPhase)
