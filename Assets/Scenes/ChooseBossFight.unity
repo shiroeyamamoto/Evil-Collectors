@@ -2225,7 +2225,7 @@ GameObject:
   - component: {fileID: 1016139451}
   - component: {fileID: 1016139454}
   - component: {fileID: 1016139453}
-  - component: {fileID: 1016139452}
+  - component: {fileID: 1016139455}
   m_Layer: 0
   m_Name: ChallengePanel
   m_TagString: Untagged
@@ -2255,20 +2255,6 @@ RectTransform:
   m_AnchoredPosition: {x: 9.2965, y: -323.8089}
   m_SizeDelta: {x: 1835.2441, y: 381.9767}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1016139452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016139450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3962b88a202703449265c5ae3147012, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelSO: {fileID: 0}
-  sceneName: 
 --- !u!114 &1016139453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,6 +2293,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016139450}
   m_CullTransparentMesh: 1
+--- !u!114 &1016139455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016139450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549195b89c04b4b4f946caeb816c52d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSO: {fileID: 0}
+  sceneName: Level 1
 --- !u!1 &1062734256
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,9 +3043,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016139452}
+      - m_Target: {fileID: 1016139455}
         m_TargetAssemblyTypeName: ChallengePanelController, Assembly-CSharp
-        m_MethodName: CancelChallenge
+        m_MethodName: ClosePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3331,11 +3331,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1660828205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3962b88a202703449265c5ae3147012, type: 3}
+  m_Script: {fileID: 11500000, guid: 549195b89c04b4b4f946caeb816c52d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelSO: {fileID: 0}
-  sceneName: Level1
+  sceneName: Level 1
 --- !u!1 &1712583991
 GameObject:
   m_ObjectHideFlags: 0
@@ -4094,7 +4094,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1016139452}
+      - m_Target: {fileID: 1016139455}
         m_TargetAssemblyTypeName: ChallengePanelController, Assembly-CSharp
         m_MethodName: BossFightScene
         m_Mode: 1

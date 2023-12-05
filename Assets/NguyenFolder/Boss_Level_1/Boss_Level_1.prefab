@@ -216,8 +216,10 @@ MonoBehaviour:
   echoCooldown: 0.05
   echoStartime: 0
   echoScale: {x: 1.7, y: 1.7, z: 1.7}
+  echoOffset: {x: 0, y: 0, z: 0}
   fadeTime: 0.3
   spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &1693265590470125766
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +623,10 @@ MonoBehaviour:
   echoCooldown: 0.05
   echoStartime: 0
   echoScale: {x: 5, y: 5, z: 5}
+  echoOffset: {x: 0, y: 0, z: 0}
   fadeTime: 0.3
   spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &4644625347795000309
 GameObject:
   m_ObjectHideFlags: 0
