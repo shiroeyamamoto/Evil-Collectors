@@ -564,13 +564,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1647715662272234968, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1720305203905355526, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 251.6682
+      objectReference: {fileID: 0}
+    - target: {fileID: 1720305203905355526, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 68.391
+      objectReference: {fileID: 0}
     - target: {fileID: 1720305203905355526, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 877.2
+      value: -0.6659
       objectReference: {fileID: 0}
     - target: {fileID: 1720305203905355526, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -522.9
+      value: -216.98987
       objectReference: {fileID: 0}
     - target: {fileID: 3013778661056021761, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_Name

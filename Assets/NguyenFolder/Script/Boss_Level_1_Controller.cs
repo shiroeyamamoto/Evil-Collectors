@@ -94,10 +94,11 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         for (int i = 0; i < n; i++)
         {
             float x = transform.position.x + (distanceToBoss + offset + distanceToOther * i) * directionInt;
-
+            float y = transform.position.y - Mathf.Abs(transform.lossyScale.y)/2;
+            Debug.Log("y"+y);
             //Debug.Log($"tranform boss = {transform.position.x} ,distanceToBoss = {distanceToBoss} ,offset = {offset}, distanceToOther = {distanceToOther}, i = {i} , x = {x}");
 
-            Vector3 point = new Vector3(x, transform.position.y- transform.lossyScale.y, 0);
+            Vector3 point = new Vector3(x, y, 0);
             GameObject o = Instantiate(prefab, startPosition, Quaternion.identity).gameObject;
             o.transform.DOJump(point, Random.Range(8, 15), 1, Random.Range(1f, 1.2f)).SetEase(Ease.Linear).OnComplete(() =>
             {

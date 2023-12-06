@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numerator: 4
   denominator: 5
-  heightOffset: 1
+  heightOffset: -1
   jumpPower: 5
   jumpDuration: 1
   directionInt: 0

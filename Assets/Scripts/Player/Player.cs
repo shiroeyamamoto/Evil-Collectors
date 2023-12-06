@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -145,13 +146,17 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     private void PlayerDie()
     {
-        //gameObject.GetComponent<Attack>().TweenKill();
-
+        // tween kill 
+        TweenKill();
+        // 
         gameObject.SetActive(false);
         playerDie = true;
         OnDead?.Invoke(false);
     }
-
+    public void TweenKill()
+    {
+        var activeTween = DOTween.KillAll();
+    }
     // Cheat
     public void ZombieMode()
     {
