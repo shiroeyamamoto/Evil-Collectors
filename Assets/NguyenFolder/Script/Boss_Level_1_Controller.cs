@@ -33,7 +33,10 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         //SpawnDamagableObject2();
     }
 
-    
+    public void PlaySound(AudioClip clip)
+    {
+        SoundManager.PlaySound(clip);
+    }
 
     void ShakeCamera()
     {
@@ -81,7 +84,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     public Vector3 center;
     public float distanceToOther;
     public float distanceToBoss;
-    
+    public AudioClip damagableObject2Sound;
+
     public void SpawnDamagableObject2()
     {
         Vector3 startPosition = transform.Find("Weapon2Spawner").position;
@@ -97,6 +101,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             GameObject o = Instantiate(prefab, startPosition, Quaternion.identity).gameObject;
             o.transform.DOJump(point, Random.Range(8, 15), 1, Random.Range(1f, 1.2f)).SetEase(Ease.Linear).OnComplete(() =>
             {
+                PlaySound(damagableObject2Sound);
                 o.transform.DOKill();
                 Destroy(o);
             });

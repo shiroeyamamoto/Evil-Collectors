@@ -93,6 +93,7 @@ public class BossController : MonoBehaviour,IInteractObject
     public void OnDamaged(float damage)
     {
         health -= damage;
+        DoEffect();
         if (health <= 0)
         {
             OnDead();
@@ -114,7 +115,6 @@ public class BossController : MonoBehaviour,IInteractObject
     public void damageMe()
     {
         OnDamaged(15);
-        DoEffect();
     }
     Animator animator;
     public void OnDead()
@@ -136,7 +136,7 @@ public class BossController : MonoBehaviour,IInteractObject
         if (takeDamageEffect != null)
         {
             Color oldColor = transform.Find("Body").GetComponent<SpriteRenderer>().color;
-            takeDamageEffect.DoEffect(TakeDamageEffectEnum.ChangeColor, 0.5f, oldColor, takeDamgeColor);
+            takeDamageEffect.DoEffect(TakeDamageEffectEnum.ChangeColor, 0.2f, oldColor, takeDamgeColor);
         }
     }
 }

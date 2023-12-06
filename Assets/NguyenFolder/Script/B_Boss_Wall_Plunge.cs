@@ -78,7 +78,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
             });
         });
     }
-
+    public AudioClip clip;
     public void Jump(Animator animator,Vector3 endPointJump)
     {
         animator.transform.DOJump(endPointJump, jumpForce, 1, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
@@ -87,6 +87,7 @@ public class B_Boss_Wall_Plunge : StateMachineBehaviour
         }).OnComplete(() =>
         {
             //animator.DOKill();
+            SoundManager.PlaySound(clip);
             PlayParticle(animator, endPointJump);
             FlipAfterJump(animator,scaleAfterJump);
             animator.SetTrigger("NextStep");

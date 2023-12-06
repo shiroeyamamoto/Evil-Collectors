@@ -25,6 +25,5 @@ public class ChallengePanelController : MonoBehaviour
     {
         Debug.Log("Closed Panel");
         transform.root.GetComponent<StatusBossController>().ClosePanel();
-        
     }
 }

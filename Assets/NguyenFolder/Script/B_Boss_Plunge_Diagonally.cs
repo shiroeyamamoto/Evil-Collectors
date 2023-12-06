@@ -9,9 +9,11 @@ public class B_Boss_Plunge_Diagonally : StateMachineBehaviour
     public float velocity;
     public LayerMask groundLayer;
     public List<Transform> swords;
+    public AudioClip clip;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         swords = animator.GetComponent<BossController>().listSwords;
+        AudioSource source = animator.GetComponent<AudioSource>();
         // vector transform -> player
         Vector2 direction = Player.Instance.transform.position - animator.transform.position;
         float angle = CaculateAngle(direction, Vector2.down);
@@ -25,7 +27,6 @@ public class B_Boss_Plunge_Diagonally : StateMachineBehaviour
             endPoint.z = 0;
         } else
         {
-
             endPoint.x = Physics2D.Raycast(animator.transform.position, CaculateSecondVector(Vector2.down, directionInt * maxAngle), Mathf.Infinity,groundLayer).point.x;
             endPoint.y = Physics2D.Raycast(Player.Instance.transform.position, Vector2.down, Mathf.Infinity, groundLayer).point.y + Mathf.Abs(animator.transform.lossyScale.y) / 2;
             endPoint.z = 0;
@@ -34,6 +35,8 @@ public class B_Boss_Plunge_Diagonally : StateMachineBehaviour
 
             OnComplete(() =>
             {
+                source.clip = clip;
+                source.Play();
                 PlayParticle(animator, endPoint);
                 Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                 foreach(Transform t in swords)

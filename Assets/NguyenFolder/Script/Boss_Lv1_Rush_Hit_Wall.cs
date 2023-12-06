@@ -28,6 +28,10 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
     public float angleRotate;
     public float rotateDuration;
     public float rotateReturnDelay;
+
+    [Space]
+    [Header("Sound")]
+    public AudioClip source;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Transform tranformThis = animator.transform;
@@ -50,7 +54,7 @@ public class Boss_Lv1_Rush_Hit_Wall : StateMachineBehaviour
                     {
                         tranformThis.DOMoveX(rushPointX, duration).SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            
+                            SoundManager.PlaySound(source);
                             animator.SetInteger("FaceRight", isPlayerLeft);
                             animator.SetTrigger("NextStep");
                             Camera.main.GetComponent<CameraController>().ShakeCamera(shakeDuration, shakeForce);

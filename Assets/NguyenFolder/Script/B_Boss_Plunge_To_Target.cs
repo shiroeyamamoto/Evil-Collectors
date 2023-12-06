@@ -11,6 +11,7 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
     [SerializeField] Transform particleEnd;
     [Range(0, 1)]
     public float alphaValue = 0.75f;
+    public AudioClip clip;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -34,6 +35,7 @@ public class B_Boss_Plunge_To_Target : StateMachineBehaviour
                 plungeDuration = Vector2.Distance(newTarget, animator.transform.position) / velocity;
                 animator.transform.DOMove(newTarget, plungeDuration).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    SoundManager.PlaySound(clip);
                     animator.transform.DOKill();
                     animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
