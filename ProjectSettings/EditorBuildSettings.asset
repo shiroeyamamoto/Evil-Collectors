@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Level2.unity
     guid: 671c9abfd00994c42bcd9a4d216e5f59
   - enabled: 1
-    path: Assets/Scenes/ChooseBossFight.unity
+    path: Assets/NguyenFolder/ChooseBossFight.unity
     guid: 7530eeafc7f3fa44f8f8432ab8b7188a
   m_configObjects: {}

@@ -818,7 +818,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019c01c279350f04d9482f345d017974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  windZoneActive: 0
+  pushForce: 0
+  playerData: {fileID: 0}
+  distanceToPlayer: 0
+  transformSizeX: 0
+  ratio: 0
 --- !u!1 &469235178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,19 +1750,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 907060345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca25570751ab044aa6b8f55c8344813, type: 3}
+  m_Script: {fileID: 11500000, guid: 37baa82ba01fe9348b0bb2948f567475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  glowMaterial: {fileID: 2100000, guid: 9b1c7d65500ecdd4991cbcfb6a51d7c6, type: 2}
+  defaultMaterial: {fileID: 0}
+  glowMaterial: {fileID: 0}
   isEnterArea: 0
-  fadeValueMax: 1
-  fadeDuration: 0.25
+  fadeValueMax: 0
+  fadeDuration: 0
   intensity: 0
   PanelIsOpened: 0
   statusUnlocked: 0
-  openTime: 1
-  closeTime: 1
+  openTime: 0
+  closeTime: 0
 --- !u!1 &928386926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2588,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019c01c279350f04d9482f345d017974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  windZoneActive: 0
+  pushForce: 0
+  playerData: {fileID: 0}
+  distanceToPlayer: 0
+  transformSizeX: 0
+  ratio: 0
 --- !u!61 &1159398562
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3612,19 +3622,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741150887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca25570751ab044aa6b8f55c8344813, type: 3}
+  m_Script: {fileID: 11500000, guid: 37baa82ba01fe9348b0bb2948f567475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  glowMaterial: {fileID: 2100000, guid: 9b1c7d65500ecdd4991cbcfb6a51d7c6, type: 2}
+  defaultMaterial: {fileID: 0}
+  glowMaterial: {fileID: 0}
   isEnterArea: 0
-  fadeValueMax: 1
-  fadeDuration: 0.25
+  fadeValueMax: 0
+  fadeDuration: 0
   intensity: 0
   PanelIsOpened: 0
   statusUnlocked: 0
-  openTime: 1
-  closeTime: 1
+  openTime: 0
+  closeTime: 0
 --- !u!1 &1766220219
 GameObject:
   m_ObjectHideFlags: 0
