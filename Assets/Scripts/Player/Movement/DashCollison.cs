@@ -18,6 +18,8 @@ public class DashCollison : MonoBehaviour
                 Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
             }*/
 
+            //Player.Instance.UseMana(-10);
+
             Settings.ememyMiss = false;
 
             Debug.Log("Cong mana khi dash");

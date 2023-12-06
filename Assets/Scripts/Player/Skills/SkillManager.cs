@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
@@ -30,25 +27,20 @@ public class SkillManager : MonoBehaviour
         {
             holyLightSkill.cancelSkill = true;
             holyLightSkill.HoldKeySkill();
-            /*if (!holyLightSkill.cancelSkill)
-                holyLightSkill.ActivateSkill();
-            else
-                holyLightSkill.cancelSkill = false;*/
             return;
         }
-        else
+        /*else
         {
             holyLightSkill.cancelSkill = false;
-        }
+        }*/
 
         if (!Settings.isAttacking && !Settings.PlayerDamaged && !Settings.isDasing && !Settings.isMove)
         {
-
-
             // Quick key
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 itemSwitcher.UseItem();
+                itemSwitcher.QuickKeyCheck();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -61,11 +53,11 @@ public class SkillManager : MonoBehaviour
                 if (Settings.isMove)
                     return;
 
-                /*if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 { 
                     holyLightSkill.cancelSkill = true;
                     return;
-                }*/
+                }
 
                 holyLightSkill.HoldKeySkill();
             }

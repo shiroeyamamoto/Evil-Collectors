@@ -49,42 +49,64 @@ public static class Settings
     // Cheats
     [Tooltip("Player bất tử?")] public static bool zombieMode = true;
 
-    public static void DefaultSetting()
+    public static void DefaultSetting(bool isMove, bool isDasing, bool isFacingRight, bool _isJumping, bool enterEnemy, bool enemyMiss, bool isBlocking, bool canParry,
+        bool isParry, bool isGrounded, bool isWalled, bool standInEnemy, bool isAttackNormal, bool isAttackStrong, bool canKnockback, bool PlayerDamaged, bool isCatingSkill,
+        bool concentrateSkill, bool nothingnessSkill)
     {
         // Player Movement
-        Settings.isMove = false;
-        Settings.isDasing = false;
-        Settings.isFacingRight = true;
+        if(isMove)
+            Settings.isMove = false;
+        if(isDasing)
+            Settings.isDasing = false;
+        if(isFacingRight)
+            Settings.isFacingRight = true;
 
         // Jump
-        Settings._isJumping = false;
+        if(_isJumping)
+            Settings._isJumping = false;
 
         // Dash
-        Settings.enterEnemy = false;
-        Settings.ememyMiss = true;
+        if(enterEnemy)
+            Settings.enterEnemy = false;
+        if(enemyMiss)
+            Settings.ememyMiss = true;
 
         // Block
-        Settings.isBlocking = false;
-        Settings.canParry = false;
-        Settings.isParry = false;
+        if(isBlocking)
+            Settings.isBlocking = false;
+        if(canParry)
+            Settings.canParry = false;
+        if(isParry)
+            Settings.isParry = false;
 
         // Ground check
-        Settings.isGrounded = false;
-        Settings.isWalled = false;
-        Settings.standInEnemy = false;
+        if(isGrounded)
+            Settings.isGrounded = false;
+        if(isWalled)
+            Settings.isWalled = false;
+        if(standInEnemy)
+            Settings.standInEnemy = false;
 
         // Player Attack
-        Settings.isAttacking = false;
-        Settings.isAttackNormal = false;
-        Settings.isAttackStrong = false;
-        Settings.canKnockback = false;
+        if(isAttacking)
+            Settings.isAttacking = false;
+        if(isAttackNormal)
+            Settings.isAttackNormal = false;
+        if(isAttackStrong)
+            Settings.isAttackStrong = false;
+        if(canKnockback)
+            Settings.canKnockback = false;
 
         // Player Status
-        Settings.PlayerDamaged = false;
+        if(PlayerDamaged)
+            Settings.PlayerDamaged = false;
 
         // Player Skill
-        Settings.isCatingSkill = false;
-        Settings.concentrateSKill = false;
-        Settings.nothingnessSkill = false;
+        if(isCatingSkill)
+            Settings.isCatingSkill = false;
+        if(concentrateSkill)
+            Settings.concentrateSKill = false;
+        if(nothingnessSkill)
+            Settings.nothingnessSkill = false;
     }
 }

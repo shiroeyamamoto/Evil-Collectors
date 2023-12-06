@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: kamehameha
   decription: skill decription
-  manaNeed: 0
+  manaNeed: 10
   Unlocked: 1
   cancelSkill: 0
   isCastingSkill: 0

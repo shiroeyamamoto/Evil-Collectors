@@ -17,6 +17,7 @@ public class Concentrate : Skill
     private float staminaDecreaseRate; // Tốc độ giảm stamina mặc định
     private float decreaseInterval; // Thời gian giảm stamina (ví dụ: 1 giây)
     private float elapsedTime = 0f; // Thời gian đã trôi qua
+    private Color gameObjectColor;
 
     void Start()
     {
@@ -25,6 +26,8 @@ public class Concentrate : Skill
     int x = 0, y=0,z=0;
     private void Update()
     {
+        
+
         if (timeAuraCounter > 0)
             timeAuraCounter -= Time.deltaTime;
         else
@@ -91,6 +94,7 @@ public class Concentrate : Skill
                 enemyRigid2D.velocity = new Vector2(-collision.gameObject.transform.localScale.x * pushForce, 0f);
             }
 
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             Player.Instance.NoneDamage();
         }
     }
@@ -110,6 +114,9 @@ public class Concentrate : Skill
             scale = transform.localScale;
 
             this.gameObject.SetActive(true);
+
+            gameObjectColor = gameObject.GetComponent<SpriteRenderer>().color;
+
             StartCoroutine(ConcentrateStart());
 
             GameController.Instance.Player.UseMana(base.manaNeed);
@@ -133,15 +140,21 @@ public class Concentrate : Skill
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Player.Instance.spriteRendererPlayer.color = Color.white;
-        Player.Instance.spriteRendererPlayer.material.color = Color.green * 10f;
+        Player.Instance.spriteRendererPlayer.material.color = Color.green * 3f;
 
         timeAuraCounter = timeExitAura;
+
+        float alphaColor = 0;
 
         while (maxSize > currentSize)
         {
             float newScaleY = transform.localScale.x + Time.deltaTime * extendSpeed;
 
             transform.localScale = new Vector3(newScaleY, transform.localScale.y, transform.localScale.z);
+
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(gameObjectColor.r, gameObjectColor.g,gameObjectColor.b, alphaColor+0.01f);
+            alphaColor+= 0.01f;
+            Debug.Log("this.gameObject.GetComponent<SpriteRenderer>().color: " + this.gameObject.GetComponent<SpriteRenderer>().color);
             currentSize++;
             yield return null; // Chờ một frame
         }
@@ -174,6 +187,7 @@ public class Concentrate : Skill
 
         currentSize = 0;
         base.canUseSkill = true;
+        this.gameObject.GetComponent<SpriteRenderer>().color = gameObjectColor;
         this.gameObject.SetActive(false);
     }
 

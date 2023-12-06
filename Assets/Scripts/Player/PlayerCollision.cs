@@ -20,6 +20,8 @@ public class PlayerCollision : MonoBehaviour
 
                 Player.Instance.rb2d.AddForce(new Vector2(-direction * pushForce, 25f), ForceMode2D.Impulse);
 
+                Debug.Log("Hello Final boss");
+
                 Settings.enterEnemy = true;
 
                 //playerRidid2D.AddForce(new Vector2(-gameObject.transform.localScale.x * pushForce, 25f), ForceMode2D.Impulse);

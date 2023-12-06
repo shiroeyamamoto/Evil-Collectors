@@ -7,6 +7,8 @@ public class HolyLight : Skill
     [SerializeField, Range(10, 100)] private int maxSize = 10;
     [SerializeField, Range(1f, 100f)] private float maxManaNeed;
     [SerializeField, Range(0f, 10f)] private float timeHoldSkill;
+    [SerializeField] private Material holyLightMaterial;
+    [SerializeField] private Material holyLightAuraMaterial;
     public Transform auraCircle;
 
     private int currentSize = 0;
@@ -29,12 +31,19 @@ public class HolyLight : Skill
             Debug.Log("cancel");
             Player.Instance.spriteRendererPlayer.color = Color.white;
             Player.Instance.UseMana(-manaNeed);
+
+            Debug.Log("Mana Player: " + manaNeed);
+
+            //Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
             manaNeed = 0;
 
             this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;
             this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            //transform.localScale = Vector3.zero;
             this.gameObject.SetActive(false);
             auraCircle.gameObject.SetActive(false);
+
+            //cancelSkill = true;
             return;
         }
 
@@ -150,7 +159,7 @@ public class HolyLight : Skill
             {
                 //Debug.Log("Push1");
                 Vector3 playerPosition = Player.Instance.transform.position;
-                position = new Vector3(playerPosition.x, playerPosition.y + 60, playerPosition.z);
+                position = new Vector3(playerPosition.x, playerPosition.y + 30, playerPosition.z);
                 transform.position = position;
 
                 //scale = transform.localScale;
@@ -186,18 +195,36 @@ public class HolyLight : Skill
 
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        holyLightMaterial.SetVector("_Tiling", new Vector2(holyLightMaterial.GetVector("_Tiling").x, 0));
+        holyLightAuraMaterial.SetVector("_Tiling", new Vector2(holyLightAuraMaterial.GetVector("_Tiling").x, 0));
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
         Player.Instance.spriteRendererPlayer.color = Color.red;
 
         while (maxSize > currentSize)
         {
-            float newScaleY = transform.localScale.y + Time.deltaTime * extendSpeed;
-            float deltaScaleY = newScaleY - transform.localScale.y;
-            float newPosY = transform.position.y - deltaScaleY * 0.5f; // Dịch chuyển vị trí theo chiều y để giữ cho object ở vị trí trung tâm
+            //float newScaleY = transform.localScale.y + Time.deltaTime * extendSpeed;
+            //float deltaScaleY = newScaleY - transform.localScale.y;
+            //float newPosY = transform.position.y - deltaScaleY * 0.5f; // Dịch chuyển vị trí theo chiều y để giữ cho object ở vị trí trung tâm
 
-            transform.localScale = new Vector3(transform.localScale.x, newScaleY, transform.localScale.z);
-            transform.position = new Vector3(transform.position.x, newPosY, transform.position.z);
+            //transform.localScale = new Vector3(transform.localScale.x, newScaleY, transform.localScale.z);
+            // transform.position = new Vector3(transform.position.x, newPosY, transform.position.z);
+
+            // Kiểm tra xem vật liệu và shader có tồn tại không
+            if (holyLightMaterial != null && holyLightMaterial.HasProperty("_Tiling"))
+            {
+                // Lấy giá trị Vector2 từ shader
+                Vector2 vector2Value = holyLightMaterial.GetVector("_Tiling");
+                holyLightMaterial.SetVector("_Tiling", new Vector2(holyLightMaterial.GetVector("_Tiling").x, holyLightMaterial.GetVector("_Tiling").y + 0.05f));
+                holyLightAuraMaterial.SetVector("_Tiling", new Vector2(holyLightAuraMaterial.GetVector("_Tiling").x, holyLightAuraMaterial.GetVector("_Tiling").y + 0.05f));
+                // In giá trị lấy được ra console
+                Debug.Log("Vector2 Value: " + vector2Value);
+            }
+            else
+            {
+                Debug.LogError("Material or parameter not found!");
+            }
+
             currentSize++;
             yield return null; // Chờ một frame
         }
@@ -212,8 +239,10 @@ public class HolyLight : Skill
         Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
 
         // Hoàn thành phép được tự do di chuyển
-        transform.localPosition = position;
-        transform.localScale = Vector3.zero;
+        //transform.localPosition = position;
+        //transform.localScale = Vector3.zero;
+
+
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;

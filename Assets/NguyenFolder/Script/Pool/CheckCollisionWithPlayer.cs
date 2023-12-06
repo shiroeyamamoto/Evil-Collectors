@@ -5,7 +5,7 @@ using UnityEngine;
 public class CheckCollisionWithPlayer : MonoBehaviour
 {
     public float damage;
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Touch something!!!");
         if (collision.tag == "Player")
@@ -18,5 +18,5 @@ public class CheckCollisionWithPlayer : MonoBehaviour
                 collision.GetComponent<Player>().OnDamaged(damage);
             }
         }
-    }
+    }*/
 }

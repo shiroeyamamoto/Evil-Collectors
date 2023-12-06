@@ -2,6 +2,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using SpriteTrailRenderer;
+using DG.Tweening;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Move : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class Move : MonoBehaviour
 
     // Movement
     [SerializeField, Range(0f, 100f)] public float speedMove = 10f;
-    [SerializeField, Range(0f, 100f)] public float speedAirMove = 20f;
+    [SerializeField, Range(0f, 100f)] private float speedAirMove = 20f;
 
     [Range(0f, 90f)] public float rotationWhenMove = 18f;
 
@@ -38,14 +40,6 @@ public class Move : MonoBehaviour
     }
     private void Update()
     {
-        /*if (Settings.isGrounded)
-        {
-            playerCollision2D.sharedMaterial = null;
-        }
-        else
-        {
-            playerCollision2D.sharedMaterial = Friction;
-        }*/
 
         // Cấm hành động khi dash 
         if (Settings.isDasing || Settings.isAttacking)
@@ -71,8 +65,7 @@ public class Move : MonoBehaviour
 
 
                 // stamina tiêu thụ
-                if (!Settings.concentrateSKill 
-                    && Player.Instance.CurrentInfo.stamina >= 20)
+                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
                 {
                     StartCoroutine(Dash());
                 }
@@ -133,11 +126,11 @@ public class Move : MonoBehaviour
         else
             PlayerRotation(move);
 
-        rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove) * ratio, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
 
         Horizontal = move;
     }
-    public float ratio;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -192,21 +185,22 @@ public class Move : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         //trail.emitting = false;
         trailRenderer.enabled = false;
-
         Debug.Log("Settings.enterEnemy: " + Settings.enterEnemy);
         Debug.Log("Settings.ememyMiss: " + Settings.ememyMiss);
         if (!Settings.enterEnemy && !Settings.ememyMiss)
         {
-            if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+            /*if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
             {
                 GameController.Instance.Player.CurrentInfo.mana += 10;
                 if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
                     GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
                 Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-            }
+            }*/
+            Player.Instance.UseMana(-10);
         }
 
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
         Settings.isDasing = false;
         rb2d.gravityScale = originalGravity;
         yield return new WaitForSeconds(dashCooldown);

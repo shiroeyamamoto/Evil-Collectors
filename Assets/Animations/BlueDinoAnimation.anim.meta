@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/NguyenFolder/ShaderGraph/Glow Material.mat.meta
-guid: 95e338b581d5a6646a0373d9ffd88474
+<<<<<<<< HEAD:Assets/Animations/GreenDinoAnimation.anim.meta
+guid: 774a3c7ff202844158071da15a9789f1
 ========
 guid: 07c58e6dcacb24a7e9cb98e6d71b541c
->>>>>>>> main:Assets/Animations/BlueDinoAnimation.anim.meta
+>>>>>>>> local6:Assets/Animations/BlueDinoAnimation.anim.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 2100000
+  mainObjectFileID: 7400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
