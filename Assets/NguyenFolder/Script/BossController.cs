@@ -27,8 +27,7 @@ public class BossController : MonoBehaviour,IInteractObject
         listSwords = new List<Transform>();
         phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
-        //GameObject player = GameObject.FindGameObjectWithTag("Player");
-        //Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), player.GetComponent<Collider2D>());
+        
     }
     private void Update()
     {
@@ -71,6 +70,7 @@ public class BossController : MonoBehaviour,IInteractObject
     {
         
         phase++;
+        phase = Mathf.Clamp(phase,1, 3);
         transform.GetComponent<Animator>().SetInteger("Phase",phase);
     }
 
@@ -83,13 +83,7 @@ public class BossController : MonoBehaviour,IInteractObject
             return;
 
         Player.Instance.UseMana(-damage);
-        /*if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
-        {
-            GameController.Instance.Player.CurrentInfo.mana += damage;
-            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
-                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
-            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        }*/
+        
     }
     public void OnDamaged(float damage)
     {
@@ -100,11 +94,11 @@ public class BossController : MonoBehaviour,IInteractObject
             
             Debug.Log("im dead");
         }
-        if (health <= healthPhase2)
+        if (health <= healthPhase2 && phase == 1)
         {
             PhaseUp();
         }
-        if (health <= healthPhase3)
+        if (health <= healthPhase3 && phase == 2)
         {
             PhaseUp();
         }
@@ -115,6 +109,7 @@ public class BossController : MonoBehaviour,IInteractObject
     public void damageMe()
     {
         OnDamaged(15);
+        DoEffect();
     }
     Animator animator;
     public void OnDead()
@@ -122,6 +117,7 @@ public class BossController : MonoBehaviour,IInteractObject
         //UI OnDead
         Player.Instance.OnDead?.Invoke(true);
         Player.Instance.OnDead(true);
+
         //Disable animator
         if (animator)
         {

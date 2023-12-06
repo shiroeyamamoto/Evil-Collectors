@@ -755,7 +755,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackType
-    m_EventTreshold: 2
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6084606086712001122}
   m_Solo: 0
@@ -833,7 +833,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackType
-    m_EventTreshold: 1
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2881606446416666310}
   m_Solo: 0
@@ -1505,9 +1505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9701da0d6e1ede64b976b449af212674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackType: 3
-  maxAttackType: 3
-  randomAttackType: 0
+  attackType: 2
+  maxAttackType: 2
+  randomAttackType: 1
 --- !u!114 &-1271549952581925078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2155,6 +2155,8 @@ MonoBehaviour:
   jumpPower: 5
   jumpDuration: 1
   fadeDuration: 1
+  bsso_current: {fileID: 11400000, guid: 5074b8bff946dc24991c322dfd9b8666, type: 2}
+  bsso_next: {fileID: 11400000, guid: 5074b8bff946dc24991c322dfd9b8666, type: 2}
 --- !u!1101 &2561940592874018023
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2191,7 +2193,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3888624644133554272}
-    m_Position: {x: 110, y: 30, z: 0}
+    m_Position: {x: 60, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3943582730558677163}
     m_Position: {x: 320, y: -50, z: 0}
@@ -2656,7 +2658,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackType
-    m_EventTreshold: 3
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3088571184296379766}
   m_Solo: 0
@@ -2730,7 +2732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a1bc06c28516c4287a0249e99a3d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordNumber: 15
+  swordNumber: 12
   angleRangeMin: -10
   angleRangeMax: 90
   force: 40
@@ -2797,7 +2799,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3943582730558677163}
   m_Solo: 0
-  m_Mute: 0
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0

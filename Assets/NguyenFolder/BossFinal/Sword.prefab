@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 0.9019608, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 6222663425165263005}
   - component: {fileID: 8402925876371186572}
   - component: {fileID: -4664689736488231356}
+  - component: {fileID: 6542446269024130855}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Enemy
@@ -297,7 +298,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 0.9017174, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -342,7 +343,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8863406865022631132}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -460,3 +461,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnTime: 2
+--- !u!114 &6542446269024130855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8863406865022631132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  echoColor: {r: 1, g: 1, b: 1, a: 1}
+  echoCooldown: 0.01
+  echoStartime: 0
+  echoScale: {x: 1, y: 1, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0

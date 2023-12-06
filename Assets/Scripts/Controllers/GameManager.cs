@@ -12,10 +12,9 @@ public class GameManager : SingletonMonobehavious<GameManager>
 	public static GameManager Instance;
 	public List<SlotLevelUI> listSlotLevelUI;
 
-	[HideInInspector] public bool levelTwoScene = false;
-	[SerializeField] private HomeMenuUI homeMenuUI;
-	[SerializeField] private LevelManagerSO data;
-
+	[HideInInspector]	public bool levelTwoScene = false;
+	[SerializeField]	private HomeMenuUI homeMenuUI;
+	[SerializeField]	private LevelManagerSO data;
 
 	public int Coin { get; private set; }
 	private void Awake() {
@@ -59,11 +58,9 @@ public class GameManager : SingletonMonobehavious<GameManager>
 		PlayerPrefs.SetInt(PlayerPrefs_Coin, 100);
 	}
 	
-	
-
 	private void Setup() {
 		LoadingUI.Instance.Hide();
-		this.homeMenuUI = FindObjectOfType<HomeMenuUI>();
+        this.homeMenuUI = FindObjectOfType<HomeMenuUI>();
 	}
 
 	public void ShowLevel() {

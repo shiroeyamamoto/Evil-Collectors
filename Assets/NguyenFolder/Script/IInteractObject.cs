@@ -6,5 +6,5 @@ public interface IInteractObject
 { 
     void OnDamaged(float damage);
 
-    void OnDamaged( float damage,bool value);
+    void OnDamaged(float damage, bool value);
 }

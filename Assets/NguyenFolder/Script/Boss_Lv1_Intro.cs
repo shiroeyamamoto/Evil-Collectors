@@ -50,9 +50,8 @@ public class Boss_Lv1_Intro : StateMachineBehaviour
                 groundSlamPrefab.position = new Vector3(animator.transform.position.x, animator.transform.position.y - animator.transform.lossyScale.y / 2, 0);
                 groundSlamPrefab.GetComponent<ParticleSystem>().Play();
             }
-            // Rung chấn khi nhảy xuống
+
             Camera.main.GetComponent<CameraController>().ShakeCamera(cameraShakeDuration, cameraShakeForce);
-            // Rung chấn khi đe dọa 
             Camera.main.GetComponent<CameraController>().ShakeCamera(2, 0.1f, cameraShakeDuration + 1f, Ease.Linear, () => animator.SetTrigger("NextStep")) ;
         });
     }

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations/BlueDinoAnimation.anim.meta
 guid: 07c58e6dcacb24a7e9cb98e6d71b541c
+========
+guid: 774a3c7ff202844158071da15a9789f1
+>>>>>>>> 30d52ced1c727c6ad03ae05835cc370cdedb92cb:Assets/Animations/GreenDinoAnimation.anim.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

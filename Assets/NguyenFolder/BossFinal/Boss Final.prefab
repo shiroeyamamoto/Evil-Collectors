@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4523534892279110500}
   - component: {fileID: 4213664747270602809}
   - component: {fileID: 7066097495741747243}
-  - component: {fileID: 7958728304428068208}
+  - component: {fileID: 4637170933966502539}
+  - component: {fileID: 8018387643382601443}
   m_Layer: 0
   m_Name: Boss Weapon 2
   m_TagString: Enemy
@@ -132,7 +133,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 646267696968450417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -237,7 +238,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!61 &7958728304428068208
+--- !u!61 &4637170933966502539
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,7 +270,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.12743974}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -280,8 +281,29 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 3.767263}
   m_EdgeRadius: 0
+--- !u!114 &8018387643382601443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646267696968450417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  echoColor: {r: 1, g: 1, b: 1, a: 1}
+  echoCooldown: 0.05
+  echoStartime: 0
+  echoScale: {x: 2.6379, y: 0.2731, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &1139951879374516654
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,9 +314,10 @@ GameObject:
   m_Component:
   - component: {fileID: 848461245014381062}
   - component: {fileID: 2495940796664235567}
+  - component: {fileID: 3526982755253381351}
   m_Layer: 0
   m_Name: Child
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,6 +389,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3526982755253381351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139951879374516654}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
+  echoColor: {r: 1, g: 0, b: 0, a: 1}
+  echoCooldown: 0.05
+  echoStartime: 0
+  echoScale: {x: 0.085392214, y: 4.571826, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &1580435651149736905
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +542,7 @@ GameObject:
   - component: {fileID: 7753470370212708112}
   m_Layer: 0
   m_Name: WeaponHolding
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -651,7 +695,7 @@ GameObject:
   - component: {fileID: 5477333303261673282}
   m_Layer: 0
   m_Name: Eyes
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -692,7 +736,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -712,7 +756,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -858,7 +902,7 @@ GameObject:
   - component: {fileID: 5488184820323321929}
   m_Layer: 0
   m_Name: Eyebrow
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,7 +942,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -918,7 +962,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -954,7 +998,7 @@ GameObject:
   - component: {fileID: 9148686131198549807}
   m_Layer: 0
   m_Name: JumpPosition
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -984,9 +1028,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4740924437470626528}
   - component: {fileID: 8966684914165275532}
+  - component: {fileID: 2772993535108926413}
   m_Layer: 0
   m_Name: Child
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1058,6 +1103,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2772993535108926413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3994739298951314699}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  echoColor: {r: 1, g: 1, b: 1, a: 1}
+  echoCooldown: 0.05
+  echoStartime: 0
+  echoScale: {x: 0.0908041, y: 3.6769078, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &4243183069155386895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1135,7 @@ GameObject:
   - component: {fileID: 6755739356793219385}
   m_Layer: 0
   m_Name: StartPosition
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1083,7 +1149,7 @@ Transform:
   m_GameObject: {fileID: 4243183069155386895}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 37.4, y: 1.02, z: 0}
+  m_LocalPosition: {x: 16.5, y: 1.02, z: 0}
   m_LocalScale: {x: 2, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1100,7 +1166,7 @@ GameObject:
   - component: {fileID: 5705518332929305476}
   m_Layer: 0
   m_Name: Particles
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1130,9 +1196,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6367689370470535291}
   - component: {fileID: 4252500142413718492}
+  - component: {fileID: 6495837912503425727}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1205,6 +1272,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6495837912503425727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666665885384244923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
+  echoColor: {r: 1, g: 0, b: 0, a: 1}
+  echoCooldown: 0.01
+  echoStartime: 0
+  echoScale: {x: 2, y: 4, z: 1}
+  echoOffset: {x: 0, y: -2, z: -1}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &4816581309029192839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1309,7 @@ GameObject:
   - component: {fileID: 8106030423322903763}
   - component: {fileID: 1011422317644484341}
   - component: {fileID: 2368765044683344441}
+  - component: {fileID: 2002114344072637104}
   m_Layer: 0
   m_Name: BossTest
   m_TagString: Enemy
@@ -1237,7 +1326,7 @@ Transform:
   m_GameObject: {fileID: 4816581309029192839}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 37.4, y: 1.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1350,8 +1439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  healthPhase2: 70
-  healthPhase3: 40
+  healthPhase2: 85
+  healthPhase3: 70
   normalColor: {r: 1, g: 0, b: 0, a: 1}
   attackColor: {r: 1, g: 0, b: 0, a: 1}
   strongAttackColor: {r: 0, g: 0.8402312, b: 1, a: 1}
@@ -1365,7 +1454,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  phase: 2
+  phase: 1
   listSwords: []
 --- !u!96 &8106030423322903763
 TrailRenderer:
@@ -1375,7 +1464,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4816581309029192839}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1504,6 +1593,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f134b2fcbee8904f85665e4f6b3198a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2002114344072637104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816581309029192839}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
+  echoColor: {r: 1, g: 0, b: 0, a: 1}
+  echoCooldown: 0.05
+  echoStartime: 0
+  echoScale: {x: 2, y: 4, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &7630885915596446287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1625,7 @@ GameObject:
   - component: {fileID: 3159774192963694352}
   m_Layer: 0
   m_Name: L_WallJumpRangeMin
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1547,7 +1657,8 @@ GameObject:
   - component: {fileID: 8486520711567693800}
   - component: {fileID: 5637516187884881226}
   - component: {fileID: 4042535307273043753}
-  - component: {fileID: 8979951889768945109}
+  - component: {fileID: 3706104179688915686}
+  - component: {fileID: 4205222734790794064}
   m_Layer: 0
   m_Name: Boss Weapon 1
   m_TagString: Enemy
@@ -1667,7 +1778,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7993472562049746131}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1772,7 +1883,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!61 &8979951889768945109
+--- !u!61 &3706104179688915686
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1804,7 +1915,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.012448788}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1815,8 +1926,29 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 4.70977}
   m_EdgeRadius: 0
+--- !u!114 &4205222734790794064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7993472562049746131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8db66187f566984bb042cc3a1ed4b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echoSprite: {fileID: 7482667652216324306, guid: 3a799e7eed9533f46b27290166fe1711, type: 3}
+  echoColor: {r: 1, g: 1, b: 1, a: 1}
+  echoCooldown: 0.05
+  echoStartime: 0
+  echoScale: {x: 2.1774507, y: 0.17856437, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
+  fadeTime: 0.3
+  spawner: {fileID: 0}
+  useIdentityRotation: 0
 --- !u!1 &9023724403054719497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,11 +1960,11 @@ GameObject:
   - component: {fileID: 2506703283375673614}
   m_Layer: 0
   m_Name: Boss Final
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2506703283375673614
 Transform:
   m_ObjectHideFlags: 0
@@ -1871,7 +2003,7 @@ GameObject:
   - component: {fileID: 4190681525749778014}
   m_Layer: 0
   m_Name: R_WallJumpRangeMax
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

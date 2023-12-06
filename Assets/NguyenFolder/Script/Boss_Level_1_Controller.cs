@@ -29,7 +29,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         currentPhase = animator.GetInteger("Phase");
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
         animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
-        
+        transform.GetComponent<EchoEffect>().enabled = false;
         //SpawnDamagableObject2();
     }
 
@@ -55,6 +55,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             maxAttackType = maxAttackTypeOfPhase(currentPhase);
             animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         }
+
+        transform.GetComponent<EchoEffect>().enabled = true;
     }
 
     public int maxAttackTypeOfPhase(int currentPhase)
@@ -95,6 +97,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             GameObject o = Instantiate(prefab, startPosition, Quaternion.identity).gameObject;
             o.transform.DOJump(point, Random.Range(8, 15), 1, Random.Range(1f, 1.2f)).SetEase(Ease.Linear).OnComplete(() =>
             {
+                o.transform.DOKill();
                 Destroy(o);
             });
         }
@@ -119,14 +122,6 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             return;
 
         Player.Instance.UseMana(-damage);
-
-            /*if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
-        {
-            GameController.Instance.Player.CurrentInfo.mana += damage;
-            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
-                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
-            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        }*/
     }
     public float scaleDefault;
     public void OnDamaged(float damage)
@@ -137,7 +132,10 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
 
         transform.Find("Body").Find("Eyes").DOScaleY(eyeScale, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
         {
-            transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear);
+            transform.Find("Body").Find("Eyes").DOScaleY(scaleDefault, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                //transform.DOKill();
+            });
         });
         //damage minus
 
@@ -155,6 +153,9 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
             animator.SetTrigger("Death");
             Player.Instance.OnDead?.Invoke(true);
             Player.Instance.OnDead(true);
+
+            // ro code
+            
         }
         else if(health <= healthPhase2)
         {
@@ -175,18 +176,33 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         }
     }
 
+    public BossStatus_SO bsso_current;
+    public BossStatus_SO bsso_unlock;
+
     public void OnDead()
     {
         // UI OnDead
 
         // Disable Animator
         TweenKill();
+        bsso_current.defeated = true;
+        Debug.Log(bsso_current.defeated);
+        bsso_unlock.unlocked = true;
         transform.parent.gameObject.SetActive(false);
+        Player.Instance.OnDead?.Invoke(true);
+        Player.Instance.OnDead(true);
     }
 
     public void TweenKill()
     {
+        var activeTween = DOTween.KillAll();// transform.DOKill();
+        //var tweenChild = transform.GetComponent<Animator>().DOKill();
+        //Debug.Log(activeTween);
+    }
+
+    /*public void TweenKill()
+    {
         var activeTween = DOTween.KillAll();
         Debug.Log(activeTween);
-    }
+    }*/
 }

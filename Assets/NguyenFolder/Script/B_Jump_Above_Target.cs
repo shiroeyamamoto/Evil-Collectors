@@ -67,6 +67,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
             animator.transform.Find("Body").DOLocalMoveY(animator.transform.Find("Body").localPosition.y + (1 - scaleValue) / 2, scaleSpeed).SetEase(Ease.Linear);
             animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(() =>
             {
+                //animator.transform.DOKill();
                 Jump(animator);
             });
         });
@@ -80,6 +81,7 @@ public class B_Jump_Above_Target : StateMachineBehaviour
                     animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 }).OnComplete(() =>
                 {
+                    //animator.transform.DOKill();
                     SetColor(animator, animator.transform.GetComponent<BossController>().strongAttackColor, 1);
                     animator.SetTrigger("NextStep");
                 });

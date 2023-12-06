@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations/ChickenWalking.anim.meta
 guid: 72d64f498b3fa44c2a4485ead159d631
+========
+guid: 0185f05714f8b419499d411da061f4a7
+>>>>>>>> 30d52ced1c727c6ad03ae05835cc370cdedb92cb:Assets/Animations/RedDinoAnimation.anim.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
