@@ -11,7 +11,7 @@ public class Move : MonoBehaviour
     [SerializeField] private Transform wallCheck;
 
     // Movement
-    [SerializeField, Range(0f, 100f)] private float speedMove = 10f;
+    [SerializeField, Range(0f, 100f)] public float speedMove = 10f;
     [SerializeField, Range(0f, 100f)] private float speedAirMove = 20f;
 
     [Range(0f, 90f)] public float rotationWhenMove = 18f;

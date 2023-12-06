@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Attack : MonoBehaviour
@@ -27,7 +29,8 @@ public class Attack : MonoBehaviour
         canAttackStrong = true;
         playerRigid2D = gameObject.GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
-
+        speedMoveDefault = Player.Instance.gameObject.GetComponent<Move>().speedMove;
+        maxSizeAttackStrong =0.3f;
     }
 
     private void Update()
@@ -38,6 +41,9 @@ public class Attack : MonoBehaviour
         if (Settings.isCatingSkill)
             return;
         //Debug.Log("Settings.isAttacking: " + Settings.isAttacking);
+
+        if (!canAttackNormal || !canAttackStrong)
+            return;
 
         if (!Settings.PlayerDamaged )
         {
@@ -63,6 +69,8 @@ public class Attack : MonoBehaviour
                 isDownAttack = false;
             }
 
+            // Attack normal
+
             if (Input.GetMouseButtonDown(0) && !Settings.isAttacking )
             {
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
@@ -74,17 +82,52 @@ public class Attack : MonoBehaviour
                     StartCoroutine(AttackNormal());
                 }
             }
-            else if (Input.GetMouseButtonDown(1) && !Settings.isAttacking )
+            else if (Input.GetMouseButtonDown(1))
             {
+                elapsedTime = 0f;
+                
+            }
+
+            // Attack strong
+            if (Player.Instance.CurrentInfo.stamina < 50)
+            {
+                return;
+            }
+
+            if (Input.GetMouseButton(1) && canAttackStrong )
+            {
+                Debug.Log("heloo00000000");
+                HoldAttackStrong();
+            }
+
+
+            /*if (Input.GetMouseButtonUp(1))
+            {
+                cancelStrongAttack = false;
+            }*/
+            if (Input.GetMouseButtonUp(1) && !Settings.isAttacking && canAttackStrong )
+            {
+                if (transform.Find("WeaponSize").Find("PlayerAttack").gameObject.transform.localScale.y < maxSizeAttackStrong)
+                {
+                    CancelAttackStrong();
+                    return;
+                }
+
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 50)
                 {
                     StartCoroutine(AttackStrong());
+
                 }
                 else if (Settings.concentrateSKill)
                 {
                     StartCoroutine(AttackStrong());
                 }
             }
+
+        }
+        else
+        {
+            CancelAttackStrong();
         }
     }
 
@@ -199,19 +242,123 @@ public class Attack : MonoBehaviour
     }
     }
 
+    private bool cancelStrongAttack = false;
+    private float timeToExhaust = 0.5f, elapsedTime = 0f, decreaseInterval=0.1f;
+    private float maxSizeAttackStrong;
+    private float speedMoveDefault;
+    private void HoldAttackStrong()
+    {
+        cancelStrongAttack = false;
+
+        GameObject sword = transform.Find("WeaponSize").Find("PlayerAttack").gameObject;
+
+
+        // Kiếm to hơn đánh thường 
+        //sword.transform.localScale = new Vector2(sword.transform.localScale.x, 0.15f);
+
+        PlayerAttack playerAttack = transform.Find("WeaponSize").Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
+
+        if (isDownAttack)
+        {
+            if (!Settings.isFacingRight)
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
+            }
+            else
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -45);
+            }
+        }
+
+        if (isUpAttack)
+        {
+            if (!Settings.isFacingRight)
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
+            }
+            else
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45);
+            }
+        }
+
+        if (!isUpAttack && !isDownAttack)
+        {
+            if (Settings.isFacingRight)
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 120f);
+            }
+            else
+            {
+                playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -120f);
+            }
+        }
+            
+
+        sword.SetActive(true);
+        sword.transform.Find("box").gameObject.SetActive(true);
+
+        //if (timeToExhaust > 0)//&& manaNeed<= maxManaNeed
+        //{
+        //elapsedTime += Time.deltaTime;
+        //timeToExhaust -= Time.deltaTime;
+
+
+        if (sword.transform.localScale.y > maxSizeAttackStrong)
+        {
+            //sword.transform.localScale = new Vector2(sword.transform.localScale.x, maxSizeAttackStrong);
+            return;
+        }
+
+        Player.Instance.gameObject.GetComponent<Move>().speedMove = 5f;
+
+        if (elapsedTime > decreaseInterval)
+        {
+            elapsedTime = 0f;
+        //transform.localScale = new Vector2(transform.localScale.x + 0.05f, transform.localScale.y);
+        Debug.Log("sword.transform.localScale: ");
+        sword.transform.localScale = new Vector2(sword.transform.localScale.x, sword.transform.localScale.y+ 0.2f);
+
+        //GameObject limitSkill = Player.Instance.gameObject.transform.Find("HolyLight").gameObject;
+        }
+        else
+        {
+            elapsedTime += Time.deltaTime;
+        }
+        //}
+        /*else
+        {
+            //sword.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }*/
+    }
+
+    private void CancelAttackStrong()
+    {
+        Player.Instance.gameObject.GetComponent<Move>().speedMove = speedMoveDefault;
+
+        //Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
+        transform.Find("WeaponSize").Find("PlayerAttack").gameObject.transform.localScale = new Vector2(transform.Find("WeaponSize").Find("PlayerAttack").gameObject.transform.localScale.x, 0.15f);
+        //Settings.isAttackStrong = false;
+        //Settings.PlayerDamaged = false;
+        transform.Find("WeaponSize").Find("PlayerAttack").gameObject.SetActive(false);
+        cancelStrongAttack = true;
+    }
+
     /// <summary>
     /// Strong Attack
     /// </summary>
     /// <returns></returns>
     private IEnumerator AttackStrong()
     {
-
         GameObject sword = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject;
 
         // Kiếm to hơn đánh thường 
-        sword.transform.localScale = new Vector2(sword.transform.localScale.x,0.5f);
+        //sword.transform.localScale = new Vector2(sword.transform.localScale.x, 0.15f);
 
-        PlayerAttack playerAttack = transform.Find("WeaponSize").gameObject.transform.Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
+        PlayerAttack playerAttack = transform.Find("WeaponSize").Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
+
+        // set speedMoveDefault
+        Player.Instance.gameObject.GetComponent<Move>().speedMove = speedMoveDefault;
 
         if (canAttackStrong)
         {
@@ -219,7 +366,7 @@ public class Attack : MonoBehaviour
             canAttackStrong = false;
             Settings.isAttackStrong = true;
 
-            sword.SetActive(true);
+            //sword.SetActive(true);
             Player.Instance.spriteRendererPlayer.color = Color.red;
             audioSource.clip = Player.Instance.playerSound.Attack;
             audioSource.Play();
@@ -238,8 +385,6 @@ public class Attack : MonoBehaviour
 
             if (isDownAttack)
             {
-                // animation strong attack 
-
                 if (!Settings.isFacingRight)
                 {
                     playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 135f);
@@ -255,8 +400,6 @@ public class Attack : MonoBehaviour
 
             if (isUpAttack)
             {
-                // animation strong attack 
-
                 if (!Settings.isFacingRight)
                 {
                     playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 225);
@@ -276,12 +419,12 @@ public class Attack : MonoBehaviour
 
                 if (Settings.isFacingRight)
                 {
-                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 45f);
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 120f);
                     RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, -45f);
                 }
                 else
                 {
-                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -45f);
+                    playerAttack.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, -120f);
                     RotateObject90Degrees(playerAttack.gameObject, normalAttackTime, 45f);
                 }
 
@@ -322,8 +465,10 @@ public class Attack : MonoBehaviour
             }*/
 
             yield return new WaitForSeconds(strongAttackTime);
+
+
             Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
-            sword.transform.localScale = new Vector2(sword.transform.localScale.x, 0.25f);
+            sword.transform.localScale = new Vector2(sword.transform.localScale.x, 0.15f);
             Settings.isAttackStrong = false;
             //Settings.PlayerDamaged = false;
             sword.SetActive(false);
