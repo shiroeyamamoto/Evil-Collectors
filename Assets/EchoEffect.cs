@@ -31,13 +31,15 @@ public class EchoEffect : MonoBehaviour
             GameObject gameobjectCreated = ObjectPoolManager.SpawnObject(spawner, transform.position + echoOffset, useIdentityRotation?Quaternion.identity : transform.rotation);
             //GameObject gameobjectCreated = new GameObject();
             gameobjectCreated.transform.localScale = echoScale;
-            gameobjectCreated.GetComponent<SpriteRenderer>().DOFade(1, 0);
+            gameobjectCreated.GetComponent<SpriteRenderer>().DOFade(1, 0).OnComplete(() => {
+            }); ;
             gameobjectCreated.GetComponent<SpriteRenderer>().sprite = echoSprite;
             gameobjectCreated.GetComponent<SpriteRenderer>().color = echoColor;
             gameobjectCreated.GetComponent<SpriteRenderer>().sortingOrder = -1;
             gameobjectCreated.GetComponent<SpriteRenderer>().DOFade(0, fadeTime).SetEase(Ease.Linear).OnComplete(() =>
             {
                 ObjectPoolManager.ReturnObjectToPool(gameobjectCreated);
+                gameobjectCreated.transform.DOKill();
             });
 
         }

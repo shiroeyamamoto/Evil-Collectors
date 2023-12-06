@@ -45,6 +45,13 @@ public class Attack : MonoBehaviour
         if (!canAttackNormal || !canAttackStrong)
             return;
 
+        if (Settings.PlayerDamaged)
+        {
+            TweenKill();
+            CancelAttackStrong();
+            return;
+        }
+
         if (!Settings.PlayerDamaged )
         {
 
@@ -124,10 +131,6 @@ public class Attack : MonoBehaviour
                 }
             }
 
-        }
-        else
-        {
-            CancelAttackStrong();
         }
     }
 
@@ -257,6 +260,8 @@ public class Attack : MonoBehaviour
         //sword.transform.localScale = new Vector2(sword.transform.localScale.x, 0.15f);
 
         PlayerAttack playerAttack = transform.Find("WeaponSize").Find("PlayerAttack").gameObject.GetComponent<PlayerAttack>();
+
+        //transform.Find("WeaponSize").Find("PlayerAttack").gameObject.
 
         if (isDownAttack)
         {

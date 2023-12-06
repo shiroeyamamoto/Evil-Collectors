@@ -156,7 +156,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     private void PlayerDie()
     {
-        //gameObject.GetComponent<Attack>().TweenKill();
+        gameObject.GetComponent<Attack>().TweenKill();
 
         gameObject.SetActive(false);
         playerDie = true;
