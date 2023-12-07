@@ -15,6 +15,7 @@ public class ChallengePanelController : MonoBehaviour
         Time.timeScale = 1;
     }
 
+
     public void CancelChallenge()
     {
         Debug.Log("I'm F*cking Scare Him");

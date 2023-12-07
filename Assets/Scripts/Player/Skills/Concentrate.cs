@@ -53,7 +53,7 @@ public class Concentrate : Skill
 
                     Player.Instance.UseStamina(staminaDecreaseRate);
                     x++;
-                    Debug.Log(x);
+                    //Debug.Log(x);
                 }
                 else if (timeToExhaust > (timeLifeSkill * (1f / 3f)) && timeToExhaust < (timeLifeSkill * (2f / 3f)))
                 {
@@ -62,7 +62,7 @@ public class Concentrate : Skill
 
                     Player.Instance.UseStamina(staminaDecreaseRate);
                     y++;
-                    Debug.Log(y);
+                    //Debug.Log(y);
                 }
                 else if (timeToExhaust < (timeLifeSkill * (1f / 3f)))
                 {
@@ -71,14 +71,14 @@ public class Concentrate : Skill
 
                     Player.Instance.UseStamina(staminaDecreaseRate);
                     z++;
-                    Debug.Log(z);
+                    //Debug.Log(z);
                 }
             }
         }
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+   /* private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
@@ -97,7 +97,7 @@ public class Concentrate : Skill
             this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             Player.Instance.NoneDamage();
         }
-    }
+    }*/
 
 
     public override void ActivateSkill()
@@ -186,7 +186,7 @@ public class Concentrate : Skill
         yield return new WaitForSeconds(base.skillCoolDown);
 
         currentSize = 0;
-        base.canUseSkill = true;
+        //base.canUseSkill = true;
         this.gameObject.GetComponent<SpriteRenderer>().color = gameObjectColor;
         this.gameObject.SetActive(false);
     }

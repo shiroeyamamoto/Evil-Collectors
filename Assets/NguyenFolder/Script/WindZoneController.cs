@@ -12,7 +12,6 @@ public class WindZoneController : MonoBehaviour
         Debug.Log(ll);
         ll.StartCoroutine(ll.LoadScene(1, "MenuScene",""));
         //SceneManager.LoadScene("MenuScene");
-
     }
     
 }

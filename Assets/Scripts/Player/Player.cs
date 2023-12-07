@@ -253,10 +253,17 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             if (CurrentInfo.health > 0)
             {
                 CurrentInfo.health --;
+
+                // Sound
+                audioSource.clip = GetComponent<PlayerSound>().HumanHurt;
+                audioSource.volume = 0.5f;
+                audioSource.Play();
+
                 OnUpdateHP?.Invoke(CurrentInfo.health);
                 Settings.zombieMode = true;
                 undeadCounter = undeadTime;
-
+                //gameObject.transform.DOKill();
+                //var killAllTween = DOTween.KillAll();
             }
 
             if (CurrentInfo.health <= 0)
@@ -327,6 +334,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     private bool keyPressConcentrateSkillColor = false;
     private void CanUseConcentrateSkillCheck()
     {
+        if (!SkillManager.Instance.ConcentrateSkill.canUseSkill)
+        {
+            keyPressConcentrateSkill.SetActive(false);
+            return;
+        }
+
         if (CurrentInfo.health > 1)
             keyPressConcentrateSkillCounter = keyPressConcentrateSkillTime;
 

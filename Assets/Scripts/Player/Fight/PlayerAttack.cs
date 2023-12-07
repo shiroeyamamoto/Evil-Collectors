@@ -10,9 +10,11 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public bool inForwardAttack = false;
     [HideInInspector] public bool inRetreatAttack = false;
 
+    AudioSource audioSource;
     private void Start()
     {
         this.gameObject.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -27,6 +29,10 @@ public class PlayerAttack : MonoBehaviour
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
             collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, true);
+
+            audioSource.clip = Player.Instance.gameObject.GetComponent<PlayerSound>().PlayerAttackBoss;
+            audioSource.volume = 0.5f;
+            audioSource.Play();
 
             // hiệu ứng bloodParticle 
             if (Settings.isFacingRight)

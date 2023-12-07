@@ -157,6 +157,7 @@ public class Attack : MonoBehaviour
             Player.Instance.spriteRendererPlayer.color = Color.red;
 
             audioSource.clip = Player.Instance.playerSound.Attack;
+            audioSource.volume = 0.3f;
             audioSource.Play();
 
             if (!Settings.concentrateSKill)
@@ -374,6 +375,7 @@ public class Attack : MonoBehaviour
             //sword.SetActive(true);
             Player.Instance.spriteRendererPlayer.color = Color.red;
             audioSource.clip = Player.Instance.playerSound.Attack;
+            audioSource.volume = 1f;
             audioSource.Play();
 
             if (!Settings.concentrateSKill)
