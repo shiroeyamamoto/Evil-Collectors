@@ -138,6 +138,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     public float scaleDefault;
     public void OnDamaged(float damage)
     {
+
+        Player.Instance.ShowDamage(damage, gameObject);
         //damage = 10;
         //damage animation
         Debug.Log(scaleDefault);

@@ -49,6 +49,7 @@ public class Nothingness : Skill
         // Bắt đầu cast phép
         base.canUseSkill = false;
         Player.Instance.spriteRendererPlayer.color = Color.red;
+        Player.Instance.spriteRendererPlayer.material.color = Color.red*3f;
         // bat tu
         if (!Settings.nothingnessSkill)
             Settings.nothingnessSkill = true;
@@ -58,6 +59,7 @@ public class Nothingness : Skill
         yield return new WaitForSeconds(base.timeLifeSkill); // vòng đời hào quang ánh sáng
 
         Player.Instance.spriteRendererPlayer.color = Settings.playerColor;
+        Player.Instance.spriteRendererPlayer.material.color = Settings.playerColor;
         if (Settings.nothingnessSkill)
             Settings.nothingnessSkill = false;
 

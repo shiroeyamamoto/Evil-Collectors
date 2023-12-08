@@ -44,7 +44,6 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
         TP.minValue = 0;
         TP.maxValue = playerData.stamina;
         TP.value = playerData.stamina;
-        
     }
 
     private void Start() {
@@ -59,6 +58,7 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
         
         resutlUI.gameObject.SetActive(false);
         storeUI.gameObject.SetActive(false);
+        iconSwitchSecond.gameObject.transform.parent.gameObject.transform.Find("Ignore").gameObject.SetActive(false);
     }
 
     public void Player_OnUpdateMana(float value)
@@ -104,6 +104,7 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
         if (Player.Instance.undeadCounter > 0)
         {
             hpTwinklingLight.enabled = true;
+            //hpTwinklingStrong.enabled = true;
 
             if (value == 1)
                 hpTwinklingStrong.enabled = true;
@@ -117,9 +118,31 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
             hpTwinklingStrong.enabled = false;
         }
     }
-    public void UI_IconSwitchKey(Sprite value1, Sprite value2)
+    public void UI_IconSwitchKey(Sprite value1, Sprite value2, bool canUse)
     {
         //Debug.Log("Toi o day");
+
+        if (!canUse)
+        {
+            Color orinalColor = iconSwitchSecond.gameObject.transform.parent.gameObject.GetComponent<Image>().color;
+
+            iconSwitchSecond.gameObject.transform.parent.gameObject.transform.Find("Ignore").gameObject.SetActive(true);
+
+            float alphaColor = orinalColor.a;
+            iconSwitchSecond.gameObject.transform.parent.gameObject.GetComponent<Image>().color = new Color(orinalColor.r, orinalColor.g, orinalColor.b, 0.5f);
+        }
+        else if(canUse)
+        {
+            Color orinalColor = iconSwitchSecond.gameObject.transform.parent.gameObject.GetComponent<Image>().color;
+
+            iconSwitchSecond.gameObject.transform.parent.gameObject.transform.Find("Ignore").gameObject.SetActive(false);
+
+            float alphaColor = orinalColor.a;
+            iconSwitchSecond.gameObject.transform.parent.gameObject.GetComponent<Image>().color = new Color(orinalColor.r, orinalColor.g, orinalColor.b, 1f);
+        }
+
+        Debug.Log($"CanUseQuickKey: {canUse}");
+
         iconSwitchFirst.sprite = value2;
         iconSwitchSecond.sprite = value1;
     }

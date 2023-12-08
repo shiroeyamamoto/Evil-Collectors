@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -8,9 +10,31 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public bool inForwardAttack = false;
     [HideInInspector] public bool inRetreatAttack = false;
 
+    private bool soundEnable;
+
+    AudioSource audioSource;
     private void Start()
     {
         this.gameObject.SetActive(false);
+        audioSource = gameObject.GetComponent<AudioSource>();
+        soundEnable = false;
+    }
+
+
+    private void Update()
+    {
+        //PlayAttackBossSound();
+    }
+
+    private void PlayAttackBossSound()
+    {
+        if (soundEnable)
+        {
+            audioSource.clip = Player.Instance.gameObject.GetComponent<PlayerSound>().PlayerAttackBoss;
+            audioSource.volume = 0.3f;
+            audioSource.Play();
+            soundEnable = false;
+        }
     }
 
     // Va chạm của đòn tấn công tới đối thủ
@@ -25,25 +49,40 @@ public class PlayerAttack : MonoBehaviour
         {
             collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, true);
 
-            //Settings.canKnockback = true;
+            soundEnable = true;
 
-            //EnemyBody enemyBody = collision.gameObject.GetComponent<EnemyBody>();
+            // hiệu ứng bloodParticle 
+            if (Settings.isFacingRight)
+            {
+                PlayerManager.Instance.bloodParticle.transform.rotation = Quaternion.Euler(0, -45, 0);
 
-            //enemyBody.EnemyTakeDamge(GameController.Instance.Player.DamageAttack);
+                PlayerManager.Instance.bloodParticle.transform.position = new Vector3(gameObject.transform.position.x+2, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            else if(!Settings.isFacingRight)
+            {
+                PlayerManager.Instance.bloodParticle.transform.rotation = Quaternion.Euler(0, 45, 0);
+                PlayerManager.Instance.bloodParticle.transform.position = new Vector3(gameObject.transform.position.x - 2, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
 
-            //Rigidbody2D enemyRigid2D = collision.gameObject.GetComponent<Rigidbody2D>();
+            PlayerManager.Instance.bloodParticle.GetComponent<ParticleSystem>().Play();
 
-            //// Đẩy kẻ địch khi đánh trúng
-            //if (Player.Instance.transform.position.x < collision.transform.position.x)
-            //{
-            //    enemyRigid2D.velocity = new Vector2(collision.gameObject.transform.localScale.x * pushForce, 0f);
-            //}
-            //else if(Player.Instance.transform.position.x > collision.transform.position.x)
-            //{
-            //    enemyRigid2D.velocity = new Vector2(-collision.gameObject.transform.localScale.x * pushForce, 0f);
-            //}
+            // hiệu ứng strong attack 
+            /*if (Settings.isAttackStrong)
+            {
+                if (Settings.isFacingRight)
+                {
+                    PlayerManager.Instance.attackStrongParticle.transform.position = new Vector3(gameObject.transform.position.x + 2, gameObject.transform.position.y - 2, gameObject.transform.position.z);
+                }
+                else if (!Settings.isFacingRight)
+                {
+                    PlayerManager.Instance.attackStrongParticle.transform.position = new Vector3(gameObject.transform.position.x - 2, gameObject.transform.position.y - 2, gameObject.transform.position.z);
+                }
+
+                PlayerManager.Instance.attackStrongParticle.GetComponent<ParticleSystem>().Play();
+            }*/
 
             Player.Instance.NoneDamage();
+
         }   
     }
 
@@ -52,6 +91,7 @@ public class PlayerAttack : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Settings.canKnockback = false;
+
         }
     }
 }

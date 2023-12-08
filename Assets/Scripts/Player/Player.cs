@@ -2,11 +2,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : SingletonMonobehavious<Player>, IInteractObject
 {
-    [SerializeField, Range(0.1f, 5f)] private float staminaRecoveryTime;
+    [SerializeField, Range(0.0f, 5f)] private float staminaRecoveryTime;
     [SerializeField, Range(0.1f, 5f)] private float manaRecoveryTime;
     [SerializeField, Range(0.5f, 5f)] private float undeadTime =2f;
 
@@ -15,6 +17,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     public Animator animator;
     public AudioSource audioSource;
     public PlayerSound playerSound;
+    public GameObject keyPressConcentrateSkill;
 
     float staminaTimeCounter;
 
@@ -48,9 +51,10 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
+        keyPressConcentrateSkill.SetActive(false);
         SkillList = new List<SkillBase>();
 
-        Settings.DefaultSetting();
+        Settings.DefaultSetting(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true);
 }
     
     private void FixedUpdate()
@@ -61,10 +65,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     }
     private void Update()
     {
+        CanUseConcentrateSkillCheck();
         UndeadTime();
 
         if (!Settings.concentrateSKill) 
-            StaminaRecovery();
+            if(!Settings.isAttacking)
+                StaminaRecovery();
     }
 
 
@@ -106,7 +112,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         if (!Settings.zombieMode)
         {
-            if (CurrentInfo.health > 0)
+            if (CurrentInfo.health >= 0)
             {
                 CurrentInfo.health -= healthUsed;
                 if (CurrentInfo.health > InfoDefaultSO.health)
@@ -116,32 +122,38 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
         }
     }
 
+    public Action<Sprite, Sprite, bool> OnIconSwitch;
     public void UseMana(float manaUsed)
     {
         if (!Settings.zombieMode)
         {
-            if (CurrentInfo.mana > 0)
+            if (CurrentInfo.mana >= 0)
             {
                 CurrentInfo.mana -= manaUsed;
                 if (CurrentInfo.mana < 0)
                     CurrentInfo.mana = 0;
+                if (CurrentInfo.mana > InfoDefaultSO.mana)
+                {
+                    CurrentInfo.mana = InfoDefaultSO.mana;
+                }
                 OnUpdateMana?.Invoke(CurrentInfo.mana);
             }
+            ItemSwitcher.Instance.QuickKeyCheck();
         }
+
+        Debug.Log("OnIconSwitch?.Invoke");
+        //OnIconSwitch?.Invoke(ItemSwitcher.Instance.CurrentItemQuickKey.itemIcon, ItemSwitcher.Instance.itemList[ItemSwitcher.Instance.indexCurrentItem == 0 ? 1 : 0].itemIcon, false);
     }
 
     public void UseStamina(float staminaUsed)
     {
-        if (!Settings.zombieMode)
-        {
-            if (CurrentInfo.stamina > 0)
+            if (CurrentInfo.stamina >= 0)
             {
                 CurrentInfo.stamina -= staminaUsed;
                 if (CurrentInfo.stamina < 0)
                     CurrentInfo.stamina = 0;
                 OnUpdateTP?.Invoke(CurrentInfo.stamina);
             }
-        }
     }
 
     private void PlayerDie()
@@ -247,16 +259,25 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             if (CurrentInfo.health > 0)
             {
                 CurrentInfo.health --;
+
+                // Sound
+                audioSource.clip = GetComponent<PlayerSound>().HumanHurt;
+                audioSource.volume = 0.5f;
+                audioSource.Play();
+
                 OnUpdateHP?.Invoke(CurrentInfo.health);
                 Settings.zombieMode = true;
                 undeadCounter = undeadTime;
-
+                //gameObject.transform.DOKill();
+                //var killAllTween = DOTween.KillAll();
             }
 
             if (CurrentInfo.health <= 0)
             {
                 PlayerDie();
             }
+
+            //Settings.DefaultSetting(true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
         }
 
         
@@ -314,4 +335,82 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     {
         return;
     }
+
+    private float keyPressConcentrateSkillCounter = 0.5f, keyPressConcentrateSkillTime = 0.5f;
+    private bool keyPressConcentrateSkillColor = false;
+    private void CanUseConcentrateSkillCheck()
+    {
+        if (!SkillManager.Instance.ConcentrateSkill.canUseSkill)
+        {
+            keyPressConcentrateSkill.SetActive(false);
+            return;
+        }
+
+        if (CurrentInfo.health > 1)
+            keyPressConcentrateSkillCounter = keyPressConcentrateSkillTime;
+
+        if (Player.Instance.CurrentInfo.health < 2)
+        {
+            Player.Instance.keyPressConcentrateSkill.transform.parent.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            if (keyPressConcentrateSkillCounter > 0)
+            {
+                keyPressConcentrateSkillCounter -= Time.deltaTime;
+            }
+            else
+            {
+                if (!keyPressConcentrateSkillColor)
+                {
+                    keyPressConcentrateSkill.GetComponent<Image>().color = Color.white;
+                }
+                else
+                {
+                    keyPressConcentrateSkill.GetComponent<Image>().color = Color.grey;
+                }
+                keyPressConcentrateSkillColor = !keyPressConcentrateSkillColor;
+                keyPressConcentrateSkillCounter = keyPressConcentrateSkillTime;
+            }
+
+            keyPressConcentrateSkill.SetActive(true);
+            //keyPressConcentrateSkill.GetComponent<Image>().enabled = true;
+            //Vector2 playerPosition = Player.Instance.transform.position;
+            if (!Settings.isFacingRight && keyPressConcentrateSkill.transform.localScale.x > 0)
+            {
+                Vector3 localScale = new Vector3(-keyPressConcentrateSkill.transform.localScale.x, keyPressConcentrateSkill.transform.localScale.y, keyPressConcentrateSkill.transform.localScale.z);
+                keyPressConcentrateSkill.transform.localScale = localScale;
+               // Debug.Log("Dang facing 1");
+            }
+            else if (Settings.isFacingRight && keyPressConcentrateSkill.transform.localScale.x < 0)
+            {
+                Vector3 localScale = new Vector3(-keyPressConcentrateSkill.transform.localScale.x, keyPressConcentrateSkill.transform.localScale.y, keyPressConcentrateSkill.transform.localScale.z);
+                Player.Instance.keyPressConcentrateSkill.transform.localScale = localScale;
+                //Debug.Log("Dang facing 2");
+            }
+
+        }
+        else
+        {
+            keyPressConcentrateSkill.SetActive(false);
+        }
+    }
+
+    public void ShowDamage(float value, GameObject obj)
+    {
+        PlayerManager.Instance.canvasDamageShow.SetActive(true);
+        PlayerManager.Instance.canvasDamageShow.transform.position = obj.transform.position;
+        Transform damageShow = PlayerManager.Instance.canvasDamageShow.transform.Find("DamageShow").gameObject.transform;
+        Vector2 originPosition = damageShow.position;
+        damageShow.position = new Vector2(damageShow.position.x + UnityEngine.Random.Range(-1.5f, 1.5f), damageShow.position.y+UnityEngine.Random.Range(-1.5f, 1.5f));
+        TMP_Text text = PlayerManager.Instance.canvasDamageShow.transform.Find("DamageShow").gameObject.GetComponent<TMP_Text>();
+        text.text = value + "";
+        StartCoroutine(TimeShowDamage(0.5f, originPosition));
+    }
+
+    IEnumerator TimeShowDamage(float value, Vector2 position)
+    {
+        yield return new WaitForSeconds(value);
+        PlayerManager.Instance.canvasDamageShow.transform.Find("DamageShow").gameObject.transform.position = position;
+        PlayerManager.Instance.canvasDamageShow.SetActive(false);
+    }
+
 }

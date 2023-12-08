@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +14,17 @@ public class FireBallSkill : Skill
         BulletBase butlletBase = GetComponent<BulletBase>();
         //timeLifeSkill = Player.Instance.SkillList;
     }
+
+    private float timeCounter;
+
+    private void Update()
+    {
+        TimeLife();
+    }
+
     public override void ActivateSkill(int amount, float scale)
     {
-        if (Player.Instance.CurrentInfo.mana < 5)
+        if (Player.Instance.CurrentInfo.mana < manaNeed)
         {
             Destroy(this.gameObject);
             return;
@@ -48,14 +57,14 @@ public class FireBallSkill : Skill
 
     private void FireBallStart(int amount, float scale)
     {
-
+        timeCounter = timeLifeSkill;
         if (Settings.isFacingRight)
         {
             gameObject.transform.localScale = new Vector3(-gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
         }
 
         // Hướng ngẫu nhiên bắn
-        float randomAngle = Random.Range(-5f, 5f); // góc bắn
+        float randomAngle = UnityEngine.Random.Range(-5f, 5f); // góc bắn
         Vector2 moveDirection = Quaternion.Euler(0, 0, randomAngle) * (Player.Instance.transform.localScale.x>0? Vector2.right : Vector2.left);
 
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
@@ -64,6 +73,18 @@ public class FireBallSkill : Skill
 
         //rb.gravityScale = 0;
         rb.velocity = moveDirection.normalized * speedBullet;
+    }
+
+    private void TimeLife()
+    {
+        if(timeCounter > 0)
+        {
+            timeCounter -= Time.deltaTime;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override void HoldKeySkill()
