@@ -48,6 +48,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
         // bắt đầu game mana = 0
         CurrentInfo.mana = 0;
+        CurrentInfo.health = 1;
 
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
@@ -251,7 +252,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void OnDamaged(float dmgTake)
     {
-        if (!Settings.zombieMode)
+        /*if (!Settings.zombieMode)
         {
             if (Settings.nothingnessSkill || Settings.concentrateSKill)
                 return;
@@ -278,9 +279,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
             }
 
             //Settings.DefaultSetting(true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
-        }
-
-        
+        }*/
     }
 
     private void UndeadTime()
