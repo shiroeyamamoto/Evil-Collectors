@@ -959,6 +959,7 @@ GameObject:
   - component: {fileID: 7333609387468357898}
   - component: {fileID: 2034714945548078288}
   - component: {fileID: 4086751258259182928}
+  - component: {fileID: 5565349647687280368}
   m_Layer: 5
   m_Name: VICTORY
   m_TagString: Untagged
@@ -1082,6 +1083,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &5565349647687280368
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404635761160340338}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1487011346830593999
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,7 +2249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 710.34015, y: -367.08}
+  m_AnchoredPosition: {x: 916.34015, y: -367.08}
   m_SizeDelta: {x: 90, y: 221}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5539486839917153911
@@ -2437,6 +2450,7 @@ GameObject:
   - component: {fileID: 5485588682206638701}
   - component: {fileID: 9012870076556854182}
   - component: {fileID: 6794997859736025139}
+  - component: {fileID: 1889632309410279645}
   m_Layer: 5
   m_Name: YouDie
   m_TagString: Untagged
@@ -2560,6 +2574,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &1889632309410279645
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097542424720999677}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &3193823626269172344
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,7 +3295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 709, y: -423}
+  m_AnchoredPosition: {x: 915, y: -423}
   m_SizeDelta: {x: 961, y: 1556}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7406734911069294569
@@ -4101,7 +4127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 685.6, y: -367}
+  m_AnchoredPosition: {x: 891.6, y: -367}
   m_SizeDelta: {x: 416, y: 576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4397615881689418926
@@ -5787,7 +5813,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 735.33014, y: -366.9}
+  m_AnchoredPosition: {x: 941.33014, y: -366.9}
   m_SizeDelta: {x: 418, y: 575}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8100651392444197773
@@ -8346,25 +8372,29 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6856175863215333138, guid: 639554ec2859b1c4ba0de04b18bc8066, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8239971681937361874, guid: 639554ec2859b1c4ba0de04b18bc8066, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8996021266799217692, guid: 639554ec2859b1c4ba0de04b18bc8066, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.58898085
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8996021266799217692, guid: 639554ec2859b1c4ba0de04b18bc8066, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25811264
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8996021266799217692, guid: 639554ec2859b1c4ba0de04b18bc8066, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.43224785
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8996021266799217692, guid: 639554ec2859b1c4ba0de04b18bc8066, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 48
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
