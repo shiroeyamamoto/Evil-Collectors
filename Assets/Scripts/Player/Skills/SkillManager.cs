@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class SkillManager : SingletonMonobehavious<SkillManager>
 {
     [SerializeField] private HolyLight holyLightSkill;
     [SerializeField] private Skill nothingnessSkill;
@@ -10,11 +10,13 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private ItemSwitcher itemSwitcher;
 
+    public Skill ConcentrateSkill { get => concentrateSkill; set => concentrateSkill = value; }
+
     private void Start()
     {
         holyLightSkill.gameObject.SetActive(false);
         nothingnessSkill.gameObject.SetActive(false);
-        concentrateSkill.gameObject.SetActive(false);
+        ConcentrateSkill.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -81,10 +83,10 @@ public class SkillManager : MonoBehaviour
             // concentrate
             if (Input.GetKeyDown(KeyCode.C))
             {
-                if (GameController.Instance.Player.CurrentInfo.mana < concentrateSkill.manaNeed)
+                if (GameController.Instance.Player.CurrentInfo.mana < ConcentrateSkill.manaNeed)
                     return;
 
-                concentrateSkill.ActivateSkill();
+                ConcentrateSkill.ActivateSkill();
             }
         }
 

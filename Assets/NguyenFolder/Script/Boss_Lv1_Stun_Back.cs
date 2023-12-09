@@ -10,6 +10,8 @@ public class Boss_Lv1_Stun_Back : StateMachineBehaviour
     public float duration;
 
     public Transform groundSlamPrefab;
+
+    public AudioClip clip;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int directionInt = animator.GetInteger("FaceRight");
@@ -17,6 +19,7 @@ public class Boss_Lv1_Stun_Back : StateMachineBehaviour
         endJumpPos.x -= directionInt * stunDistance;
         animator.transform.DOJump(endJumpPos, stunYPower, 1, duration).SetEase(Ease.Linear).OnComplete(() =>
         {
+            SoundManager.PlaySound(clip);
             animator.SetTrigger("NextStep");
             Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
             if (groundSlamPrefab)

@@ -29,6 +29,8 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     
     public List<SkillBase> SkillList { get; private set; }
 
+    
+
     public void Init(SO_PlayerData playerData)
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -46,6 +48,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
         // bắt đầu game mana = 0
         CurrentInfo.mana = 0;
+        //CurrentInfo.health = 1;
 
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
@@ -58,7 +61,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     private void FixedUpdate()
     {
         // Giữ player không sleep
-        rb2d.position += Vector2.zero;
+        rb2d.position += Vector2.zero;  
         //OnUpdateMana?.Invoke(CurrentInfo.mana);
     }
     private void Update()
@@ -108,7 +111,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void UseHealth(int healthUsed)
     {
-        if (!Settings.zombieMode)
+        /*if (!Settings.zombieMode)
         {
             if (CurrentInfo.health >= 0)
             {
@@ -117,7 +120,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                     CurrentInfo.health = InfoDefaultSO.health;
                 OnUpdateHP?.Invoke(CurrentInfo.health);
             }
-        }
+        }*/
     }
 
     public Action<Sprite, Sprite, bool> OnIconSwitch;
@@ -156,13 +159,18 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     private void PlayerDie()
     {
-        gameObject.GetComponent<Attack>().TweenKill();
-
-        gameObject.SetActive(false);
+        // tween kill 
+        // 
+        Debug.Log("Chay on dead khi bat tu ");
         playerDie = true;
         OnDead?.Invoke(false);
+        //TweenKill();
+        gameObject.SetActive(false);
     }
-
+    public void TweenKill()
+    {
+        var activeTween = DOTween.KillAll();
+    }
     // Cheat
     public void ZombieMode()
     {
@@ -193,10 +201,10 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void IncreaseHp(int value)
     {
-        CurrentInfo.health += value;
+        /*CurrentInfo.health += value;
         if (CurrentInfo.health > InfoDefaultSO.health) {
             CurrentInfo.health = InfoDefaultSO.health;
-        }
+        }*/
     }
     
     public void IncreaseMana(float value)
@@ -245,25 +253,29 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void OnDamaged(float dmgTake)
     {
+
         if (!Settings.zombieMode)
         {
-            if (Settings.nothingnessSkill || Settings.concentrateSKill)
-                return;
-
             if (CurrentInfo.health > 0)
             {
-                CurrentInfo.health --;
+                CurrentInfo.health--;
+                if (CurrentInfo.health <= 0)
+                {
+                    PlayerDie();
+                    return;
+                }
+
+                // Sound
+                audioSource.clip = GetComponent<PlayerSound>().HumanHurt;
+                audioSource.volume = 0.5f;
+                audioSource.Play();
+
                 OnUpdateHP?.Invoke(CurrentInfo.health);
-                Settings.zombieMode = true;
+                //Settings.zombieMode = true;
                 undeadCounter = undeadTime;
-
+                //gameObject.transform.DOKill();
+                //var killAllTween = DOTween.KillAll();
             }
-
-            if (CurrentInfo.health <= 0)
-            {
-                PlayerDie();
-            }
-
             //Settings.DefaultSetting(true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
         }
 
@@ -327,6 +339,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     private bool keyPressConcentrateSkillColor = false;
     private void CanUseConcentrateSkillCheck()
     {
+        if (!SkillManager.Instance.ConcentrateSkill.canUseSkill)
+        {
+            keyPressConcentrateSkill.SetActive(false);
+            return;
+        }
+
         if (CurrentInfo.health > 1)
             keyPressConcentrateSkillCounter = keyPressConcentrateSkillTime;
 

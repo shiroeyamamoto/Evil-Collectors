@@ -10,11 +10,22 @@ public class B_Boss_Wave : StateMachineBehaviour
     public int scaleValue;
     [SerializeField] Transform Boss_Wave_Prefab_Left;
     [SerializeField] Transform Boss_Wave_Prefab_Right;
+
+    public AudioClip clipLeft;
+    public AudioClip clipRight;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Vector3 bossPosition = animator.transform.parent.Find("BossTest").position;
         GameObject wave_left = Instantiate(Boss_Wave_Prefab_Left, bossPosition, Quaternion.identity, animator.transform.parent).gameObject;
         GameObject wave_right = Instantiate(Boss_Wave_Prefab_Right, bossPosition, Quaternion.identity, animator.transform.parent).gameObject;
+
+        AudioSource sourceLeft = wave_left.GetComponent<AudioSource>();
+        AudioSource sourceRight = wave_right.GetComponent<AudioSource>();
+        sourceLeft.clip = clipLeft;
+        sourceLeft.Play();
+        sourceRight.clip = clipRight;   
+        sourceRight.Play();
+
         wave_left.transform.DOMoveX(bossPosition.x - moveDistance, moveDistance / velocity).OnUpdate(() =>
         {
             wave_left.transform.DOScale(scaleValue, 1);

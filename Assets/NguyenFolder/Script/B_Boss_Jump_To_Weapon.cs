@@ -9,6 +9,7 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
     [SerializeField] float JumpForce;
     public Transform particlesStart;
     public Transform particlesEnd;
+    public AudioClip clip;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // get boss
@@ -38,6 +39,7 @@ public class B_Boss_Jump_To_Weapon : StateMachineBehaviour
                 .OnComplete(() =>
             {
                 //boss.DOKill();
+                SoundManager.PlaySound(clip);
                 PlayParticle(animator);
                 weapon.gameObject.SetActive(false);
                 animator.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

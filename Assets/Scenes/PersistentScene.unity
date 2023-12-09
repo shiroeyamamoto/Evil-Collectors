@@ -536,6 +536,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3213457780167092099, guid: 8f860f82feba0404faac9fc3efae5a31, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3298907809076437227, guid: 8f860f82feba0404faac9fc3efae5a31, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -884,6 +888,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlayUI: {fileID: 1425270984}
   playerPrefab: {fileID: 8750334777375035854, guid: 3c9ce86a01e442141b9a97b324769417, type: 3}
+  firstBossPrefab: {fileID: 0}
+  finalBossPrefab: {fileID: 0}
+  playerLevelSO: {fileID: 0}
 --- !u!1001 &6853087899125054049
 PrefabInstance:
   m_ObjectHideFlags: 0

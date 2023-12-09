@@ -13,6 +13,8 @@ public class B_Boss_Dash_To_Target : StateMachineBehaviour
     [SerializeField] Vector2 endDashPoint;
 
     [SerializeField] List<Transform> bossWeapons;
+
+    public AudioClip clip;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -38,7 +40,10 @@ public class B_Boss_Dash_To_Target : StateMachineBehaviour
             }
             float velocity = animator.GetComponent<BossController>().velocity;
             duration = Vector2.Distance(endDashPoint, animator.transform.position) / velocity;
-            animator.transform.DOMove(endDashPoint, duration).SetEase(Ease.Linear).OnComplete(() =>
+            animator.transform.DOMove(endDashPoint, duration).SetEase(Ease.Linear).OnStart(() =>
+            {
+                SoundManager.PlaySound(clip);
+            }).OnComplete(() =>
             {
                 animator.transform.DOKill();
             });

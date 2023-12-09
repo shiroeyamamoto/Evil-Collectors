@@ -33,7 +33,10 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         //SpawnDamagableObject2();
     }
 
-    
+    public void PlaySound(AudioClip clip)
+    {
+        SoundManager.PlaySound(clip);
+    }
 
     void ShakeCamera()
     {
@@ -81,7 +84,8 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     public Vector3 center;
     public float distanceToOther;
     public float distanceToBoss;
-    
+    public AudioClip damagableObject2Sound;
+
     public void SpawnDamagableObject2()
     {
         Vector3 startPosition = transform.Find("Weapon2Spawner").position;
@@ -90,13 +94,15 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         for (int i = 0; i < n; i++)
         {
             float x = transform.position.x + (distanceToBoss + offset + distanceToOther * i) * directionInt;
-
+            float y = transform.position.y - Mathf.Abs(transform.lossyScale.y)/2;
+            Debug.Log("y"+y);
             //Debug.Log($"tranform boss = {transform.position.x} ,distanceToBoss = {distanceToBoss} ,offset = {offset}, distanceToOther = {distanceToOther}, i = {i} , x = {x}");
 
-            Vector3 point = new Vector3(x, transform.position.y- transform.lossyScale.y, 0);
+            Vector3 point = new Vector3(x, y, 0);
             GameObject o = Instantiate(prefab, startPosition, Quaternion.identity).gameObject;
             o.transform.DOJump(point, Random.Range(8, 15), 1, Random.Range(1f, 1.2f)).SetEase(Ease.Linear).OnComplete(() =>
             {
+                PlaySound(damagableObject2Sound);
                 o.transform.DOKill();
                 Destroy(o);
             });
@@ -117,20 +123,27 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
     public void OnDamaged(float damage, bool value)
     {
         OnDamaged(damage);
-        //Player.Instance.ShowDamage(damage, this.gameObject);
+
         if (!value)
             return;
 
         Player.Instance.UseMana(-damage);
+            /*if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        {
+            GameController.Instance.Player.CurrentInfo.mana += damage;
+            if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
+                GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
+            Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
+        }*/
     }
     public float scaleDefault;
     public void OnDamaged(float damage)
     {
+
+        Player.Instance.ShowDamage(damage, gameObject);
         //damage = 10;
         //damage animation
         Debug.Log(scaleDefault);
-
-        Player.Instance.ShowDamage(damage, this.gameObject);
 
         transform.Find("Body").Find("Eyes").DOScaleY(eyeScale, scaleDuration / 2).SetEase(Ease.Linear).OnComplete(() =>
         {
@@ -184,7 +197,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         // UI OnDead
 
         // Disable Animator
-        TweenKill();
+        //TweenKill();
         bsso_current.defeated = true;
         Debug.Log(bsso_current.defeated);
         bsso_unlock.unlocked = true;

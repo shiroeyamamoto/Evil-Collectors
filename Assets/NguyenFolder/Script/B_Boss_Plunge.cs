@@ -7,6 +7,7 @@ public class B_Boss_Plunge : StateMachineBehaviour
     public float plungeSpeed;
     [SerializeField] LayerMask groundLayer;
     public Transform particles;
+    public AudioClip clip;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -23,6 +24,7 @@ public class B_Boss_Plunge : StateMachineBehaviour
             {
                 animator.transform.DOMoveY(endPointMoveY, plungeDuration).OnComplete(() =>
                 {
+                    SoundManager.PlaySound(clip);
                     //animator.transform.DOKill();
                     CameraController cameraController = Camera.main.GetComponent<CameraController>();
                     cameraController.ShakeCamera(0.5f, 0.5f);

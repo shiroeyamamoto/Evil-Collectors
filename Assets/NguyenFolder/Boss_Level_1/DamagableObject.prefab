@@ -234,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   downSpeed: 5
   rotateDuration: 8
+  clip: {fileID: 8300000, guid: 7ff0f13170b724440801fbf2b08e7d01, type: 3}
 --- !u!50 &8145126321349288481
 Rigidbody2D:
   serializedVersion: 4
@@ -404,5 +405,7 @@ MonoBehaviour:
   echoCooldown: 0.05
   echoStartime: 0
   echoScale: {x: 1, y: 1, z: 1}
+  echoOffset: {x: 0, y: 0, z: 0}
   fadeTime: 0.3
   spawner: {fileID: 0}
+  useIdentityRotation: 0

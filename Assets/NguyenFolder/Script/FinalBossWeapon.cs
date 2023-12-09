@@ -47,9 +47,13 @@ public class FinalBossWeapon : MonoBehaviour
     }
 
     [SerializeField] LayerMask groundNWallLayer;
-    
+
+    public AudioClip w0_sound;
     void Spawn_Projectile(int index)
     {
+        AudioSource source = GetComponent<AudioSource>();
+        source.clip = w0_sound;
+        source.Play();
         float angleStep = 360f / projectTileNumbs;
         float startAngle = 0f;
         float endAngle = (startAngle + angleStep * index)*Mathf.Deg2Rad;
@@ -116,6 +120,7 @@ public class FinalBossWeapon : MonoBehaviour
     [SerializeField] bool moveCompleted;
     [SerializeField]
     int directionInt;
+    public AudioClip w1sound;
     void Weapon_1_Controller()
     {
         transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -140,6 +145,7 @@ public class FinalBossWeapon : MonoBehaviour
                     transform.DOMoveX(hit.point.x, (float)(Mathf.Abs(distanceToWall) / velocity)).SetEase(Ease.Linear).OnComplete(() =>
                     {
                         //transform.DOKill();
+                        SoundManager.PlaySound(w1sound);
                         Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                         moveCompleted = true;
                         Transform wallSlam = Instantiate(wallSlamPrefab, transform.position, Quaternion.identity, null);
@@ -152,6 +158,8 @@ public class FinalBossWeapon : MonoBehaviour
             }
         }
     }
+
+    public AudioClip w2sound;
     private void Weapon_2_Controller()
     {
         transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -177,7 +185,8 @@ public class FinalBossWeapon : MonoBehaviour
             transform.DORotate(new Vector3(0, 0, angleRotate), 0).OnComplete(() => {
                 transform.DOMove(endPoint, duration).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    //transform.DOKill();
+                    
+                    SoundManager.PlaySound(w2sound);
                     moveCompleted = true;
                     AnimatorParamSet();
                     Camera.main.GetComponent<CameraController>().ShakeCamera(0.25f, 0.25f);

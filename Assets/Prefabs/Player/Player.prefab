@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 89221122825861541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04075842, y: 0.040758416, z: 0.040758416}
+  m_LocalScale: {x: 0.0033774462, y: 0.0033774462, z: 0.0033774462}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2338597944376909136}
@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.526, y: 0.546}
   m_AnchorMax: {x: 0.526, y: 0.546}
-  m_AnchoredPosition: {x: -49.409, y: -47.252}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: -49.382, y: -46.588}
+  m_SizeDelta: {x: 375, y: 339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3426716275893703177
 CanvasRenderer:
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 664e2f090d6da7147a3906b281fe9d9f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -11651,8 +11651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e714d61a36c64c942b18240d74ff0a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalAttackTime: 0.2
-  strongAttackTime: 0.2
+  normalAttackTime: 0.1
+  strongAttackTime: 0.1
   normalAttackCooldown: 0.7
   strongAttackCooldown: 0.7
   normalDamagePercent: 1
@@ -11674,6 +11674,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Running: {fileID: 8300000, guid: 00e5b2f3a38cfa94db199d111694ed2d, type: 3}
   Attack: {fileID: 8300000, guid: 717caefff7e9e0b48b46231e413b1941, type: 3}
+  HumanHurt: {fileID: 8300000, guid: 50cf3a564cc605c45a6a13a79ef2dbb4, type: 3}
+  PlayerAttackBoss: {fileID: 8300000, guid: 515b405b8cb8fd64793e8cc228fcc049, type: 3}
+  MovementSound: {fileID: 8300000, guid: 915b1aaf5927b6342b94f7160b81dad9, type: 3}
 --- !u!95 &6731154079067448037
 Animator:
   serializedVersion: 5
@@ -12034,7 +12037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2338597944376909136
 RectTransform:
   m_ObjectHideFlags: 0

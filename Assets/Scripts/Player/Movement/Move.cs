@@ -28,6 +28,7 @@ public class Move : MonoBehaviour
     [HideInInspector] public float Horizontal;
 
     private Rigidbody2D rb2d;
+    private AudioSource audioSource;
     //private TrailRenderer trail;
     private SpriteTrailRenderer.SpriteTrailRenderer trailRenderer;
 
@@ -36,6 +37,7 @@ public class Move : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         trailRenderer = GetComponent<SpriteTrailRenderer.SpriteTrailRenderer>();
         trailRenderer.enabled = false;
+        audioSource = GetComponent<AudioSource>();
         //trail = GetComponent<TrailRenderer>();
     }
     private void Update()
@@ -65,7 +67,8 @@ public class Move : MonoBehaviour
 
 
                 // stamina tiêu thụ
-                if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 20)
+                if (!Settings.concentrateSKill 
+                    && Player.Instance.CurrentInfo.stamina >= 20)
                 {
                     StartCoroutine(Dash());
                 }
@@ -127,6 +130,19 @@ public class Move : MonoBehaviour
             PlayerRotation(move);
 
         rb2d.velocity = new Vector2(move * (Settings.isGrounded ? speedMove : speedAirMove), rb2d.velocity.y);
+
+        if (rb2d.velocity.x != 0 && Settings.isGrounded)
+        {
+            audioSource.clip = PlayerSound.Instance.MovementSound;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
 
         Horizontal = move;
     }

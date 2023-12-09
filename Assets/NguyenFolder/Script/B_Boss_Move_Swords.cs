@@ -22,12 +22,16 @@ public class B_Boss_Move_Swords : StateMachineBehaviour
         
         
     }
+    public AudioClip clip;
     void MoveAllSwords(Animator animator)
     {
 
         foreach (Transform t in listSwords) {
             Transform sword = Instantiate(swordPrefab, new Vector3(t.position.x, swordSpawnYPosition, 0), Quaternion.identity, null);
-            sword.DORotate(new Vector3(0, 0, -90), 0).OnComplete(() =>
+            sword.DORotate(new Vector3(0, 0, -90), 0).OnStart(() =>
+            {
+                SoundManager.PlaySound(clip);
+            }).OnComplete(() =>
             {
                 sword.DOMoveY(moveDistance, moveDuration).SetEase(Ease.Linear).OnComplete(() =>
                 {

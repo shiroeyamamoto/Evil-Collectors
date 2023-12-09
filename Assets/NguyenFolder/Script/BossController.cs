@@ -37,7 +37,13 @@ public class BossController : MonoBehaviour,IInteractObject
     [SerializeField] LayerMask wallLayer;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.CompareTag("Player"))
+
+        if (Settings.nothingnessSkill || Settings.concentrateSKill)
+        {
+            Debug.Log("Dang bất tử ");
+            return;
+        }
+        if (collision.transform.CompareTag("Player"))
         {
             Player.Instance.OnDamaged(20f);
         }
@@ -88,6 +94,7 @@ public class BossController : MonoBehaviour,IInteractObject
     {
         Player.Instance.ShowDamage(damage, gameObject);
         health -= damage;
+        DoEffect();
         if (health <= 0)
         {
             OnDead();
@@ -131,7 +138,7 @@ public class BossController : MonoBehaviour,IInteractObject
         if (takeDamageEffect != null)
         {
             Color oldColor = transform.Find("Body").GetComponent<SpriteRenderer>().color;
-            takeDamageEffect.DoEffect(TakeDamageEffectEnum.ChangeColor, 0.5f, oldColor, takeDamgeColor);
+            takeDamageEffect.DoEffect(TakeDamageEffectEnum.ChangeColor, 0.2f, oldColor, takeDamgeColor);
         }
     }
 }

@@ -11,6 +11,7 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
 
     public LayerMask wallLayer;
     public LayerMask groundLayer;
+    public AudioClip clip;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         
@@ -47,6 +48,7 @@ public class Boss_Lv1_Fake_Jump_Second : StateMachineBehaviour
 
                 animator.transform.DOJump(endPoint, jumpHeightY, 1, 0.75f).SetEase(Ease.Linear).OnComplete(() =>
                 {
+                    SoundManager.PlaySound(clip);
                     //animator.transform.DOKill();
                     animator.SetTrigger("NextStep");
                     

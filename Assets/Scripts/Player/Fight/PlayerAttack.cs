@@ -10,11 +10,32 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public bool inForwardAttack = false;
     [HideInInspector] public bool inRetreatAttack = false;
 
+    private bool soundEnable;
+
+    AudioSource audioSource;
     private void Start()
     {
         this.gameObject.SetActive(false);
+        audioSource = gameObject.GetComponent<AudioSource>();
+        soundEnable = false;
     }
 
+
+    private void Update()
+    {
+        //PlayAttackBossSound();
+    }
+
+    private void PlayAttackBossSound()
+    {
+        if (soundEnable)
+        {
+            audioSource.clip = Player.Instance.gameObject.GetComponent<PlayerSound>().PlayerAttackBoss;
+            audioSource.volume = 0.3f;
+            audioSource.Play();
+            soundEnable = false;
+        }
+    }
 
     // Va chạm của đòn tấn công tới đối thủ
 
@@ -27,6 +48,8 @@ public class PlayerAttack : MonoBehaviour
         if (collision.transform.GetComponent<IInteractObject>() != null)
         {
             collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, true);
+
+            soundEnable = true;
 
             // hiệu ứng bloodParticle 
             if (Settings.isFacingRight)

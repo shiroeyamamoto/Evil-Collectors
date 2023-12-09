@@ -11,6 +11,9 @@ public class Boss_Lv1_Jump_To_Player : StateMachineBehaviour
 
     public float scaleChange;
     public float scaleSpeed;
+
+    public AudioClip clipStart;
+    public AudioClip clipEnd;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -46,6 +49,7 @@ public class Boss_Lv1_Jump_To_Player : StateMachineBehaviour
                         animator.transform.Find("Body").DOScaleY(1, scaleSpeed).SetEase(Ease.Linear).OnComplete(()=>{
                             animator.transform.DOJump(endPoint, jumpHeight, 1, jumpDuration).SetEase(Ease.Linear).OnStart(() =>
                             {
+                                SoundManager.PlaySound(clipStart);
                                 Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
                                 if (groundSlamPrefab)
                                 {
@@ -54,7 +58,8 @@ public class Boss_Lv1_Jump_To_Player : StateMachineBehaviour
                                 }
                             }).OnComplete(() =>
                             {
-                                
+                                SoundManager.PlaySound(clipEnd);
+
                                 Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                                 Transform groundSlamPrefab = animator.transform.Find("GroundSlam");
                                 if (groundSlamPrefab)

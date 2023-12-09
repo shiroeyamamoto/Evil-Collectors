@@ -19,7 +19,7 @@ public class B_Boss_Intro : StateMachineBehaviour
     [Space]
     [Header("Particle")]
     public Transform groundSlamPrefab;
-
+    public AudioClip clip;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Transform startPosTransform = animator.transform.parent.Find("StartPosition").transform;
@@ -45,6 +45,7 @@ public class B_Boss_Intro : StateMachineBehaviour
             Debug.Log("Jump Down Start");
         }).OnComplete(() =>
         {
+            SoundManager.PlaySound(clip);
             Debug.Log("Jump Down Complete");
             groundSlamPrefab = animator.transform.Find("GroundSlam");
             if (groundSlamPrefab)

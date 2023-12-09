@@ -1,6 +1,7 @@
 using DG.Tweening;
 //using System;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
 {
@@ -95,9 +96,19 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
 
                         Vector3 vectorLook = o.position - endPoint;
                         float angle = Mathf.Atan2(vectorLook.y, vectorLook.x) * Mathf.Rad2Deg;
+                        AudioSource source = o.GetComponent<AudioSource>();
+                        
                         o.DORotate(new Vector3(0, 0, angle), 0);
-                        o.DOMove(endPoint, swordMoveDuration).SetEase(Ease.Linear).OnComplete(() =>
+                        
+                        o.DOMove(endPoint, swordMoveDuration).SetEase(Ease.Linear).OnStart(() =>
                         {
+                            source.clip = clipStart;
+                            source.Play();
+                        }).OnComplete(() =>
+                        {
+                            source.Stop();
+                            source.clip = clipEnd;
+                            source.Play();
                             Camera.main.GetComponent<CameraController>().ShakeCamera(0.5f, 0.5f);
                         });
                     }
@@ -112,6 +123,8 @@ public class B_Boss_Jump_Next_Wall : StateMachineBehaviour
         });
     }
 
+    public AudioClip clipStart;
+    public AudioClip clipEnd;
     public Transform wallSlamPrefab;
     void PlayParticle(Animator animator, Vector3 hitPoint)
     {
