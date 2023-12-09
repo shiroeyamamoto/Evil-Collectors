@@ -117,7 +117,7 @@ public class Concentrate : Skill
 
             gameObjectColor = gameObject.GetComponent<SpriteRenderer>().color;
 
-            //StartCoroutine(ConcentrateStart());
+            StartCoroutine(ConcentrateStart());
 
             GameController.Instance.Player.UseMana(base.manaNeed);
         }

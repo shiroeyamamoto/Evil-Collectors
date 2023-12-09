@@ -48,7 +48,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
         // bắt đầu game mana = 0
         CurrentInfo.mana = 0;
-        CurrentInfo.health = 1;
+        //CurrentInfo.health = 1;
 
         staminaTimeCounter = staminaRecoveryTime;
         playerDie = false;
@@ -111,7 +111,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void UseHealth(int healthUsed)
     {
-        if (!Settings.zombieMode)
+        /*if (!Settings.zombieMode)
         {
             if (CurrentInfo.health >= 0)
             {
@@ -120,7 +120,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                     CurrentInfo.health = InfoDefaultSO.health;
                 OnUpdateHP?.Invoke(CurrentInfo.health);
             }
-        }
+        }*/
     }
 
     public Action<Sprite, Sprite, bool> OnIconSwitch;
@@ -160,11 +160,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     private void PlayerDie()
     {
         // tween kill 
-        TweenKill();
         // 
-        gameObject.SetActive(false);
+        Debug.Log("Chay on dead khi bat tu ");
         playerDie = true;
         OnDead?.Invoke(false);
+        //TweenKill();
+        gameObject.SetActive(false);
     }
     public void TweenKill()
     {
@@ -200,10 +201,10 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void IncreaseHp(int value)
     {
-        CurrentInfo.health += value;
+        /*CurrentInfo.health += value;
         if (CurrentInfo.health > InfoDefaultSO.health) {
             CurrentInfo.health = InfoDefaultSO.health;
-        }
+        }*/
     }
     
     public void IncreaseMana(float value)
@@ -252,14 +253,17 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
 
     public void OnDamaged(float dmgTake)
     {
-        /*if (!Settings.zombieMode)
-        {
-            if (Settings.nothingnessSkill || Settings.concentrateSKill)
-                return;
 
+        if (!Settings.zombieMode)
+        {
             if (CurrentInfo.health > 0)
             {
-                CurrentInfo.health --;
+                CurrentInfo.health--;
+                if (CurrentInfo.health <= 0)
+                {
+                    PlayerDie();
+                    return;
+                }
 
                 // Sound
                 audioSource.clip = GetComponent<PlayerSound>().HumanHurt;
@@ -267,19 +271,15 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                 audioSource.Play();
 
                 OnUpdateHP?.Invoke(CurrentInfo.health);
-                Settings.zombieMode = true;
+                //Settings.zombieMode = true;
                 undeadCounter = undeadTime;
                 //gameObject.transform.DOKill();
                 //var killAllTween = DOTween.KillAll();
             }
-
-            if (CurrentInfo.health <= 0)
-            {
-                PlayerDie();
-            }
-
             //Settings.DefaultSetting(true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
-        }*/
+        }
+
+        
     }
 
     private void UndeadTime()

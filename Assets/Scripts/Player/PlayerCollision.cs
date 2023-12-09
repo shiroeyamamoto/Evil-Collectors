@@ -8,6 +8,12 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+
+            if (Settings.nothingnessSkill || Settings.concentrateSKill)
+            {
+                Debug.Log("Dang bất tử ");
+                return;
+            }
             if (!Settings.PlayerDamaged)
             {
                 Settings.PlayerDamaged = true;
@@ -47,6 +53,11 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.activeSelf )
         {
+            if (Settings.nothingnessSkill || Settings.concentrateSKill)
+            {
+                Debug.Log("Dang bất tử ");
+                return;
+            }
             if (!Settings.PlayerDamaged)
             {
                 Settings.PlayerDamaged = true;

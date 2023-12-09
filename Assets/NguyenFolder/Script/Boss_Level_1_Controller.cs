@@ -127,13 +127,14 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         if (!value)
             return;
 
-            if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
+        Player.Instance.UseMana(-damage);
+            /*if (GameController.Instance.Player.CurrentInfo.mana < GameController.Instance.Player.InfoDefaultSO.mana)
         {
             GameController.Instance.Player.CurrentInfo.mana += damage;
             if (GameController.Instance.Player.CurrentInfo.mana > GameController.Instance.Player.InfoDefaultSO.mana)
                 GameController.Instance.Player.CurrentInfo.mana = GameController.Instance.Player.InfoDefaultSO.mana;
             Player.Instance.OnUpdateMana?.Invoke(Player.Instance.CurrentInfo.mana);
-        }
+        }*/
     }
     public float scaleDefault;
     public void OnDamaged(float damage)
@@ -196,7 +197,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         // UI OnDead
 
         // Disable Animator
-        TweenKill();
+        //TweenKill();
         bsso_current.defeated = true;
         Debug.Log(bsso_current.defeated);
         bsso_unlock.unlocked = true;

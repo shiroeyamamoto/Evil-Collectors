@@ -37,7 +37,13 @@ public class BossController : MonoBehaviour,IInteractObject
     [SerializeField] LayerMask wallLayer;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.CompareTag("Player"))
+
+        if (Settings.nothingnessSkill || Settings.concentrateSKill)
+        {
+            Debug.Log("Dang bất tử ");
+            return;
+        }
+        if (collision.transform.CompareTag("Player"))
         {
             Player.Instance.OnDamaged(20f);
         }

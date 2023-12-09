@@ -13,6 +13,8 @@ public class ResutlUI : UIBase {
     [SerializeField] private TMP_Text txt;
     private void Start() {
         btn.onClick.AddListener(() => {
+            // kill Tween
+            var activeTween = DOTween.KillAll();
             OnClick?.Invoke();
         });
         txt.DOFade(0, 1f).SetLoops(-1);

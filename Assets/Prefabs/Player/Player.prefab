@@ -11676,6 +11676,7 @@ MonoBehaviour:
   Attack: {fileID: 8300000, guid: 717caefff7e9e0b48b46231e413b1941, type: 3}
   HumanHurt: {fileID: 8300000, guid: 50cf3a564cc605c45a6a13a79ef2dbb4, type: 3}
   PlayerAttackBoss: {fileID: 8300000, guid: 515b405b8cb8fd64793e8cc228fcc049, type: 3}
+  MovementSound: {fileID: 8300000, guid: 915b1aaf5927b6342b94f7160b81dad9, type: 3}
 --- !u!95 &6731154079067448037
 Animator:
   serializedVersion: 5
