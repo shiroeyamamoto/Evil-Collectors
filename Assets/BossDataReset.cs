@@ -11,6 +11,7 @@ public class BossDataReset : MonoBehaviour
         if(listBsso.Count !=0) {
             foreach(BossStatus_SO bsso in listBsso)
             {
+                Debug.Log("Khóa boss");
                 bsso.unlocked = false;
                 bsso.defeated = false;
             }

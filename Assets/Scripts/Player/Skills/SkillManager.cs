@@ -27,9 +27,12 @@ public class SkillManager : SingletonMonobehavious<SkillManager>
 
         if (Settings.PlayerDamaged)
         {
-            holyLightSkill.cancelSkill = true;
-            holyLightSkill.HoldKeySkill();
-            return;
+            if (holyLightSkill.canUseSkill)
+            {
+                holyLightSkill.cancelSkill = true;
+                holyLightSkill.HoldKeySkill();
+                return;
+            }
         }
         /*else
         {

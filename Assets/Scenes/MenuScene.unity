@@ -517,25 +517,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 163360897969466333, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 946090045957595621, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3013778661056021761, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4552747397432025950, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_Name
       value: HomeMenuUICanva
-      objectReference: {fileID: 0}
-    - target: {fileID: 5852409296833433305, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7047300452264387924, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_LocalPosition.x
@@ -576,14 +560,6 @@ PrefabInstance:
     - target: {fileID: 7047300452264387924, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9042336708225554728, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 905.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9042336708225554728, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 493.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

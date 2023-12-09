@@ -32,6 +32,7 @@ public class B_Boss_Dead : StateMachineBehaviour
 
             }).OnComplete(() =>
             {
+                Debug.Log("Final Diad");
                 //animator.DOKill();
                 animator.transform.parent.gameObject.SetActive(false);//UI OnDead
                 Player.Instance.OnDead?.Invoke(true);

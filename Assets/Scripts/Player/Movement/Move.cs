@@ -28,7 +28,7 @@ public class Move : MonoBehaviour
     [HideInInspector] public float Horizontal;
 
     private Rigidbody2D rb2d;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     //private TrailRenderer trail;
     private SpriteTrailRenderer.SpriteTrailRenderer trailRenderer;
 

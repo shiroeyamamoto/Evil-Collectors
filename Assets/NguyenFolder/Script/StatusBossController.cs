@@ -44,6 +44,8 @@ public class StatusBossController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && transform.GetComponentInChildren<MeshRenderer>().enabled && Settings.isGrounded && !PanelIsOpened)
         {
             PanelIsOpened = true;
+            //Player.Instance.rb2d.velocity = new Vector2();
+            Player.Instance.GetComponent<Move>().audioSource.Stop();
             Player.Instance.GetComponent<Move>().enabled = false;
             Player.Instance.transform.DOMoveX(transform.position.x - Mathf.Abs(transform.lossyScale.x) , 1).SetEase(Ease.Linear).OnStart(() =>
             {

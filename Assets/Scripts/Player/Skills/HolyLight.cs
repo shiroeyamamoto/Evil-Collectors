@@ -26,6 +26,7 @@ public class HolyLight : Skill
 
         if (cancelSkill)
         {
+            Settings.DefaultSetting(true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
             Settings.isCatingSkill = false;
             inSkill = false;
             Debug.Log("cancel");
@@ -39,6 +40,7 @@ public class HolyLight : Skill
 
             this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = false;
             this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            auraCircle.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             //transform.localScale = Vector3.zero;
             this.gameObject.SetActive(false);
             auraCircle.gameObject.SetActive(false);
