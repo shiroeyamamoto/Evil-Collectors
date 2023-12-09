@@ -536,10 +536,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3213457780167092099, guid: 8f860f82feba0404faac9fc3efae5a31, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3298907809076437227, guid: 8f860f82feba0404faac9fc3efae5a31, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -950,6 +946,10 @@ PrefabInstance:
     - target: {fileID: 5641444248965201720, guid: 4e2f5a7941864984c933519d179940a0, type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641444248965201720, guid: 4e2f5a7941864984c933519d179940a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

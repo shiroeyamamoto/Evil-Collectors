@@ -12,6 +12,7 @@ public class Boss_Final_Eyebrow_Controller : MonoBehaviour
         GetPhase();
     }
 
+
     void GetPhase()
     {
         phase = transform.parent.parent.parent.GetComponent<BossController>().phase;

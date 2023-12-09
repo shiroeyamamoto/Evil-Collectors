@@ -59,7 +59,7 @@ public class GameManager : SingletonMonobehavious<GameManager>
 	}
 	
 	private void Setup() {
-		LoadingUI.Instance.Hide();
+		//LoadingUI.Instance.Hide();
         this.homeMenuUI = FindObjectOfType<HomeMenuUI>();
 	}
 
@@ -78,14 +78,14 @@ public class GameManager : SingletonMonobehavious<GameManager>
 	}
 
 	public void LoadSceneLevel() {
-		LoadingUI.Instance.Show();
+		//LoadingUI.Instance.Show();
 		var scene_01 = SceneManager.LoadSceneAsync(SCENENAME_Per);
 		var scene_02 = SceneManager.LoadSceneAsync(SCENENAME_Level1, LoadSceneMode.Additive);
 		LoadScene(new AsyncOperation[] { scene_01, scene_02 });
 	}
 
 	public void LoadSceneMenu() {
-		LoadingUI.Instance.Show();
+		//LoadingUI.Instance.Show();
 		var scene = SceneManager.LoadSceneAsync(SCENENAME_Menu);
 		LoadScene(new AsyncOperation[] { scene }, Setup);
 	}
@@ -103,7 +103,7 @@ public class GameManager : SingletonMonobehavious<GameManager>
 				value += scene.progress;
 			}
 
-			LoadingUI.Instance.SetFill(value / scenes.Length);
+			//LoadingUI.Instance.SetFill(value / scenes.Length);
 		} while (value < 0.9f);
 
 		await Task.Delay(2000);
@@ -112,7 +112,7 @@ public class GameManager : SingletonMonobehavious<GameManager>
 		}
 		
 		await Task.Delay(1000);
-		LoadingUI.Instance.Hide();
+		//LoadingUI.Instance.Hide();
 		OnFinish?.Invoke();
 	}
 

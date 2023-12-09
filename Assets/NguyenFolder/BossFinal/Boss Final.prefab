@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06302276b730bd48a480d99b8f29c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phase: 2
+  phase: 0
 --- !u!1 &3236074565756054246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,9 +1839,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f99f4f078d91934a8229996f28f809b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  healthPhase2: 85
-  healthPhase3: 70
+  health: 350
+  healthPhase2: 280
+  healthPhase3: 210
   normalColor: {r: 1, g: 0, b: 0, a: 1}
   attackColor: {r: 1, g: 0, b: 0, a: 1}
   strongAttackColor: {r: 0, g: 0.8402312, b: 1, a: 1}

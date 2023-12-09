@@ -48,4 +48,9 @@ public class HomeMenuUI : MonoBehaviour {
         levelMenuUI.Show();
         levelMenuUI.LoadLevels(data);
     }
+
+    public void CloseApp()
+    {
+        Application.Quit();
+    }
 }

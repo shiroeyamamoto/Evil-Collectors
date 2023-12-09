@@ -21,14 +21,14 @@ public class Attack : MonoBehaviour
 
     private bool canAttackNormal, canAttackStrong, isUpAttack, isDownAttack;
     private Rigidbody2D playerRigid2D;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     private void Awake()
     {
         canAttackNormal = true;
         canAttackStrong = true;
         playerRigid2D = gameObject.GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         speedMoveDefault = Player.Instance.gameObject.GetComponent<Move>().speedMove;
         maxSizeAttackStrong =0.3f;
     }
@@ -157,7 +157,7 @@ public class Attack : MonoBehaviour
             Player.Instance.spriteRendererPlayer.color = Color.red;
 
             audioSource.clip = Player.Instance.playerSound.Attack;
-            audioSource.volume = 0.3f;
+            audioSource.volume = Settings.sound;
             audioSource.Play();
 
             if (!Settings.concentrateSKill)
@@ -375,7 +375,7 @@ public class Attack : MonoBehaviour
             //sword.SetActive(true);
             Player.Instance.spriteRendererPlayer.color = Color.red;
             audioSource.clip = Player.Instance.playerSound.Attack;
-            audioSource.volume = 1f;
+            audioSource.volume = Settings.sound+0.5f;
             audioSource.Play();
 
             if (!Settings.concentrateSKill)

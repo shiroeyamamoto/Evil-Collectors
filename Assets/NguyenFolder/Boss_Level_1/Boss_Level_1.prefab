@@ -454,8 +454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8010564b10bd03e499e4e73b5c80bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  healthPhase2: 70
+  health: 300
+  healthPhase2: 210
   currentPhase: 1
   phaseMax: 2
   maxAttackType: 0

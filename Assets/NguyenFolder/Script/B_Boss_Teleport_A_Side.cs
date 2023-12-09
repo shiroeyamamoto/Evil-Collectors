@@ -1,8 +1,6 @@
 
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.Timeline.Actions;
-using Unity.VisualScripting;
 
 public class B_Boss_Teleport_A_Side : StateMachineBehaviour
 {

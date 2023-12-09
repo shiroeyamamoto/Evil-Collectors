@@ -270,6 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 329715781}
   - component: {fileID: 329715782}
+  - component: {fileID: 329715783}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -308,6 +309,19 @@ MonoBehaviour:
   levelTwoScene: 0
   homeMenuUI: {fileID: 1860024112}
   data: {fileID: 11400000, guid: 934ce7ec2c1272e4dacdac6108ec6ae4, type: 2}
+--- !u!114 &329715783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329715780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7893762691f8824696d74cecb2a47cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imgFill: {fileID: 0}
 --- !u!1 &1681911101
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3479857364714200769, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4095187643074130670, guid: ab20da85fce4f8c46a755576b124be42, type: 3}
       propertyPath: m_Pivot.x
@@ -507,20 +521,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 946090045957595621, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3013778661056021761, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4552747397432025950, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_Name
       value: HomeMenuUICanva
       objectReference: {fileID: 0}
-    - target: {fileID: 5407877219041145324, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5407877219041145324, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5407877219041145324, guid: 93248c786cbed9b488d3484537254954, type: 3}
-      propertyPath: m_Color.r
+    - target: {fileID: 5852409296833433305, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7047300452264387924, guid: 93248c786cbed9b488d3484537254954, type: 3}
@@ -562,6 +576,14 @@ PrefabInstance:
     - target: {fileID: 7047300452264387924, guid: 93248c786cbed9b488d3484537254954, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042336708225554728, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 905.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042336708225554728, guid: 93248c786cbed9b488d3484537254954, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 493.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
