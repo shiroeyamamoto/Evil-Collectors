@@ -16,6 +16,7 @@ public class BossDataReset : MonoBehaviour
                 bsso.defeated = false;
             }
             listBsso[0].unlocked = true;
+            listBsso[0].defeated = false;
         }
     }
 }

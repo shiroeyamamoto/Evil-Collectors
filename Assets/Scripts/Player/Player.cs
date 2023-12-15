@@ -16,6 +16,7 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
     public SpriteRenderer spriteRendererPlayer, hatSpriteRenderer;
     public Animator animator;
     public AudioSource audioSource;
+    public AudioSource damagedSound;
     public PlayerSound playerSound;
     public GameObject keyPressConcentrateSkill;
 
@@ -262,13 +263,12 @@ public class Player : SingletonMonobehavious<Player>, IInteractObject
                 if (CurrentInfo.health <= 0)
                 {
                     PlayerDie();
-                    return;
                 }
 
                 // Sound
-                audioSource.clip = GetComponent<PlayerSound>().HumanHurt;
-                audioSource.volume = 0.5f;
-                audioSource.Play();
+                damagedSound.clip = PlayerSound.Instance.HumanHurt;
+                damagedSound.volume = Settings.sound;
+                damagedSound.Play();
 
                 OnUpdateHP?.Invoke(CurrentInfo.health);
                 //Settings.zombieMode = true;

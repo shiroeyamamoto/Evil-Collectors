@@ -30,6 +30,7 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         maxAttackType = maxAttackTypeOfPhase(currentPhase);
         animator.GetBehaviour<Boss_Lv1_Attack>().maxAttackType = maxAttackType;
         transform.GetComponent<EchoEffect>().enabled = false;
+        damagedSound = gameObject.GetComponent<AudioSource>();
         //SpawnDamagableObject2();
     }
 
@@ -137,10 +138,15 @@ public class Boss_Level_1_Controller : MonoBehaviour,IInteractObject
         }*/
     }
     public float scaleDefault;
+    public AudioSource damagedSound;
     public void OnDamaged(float damage)
     {
-
+        
         Player.Instance.ShowDamage(damage, gameObject);
+        damagedSound.clip = Player.Instance.gameObject.GetComponent<PlayerSound>().PlayerAttackBoss;
+        damagedSound.volume = Settings.sound-0.5f;
+        damagedSound.Play();
+
         //damage = 10;
         //damage animation
         Debug.Log(scaleDefault);

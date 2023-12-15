@@ -18,10 +18,12 @@ public class Concentrate : Skill
     private float decreaseInterval; // Thời gian giảm stamina (ví dụ: 1 giây)
     private float elapsedTime = 0f; // Thời gian đã trôi qua
     private Color gameObjectColor;
+    private AudioSource audioSource;
 
     void Start()
     {
         decreaseInterval = timeLifeSkill / 100f;
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
     int x = 0, y=0,z=0;
     private void Update()
@@ -127,6 +129,7 @@ public class Concentrate : Skill
 
     private IEnumerator ConcentrateStart()
     {
+
         // niệm phép 
         Settings.isAttacking = true;
         Settings.isCatingSkill = true;
@@ -134,6 +137,12 @@ public class Concentrate : Skill
         Player.Instance.spriteRendererPlayer.color = Color.grey;
 
         yield return new WaitForSeconds(base.timeCastSkill);
+
+        // Sound
+
+        audioSource.clip = PlayerSound.Instance.ConcentrateSound;
+        audioSource.volume = Settings.sound;
+        audioSource.Play();
 
         // Bắt đầu cast phép
         base.canUseSkill = false;

@@ -18,6 +18,8 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
     [SerializeField] private ResutlUI resutlUI;
     [SerializeField] private StoreUI storeUI;
 
+    private AudioSource resultSound;
+
     private SO_PlayerData playerData;
     int currentIndex;
     public void PlayerInitData(SO_PlayerData playerData)
@@ -55,7 +57,7 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
             // origin of Quan dev
             //storeUI.Show();
         };
-        
+        resultSound = GetComponent<AudioSource>();
         resutlUI.gameObject.SetActive(false);
         storeUI.gameObject.SetActive(false);
         iconSwitchSecond.gameObject.transform.parent.gameObject.transform.Find("Ignore").gameObject.SetActive(false);
@@ -89,10 +91,26 @@ public class GamePlayUI : SingletonMonobehavious<GamePlayUI>
             return;
 
         if (!value && !resutlUI.gameObject.activeSelf)
+        {
+            //MusicManager.Instance.gameObject.GetComponent<AudioSource>().Stop();
             resutlUI.transform.Find("YouDie").gameObject.SetActive(true);
+            if (GameController.Instance.LevelSO.ToString() == "LEVEL_01 (LevelSO)")
+            {
+                resultSound.clip = PlayerSound.Instance.PlayerLose1;
+            }
+            if (GameController.Instance.LevelSO.ToString() == "LEVEL_02 (LevelSO)")
+            {
+                resultSound.clip = PlayerSound.Instance.PlayerLose2;
+            }
+            resultSound.volume = Settings.sound;
+            resultSound.Play();
+        }
         else
         {
             resutlUI.transform.Find("VICTORY").gameObject.SetActive(true);
+            resultSound.clip = PlayerSound.Instance.BossDead;
+            resultSound.volume = Settings.sound;
+            resultSound.Play();
             GameManager.Instance.levelTwoScene = true;
         }
         resutlUI.Show();

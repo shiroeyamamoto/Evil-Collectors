@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ public class SlotLevelUI : MonoBehaviour {
             {
                 slot.btn.interactable = false;
             }
+
+            var activeTween = DOTween.KillAll();
             //btn.interactable = false;
             OnClick?.Invoke();
         });

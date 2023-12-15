@@ -11,12 +11,18 @@ public class HolyLight : Skill
     [SerializeField] private Material holyLightAuraMaterial;
     public Transform auraCircle;
 
+    private AudioSource audioSource;
     private int currentSize = 0;
     Vector3 position, scale;
 
     private bool inSkill;
     private float timeToExhaust, elapsedTime, decreaseInterval, staminaDecreaseRate;
     private int x=0,y=0,z=0;
+
+    private void Start()
+    {
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
 
     public override void HoldKeySkill()
     {
@@ -103,7 +109,7 @@ public class HolyLight : Skill
 
                         Player.Instance.UseMana(staminaDecreaseRate);
 
-                        Player.Instance.DamageAttack += 0.1f;
+                        Player.Instance.DamageAttack += 0.3f;
 
                         //Debug.Log("staminaDecreaseRate: "+ staminaDecreaseRate);
                         x++;
@@ -115,7 +121,7 @@ public class HolyLight : Skill
                         staminaDecreaseRate = ((maxManaNeed * (35f / 100f)) * (1f / 33.3f));
 
                         Player.Instance.UseMana(staminaDecreaseRate);
-                        Player.Instance.DamageAttack += 0.25f;
+                        Player.Instance.DamageAttack += 0.75f;
                         //Debug.Log("staminaDecreaseRate: " + staminaDecreaseRate);
                         y++;
                         //Debug.Log("y: " + y);
@@ -127,7 +133,7 @@ public class HolyLight : Skill
 
                         Player.Instance.UseMana(staminaDecreaseRate);
 
-                        Player.Instance.DamageAttack += 0.45f;
+                        Player.Instance.DamageAttack += 1.35f;
                         //Debug.Log("staminaDecreaseRate: " + staminaDecreaseRate);
                         z++;
                         //Debug.Log("z: " + z);
@@ -188,11 +194,18 @@ public class HolyLight : Skill
     private IEnumerator HolyLightStart()
     {
         // niệm phép 
+
         Settings.isAttacking = true;
         //base.isCastingSkill = true;
         Player.Instance.spriteRendererPlayer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
         // Bắt đầu cast phép
+
+        // Sound 
+        audioSource.clip = PlayerSound.Instance.HolyLightSound;
+        audioSource.volume = Settings.sound;
+        audioSource.Play();
+
         base.canUseSkill = false;
 
         this.gameObject.transform.Find("HolyLighAura").gameObject.GetComponent<SpriteRenderer>().enabled = true;

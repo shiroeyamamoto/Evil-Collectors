@@ -5,6 +5,12 @@ using UnityEngine.UIElements;
 
 public class Nothingness : Skill
 {
+    private AudioSource audioSource;
+    private void Start()
+    {
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
     public override void ActivateSkill()
     {
         //Debug.Log("canUseSkill: " + canUseSkill);
@@ -38,6 +44,7 @@ public class Nothingness : Skill
 
     private IEnumerator NothingnessStart()
     {
+
         Debug.Log("nothingness skill");
 
         // niệm phép 
@@ -45,6 +52,12 @@ public class Nothingness : Skill
         Settings.isCatingSkill = true;
         Player.Instance.spriteRendererPlayer.color = Color.grey;
         yield return new WaitForSeconds(base.timeCastSkill);
+
+
+        // SOund
+        audioSource.clip = PlayerSound.Instance.NotthingnessSound;
+        audioSource.volume = Settings.sound;
+        audioSource.Play();
 
         // Bắt đầu cast phép
         base.canUseSkill = false;

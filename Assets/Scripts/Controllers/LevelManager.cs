@@ -8,6 +8,8 @@ public class LevelManager : SingletonMonobehavious<LevelManager>
     public GameObject firstBoss;
     public GameObject finalBoss;
 
+    public AudioClip bossSound;
+
     private void Awake()
     {
         base.Awake();
@@ -15,13 +17,14 @@ public class LevelManager : SingletonMonobehavious<LevelManager>
         finalBoss.SetActive(false);
     }
 
-    public void Start()
+    public void Init()
     {
 
         if (GameController.Instance.LevelSO.ToString() == "LEVEL_01 (LevelSO)")
         {
             //firstBoss = GameController.Instance.firstBossPrefab;
             firstBoss.SetActive(true);
+            bossSound = PlayerSound.Instance.firstBossSound;
             //=Debug.Log("LEVEL_01 (LevelSO)");
         }
         if (GameController.Instance.LevelSO.ToString() == "LEVEL_02 (LevelSO)")
@@ -29,6 +32,7 @@ public class LevelManager : SingletonMonobehavious<LevelManager>
             //finalBoss = GameController.Instance.finalBossPrefab;
             //Debug.Log("LEVEL_02 (LevelSO)");
             finalBoss.SetActive(true);
+            bossSound = PlayerSound.Instance.secondBossSound;
         }
     }
 

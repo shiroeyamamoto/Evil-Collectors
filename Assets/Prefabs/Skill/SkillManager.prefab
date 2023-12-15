@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca9173e03c24354c8aba1ef18f24a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indexCurrentItem: 0
   itemList:
   - {fileID: 11400000, guid: 98bdf3358645b8d45adb5455f74d4af0, type: 2}
   - {fileID: 11400000, guid: dc9c5d157fa12ae43a19d0ebd24d3042, type: 2}
@@ -171,6 +172,10 @@ PrefabInstance:
     - target: {fileID: 3744243022499481471, guid: fadab113446784f49840f9116ad95935, type: 3}
       propertyPath: m_Name
       value: Nothingness
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032630962565490547, guid: fadab113446784f49840f9116ad95935, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8201821664868777119, guid: fadab113446784f49840f9116ad95935, type: 3}
       propertyPath: m_Pivot.x
@@ -285,6 +290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Concentrate
       objectReference: {fileID: 0}
+    - target: {fileID: 4057778413782551310, guid: 8df9e4f10a07c9545bb44597646fe4a2, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8309361551921784977, guid: 8df9e4f10a07c9545bb44597646fe4a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -316,10 +325,6 @@ PrefabInstance:
     - target: {fileID: 8309361551921784977, guid: 8df9e4f10a07c9545bb44597646fe4a2, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8309361551921784977, guid: 8df9e4f10a07c9545bb44597646fe4a2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8309361551921784977, guid: 8df9e4f10a07c9545bb44597646fe4a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -402,6 +407,10 @@ PrefabInstance:
       propertyPath: auraCircle
       value: 
       objectReference: {fileID: 8933130376716559504}
+    - target: {fileID: 3832529185301271857, guid: 4382b10c2e25a644a858c10bf1a7a17b, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6098365494359060125, guid: 4382b10c2e25a644a858c10bf1a7a17b, type: 3}
       propertyPath: m_Name
       value: HolyLight

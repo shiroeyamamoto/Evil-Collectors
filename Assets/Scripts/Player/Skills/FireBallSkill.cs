@@ -8,10 +8,12 @@ using UnityEngine.UIElements;
 public class FireBallSkill : Skill
 {
     [SerializeField, Range(0,100)] private int speedBullet;
+    private AudioSource audioSource;
 
     private void Start()
     {
         BulletBase butlletBase = GetComponent<BulletBase>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         //timeLifeSkill = Player.Instance.SkillList;
     }
 
@@ -44,6 +46,18 @@ public class FireBallSkill : Skill
 
             Player.Instance.UseMana(5);
 
+            /*if (!audioSource.isPlaying)
+            {
+                // Sound
+                audioSource.clip = PlayerSound.Instance.FireBall;
+                audioSource.volume = Settings.sound;
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.Stop();
+            }*/
+
             FireBallStart( amount,  scale);
 
             //GameController.Instance.Player.UseMana(base.manaNeed);
@@ -57,6 +71,8 @@ public class FireBallSkill : Skill
 
     private void FireBallStart(int amount, float scale)
     {
+        
+
         timeCounter = timeLifeSkill;
         if (Settings.isFacingRight)
         {

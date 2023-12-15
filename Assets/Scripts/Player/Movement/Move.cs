@@ -29,6 +29,7 @@ public class Move : MonoBehaviour
 
     private Rigidbody2D rb2d;
     public AudioSource audioSource;
+    public AudioSource dashSound;
     //private TrailRenderer trail;
     private SpriteTrailRenderer.SpriteTrailRenderer trailRenderer;
 
@@ -38,6 +39,7 @@ public class Move : MonoBehaviour
         trailRenderer = GetComponent<SpriteTrailRenderer.SpriteTrailRenderer>();
         trailRenderer.enabled = false;
         audioSource = GetComponent<AudioSource>();
+        dashSound = new AudioSource();
         //trail = GetComponent<TrailRenderer>();
     }
     private void Update()
@@ -184,6 +186,11 @@ public class Move : MonoBehaviour
         trailRenderer._endScale = new Vector2(1.5f, 1.5f);
         //trail.emitting = true;
 
+        // Sound
+            audioSource.clip = PlayerSound.Instance.DashSound;
+            audioSource.volume = Settings.sound;
+            audioSource.Play();
+
         Settings.enterEnemy = false;
         Settings.ememyMiss = true;
         PlayerManager.Instance.DashCollison.gameObject.GetComponent<BoxCollider2D>().enabled = true;
@@ -226,7 +233,7 @@ public class Move : MonoBehaviour
     /// <summary>
     /// Âm thanh khi di chuyển
     /// </summary>
-    private void MovementSound()
+    /*private void MovementSound()
     {
         if (Settings.isMove)
         {
@@ -238,7 +245,7 @@ public class Move : MonoBehaviour
             Player.Instance.audioSource.clip = null;
             Player.Instance.audioSource.Stop();
         }
-    }
+    }*/
 
     public void PlayerRotation(float move)
     {

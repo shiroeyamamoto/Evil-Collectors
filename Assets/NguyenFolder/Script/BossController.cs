@@ -27,7 +27,9 @@ public class BossController : MonoBehaviour,IInteractObject
         listSwords = new List<Transform>();
         phase = transform.GetComponent<Animator>().GetInteger("Phase");
         rb2d = GetComponent<Rigidbody2D>();
-        
+
+        damagedSound = gameObject.GetComponent<AudioSource>();
+
     }
     private void Update()
     {
@@ -90,8 +92,14 @@ public class BossController : MonoBehaviour,IInteractObject
 
         Player.Instance.UseMana(-damage);
     }
+
+    public AudioSource damagedSound;
     public void OnDamaged(float damage)
     {
+        damagedSound.clip = Player.Instance.gameObject.GetComponent<PlayerSound>().PlayerAttackBoss;
+        damagedSound.volume = Settings.sound - 0.5f;
+        damagedSound.Play();
+
         Player.Instance.ShowDamage(damage, gameObject);
         health -= damage;
         DoEffect();

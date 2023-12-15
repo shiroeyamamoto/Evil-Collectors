@@ -78,7 +78,7 @@ public class Attack : MonoBehaviour
 
             // Attack normal
 
-            if (Input.GetMouseButtonDown(0) && !Settings.isAttacking )
+            if (Input.GetMouseButtonDown(0) && !Settings.isAttacking || Input.GetKeyDown(KeyCode.K) && !Settings.isAttacking)
             {
                 if (!Settings.concentrateSKill && Player.Instance.CurrentInfo.stamina >= 15)
                 {
@@ -89,7 +89,7 @@ public class Attack : MonoBehaviour
                     StartCoroutine(AttackNormal());
                 }
             }
-            else if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.L))
             {
                 elapsedTime = 0f;
                 
@@ -101,7 +101,7 @@ public class Attack : MonoBehaviour
                 return;
             }
 
-            if (Input.GetMouseButton(1) && canAttackStrong )
+            if (Input.GetMouseButton(1) && canAttackStrong || Input.GetKey(KeyCode.L) && canAttackStrong)
             {
                 Debug.Log("heloo00000000");
                 HoldAttackStrong();
@@ -112,7 +112,7 @@ public class Attack : MonoBehaviour
             {
                 cancelStrongAttack = false;
             }*/
-            if (Input.GetMouseButtonUp(1) && !Settings.isAttacking && canAttackStrong )
+            if (Input.GetMouseButtonUp(1) && !Settings.isAttacking && canAttackStrong || Input.GetKeyUp(KeyCode.L) && !Settings.isAttacking && canAttackStrong)
             {
                 if (transform.Find("WeaponSize").Find("PlayerAttack").gameObject.transform.localScale.y < maxSizeAttackStrong)
                 {
@@ -157,7 +157,7 @@ public class Attack : MonoBehaviour
             Player.Instance.spriteRendererPlayer.color = Color.red;
 
             audioSource.clip = Player.Instance.playerSound.Attack;
-            audioSource.volume = Settings.sound;
+            audioSource.volume = Settings.sound - 0.5f;
             audioSource.Play();
 
             if (!Settings.concentrateSKill)
@@ -375,7 +375,7 @@ public class Attack : MonoBehaviour
             //sword.SetActive(true);
             Player.Instance.spriteRendererPlayer.color = Color.red;
             audioSource.clip = Player.Instance.playerSound.Attack;
-            audioSource.volume = Settings.sound+0.5f;
+            audioSource.volume = Settings.sound;
             audioSource.Play();
 
             if (!Settings.concentrateSKill)

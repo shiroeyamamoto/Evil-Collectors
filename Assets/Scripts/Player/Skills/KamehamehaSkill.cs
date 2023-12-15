@@ -9,10 +9,12 @@ public class KamehamehaSkill : Skill
 
     private int currentSize = 0;
     Vector3 scaleOrigin;
+    private AudioSource audioSource;
 
     private void Start()
     {
         BulletBase butlletBase = GetComponent<BulletBase>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         //timeLifeSkill = Player.Instance.SkillList;
     }
 
@@ -53,6 +55,19 @@ public class KamehamehaSkill : Skill
             scaleOrigin = transform.localScale;
             this.gameObject.SetActive(true);
             Player.Instance.UseMana(10);
+
+            /*// Sound
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = PlayerSound.Instance.Kamehamameha;
+                audioSource.volume = Settings.sound;
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.Stop();
+            }*/
+
             StartCoroutine(KamehamehaStart());
 
             //GameController.Instance.Player.UseMana(base.manaNeed);
@@ -66,6 +81,7 @@ public class KamehamehaSkill : Skill
 
     private IEnumerator KamehamehaStart()
     {
+
         // niệm phép 
         Settings.isAttacking = true;
         Settings.isCatingSkill = true;

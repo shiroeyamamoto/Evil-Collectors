@@ -29,10 +29,10 @@ public class ItemSwitcher : SingletonMonobehavious<ItemSwitcher>
     private void Update()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollInput != 0)
+        if (scrollInput != 0 || Input.GetKeyDown(KeyCode.O))
         {
             // Chuyển đổi vật phẩm dựa vào hướng lăng chuột
-            if (scrollInput > 0)
+            if (scrollInput > 0 || Input.GetKeyDown(KeyCode.O))
             {
                 SwitchItem(1); // Lên
             }

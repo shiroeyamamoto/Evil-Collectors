@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
         if (soundEnable)
         {
             audioSource.clip = Player.Instance.gameObject.GetComponent<PlayerSound>().PlayerAttackBoss;
-            audioSource.volume = 0.3f;
+            audioSource.volume = Settings.sound;
             audioSource.Play();
             soundEnable = false;
         }
@@ -50,6 +50,7 @@ public class PlayerAttack : MonoBehaviour
             collision.transform.GetComponent<IInteractObject>().OnDamaged(GameController.Instance.Player.DamageAttack, true);
 
             soundEnable = true;
+            //PlayAttackBossSound();
 
             // hiệu ứng bloodParticle 
             if (Settings.isFacingRight)
